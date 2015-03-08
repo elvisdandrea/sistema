@@ -166,11 +166,14 @@ class RestServer {
      */
     public static function response(array $data, $statusCode = 200) {
 
-        self::setResponseCode($statusCode);
-        self::setFormat('json', true);
         $response = json_encode($data, JSON_UNESCAPED_UNICODE);
-        if(RESTFUL == '1')
+
+        if(RESTFUL == '1') {
+            self::setResponseCode($statusCode);
+            self::setFormat('json', true);
             echo $response;
+            self::terminate();
+        }
 
         return $response;
     }
