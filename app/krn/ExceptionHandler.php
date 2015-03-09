@@ -33,7 +33,7 @@ Class ExceptionHandler extends Exception {
             $error['file'] = $this->getFile();
             $error['line'] = $this->getLine();
         }
-        RESTFUL == '0' || RestServer::setFormat('json');
+        
         $error = RESTFUL == '0' ? $this->throwException($error) : $this->throwRestException($error);
         return parent::__construct($error, $status);
 
