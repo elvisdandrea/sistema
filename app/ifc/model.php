@@ -549,7 +549,7 @@ class Model {
         $this->lastId = $this->connections[$this->connection]['conn']->lastInsertId();
 
         $this->result = $this->errorInfo['code'] == 0;
-        $dataset = $result->fetchAll();
+        $dataset = $this->Mount($result);
         return $dataset;
     }
 

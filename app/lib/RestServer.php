@@ -26,26 +26,35 @@ class RestServer {
      *
      * A centered function for
      * token based authentication
+     *
+     * @param   array       $uri        - The uri we're running on
+     * @return  array                   - The authentication data
      */
-    public static function authenticate() {
+    public static function authenticate(array $uri) {
 
         $authControl = new authControl();
-        $authControl->authenticate();
+        $auth = $authControl->authenticate($uri);
         unset($authControl);
+        return $auth;
+
     }
 
     /**
      * Executes The RESTful Method
      *
-     * @param  array    $uri        - The method URI
+     * @param   array           $uri        - The method URI
+     * @return  array|string                - When it's authenticating, returns token data
      * @throws ExceptionHandler
      */
     public static function runRestMethod(array $uri) {
 
         self::setFormat(RESTFORMAT, false);
-        self::authenticate();
         if (count($uri) < 1 || $uri[0] == '')
             throw new ExceptionHandler(Language::REST_NO_METHOD(), 400);
+
+        $auth = self::authenticate($uri);
+        if ($uri[0] == 'apilogin')
+            return RestServer::response($auth);
 
         $request_method = strtolower($_SERVER['REQUEST_METHOD']);
 

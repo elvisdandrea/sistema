@@ -232,6 +232,25 @@ class Control {
     }
 
     /**
+     * Validates if a GET query string value is empty
+     *
+     * Indexes should be passed as
+     * parameter
+     *
+     * @return bool
+     */
+    protected function validateQueryString() {
+
+        $args = func_get_args();
+
+        foreach ($args as $arg)
+            if (!isset($this->get[$arg]) || $this->get[$arg] == '')
+                return false;
+
+        return true;
+    }
+
+    /**
      * Throws a 404 Error
      *
      * Used for security features

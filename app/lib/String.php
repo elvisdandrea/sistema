@@ -159,7 +159,7 @@ class String {
      */
     public static function mask($val, $mask) {
 
-        $val = preg_replace('/[^a-z0-9\-]/i','', $val);
+        $val = preg_replace('/[^a-z0-9]/i','', $val);
         $masked = '';
         $k = strlen($val) - 1;
         for($i = strlen($mask)-1; $i>=0; $i--) {

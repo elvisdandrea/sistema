@@ -25,7 +25,8 @@ class Language {
             'CANNOT_BE_BLANK'       => '[[0]] nao podem ser em branco!',
             'NOT_ACCEPTABLE'        => 'Requisicao nao aceita - [[0]]',
             'UNAUTHORIZED'          => 'Nao autorizado',
-            'EXPIRED'               => 'Sessao Expirada'
+            'EXPIRED'               => 'Sessao Expirada',
+            'CANNOT_ACCESS_DIR'     => 'Nao foi possivel acessar os dados necessarios [[0]], contate o administrador do sistema'
         ),
 
         'en' => array(
@@ -37,7 +38,8 @@ class Language {
             'CANNOT_BE_BLANK'       => '[[0]] cannot be blank!',
             'NOT_ACCEPTABLE'        => 'Request not acceptable - [[0]]',
             'UNAUTHORIZED'          => 'Not Authorized',
-            'EXPIRED'               => 'Session Expired'
+            'EXPIRED'               => 'Session Expired',
+            'CANNOT_ACCESS_DIR'     => 'Could not access necessary data [[0]], please contact system administrator'
         )
     );
 

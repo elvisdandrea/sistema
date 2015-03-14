@@ -42,6 +42,7 @@ define('KRNDIR',    APPDIR  .   '/krn');
 define('LIBDIR',    APPDIR  .   '/lib');
 define('TPLDIR',    MAINDIR .   '/tpl');
 define('MODDIR',    MAINDIR .   '/mod');
+define('TOKENDIR',  MAINDIR .   '/../.token');
 
 define('RESURL',    MAINURL . '/res');
 define('CSSURL',    MAINURL . '/res/css');

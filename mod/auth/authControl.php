@@ -30,27 +30,68 @@ class authControl extends Control {
      * and refresh token to be used on RESTful
      * requests
      *
+     * @param   array       $uri        - The uri we're running on
+     * @return  array
      */
-    public function authenticate() {
+    public function authenticate(array $uri) {
 
         $queryString = $this->getQueryString();
 
-        if ($queryString['token'])
-            return $this->tokenAuthentication($queryString['id'], $queryString['token']);
+        if (count($uri) == 0)
+            return RestServer::throwError(Language::UNAUTHORIZED(), 401);
+
+        if ($uri[0] != 'apilogin') {
+
+            if (!$this->validateQueryString('id', 'token'))
+                return RestServer::throwError(Language::UNAUTHORIZED(), 401);
+
+            return $this->tokenValidation($queryString['id'], $queryString['token']);
+        }
+
+        if (!$this->validateQueryString('id', 'secret'))
+            return RestServer::throwError(Language::UNAUTHORIZED(), 401);
 
         $this->newModel('auth');
         $auth = $this->model('auth')->authUser(
-            $queryString['uid'],
+            $queryString['id'],
             $queryString['secret']
         );
 
-        if ($auth) {
+        if ($auth)
+            return $this->generateToken($this->model('auth')->getRow(0));
 
-        }
+        return RestServer::throwError(Language::UNAUTHORIZED(), 401);
 
-        if (!$auth)
-            return RestServer::throwError(Language::UNAUTHORIZED(), 401);
+    }
 
+    /**
+     * When authentication is ok, let's
+     * generate an access token
+     *
+     * @param   array               $data       - The user data
+     * @return  array|string                    - The token data
+     * @throws  ExceptionHandler
+     */
+    private function generateToken(array $data) {
+
+
+        $token      = md5(CR::encrypt(uniqid()));
+        $tokenFile  = TOKENDIR . '/' . $data['uid'] . '/' . $token;
+        $tomorrow   = new DateTime('now');
+        $tomorrow->modify('+1 day');
+        $tokenData  = array(
+            'access_token'  => $token,
+            'expires'       => $tomorrow->format('Y-m-d h:i:s'),
+            'remote_addr'   => Core::getRemoteAddress(),
+            'uid'           => $data['uid']
+        );
+
+        $tokenContent = json_encode($tokenData, JSON_UNESCAPED_UNICODE);
+
+        if (!file_put_contents($tokenFile, $tokenContent))
+            return RestServer::throwError(Language::CANNOT_ACCESS_DIR(), 500);
+
+        return RestServer::response($tokenData);
 
     }
 
@@ -62,9 +103,9 @@ class authControl extends Control {
      * @return  array
      * @throws  ExceptionHandler
      */
-    private function tokenAuthentication($id, $token) {
+    public function tokenValidation($id, $token) {
 
-        $tokenFile = MAINDIR . '/../.token/' . $id . '/' . $token;
+        $tokenFile = TOKENDIR . '/' . $id . '/' . $token;
 
         if (!is_file($tokenFile))
             return RestServer::throwError(Language::UNAUTHORIZED(), 401);
@@ -87,6 +128,8 @@ class authControl extends Control {
 
         if ($currentDate > $tokenExpires)
             return RestServer::throwError(Language::EXPIRED(), 401);
+
+        return true;
     }
 
     /**
