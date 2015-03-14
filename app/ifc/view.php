@@ -71,7 +71,7 @@ class View {
      */
     public function __construct() {
 
-        $this->setTemplateName('default');      //The default Template Name
+        $this->setTemplateName('striped');      //The default Template Name
         $this->smarty = new Smarty();
         $this->smarty->setTemplateDir(TPLDIR . '/' . $this->templateName);
         $this->smarty->setCompileDir(IFCDIR . '/cache');

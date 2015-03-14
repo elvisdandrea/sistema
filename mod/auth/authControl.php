@@ -144,7 +144,7 @@ class authControl extends Control {
     }
 
     /**
-     * POST Method to create new user
+     * Restful POST Method to create new user
      */
     public function postAddUser() {
 
@@ -178,6 +178,9 @@ class authControl extends Control {
         ), 200);
     }
 
+    /**
+     * View Post Method to create a new user
+     */
     public function createUser() {
 
         if ($this->getPost('pass') != $this->getPost('passrepeat'))
