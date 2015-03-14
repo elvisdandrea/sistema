@@ -45,7 +45,7 @@ class authControl extends Control {
         );
 
         if ($auth) {
-            
+
         }
 
         if (!$auth)

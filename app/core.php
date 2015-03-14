@@ -98,6 +98,26 @@ class core {
     }
 
     /**
+     * Returns the working domain
+     */
+    public static function getDomain() {
+
+        return $_SERVER['SERVER_NAME'];
+    }
+
+    /**
+     * Checks if server is under a certain subdomain
+     *
+     * @param   string      $subdomain      - The subdomain to test
+     * @return  bool
+     */
+    public static function isUnderSubdomain($subdomain) {
+
+        $domain = explode('.' ,self::getDomain());
+        return $domain[0] == $subdomain;
+    }
+
+    /**
      * Parses HTTP headers
      *
      * @return  array
@@ -176,7 +196,6 @@ class core {
 
         self::$static_controller = new $module;
         $result = self::$static_controller->$action();
-        unset(self::$static_controller);
         echo $result;
     }
 
@@ -276,7 +295,6 @@ class core {
     public function terminate() {
 
         unset($this->controller);
-        unset(self::$static_controller);
         unset($this);
         exit;
     }
