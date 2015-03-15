@@ -296,7 +296,7 @@ class Control {
     protected function commitReplace($html, $block, $stay = true) {
 
         echo (!Core::isAjax() ? $html : Html::ReplaceHtml($html, $block));
-        $stay || $this->terminate();;
+        $stay || $this->terminate();
     }
 
     /**

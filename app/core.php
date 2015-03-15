@@ -247,6 +247,29 @@ class core {
     }
 
     /**
+     * Verifies if user is authenticated.
+     * If not, redirect to login page
+     *
+     * @param   array       $uri        - The working uri
+     */
+    private function checkAuthenticated(array $uri) {
+
+        $uid = Session::get('uid');
+        if (is_array($uid)) return;
+        // TODO: Refractor me, for the lord's sake
+        if ($this->isAjax()) {
+            if (count($uri) == 0 || !($uri[0] == 'auth' && $uri[1] == 'login')) {
+                Html::refresh();
+                $this->terminate();
+            }
+        } else {
+            $authControl = new authControl();
+            echo $authControl->loginPage();
+            $this->terminate();
+        }
+    }
+
+    /**
      * The main execution
      *
      * It will verify the URL and
@@ -269,6 +292,8 @@ class core {
             RestServer::runRestMethod($uri);
             $this->terminate();
         }
+
+        $this->checkAuthenticated($uri);
 
         /**
          * When the request is not running over ajax,

@@ -16,6 +16,7 @@ class authControl extends Control {
 
     public function __construct() {
         parent::__construct();
+        $this->newModel('auth');
     }
 
 
@@ -51,7 +52,6 @@ class authControl extends Control {
         if (!$this->validateQueryString('id', 'secret'))
             return RestServer::throwError(Language::UNAUTHORIZED(), 401);
 
-        $this->newModel('auth');
         $auth = $this->model('auth')->authUser(
             $queryString['id'],
             $queryString['secret']
@@ -76,6 +76,7 @@ class authControl extends Control {
 
 
         $token      = md5(CR::encrypt(uniqid()));
+        FileManager::rmkdir(TOKENDIR . '/' . $data['uid']);
         $tokenFile  = TOKENDIR . '/' . $data['uid'] . '/' . $token;
         $tomorrow   = new DateTime('now');
         $tomorrow->modify('+1 day');
@@ -83,7 +84,9 @@ class authControl extends Control {
             'access_token'  => $token,
             'expires'       => $tomorrow->format('Y-m-d h:i:s'),
             'remote_addr'   => Core::getRemoteAddress(),
-            'uid'           => $data['uid']
+            'uid'           => $data['uid'],
+            'company_id'    => $data['company_id'],
+            'db_connection' => $data['db_connection']
         );
 
         $tokenContent = json_encode($tokenData, JSON_UNESCAPED_UNICODE);
@@ -91,6 +94,8 @@ class authControl extends Control {
         if (!file_put_contents($tokenFile, $tokenContent))
             return RestServer::throwError(Language::CANNOT_ACCESS_DIR(), 500);
 
+        unset($tokenData['db_connection']);
+        unset($tokenData['remote_addr']);
         return RestServer::response($tokenData);
 
     }
@@ -133,17 +138,6 @@ class authControl extends Control {
     }
 
     /**
-     * Form user login
-     *
-     * This authentication method requires
-     * user and password and will not generate
-     * access token or refresh token
-     */
-    public function login() {
-
-    }
-
-    /**
      * Restful POST Method to create new user
      */
     public function postAddUser() {
@@ -157,11 +151,10 @@ class authControl extends Control {
         $userData = array(
             'name'      => $post['name'],
             'username'  => $post['user'],
-            'passwd'    => CR::encrypt($post['pass']),
+            'passwd'    => CR::encodeText($post['pass']),
             'email'     => $post['email']
         );
 
-        $this->newModel('auth');
         $this->model('auth')->insertUser($userData);
 
         if (!$this->model('auth')->queryOk()) {
@@ -189,5 +182,44 @@ class authControl extends Control {
         $user = $this->postAddUser();
         $this->commitReplace($user['message'], '#alert', false);
     }
+
+    /**
+     * Renders the login page
+     */
+    public function loginPage() {
+
+        $this->view()->loadTemplate('login');
+        return $this->view()->render();
+    }
+
+    /**
+     * Form user login
+     *
+     * This authentication method requires
+     * user and password and will not generate
+     * access token or refresh token
+     */
+    public function login() {
+
+        if (!$this->validatePost('user', 'pass')) {
+            $this->commitReplace('Desculpe, alguns dados não estão corretos.', '#msgbox');
+            return;
+        }
+
+        $post = $this->getPost();
+        $logged = $this->model('auth')->checkLogin($post['user'], $post['pass']);
+
+        if (!$logged) {
+            $this->commitReplace('Desculpe, login ou senha inválido.', '#msgbox');
+            return;
+        }
+
+        Session::set('uid', $this->model('auth')->getRow(0));
+        Html::refresh();
+        $this->terminate();
+
+    }
+
+
 
 }

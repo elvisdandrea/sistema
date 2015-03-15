@@ -22,14 +22,36 @@ class authModel extends Model {
      */
     public function authUser($uid, $secret) {
 
-        $this->addField('uid');
-        $this->addField('name');
-        $this->addField('email');
-        $this->addFrom('users');
-        $this->addWhere('secret = "' . $secret . '"');
-        $this->addWhere('uid = "' . $uid . '"');
+        $this->addField('u.uid');
+        $this->addField('u.name');
+        $this->addField('u.email');
+        $this->addField('u.company_id');
+        $this->addField('c.db_connection');
+        $this->addFrom('users u');
+        $this->addFrom('inner join companies c on c.id = u.company_id');
+        $this->addWhere('u.secret = "' . $secret . '"');
+        $this->addWhere('u.uid = "' . $uid . '"');
 
         $this->runQuery();
+        return !$this->isEmpty();
+    }
+
+    /**
+     * Validates login by username and password
+     *
+     * @param   string      $user       - The Username
+     * @param   string      $pass       - Must be MD5 hashed
+     * @return  bool
+     */
+    public function checkLogin($user, $pass) {
+
+        $this->addField('*');
+        $this->addFrom('users u');
+        $this->addFrom('inner join companies c on c.id = u.company_id');
+        $this->addWhere('u.username = "' . $user . '"');
+        $this->addWhere('u.passwd = "' . CR::encodeText($pass) . '"');
+        $this->runQuery();
+
         return !$this->isEmpty();
     }
 
