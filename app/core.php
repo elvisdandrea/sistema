@@ -157,6 +157,17 @@ class core {
     }
 
     /**
+     * Tests if user is logged in
+     *
+     * @return bool
+     */
+    public static function isLoggedIn() {
+
+        $uid = Session::get('uid');
+        return is_array($uid) && isset($uid['db_connection']);
+    }
+
+    /**
      * Returns the called URI
      *
      * @return array|mixed
@@ -190,6 +201,9 @@ class core {
 
             $notFoundAction = METHOD_NOT_FOUND;
             self::$static_controller = self::requireHome();
+            if (self::isLoggedIn())
+                self::$static_controller->newModel('uid');
+
             self::$static_controller->$notFoundAction($uri);
             self::terminate();
         }
@@ -254,8 +268,7 @@ class core {
      */
     private function checkAuthenticated(array $uri) {
 
-        $uid = Session::get('uid');
-        if (is_array($uid)) return;
+        if (self::isLoggedIn()) return;
         // TODO: Refractor me, for the lord's sake
         if ($this->isAjax()) {
             if (count($uri) == 0 || !($uri[0] == 'auth' && $uri[1] == 'login')) {
@@ -303,6 +316,9 @@ class core {
         if (!$this->isAjax()) {
 
             $this->controller = $this->requireHome();
+            if (self::isLoggedIn())
+                $this->controller->newModel('uid');
+
             $this->controller->itStarts($uri);
             $this->terminate();
         }

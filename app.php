@@ -79,7 +79,7 @@ define('RESTFORMAT', 'json');                   // If ReSTful, which format we'r
 define('ENCRYPTURL', '0');                      // If requests must run over encrypted URLs
 define('ENCRYPT_POST_DATA', '0');               // If it should encrypt data sent through post
 define('METHOD_NOT_FOUND', 'notFound');         // What to call when a method is not found
-define('DEFAULT_CONNECTION', 'connection1');    // The default connection used by models
+define('DEFAULT_CONNECTION', 'uid');            // The default connection used by models
 
 
 /**

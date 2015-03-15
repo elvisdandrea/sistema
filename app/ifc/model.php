@@ -278,7 +278,12 @@ class Model {
      * @param   string      $name       - The connection name
      */
     public function setConnection($name) {
-        isset($this->connections[$name]) || $this->loadConnectionFile($name);
+
+        if (Core::isLoggedIn()) {
+            $this->createNewConnection('uid', Session::get('uid', 'db_connection'));
+        } else {
+            isset($this->connections[$name]) || $this->loadConnectionFile($name);
+        }
         $this->connection = $name;
     }
 
