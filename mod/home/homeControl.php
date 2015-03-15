@@ -159,6 +159,13 @@ class homeControl extends Control {
         $this->commitReplace($this->view()->render(), '#main');
     }
 
+    public function logout() {
+
+        Session::del('uid');
+        Html::refresh();
+        $this->terminate();
+    }
+
 
 
 }
