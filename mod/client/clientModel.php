@@ -18,7 +18,20 @@ class clientModel extends Model {
         parent::__construct($connection);
     }
 
+    public function addClient($data){
+        array_walk($data, function($item, $key) {
+            $this->addInsertSet($key, $item);
+        });
 
+        $this->addInsertSet('client_date', 'NOW()', false);
+
+        $this->setInsertTable('clients');
+        $this->runInsert();
+    }
+
+    public function getClient($data){
+
+    }
 
 
 }
