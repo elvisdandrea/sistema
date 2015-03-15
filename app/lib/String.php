@@ -171,6 +171,127 @@ class String {
     }
 
     /**
+     * Converts to phone format
+     *
+     * @param   string      $texto
+     * @return  string
+     */
+    public static function phoneFormat($texto) {
+
+        $result = '';
+        $s1 = $string = preg_replace('/[^0-9\-]/i','', $texto);
+        $p = 0;
+        for ($i = strlen($s1); $i > 0; $i--) {
+            $p++;
+            switch ($p) {
+                case 5: $result = '-' . $result;
+                    break;
+                case 9: if (strlen($s1) == 10 || strlen($s1) == 12)
+                    $result = ' ' . $result;
+                    break;
+                case 10: if (strlen($s1) == 11 || strlen($s1) == 13)
+                    $result = ' ' . $result;
+            }
+            $result = $s1[$i - 1] . $result;
+        }
+        return ($result == "" ? $texto : $result);
+    }
+
+    /**
+     * Converte o texto do campo conforme opcao
+     *
+     * @param   string      $string         - O conteúdo do campo
+     * @param   int         $option         - A opcao
+     * @return  string
+     */
+    public static function convertTextFormat($string, $option) {
+        switch (intval($option)) {
+            case 'ln': //Letras e Números
+                $string = preg_replace('/[^a-z0-9\-]/i','',$string);
+                break;
+            case 'l': //Letras
+                $string = preg_replace('/[^a-z\-]/i','',$string);
+                break;
+            case 'n': //Números
+                $string = preg_replace('/[^0-9\-]/i','',$string);
+                break;
+            case 'fone': //Telefone
+                $string = self::phoneFormat($string);
+                break;
+            case 'ddd': //Telefone com DDD
+                $string = self::phoneFormat($string);
+                break;
+            case 'cnpj': //CNPJ
+                $string = self::mask($string, '##.####.###/####-##');
+                break;
+            case 'cpf': //CPF
+                $string = self::mask($string, '###.###.###-##');
+                break;
+            case 'cep': //CEP
+                $string = self::mask($string, '#####-###');
+                break;
+            case 'email': //E-MAIL
+                // Nothing we can do here
+                break;
+            case 'int': //Numeros Inteiros
+                $string = preg_replace('/[^0-9\-]/i','',$string);
+                break;
+        }
+
+        return $string;
+    }
+
+    /**
+     * Valida o formato dos dados em um campo de texto
+     *
+     * @param   string      $string     - O conteúdo
+     * @param   int         $option     - O valor da opcao
+     * @return  bool
+     */
+    public static function validateTextFormat($string, $option) {
+
+        switch (intval($option)) {
+            case 'ln': //Letras e Números
+                return preg_match('/[a-z0-9]/i', $string);
+                break;
+            case 'l': //Letras
+                return preg_match('/[a-z]/i', $string);
+                break;
+            case 'n': //Números
+                return preg_match('/[0-9]/i', $string);
+                break;
+            case 'fone': //Telefone
+                return preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{4,5}[\s\--]?\d{4}$/', $string);
+                break;
+            case 'ddd': //Telefone com DDD
+                return preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{4,5}[\s\--]?\d{4}$/', $string);
+                break;
+            case 'cnpj': //CNPJ
+                return preg_match('/^(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})$/', $string);
+                break;
+            case 'cpf': //CPF
+                return preg_match('/^(\d{3}\.\d{3}\.\d{3}\-\d{2})$/', $string);
+                break;
+            case 'cnpjcpf': //CPNJ ou CPF
+                return preg_match('/(^\d{3}\.\d{3}\.\d{3}\-d{2}$)|(^\d{2}\.\d{3}\.\d{3}\/\d{4}\-\d{2}$)/', $string);
+                break;
+            case 'cep': //CEP
+                return preg_match('/^(\d{5}\-\d{3})$/', $string);
+                break;
+            case 'email': //E-MAIL
+                return preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,3})+$/', $string);
+                break;
+            case 'iny': //Numeros Inteiros
+                return preg_match('/[^0-9\-]/i', $string);
+                break;
+            default:
+                return true;
+                break;
+        }
+    }
+
+
+    /**
      * Removes empty values for arrays
      * with numeric indexes
      *
