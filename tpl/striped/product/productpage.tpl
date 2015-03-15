@@ -1,0 +1,1 @@
+<a href="{$smarty.const.BASEDIR}product/newproduct">Adicionar Produto</a>
