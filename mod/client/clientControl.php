@@ -25,6 +25,8 @@ class clientControl extends Control {
 
     public function addNewCliente(){
         $status = $this->postAddClient();
+
+
         $this->commitReplace($status['message'], '#message');
     }
 
@@ -41,7 +43,8 @@ class clientControl extends Control {
         $valitation = $this->validateDataForNewClient($userData);
 
         if($valitation['valid'] === FALSE) {
-            return RestServer::throwError($valitation['message'], 400);
+            $message = implode(', ', $valitation['message']);
+            return RestServer::throwError($message, 400);
         }
 
         $this->model()->addClient($userData);
@@ -74,16 +77,16 @@ class clientControl extends Control {
 
         if(empty($postData['phone_1'])){
             $return['valid'] = false;
-            $return['message'][] = "O campo 'Telenfone' não pode ser vazio";
+            $return['message'][] = "O campo 'Telefone' não pode ser vazio";
         }
         if(!empty($postData['phone_1']) && !String::validateTextFormat($postData['phone_1'], 'fone')){
             $return['valid'] = false;
-            $return['message'][] = "O campo 'Telenfone' não é um telefone válido";
+            $return['message'][] = "O campo 'Telefone' não é um telefone válido";
         }
 
-        if(!empty($postData['phone_1']) && !String::validateTextFormat($postData['phone_2'], 'fone')){
+        if(!empty($postData['phone_2']) && !String::validateTextFormat($postData['phone_2'], 'fone')){
             $return['valid'] = false;
-            $return['message'][] = "O campo 'Telenfone' não é um telefone válido";
+            $return['message'][] = "O campo 'Telefone(alternativo)' não é um telefone válido";
         }
 
         return $return;
