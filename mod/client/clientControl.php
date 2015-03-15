@@ -12,4 +12,14 @@ class clientControl extends Control {
     }
 
 
+    public function clientPage() {
+        $this->view()->loadTemplate('clientpage');
+        $this->commitReplace($this->view()->render(), '#content');
+    }
+
+    public function newClient() {
+
+        $this->view()->loadTemplate('newclient');
+        $this->commitReplace($this->view()->render(), '#content');
+    }
 }
