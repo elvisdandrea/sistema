@@ -205,7 +205,7 @@ class String {
      * @return  string
      */
     public static function convertTextFormat($string, $option) {
-        switch (intval($option)) {
+        switch ($option) {
             case 'ln': //Letras e Números
                 $string = preg_replace('/[^a-z0-9\-]/i','',$string);
                 break;
@@ -250,7 +250,7 @@ class String {
      */
     public static function validateTextFormat($string, $option) {
 
-        switch (intval($option)) {
+        switch ($option) {
             case 'ln': //Letras e Números
                 return preg_match('/[a-z0-9]/i', $string);
                 break;
@@ -281,7 +281,7 @@ class String {
             case 'email': //E-MAIL
                 return preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,3})+$/', $string);
                 break;
-            case 'iny': //Numeros Inteiros
+            case 'int': //Numeros Inteiros
                 return preg_match('/[^0-9\-]/i', $string);
                 break;
             default:

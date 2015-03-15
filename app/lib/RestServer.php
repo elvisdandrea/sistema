@@ -148,8 +148,10 @@ class RestServer {
      */
     public static function throwError($message, $status = 400) {
 
-        if(RESTFUL == '1')
+        if(RESTFUL == '1') {
+            !is_array($message) || $message = json_encode($message);
             throw new ExceptionHandler($message, $status);
+        }
 
         $response = array(
             'status'        => $status,

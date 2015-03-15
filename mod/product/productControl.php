@@ -19,9 +19,15 @@ class productControl extends Control {
 
     public function newProduct() {
 
-        debug('teste');
+
         $this->view()->loadTemplate('newproduct');
         $this->commitReplace($this->view()->render(), '#content');
+        Html::AsyncLoadList('#categorylist');
+    }
+
+    public function categoryList() {
+        print_r('here');
+        exit;
     }
 
     public function postAddProduct() {
