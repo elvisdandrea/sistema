@@ -91,15 +91,11 @@ Html.prototype = {
         $('#'+id).ready(function(){
             $('#'+id + ' select[href]').each(function(){
 
-                var params = '';
-                if ($(this).attr('params') != undefined) {
-                    params = 'params='+encodeURIComponent($(this).attr('params'));
-                }
                 var elemId = $(this).attr('id');
 
-                Html.Post($(this).attr('href'), params, function(a){
+                Html.Get($(this).attr('href'), function(a){
                     $('#'+id + ' #'+elemId).html(a);
-                    $('#'+id + ' #'+elemId).trigger('chosen:updated');
+                    //$('#'+id + ' #'+elemId).trigger('chosen:updated');
                     return false;
                 });
 

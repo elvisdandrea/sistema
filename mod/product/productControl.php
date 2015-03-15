@@ -22,12 +22,12 @@ class productControl extends Control {
 
         $this->view()->loadTemplate('newproduct');
         $this->commitReplace($this->view()->render(), '#content');
-        Html::AsyncLoadList('#categorylist');
+        echo Html::AsyncLoadList('addproduct');
     }
 
     public function categoryList() {
-        print_r('here');
-        exit;
+        $this->view()->loadTemplate('categorylist');
+        $this->commitPrint($this->view()->render());
     }
 
     public function postAddProduct() {

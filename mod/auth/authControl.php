@@ -151,7 +151,7 @@ class authControl extends Control {
         $userData = array(
             'name'      => $post['name'],
             'username'  => $post['user'],
-            'passwd'    => CR::encodeText($post['pass']),
+            'passwd'    => CR::encodeText(md5($post['pass'])),
             'email'     => $post['email']
         );
 
