@@ -18,6 +18,16 @@ class productModel extends Model {
         parent::__construct($connection);
     }
 
+    public function getCategoryList() {
+
+        $this->addField('id');
+        $this->addField('category_name');
+        $this->addFrom('categories');
+        $this->runQuery();
+
+        return !$this->isEmpty();
+    }
+
 
 
 

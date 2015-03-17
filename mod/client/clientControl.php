@@ -34,10 +34,10 @@ class clientControl extends Control {
         $post = $this->getPost();
 
         $userData = array(
-            'client_name' => $post['client_name'],
-            'phone_1' => String::convertTextFormat($post['phone_1'], 'fone'),
-            'phone_2' => String::convertTextFormat($post['phone_2'], 'fone'),
-            'description' => $post['description']
+            'client_name'   => $post['client_name'],
+            'phone_1'       => String::convertTextFormat($post['phone_1'], 'fone'),
+            'phone_2'       => String::convertTextFormat($post['phone_2'], 'fone'),
+            'description'   => $post['description']
         );
 
         $valitation = $this->validateDataForNewClient($userData);
@@ -66,26 +66,26 @@ class clientControl extends Control {
 
     private function validateDataForNewClient($postData){
         $return = array(
-            'valid' => true,
-            'message' => '',
+            'valid'     => true,
+            'message'   => '',
         );
 
         if(empty($postData['client_name'])){
-            $return['valid'] = false;
+            $return['valid']     = false;
             $return['message'][] = "O campo 'Nome' não pode ser vazio";
         }
 
         if(empty($postData['phone_1'])){
-            $return['valid'] = false;
+            $return['valid']     = false;
             $return['message'][] = "O campo 'Telefone' não pode ser vazio";
         }
         if(!empty($postData['phone_1']) && !String::validateTextFormat($postData['phone_1'], 'fone')){
-            $return['valid'] = false;
+            $return['valid']     = false;
             $return['message'][] = "O campo 'Telefone' não é um telefone válido";
         }
 
         if(!empty($postData['phone_2']) && !String::validateTextFormat($postData['phone_2'], 'fone')){
-            $return['valid'] = false;
+            $return['valid']     = false;
             $return['message'][] = "O campo 'Telefone(alternativo)' não é um telefone válido";
         }
 

@@ -140,18 +140,19 @@ class authControl extends Control {
     /**
      * Restful POST Method to create new user
      */
-    public function postAddUser() {
+    public function postAddUser($convert_md5 = true) {
 
         $post = $this->getPost();
 
         if (!$this->validatePost('name', 'user', 'pass'))
             return RestServer::throwError(Language::CANNOT_BE_BLANK('Name, User and Pass'), 400);
 
+        !$convert_md5 || $post['pass'] = md5($post['pass']);
 
         $userData = array(
             'name'      => $post['name'],
             'username'  => $post['user'],
-            'passwd'    => CR::encodeText(md5($post['pass'])),
+            'passwd'    => CR::encodeText($post['pass']),
             'email'     => $post['email']
         );
 
@@ -179,7 +180,7 @@ class authControl extends Control {
         if ($this->getPost('pass') != $this->getPost('passrepeat'))
             $this->commitReplace('Password does not match!', '#alert', false);
 
-        $user = $this->postAddUser();
+        $user = $this->postAddUser(false);
         $this->commitReplace($user['message'], '#alert', false);
     }
 

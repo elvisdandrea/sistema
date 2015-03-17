@@ -282,7 +282,10 @@ class String {
                 return preg_match('/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{1,3})+$/', $string);
                 break;
             case 'int': //Numeros Inteiros
-                return preg_match('/[^0-9\-]/i', $string);
+                return preg_match('/[0-9\-]/', $string);
+                break;
+            case 'float':
+                return preg_match('/^[0-9]+\.?[0-9]*$/', $string);
                 break;
             default:
                 return true;

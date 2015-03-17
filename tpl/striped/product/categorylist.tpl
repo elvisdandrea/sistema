@@ -1,2 +1,4 @@
-<option value=""></option>
-<option value="teste">teste</option>
+<option value="">Selectione a categoria...</option>
+{foreach from=$categories item="category"}
+    <option value="{$category['id']}">{$category['category_name']}</option>
+{/foreach}
