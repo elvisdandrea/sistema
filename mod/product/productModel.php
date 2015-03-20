@@ -94,7 +94,7 @@ class productModel extends Model {
 
         $this->setUpdateTable('products');
         $this->addUpdateWhere('id = "' . $id . '"');
-        
+
         $this->runUpdate();
 
     }

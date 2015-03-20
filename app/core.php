@@ -66,6 +66,13 @@ class core {
     private static $headers = array();
 
     /**
+     * Server Data
+     *
+     * @var array
+     */
+    private static $server = array();
+
+    /**
      * The Remote Address
      *
      * @var
@@ -102,7 +109,7 @@ class core {
      */
     public static function getDomain() {
 
-        return $_SERVER['SERVER_NAME'];
+        return filter_input(INPUT_SERVER, 'SERVER_NAME');
     }
 
     /**
@@ -118,19 +125,27 @@ class core {
     }
 
     /**
+     * Gets server values
+     */
+    private static function parsetServerData() {
+
+        self::$server = filter_input_array(INPUT_SERVER, FILTER_SANITIZE_ENCODED);
+    }
+
+    /**
      * Parses HTTP headers
      *
      * @return  array
      */
     private static function parseRequestHeaders() {
         $headers = array();
-        foreach($_SERVER as $key => $value) {
+        foreach(self::$server as $key => $value) {
             if (substr($key, 0, 5) <> 'HTTP_') continue;
             $header = str_replace(' ', '-', ucwords(str_replace('_', ' ', strtolower(substr($key, 5)))));
             $headers[$header] = $value;
         }
         self::$headers = $headers;
-        self::$remote_address = $_SERVER['REMOTE_ADDR'];
+        self::$remote_address = self::$server['REMOTE_ADDR'];
     }
 
     /**
@@ -237,7 +252,7 @@ class core {
      * @return bool
      */
     public static function isAjax() {
-        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
+        return isset(self::$server['HTTP_X_REQUESTED_WITH']) && strtolower(self::$server['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
     }
 
     /**
@@ -246,7 +261,8 @@ class core {
      * @return bool
      */
     public static function isLocal() {
-        return (strpos($_SERVER['SERVER_ADDR'], '192.168') !== false || $_SERVER['HTTP_HOST'] == 'localhost');
+        return (strpos(filter_input(INPUT_SERVER, 'SERVER_ADDR', FILTER_SANITIZE_ENCODED), '192.168') !== false ||
+            filter_input(INPUT_SERVER, 'HTTP_HOST', FILTER_SANITIZE_ENCODED) == 'localhost');
     }
 
     /**
@@ -293,6 +309,7 @@ class core {
      */
     public function execute() {
 
+        $this->parsetServerData();
         $this->parseRequestHeaders();
 
         $uri = $this->loadUrl();                    // Loads the called URL

@@ -88,24 +88,7 @@ class Html {
      */
     public static function refresh() {
 
-        echo 'window.location.href = "' . $_SERVER['HTTP_REFERER'] . '"';
-    }
-
-    /**
-     * A static function to statically get
-     * a POST value when not in controllers
-     *
-     * Not Recommended, really
-     *
-     * @param   string      $name       - The field name in the POST
-     * @return  bool
-     */
-    public static function GetPost($name) {
-
-        if (isset($_POST[$name])) {
-            return $_POST[$name];
-        }
-        return false;
+        echo 'window.location.href = "' . filter_input(INPUT_SERVER, 'HTTP_REFERER') . '"';
     }
 
 }

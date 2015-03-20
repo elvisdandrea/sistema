@@ -56,7 +56,7 @@ class RestServer {
         if ($uri[0] == 'apilogin')
             return RestServer::response($auth);
 
-        $request_method = strtolower($_SERVER['REQUEST_METHOD']);
+        $request_method = strtolower(filter_input(INPUT_SERVER, 'REQUEST_METHOD'));
 
         if (!isset($uri[1]) || $uri[1] == '' || intval($uri[1]) > 0) $action = $request_method . $uri[0];
         else $action = $request_method . $uri[1];
