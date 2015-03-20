@@ -79,8 +79,8 @@ class Html {
      * @param   string      $id     - The select input Id
      * @return  string
      */
-    public static function AsyncLoadList($id) {
-        return 'Html.AsyncLoadList(\'' . $id . '\');';
+    public static function AsyncLoadList($id, $selected = false) {
+        return 'Html.AsyncLoadList(\'' . $id . '\'' . ($selected ? ',' . $selected : '') . ');';
     }
 
     /**

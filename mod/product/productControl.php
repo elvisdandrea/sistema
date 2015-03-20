@@ -40,6 +40,8 @@ class productControl extends Control {
     public function categoryList() {
         $this->view()->loadTemplate('categorylist');
         $this->model()->getCategoryList();
+        $selected = $this->getQueryString('selected');
+        if ($selected) $this->view()->setVariable('selected', $selected);
         $this->view()->setVariable('categories', $this->model()->getRows());
         $this->commitPrint($this->view()->render());
     }
@@ -113,9 +115,61 @@ class productControl extends Control {
     }
 
     public function viewProduct() {
-        debug($this->getQueryString());
+
+        $id = $this->getQueryString('id');
+        $this->model()->getProduct($id);
+        $this->view()->loadTemplate('editproduct');
+        $product = $this->model()->getRow(0);
+        $this->view()->setVariable('product', $product);
+        $this->view()->setVariable('id', $id);
+        $this->view()->appendJs('image');
+        $this->commitReplace($this->view()->render(), '#content');
+        echo Html::AsyncLoadList('addproduct', $product['category_id']);
     }
 
+    public function postEditProduct() {
+
+        $post = $this->getPost();
+
+        $productData = array(
+            'product_name'  => $post['nome'],
+            'category_id'   => $post['category_id'],
+            'weight'        => $post['weight'],
+            'price'         => $post['price'],
+            'description'   => $post['description'],
+            'image64'       => $post['image64'],
+        );
+
+        $validation = $this->validateData4Product($productData);
+        if(!$validation['valid'])
+            return RestServer::throwError(implode(', ', $validation['message']));
+
+        $this->model()->updateProduct($productData, $this->getId());
+
+        if (!$this->model()->queryOk()) {
+            return RestServer::throwError(Language::QUERY_ERROR(), 500);
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'message'   => 'Cadastro atualizado!'
+        ), 200);
+    }
+
+    public function editproduct() {
+
+        $id = $this->getQueryString('id');
+        $this->setId($id);
+        $product = $this->postEditProduct();
+
+        if ($product['status'] != 200) {
+            $this->commitReplace($product['message'], '#message');
+            $this->commitShow('#message');
+            $this->terminate();
+        }
+
+        $this->productPage();
+    }
 
 
 

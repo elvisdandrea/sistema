@@ -86,14 +86,17 @@ Html.prototype = {
      * @param       id      - The Select ID
      * @constructor
      */
-    AsyncLoadList: function(id) {
+    AsyncLoadList: function(id, selected) {
 
         $('#'+id).ready(function(){
             $('#'+id + ' select[href]').each(function(){
 
                 var elemId = $(this).attr('id');
+                var action = $(this).attr('href');
 
-                Html.Get($(this).attr('href'), function(a){
+                if (selected != undefined)
+                        action += '?selected='+selected;
+                Html.Get(action, function(a){
                     $('#'+id + ' #'+elemId).html(a);
                     //$('#'+id + ' #'+elemId).trigger('chosen:updated');
                     return false;

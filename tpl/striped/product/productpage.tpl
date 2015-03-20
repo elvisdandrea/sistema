@@ -6,6 +6,7 @@
         <input type="text" class="text" name="search" placeholder="Pesquisa" />
     </form>
 </section>
+{include "home/pagination.tpl"}
 <div id="product-list">
     {$productList}
 </div>

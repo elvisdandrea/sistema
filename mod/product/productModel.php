@@ -60,6 +60,23 @@ class productModel extends Model {
         return $total;
     }
 
+    public function getProduct($id) {
+
+        $this->addField('p.id');
+        $this->addField('p.category_id');
+        $this->addField('p.product_name');
+        $this->addField('p.weight');
+        $this->addField('p.price');
+        $this->addField('p.description');
+        $this->addField('p.image64');
+
+        $this->addFrom('products p');
+        $this->addWhere('p.id = "' . $id . '"');
+        $this->runQuery();
+
+        return !$this->isEmpty();
+    }
+
     public function insertProduct($data) {
 
         foreach ($data as $field => $value)
@@ -70,7 +87,17 @@ class productModel extends Model {
 
     }
 
+    public function updateProduct($data, $id) {
 
+        foreach ($data as $field => $value)
+            $this->addUpdateSet($field, $value);
+
+        $this->setUpdateTable('products');
+        $this->addUpdateWhere('id = "' . $id . '"');
+        
+        $this->runUpdate();
+
+    }
 
 
 }
