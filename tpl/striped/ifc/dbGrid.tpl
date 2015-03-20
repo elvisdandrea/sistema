@@ -43,7 +43,7 @@
                         <!--    Image Type Cell  -->
                         {elseif ($fieldparams['type'] == 'Image')}
                             {if ($row[$fieldparams['field']] != '')}
-                                <img width="120px" src="{$smarty.const.T_IMGURL}/{$row[$fieldparams['field']]}" />
+                                <img width="120px" src="{$row[$fieldparams['field']]}" />
                             {/if}
 
                         <!--    Date Type Cell  -->

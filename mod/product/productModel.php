@@ -28,6 +28,48 @@ class productModel extends Model {
         return !$this->isEmpty();
     }
 
+    public function getCountProducts() {
+
+        $this->addField('count(id) as total');
+        $this->addFrom('products');
+        $this->runQuery();
+        $result = $this->getRow(0);
+        return $result['total'];
+    }
+
+    public function getProductList($page = 1, $rp = 10) {
+
+        $total = $this->getCountProducts();
+
+        $this->addField('p.id');
+        $this->addField('c.category_name');
+        $this->addField('p.product_name');
+        $this->addField('p.weight');
+        $this->addField('p.price');
+        $this->addField('p.description');
+        $this->addField('p.image64');
+
+        $this->addFrom('products p');
+        $this->addFrom('left join categories c on c.id = p.category_id');
+
+        $offset = intval($total / $rp * $page);
+
+        $this->addLimit($offset . ',' . $rp);
+        $this->runQuery();
+
+        return $total;
+    }
+
+    public function insertProduct($data) {
+
+        foreach ($data as $field => $value)
+            $this->addInsertSet($field, $value);
+
+        $this->setInsertTable('products');
+        $this->runInsert();
+
+    }
+
 
 
 

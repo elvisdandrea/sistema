@@ -6,7 +6,7 @@
 		<meta name="description" content="" />
 		<meta name="keywords" content="" />
 		<!--[if lte IE 8]><script src="{$smarty.const.T_CSSURL}/ie/html5shiv.js"></script><![endif]-->
-		<script src="{$smarty.const.T_JSURL}/jquery.min.js"></script>
+		<script src="{$smarty.const.JSURL}/jquery.js"></script>
 		<script src="{$smarty.const.T_JSURL}/skel.min.js"></script>
 		<script src="{$smarty.const.T_JSURL}/skel-layers.min.js"></script>
 		<script src="{$smarty.const.T_JSURL}/init.js"></script>

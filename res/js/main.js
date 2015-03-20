@@ -65,6 +65,10 @@ Main.prototype = {
                 data.push($(this).attr('name')+'='+md5($(this).val()));
             });
 
+            $(this).find('img[type="upload"]').each(function(){
+                data.push($(this).attr('name')+'='+encodeURIComponent($(this).attr('src')));
+            });
+
             Html.Post($(this).attr('action'), data.join('&'), function(r) {
                 eval(r);
                 return false;

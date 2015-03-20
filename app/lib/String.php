@@ -21,8 +21,10 @@ class String {
     public static function ClearString( $string ) {
         //TODO: It's begging for a real anti-injection algorith
 
+        strpos($string, 'data:image') !== false ||
+                            $string = addslashes($string);
+
         #$string = mysql_real_escape_string($string);
-        $string = addslashes($string);
         return $string;
     }
 
@@ -35,6 +37,7 @@ class String {
      * @return  array                   - The escaped array
      */
     public static function ClearArray( $array ) {
+
         array_walk_recursive($array, function(&$item){
             $item = String::ClearString($item);
         });

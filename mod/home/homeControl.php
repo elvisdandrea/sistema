@@ -82,6 +82,7 @@ class homeControl extends Control {
         #$this->view('')->lol();                    // Example of Fatal Error Handling
 
 
+        $this->view()->appendJs('sidebar');
         echo $this->view()->render();
         $this->terminate();
     }
@@ -95,6 +96,7 @@ class homeControl extends Control {
     public function homePage() {
 
         $this->view()->loadTemplate('overview');
+        $this->view()->appendJs('sidebar');
         $this->commitReplace($this->view()->render(), '#main', true);
     }
 

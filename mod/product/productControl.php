@@ -14,6 +14,17 @@ class productControl extends Control {
     public function productPage() {
 
         $this->view()->loadTemplate('productpage');
+        $total = $this->model()->getProductList();
+        $this->view()->setVariable('total', $total);
+
+        $this->model()->setGridRowLink('product/viewproduct', 'id');
+        $this->model()->addGridColumn('Imagem','image64','Image');
+        $this->model()->addGridColumn('Categoria','category_name');
+        $this->model()->addGridColumn('Produto','product_name');
+        $this->model()->addGridColumn('Valor','price');
+        $this->model()->addGridColumn('Peso','weight');
+
+        $this->view()->setVariable('productList', $this->model()->dbGrid());
         $this->commitReplace($this->view()->render(), '#content');
     }
 
@@ -21,6 +32,7 @@ class productControl extends Control {
 
 
         $this->view()->loadTemplate('newproduct');
+        $this->view()->appendJs('image');
         $this->commitReplace($this->view()->render(), '#content');
         echo Html::AsyncLoadList('addproduct');
     }
@@ -50,7 +62,7 @@ class productControl extends Control {
 
         count($return['message']) == 0 ||
             $return['valid'] = !$return['valid'];
-        
+
         return $return;
     }
 
@@ -64,19 +76,47 @@ class productControl extends Control {
             'weight'        => $post['weight'],
             'price'         => $post['price'],
             'description'   => $post['description'],
+            'image64'       => $post['image64'],
         );
 
         $validation = $this->validateData4Product($productData);
         if(!$validation['valid'])
             return RestServer::throwError(implode(', ', $validation['message']));
 
+        $this->model()->insertProduct($productData);
+
+        if (!$this->model()->queryOk()) {
+            if ($this->model('auth')->getErrorCode() == 23000)
+                return RestServer::throwError('Produto já cadastrado!');
+            else
+                return RestServer::throwError(Language::QUERY_ERROR(), 500);
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'id'        => $this->model()->getLastInsertId(),
+            'message'   => 'Cadastro realizado!'
+        ), 200);
 
     }
 
     public function addProduct() {
 
         $product = $this->postAddProduct();
-        debug($product);
+        if ($product['status'] != 200) {
+            $this->commitReplace($product['message'], '#message');
+            $this->commitShow('#message');
+            $this->terminate();
+        }
+
+        $this->productPage();
     }
+
+    public function viewProduct() {
+        debug($this->getQueryString());
+    }
+
+
+
 
 }

@@ -246,7 +246,7 @@ class Model {
      *
      * @var string
      */
-    private $gridClass = '';
+    private $gridClass = 'default';
 
     /**
      * The Current Connection Resource Name
