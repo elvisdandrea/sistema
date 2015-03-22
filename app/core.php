@@ -129,7 +129,7 @@ class core {
      */
     private static function parsetServerData() {
 
-        self::$server = filter_input_array(INPUT_SERVER, FILTER_SANITIZE_ENCODED);
+        self::$server = filter_input_array(INPUT_SERVER);
     }
 
     /**
@@ -155,6 +155,7 @@ class core {
      * @return  array|string
      */
     public static function getHttpHeaders($header = false) {
+        
         if ($header)
             return isset(self::$headers[$header]) ? self::$headers[$header] : '';
 
@@ -261,8 +262,8 @@ class core {
      * @return bool
      */
     public static function isLocal() {
-        return (strpos(filter_input(INPUT_SERVER, 'SERVER_ADDR', FILTER_SANITIZE_ENCODED), '192.168') !== false ||
-            filter_input(INPUT_SERVER, 'HTTP_HOST', FILTER_SANITIZE_ENCODED) == 'localhost');
+        return (strpos(filter_input(INPUT_SERVER, 'SERVER_ADDR'), '192.168') !== false ||
+            filter_input(INPUT_SERVER, 'HTTP_HOST') == 'localhost');
     }
 
     /**
