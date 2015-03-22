@@ -1001,6 +1001,7 @@
 .form-right {
 	width: 55%;
 	display: inline-block;
+	vertical-align: top;
 }
 
 .top-bar {

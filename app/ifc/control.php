@@ -351,6 +351,13 @@ class Control {
         $stay || $this->terminate();
     }
 
+    protected function getPagination($currentPage, $totalPages, $callUrl, $searchParams = array(), $viewId = 'pagination') {
+
+        $this->newView($viewId);
+        $this->view($viewId)->loadTemplate('pagination.tpl');
+
+    }
+
     /**
      * Preventing Memory Leaks
      */
