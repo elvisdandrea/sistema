@@ -121,7 +121,6 @@ class productControl extends Control {
         $product = $this->model()->getRow(0);
         $this->view()->setVariable('product', $product);
         $this->view()->setVariable('id', $id);
-        $this->view()->appendJs('image');
         $this->commitReplace($this->view()->render(), '#content');
         echo Html::AsyncLoadList('addproduct', $product['category_id']);
         echo Html::addImageUploadAction('read64', 'product-img');
