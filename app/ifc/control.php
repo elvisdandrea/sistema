@@ -353,8 +353,8 @@ class Control {
 
     protected function getPagination($currentPage, $totalPages, $callUrl, $searchParams = array(), $viewId = 'pagination') {
 
-        $this->newView($viewId);
-        $this->view($viewId)->loadTemplate('pagination.tpl');
+        #$this->newView($viewId);
+        #$this->view($viewId)->loadTemplate('pagination.tpl');
 
     }
 

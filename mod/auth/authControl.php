@@ -202,7 +202,7 @@ class authControl extends Control {
      */
     public function login() {
 
-        if (!$this->validatePost('user', 'pass', 'email', 'company_id')) {
+        if (!$this->validatePost('user', 'pass')) {
             $this->commitReplace('Desculpe, alguns dados não estão corretos.', '#msgbox');
             return;
         }

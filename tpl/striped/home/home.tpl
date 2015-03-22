@@ -95,9 +95,6 @@
 									</p>
 								</article>
 
-							<!-- Pagination -->
-							{include "home/pagination.tpl"}
-
 						</div>
 					</div>
 
