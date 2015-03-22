@@ -276,7 +276,7 @@
 			
 			.image.left
 			{
-				float: left;
+				display: inline-block;
 				margin: 0 2em 2em 0;
 			}
 			
@@ -1000,7 +1000,7 @@
 
 .form-right {
 	width: 55%;
-	float: left;
+	display: inline-block;
 }
 
 .top-bar {
