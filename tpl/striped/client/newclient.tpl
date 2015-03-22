@@ -8,9 +8,9 @@
     </div>
     <div class="image left">
         <div class="image avatar">
-            <img class="left" src="{$smarty.const.T_IMGURL}/no_photo.png"/>
+            <img name="image64" class="left" id="client-img" type="upload" src="{$smarty.const.T_IMGURL}/no_photo.png"/>
         </div>
-        <p></p><label>Adicionar foto:</label><input type="file"/></p>
+        <p></p><label>Adicionar foto:</label><input id="read64" type="file"/></p>
     </div>
     <div class="centered form-right">
         <label>Nome:</label>

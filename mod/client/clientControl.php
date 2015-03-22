@@ -33,6 +33,7 @@ class clientControl extends Control {
     public function newClient() {
         $this->view()->loadTemplate('newclient');
         $this->commitReplace($this->view()->render(), '#content');
+        echo Html::addImageUploadAction('read64', 'client-img');
     }
 
     public function addNewClient(){
@@ -108,9 +109,9 @@ class clientControl extends Control {
         $this->model()->getClient($id);
         $client = $this->model()->getRow(0);
         $this->view()->setVariable('client', $client);
-        $this->view()->appendJs('image');
         $this->view()->loadTemplate('editclient');
         $this->commitReplace($this->view()->render(), '#content');
+        echo Html::addImageUploadAction('read64', 'client-img');
     }
 
     public function editClient() {
