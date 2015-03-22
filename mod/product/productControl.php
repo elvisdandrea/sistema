@@ -30,9 +30,7 @@ class productControl extends Control {
 
     public function newProduct() {
 
-
         $this->view()->loadTemplate('newproduct');
-        #$this->view()->appendJs('image');
         $this->commitReplace($this->view()->render(), '#content');
         echo Html::AsyncLoadList('addproduct');
         echo Html::addImageUploadAction('read64', 'product-img');
@@ -126,6 +124,7 @@ class productControl extends Control {
         $this->view()->appendJs('image');
         $this->commitReplace($this->view()->render(), '#content');
         echo Html::AsyncLoadList('addproduct', $product['category_id']);
+        echo Html::addImageUploadAction('read64', 'product-img');
     }
 
     public function postEditProduct() {

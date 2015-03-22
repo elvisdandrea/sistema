@@ -83,6 +83,15 @@ class Html {
         return 'Html.AsyncLoadList(\'' . $id . '\'' . ($selected ? ',' . $selected : '') . ');';
     }
 
+    /**
+     * Function that creates an action on an input[type="file"]
+     * to upload an image, but it sets the src of an image
+     * element with the base64 of the image to be sent via POST
+     *
+     * @param   string      $inputId        - The Id of the input type="file" element
+     * @param   string      $imgId          - The Id of the Image element (must be inside a form to be sent in the POST)
+     * @return  string
+     */
     public static function addImageUploadAction($inputId, $imgId) {
         return 'Main.imageAction(\'' . $inputId . '\', \'' . $imgId . '\');';
     }
