@@ -83,6 +83,10 @@ class Html {
         return 'Html.AsyncLoadList(\'' . $id . '\'' . ($selected ? ',' . $selected : '') . ');';
     }
 
+    public static function addImageUploadAction($inputId, $imgId) {
+        return 'Main.imageAction(\'' . $inputId . '\', \'' . $imgId . '\');';
+    }
+
     /**
      * Refreshes Current Page
      */

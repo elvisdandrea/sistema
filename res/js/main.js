@@ -78,6 +78,28 @@ Main.prototype = {
 
     },
 
+    imageAction : function(inputId, imgId) {
+
+        document.getElementById(inputId).addEventListener('change', readImage, false);
+
+        function readImage(evt){
+
+            var f = evt.target.files[0];
+            if (!f) return false;
+
+            var r = new FileReader();
+
+            r.onloadend = function(e) {
+                var tempImg = new Image();
+                tempImg.src = e.target.result;
+                $('#' + imgId).attr('src', tempImg.src);
+            }
+
+            r.readAsDataURL(f);
+
+        }
+    },
+
     /**
      * Apply quick links
      * Usable in inline action on elements

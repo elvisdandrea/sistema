@@ -32,9 +32,10 @@ class productControl extends Control {
 
 
         $this->view()->loadTemplate('newproduct');
-        $this->view()->appendJs('image');
+        #$this->view()->appendJs('image');
         $this->commitReplace($this->view()->render(), '#content');
         echo Html::AsyncLoadList('addproduct');
+        echo Html::addImageUploadAction('read64', 'product-img');
     }
 
     public function categoryList() {
