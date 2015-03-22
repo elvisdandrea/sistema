@@ -110,6 +110,18 @@ class clientControl extends Control {
         $client = $this->model()->getRow(0);
         $this->view()->setVariable('client', $client);
         $this->view()->loadTemplate('editclient');
+        $this->view()->appendJs('cep');
+        $this->model()->getClientAddrList($id);;
+
+        $this->model()->addGridColumn('street_addr','street_addr');
+        $this->model()->addGridColumn('street_number','street_number');
+        $this->model()->addGridColumn('street_additional','street_additional');
+        $this->model()->addGridColumn('hood','hood');
+        $this->model()->addGridColumn('city','city');
+        $this->model()->addGridColumn('zip_code','zip_code');
+
+        $this->view()->setVariable('addrlist', $this->model()->dbGrid());
+
         $this->commitReplace($this->view()->render(), '#content');
         echo Html::addImageUploadAction('read64', 'client-img');
     }

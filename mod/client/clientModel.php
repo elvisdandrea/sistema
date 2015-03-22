@@ -82,5 +82,17 @@ class clientModel extends Model {
         $this->runUpdate();
     }
 
+    public function getClientAddrList($id){
+        $this->addField('cdr.id');
+        $this->addField('cdr.street_addr');
+        $this->addField('cdr.street_number');
+        $this->addField('cdr.street_additional');
+        $this->addField('cdr.hood');
+        $this->addField('cdr.city');
+        $this->addField('cdr.zip_code');
+
+        $this->addFrom('client_addr cdr');
+        $this->runQuery();
+    }
 
 }
