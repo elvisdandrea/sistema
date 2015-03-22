@@ -1,4 +1,4 @@
-<form action="{$smarty.const.BASEDIR}client/addNewCliente">
+<form action="{$smarty.const.BASEDIR}client/addNewClient">
     <div class="top-bar">
         <div class="buttons">
             <input class="button" type="submit" value="Salvar" />
