@@ -106,21 +106,18 @@ class clientControl extends Control {
 
     public function viewClient(){
         $id = $this->getQueryString('id');
+
         $this->model()->getClient($id);
         $client = $this->model()->getRow(0);
+
         $this->view()->setVariable('client', $client);
         $this->view()->loadTemplate('editclient');
-        $this->view()->appendJs('cep');
+        $this->view()->appendJs('client');
+
         $this->model()->getClientAddrList($id);;
+        $addrList = $this->model()->getRows();
 
-        $this->model()->addGridColumn('street_addr','street_addr');
-        $this->model()->addGridColumn('street_number','street_number');
-        $this->model()->addGridColumn('street_additional','street_additional');
-        $this->model()->addGridColumn('hood','hood');
-        $this->model()->addGridColumn('city','city');
-        $this->model()->addGridColumn('zip_code','zip_code');
-
-        $this->view()->setVariable('addrlist', $this->model()->dbGrid());
+        $this->view()->setVariable('addrList', $addrList);
 
         $this->commitReplace($this->view()->render(), '#content');
         echo Html::addImageUploadAction('read64', 'client-img');
@@ -163,6 +160,62 @@ class clientControl extends Control {
         return RestServer::response(array(
             'status'    => 200,
             'message'   => 'Cadastro atualizado!'
+        ), 200);
+    }
+
+    public function addClientAddr(){
+        $id = $this->getQueryString('id');
+        $this->setId($id);
+        $status = $this->postAddClientAddr();
+        if($status['status'] == 200){
+            $this->viewClient();
+        }
+    }
+
+    public function postAddClientAddr(){
+        $post = $this->getPost();
+
+        $userData = array(
+            'zip_code'   => $post['zip_code'],
+            'street_addr'       => $post['street_addr'],
+            'hood'       => $post['hood'],
+            'city'   => $post['city'],
+            'street_number'       => $post['street_number'],
+            'street_additional'       => $post['street_additional'],
+        );
+
+        $this->model()->addClientAddress($userData, $this->getId());
+
+        if (!$this->model()->queryOk()) {
+            return RestServer::throwError(Language::QUERY_ERROR(), 500);
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'message'   => 'Cadastro atualizado!'
+        ), 200);
+    }
+
+    public function removeAddr(){
+        $addr_id = $this->getQueryString('addr_id');
+        $this->setId($addr_id);
+        $status = $this->deleteClientAddr();
+        if($status['status'] == 200){
+            $this->viewClient();
+        }
+    }
+
+    public function deleteClientAddr(){
+        $id = $this->getId();
+        $this->model()->removeClientAddr($id);
+
+        if (!$this->model()->queryOk()) {
+            return RestServer::throwError(Language::QUERY_ERROR(), 500);
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'message'   => 'Cadastro removido!'
         ), 200);
     }
 }

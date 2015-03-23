@@ -31,22 +31,50 @@
 
 </div>
 <hr>
-<div id="add_list">
+<div id="addr_list">
     <h3>Endereços:</h3>
-    <a class="button button-red" href="#">Novo</a>
-    <div>
-        {$addrlist}
+    <a class="button button-red" id="new_addr" href="#">Novo</a>
+    <div class="table-wrapper">
+        <table class="default">
+
+            <thead>
+                <th>Logradouro</th>
+                <th>Numero</th>
+                <th>Complemento</th>
+                <th>Bairro</th>
+                <th>Cidade</th>
+                <th>Cep</th>
+                <th></th>
+            </thead>
+            <tbody>
+
+            {foreach from=$addrList key="key" item="value"}
+
+                <tr>
+                    <td>{$value['street_addr']}</td>
+                    <td>{$value['street_number']}</td>
+                    <td>{$value['street_additional']}</td>
+                    <td>{$value['hood']}</td>
+                    <td>{$value['city']}</td>
+                    <td>{$value['zip_code']}</td>
+                    <td>
+                        <a href="{$smarty.const.BASEDIR}client/removeAddr?id={$client['id']}&addr_id={$value['id']}" class="button button-red">Remover</a>
+                    </td>
+                </tr>
+            {/foreach}
+            </tbody>
+        </table>
     </div>
 </div>
-<div id="new_addr">
+<div id="new_addr_form" class="new_addr">
     <h3>Endereços:</h3>
     <div>
         <form action="{$smarty.const.BASEDIR}client/addClientAddr?id={$client['id']}">
             <div>
                 <input class="button" type="submit" value="Salvar" />
-                <a class="button button-red" href="#">Cancelar</a>
+                <a id="cancel_addr" class="button button-red" href="#">Cancelar</a>
             </div>
-            <div>
+            <div class="half-width">
                 <label>CEP: </label>
                 <input type="text" name="zip_code" id="zip_code">
                 <label>Rua: </label>

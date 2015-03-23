@@ -95,4 +95,21 @@ class clientModel extends Model {
         $this->runQuery();
     }
 
+    public function addClientAddress($data, $id){
+        array_walk($data, function($item, $key) {
+            $this->addInsertSet($key, $item);
+        });
+
+        $this->addInsertSet('client_id', $id);
+
+        $this->setInsertTable('client_addr');
+        $this->runInsert();
+    }
+
+    public function removeClientAddr($id){
+        $this->setDeleteFrom('client_addr');
+        $this->addDeleteWhere("id = {$id}");
+        $this->runDelete();
+    }
+
 }
