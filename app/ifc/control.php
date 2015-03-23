@@ -351,10 +351,40 @@ class Control {
         $stay || $this->terminate();
     }
 
-    protected function getPagination($currentPage, $totalPages, $callUrl, $searchParams = array(), $viewId = 'pagination') {
+    /**
+     * Returns the pagination view
+     *
+     * @param   int                 $currentPage        - The number of the current page
+     * @param   int                 $totalPages         - The number of total pages
+     * @param   string              $callUrl            - The URL to be navigating
+     * @param   array               $urlParams          - Parameters along the URL
+     * @param   int                 $nPages             - The number of pages to display (default = 5)
+     * @param   string              $viewId             - The view index id
+     * @return  string
+     */
+    protected function getPagination($currentPage, $totalPages, $callUrl, $urlParams = array(), $nPages = 5, $viewId = 'pagination') {
 
-        #$this->newView($viewId);
-        #$this->view($viewId)->loadTemplate('pagination.tpl');
+        $this->newView($viewId);
+        $this->view($viewId)->loadSystemTemplate('ifc', 'pagination');
+        $this->view($viewId)->setVariable('currentPage', $currentPage);
+        $this->view($viewId)->setVariable('totalPages', $totalPages);
+        $this->view($viewId)->setVariable('callUrl', $callUrl);
+        $this->view($viewId)->setVariable('nPages', $nPages);
+
+        $start = $currentPage - 2;
+        $start < $totalPages - 4 || $start = $totalPages - 4;
+        $start > 0 || $start = 1;
+        $this->view($viewId)->setVariable('start', $start);
+        $countPages = $start + 5;
+        if ($countPages > $totalPages) $countPages = $totalPages;
+
+        $this->view($viewId)->setVariable('countPages', $countPages);
+        $params = '';
+        if (count($urlParams) > 0)
+            $params = Html::httpBuildUrl($urlParams);
+
+        $this->view($viewId)->setVariable('params', $params);
+        return $this->view($viewId)->render();
 
     }
 

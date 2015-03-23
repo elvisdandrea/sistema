@@ -96,6 +96,14 @@ class Html {
         return 'Main.imageAction(\'' . $inputId . '\', \'' . $imgId . '\');';
     }
 
+    public static function httpBuildUrl(array $array) {
+
+        $result = array();
+        foreach ($array as $key => $value)
+            $result[] = $key . '=' . $value;
+        return implode('&', $result);
+    }
+
     /**
      * Refreshes Current Page
      */

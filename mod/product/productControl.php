@@ -17,6 +17,12 @@ class productControl extends Control {
         $total = $this->model()->getProductList();
         $this->view()->setVariable('total', $total);
 
+        $page = $this->getQueryString('page');
+        $pages = intval(($total / 10)) + 1;
+
+        $pagination = $this->getPagination($page, $pages, 'product/productpage');
+        $this->view()->setVariable('pagination', $pagination);
+
         $this->model()->setGridRowLink('product/viewproduct', 'id');
         $this->model()->addGridColumn('Imagem','image64','Image');
         $this->model()->addGridColumn('Categoria','category_name');

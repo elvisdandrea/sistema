@@ -173,6 +173,12 @@ class View {
         $this->template = $name . '.tpl';
     }
 
+    public function loadSystemTemplate($module, $name) {
+
+        $name = $module . '/' . $name;
+        $this->template = $name . '.tpl';
+    }
+
     /**
      * Sets a variable in the template
      *
