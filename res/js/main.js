@@ -69,10 +69,23 @@ Main.prototype = {
                 data.push($(this).attr('name')+'='+encodeURIComponent($(this).attr('src')));
             });
 
-            Html.Post($(this).attr('action'), data.join('&'), function(r) {
-                eval(r);
-                return false;
-            });
+            var method = 'post';
+            if ($(this).attr('method') != undefined) {
+                method = $(this).attr('method');
+            }
+
+            if (method == 'post') {
+                Html.Post($(this).attr('action'), data.join('&'), function(r) {
+                    eval(r);
+                    return false;
+                });
+            } else if (method == 'get') {
+                var url = $(this).attr('action') + '?' + data.join('&');
+                Html.Get(url, function(r){
+                    eval(r);
+                    return false;
+                });
+            }
 
         });
 

@@ -37,24 +37,37 @@ class productModel extends Model {
         return $result['total'];
     }
 
-    public function getProductList($page = 1, $rp = 10) {
+    public function getProductList($page = 1, $rp = 10, $search = '') {
 
         $total = $this->getCountProducts();
 
-        $this->addField('p.id');
-        $this->addField('c.category_name');
-        $this->addField('p.product_name');
-        $this->addField('p.weight');
-        $this->addField('p.price');
-        $this->addField('p.description');
+        $fields = array(
+            'p.id',
+            'c.category_name',
+            'p.product_name',
+            'p.weight',
+            'p.price',
+            'p.description'
+        );
+
+        foreach ($fields as $field)
+                $this->addField($field);
+
         $this->addField('p.image64');
 
         $this->addFrom('products p');
         $this->addFrom('left join categories c on c.id = p.category_id');
 
-        $offset = intval($total / $rp * $page);
+        if ($search != '') {
+            foreach ($fields as $field)
+                $this->addWhere($field . ' like "%' . str_replace(' ','%',$search) . '%"', 'OR');
+        }
+
+        $offset = intval(($total / $rp) * $page);
 
         $this->addLimit($offset . ',' . $rp);
+
+
         $this->runQuery();
 
         return $total;

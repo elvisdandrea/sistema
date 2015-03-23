@@ -14,7 +14,14 @@ class productControl extends Control {
     public function productPage() {
 
         $this->view()->loadTemplate('productpage');
-        $total = $this->model()->getProductList();
+
+        $search = $this->getQueryString('search');
+        $page = $this->getQueryString('page');
+        intval($page) > 0 || $page = 1;
+        $rp = $this->getQueryString('rp');
+        intval($rp) > 0 || $rp = 10;
+
+        $total = $this->model()->getProductList($page, $rp, $search);
         $this->view()->setVariable('total', $total);
 
         $page = $this->getQueryString('page');
