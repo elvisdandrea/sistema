@@ -17,15 +17,14 @@ class productControl extends Control {
 
         $search = $this->getQueryString('search');
         $page = $this->getQueryString('page');
-        intval($page) > 0 || $page = 1;
+        $page || $page = 1;
         $rp = $this->getQueryString('rp');
         intval($rp) > 0 || $rp = 10;
 
         $total = $this->model()->getProductList($page, $rp, $search);
         $this->view()->setVariable('total', $total);
 
-        $page = $this->getQueryString('page');
-        $pages = intval(($total / 10)) + 1;
+        $pages = intval((($total - 1) / 10)) + 1;
 
         $pagination = $this->getPagination($page, $pages, 'product/productpage');
         $this->view()->setVariable('pagination', $pagination);

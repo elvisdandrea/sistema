@@ -374,6 +374,7 @@ class Control {
         $start = $currentPage - 2;
         $start < $totalPages - 4 || $start = $totalPages - 4;
         $start > 0 || $start = 1;
+
         $this->view($viewId)->setVariable('start', $start);
         $countPages = $start + 5;
         if ($countPages > $totalPages) $countPages = $totalPages;

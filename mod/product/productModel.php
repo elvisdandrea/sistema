@@ -63,10 +63,10 @@ class productModel extends Model {
                 $this->addWhere($field . ' like "%' . str_replace(' ','%',$search) . '%"', 'OR');
         }
 
-        $offset = intval(($total / $rp) * $page);
+        $offset = intval(($page - 1) * $rp);
 
         $this->addLimit($offset . ',' . $rp);
-
+        #debug($this->getQuery());
 
         $this->runQuery();
 
