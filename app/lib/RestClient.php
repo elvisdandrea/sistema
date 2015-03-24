@@ -56,6 +56,13 @@ class RestClient {
     private $format = 'html';
 
     /**
+     * The errors messages
+     *
+     * @var array
+     */
+    private $errors = array();
+
+    /**
      * The Constructor
      *
      * @param $url
@@ -100,6 +107,7 @@ class RestClient {
      * @param mixed $method
      */
     public function setMethod($method) {
+        $method = strtolower($method);
         !in_array($method, array('get', 'post', 'put', 'delete', 'update')) || $this->method = $method;
     }
 
@@ -196,6 +204,11 @@ class RestClient {
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
         $this->response = curl_exec($ch);
+
+        if (!$this->response) {
+            $this->errors[] = curl_error($ch);
+            return;
+        }
 
         switch ($this->format) {
             case 'json':

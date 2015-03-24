@@ -47,6 +47,7 @@ class productControl extends Control {
     }
 
     public function categoryList() {
+        
         $this->view()->loadTemplate('categorylist');
         $this->model()->getCategoryList();
         $selected = $this->getQueryString('selected');
