@@ -24,9 +24,7 @@ class productControl extends Control {
         $total = $this->model()->getProductList($page, $rp, $search);
         $this->view()->setVariable('total', $total);
 
-        $pages = intval((($total - 1) / 10)) + 1;
-
-        $pagination = $this->getPagination($page, $pages, 'product/productpage');
+        $pagination = $this->getPagination($page, $total, $rp, 'product/productpage');
         $this->view()->setVariable('pagination', $pagination);
 
         $this->model()->setGridRowLink('product/viewproduct', 'id');

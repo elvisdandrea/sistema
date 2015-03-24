@@ -355,14 +355,17 @@ class Control {
      * Returns the pagination view
      *
      * @param   int                 $currentPage        - The number of the current page
-     * @param   int                 $totalPages         - The number of total pages
+     * @param   int                 $totalRows          - The number of total Rows (the number of pages will be automatically calculated)
+     * @param   int                 $rp                 - Results per page
      * @param   string              $callUrl            - The URL to be navigating
      * @param   array               $urlParams          - Parameters along the URL
      * @param   int                 $nPages             - The number of pages to display (default = 5)
      * @param   string              $viewId             - The view index id
      * @return  string
      */
-    protected function getPagination($currentPage, $totalPages, $callUrl, $urlParams = array(), $nPages = 5, $viewId = 'pagination') {
+    protected function getPagination($currentPage, $totalRows, $rp = 10, $callUrl = '', $urlParams = array(), $nPages = 5, $viewId = 'pagination') {
+
+        $totalPages = intval((($totalRows - 1) / $rp)) + 1;
 
         $this->newView($viewId);
         $this->view($viewId)->loadSystemTemplate('ifc', 'pagination');
