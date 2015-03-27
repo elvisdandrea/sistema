@@ -91,6 +91,10 @@ class productControl extends Control {
             #'image64'       => $post['image64'],
         );
 
+        $validation = $this->validateData4Product($productData);
+        if(!$validation['valid'])
+            return RestServer::throwError(implode(', ', $validation['message']));
+
         $image  = $post['image64'];
         $base64 = explode(',', $image);
         $imageFile = $this->uploadBase64File($base64[1]);
@@ -100,10 +104,6 @@ class productControl extends Control {
         } else {
             $productData['image'] = $imageFile;
         }
-
-        $validation = $this->validateData4Product($productData);
-        if(!$validation['valid'])
-            return RestServer::throwError(implode(', ', $validation['message']));
 
         $this->model()->insertProduct($productData);
 
@@ -161,6 +161,10 @@ class productControl extends Control {
             #'image64'       => $post['image64'],
         );
 
+        $validation = $this->validateData4Product($productData);
+        if(!$validation['valid'])
+            return RestServer::throwError(implode(', ', $validation['message']));
+
         $image  = $post['image64'];
         $base64 = explode(',', $image);
         $imageFile = $this->uploadBase64File($base64[1]);
@@ -170,10 +174,6 @@ class productControl extends Control {
         } else {
             $productData['image'] = $imageFile;
         }
-
-        $validation = $this->validateData4Product($productData);
-        if(!$validation['valid'])
-            return RestServer::throwError(implode(', ', $validation['message']));
 
         $this->model()->updateProduct($productData, $this->getId());
 
