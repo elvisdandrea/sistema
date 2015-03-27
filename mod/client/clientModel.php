@@ -60,7 +60,7 @@ class clientModel extends Model {
         $this->addField('cli.phone_1');
         $this->addField('cli.phone_2');
         $this->addField('cli.description');
-        $this->addField('cli.image64');
+        $this->addField('cli.image');
 
         $this->addFrom('clients cli');
 
