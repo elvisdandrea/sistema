@@ -108,7 +108,7 @@ class productControl extends Control {
         $this->model()->insertProduct($productData);
 
         if (!$this->model()->queryOk()) {
-            if ($this->model('auth')->getErrorCode() == 23000)
+            if (in_array($this->model('auth')->getErrorCode(), array(23000, 1062)))
                 return RestServer::throwError('Produto já cadastrado!');
             else
                 return RestServer::throwError(Language::QUERY_ERROR(), 500);
