@@ -19,7 +19,7 @@ class clientControl extends Control {
         $this->view()->setVariable('total', $total);
 
         $this->model()->setGridRowLink('client/viewclient', 'id');
-        $this->model()->addGridColumn('Imagem','image64','Image');
+        $this->model()->addGridColumn('Imagem','image','Image');
         $this->model()->addGridColumn('Data','client_date');
         $this->model()->addGridColumn('Nome','client_name');
         $this->model()->addGridColumn('Telefone','phone_1');
@@ -44,25 +44,35 @@ class clientControl extends Control {
     public function postAddClient(){
         $post = $this->getPost();
 
-        $userData = array(
+        $clientData = array(
             'client_name'   => $post['client_name'],
             'phone_1'       => String::convertTextFormat($post['phone_1'], 'fone'),
             'phone_2'       => String::convertTextFormat($post['phone_2'], 'fone'),
             'description'   => $post['description'],
-            'image64'       => $post['image64'],
+            #'image64'       => $post['image64'],
         );
 
-        $valitation = $this->validateDataForClient($userData);
+        $valitation = $this->validateDataForClient($clientData);
 
         if($valitation['valid'] === FALSE) {
             $message = implode(', ', $valitation['message']);
             return RestServer::throwError($message, 400);
         }
 
-        $this->model()->addClient($userData);
+        $image  = $post['image64'];
+        $base64 = explode(',', $image);
+        $imageFile = $this->uploadBase64File($base64[1]);
+
+        if (!$imageFile) {
+            $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
+        } else {
+            $clientData['image'] = $imageFile;
+        }
+
+        $this->model()->addClient($clientData);
 
         if (!$this->model()->queryOk()) {
-            if ($this->model()->getErrorCode() == 23000)
+            if (in_array($this->model()->getErrorCode(), array(23000, 1062)))
                 return RestServer::throwError(Language::USER_ALREADY_TAKEN(), 400);
             else
                 return RestServer::throwError(Language::QUERY_ERROR(), 500);
@@ -71,7 +81,8 @@ class clientControl extends Control {
         return RestServer::response(array(
             'status'    => 200,
             'uid'       => $this->model()->getLastInsertId(),
-            'message'   => 'Cadastro realizado!'
+            'message'   => 'Cadastro realizado!',
+            'image'     => $imageFile
         ), 200);
 
     }
@@ -126,7 +137,7 @@ class clientControl extends Control {
     public function editClient() {
         $id = $this->getQueryString('id');
         $this->setId($id);
-        $client = $this->postEditClient();
+        $client = $this->updateClient();
 
         if ($client['status'] != 200) {
             $this->commitReplace($client['message'], '#message');
@@ -136,22 +147,32 @@ class clientControl extends Control {
         $this->clientPage();
     }
 
-    public function postEditClient() {
+    public function updateClient() {
         $post = $this->getPost();
-        
-        $userData = array(
+
+        $clientData = array(
             'client_name'   => $post['client_name'],
             'phone_1'       => String::convertTextFormat($post['phone_1'], 'fone'),
             'phone_2'       => String::convertTextFormat($post['phone_2'], 'fone'),
             'description'   => $post['description'],
-            'image64'       => $post['image64'],
+            #'image64'       => $post['image64'],
         );
 
-        $validation = $this->validateDataForClient($userData);
+        $validation = $this->validateDataForClient($clientData);
         if(!$validation['valid'])
             return RestServer::throwError(implode(', ', $validation['message']));
 
-        $this->model()->updateClient($userData, $this->getId());
+        $image  = $post['image64'];
+        $base64 = explode(',', $image);
+        $imageFile = $this->uploadBase64File($base64[1]);
+
+        if (!$imageFile) {
+            $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
+        } else {
+            $clientData['image'] = $imageFile;
+        }
+
+        $this->model()->updateClient($clientData, $this->getId());
 
         if (!$this->model()->queryOk()) {
             return RestServer::throwError(Language::QUERY_ERROR(), 500);
@@ -159,7 +180,8 @@ class clientControl extends Control {
 
         return RestServer::response(array(
             'status'    => 200,
-            'message'   => 'Cadastro atualizado!'
+            'message'   => 'Cadastro atualizado!',
+            'image'     => $imageFile
         ), 200);
     }
 
