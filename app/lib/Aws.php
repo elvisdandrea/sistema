@@ -9,7 +9,7 @@
  *
  */
 
-define('AUTH_FILE', IFCDIR . 'data/' . md5('gravi.bucket'));
+define('AUTH_FILE', IFCDIR . '/data/' . md5('orbit_s3'));
 
 
 require 'aws.phar';
@@ -41,13 +41,6 @@ class Aws {
     private $authentication;
 
     /**
-     * Authentication Data Names
-     *
-     * @var array
-     */
-    private $authParams = array('key','secret','region');
-
-    /**
      * Error Messages
      *
      * @var
@@ -65,21 +58,18 @@ class Aws {
      */
     private function loadAuthentication() {
 
-        #if (!is_file(AUTH_FILE)) {
-        #    $this->errors[] = 'Authentication File Missing';
-        #    return;
-        #}
-
-        #$authContent = file_get_contents(AUTH_FILE);
-        $this->authentication = array(
-            'key'       => 'AKIAIDSNYKPVXUJUCLCQ',
-            'secret'    => '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',
-            #'region'    => 'gravi.orbit.s3.amazonaws.com'
-            'region'    => 'sa-east-1'
-        );
+        if (!is_file(AUTH_FILE))
+            return !$this->errors[] = 'Authentication File Missing';
 
 
-        #$this->errors[] = 'Authentication Failed';
+        $authContent = file_get_contents(AUTH_FILE);
+        $decrypted   = CR::decrypt($authContent);
+        $auth        = json_decode($decrypted, true);
+
+        if (!$auth)
+            return !$this->errors[] = 'Authentication File is Broken';
+
+        $this->authentication = $auth;
 
     }
 
@@ -140,7 +130,7 @@ class Aws {
         try {
             $result = $factory->putObject(
                 array(
-                    'Bucket'        => 'gravi.orbit',
+                    'Bucket'        => $this->bucket,
                     'Key'           => $this->path . '/' . $fileName,
                     'SourceFile'    => $sourceFile,
                     'ACL'           => $permission
@@ -148,6 +138,7 @@ class Aws {
             );
         } catch (S3Exception $e) {
             $this->errors[] = $e->getMessage();
+            debug($this->errors);
         }
 
         return $result['ObjectURL'];

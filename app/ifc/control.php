@@ -416,7 +416,7 @@ class Control {
         $sourceFile = AWSFILEDIR . '/' . $filename;
         FileManager::saveBase64File($sourceFile, $base64);
         $uploadAws = new Aws();
-        $uploadAws->setBucket('gravi.orbit.s3.amazonaws.com');
+        $uploadAws->setBucket('gravi.orbit');
         $uploadAws->setPath($destDir);
         $result = $uploadAws->upload($sourceFile, $filename);
         FileManager::removeFile($sourceFile);

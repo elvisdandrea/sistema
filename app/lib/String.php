@@ -264,10 +264,10 @@ class String {
                 return preg_match('/[0-9]/i', $string);
                 break;
             case 'fone': //Telefone
-                return preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{4,5}[\s\--]?\d{4}$/', $string);
+                return preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{4,5}[\s\-]?\d{4}$/', $string);
                 break;
             case 'ddd': //Telefone com DDD
-                return preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{4,5}[\s\--]?\d{4}$/', $string);
+                return preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{4,5}[\s\-]?\d{4}$/', $string);
                 break;
             case 'cnpj': //CNPJ
                 return preg_match('/^(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})$/', $string);
@@ -293,6 +293,21 @@ class String {
             default:
                 return true;
                 break;
+        }
+    }
+
+    public static function cpfValid($cpf) {
+
+        $cpf = preg_replace('/^[a-z0-9]/i', '', $cpf);
+        for ($t = 9; $t < 11; $t++) {
+
+            for ($d = 0, $c = 0; $c < $t; $c++) {
+                $d += $cpf{$c} * (($t + 1) - $c);
+            }
+            $d = ((10 * $d) % 11) % 10;
+            if ($cpf{$c} != $d) {
+                return false;
+            }
         }
     }
 
