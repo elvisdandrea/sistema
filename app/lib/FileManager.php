@@ -34,5 +34,27 @@ class FileManager {
         return $res;
     }
 
+    /**
+     * Incomplete
+     *
+     * @param $filename
+     * @param $base64
+     */
+    public static function saveBase64File($filename, $base64) {
+
+        file_put_contents($filename, base64_decode($base64));
+    }
+
+    /**
+     * Why is it in a function when it's just unlink it?
+     * - Because, in the future, it will not just unlink it
+     *
+     * @param $filename
+     */
+    public static function removeFile($filename) {
+
+        @unlink($filename);
+    }
+
 
 }

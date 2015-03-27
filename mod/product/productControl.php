@@ -28,7 +28,7 @@ class productControl extends Control {
         $this->view()->setVariable('pagination', $pagination);
 
         $this->model()->setGridRowLink('product/viewproduct', 'id');
-        $this->model()->addGridColumn('Imagem','image64','Image');
+        $this->model()->addGridColumn('Imagem','image','Image');
         $this->model()->addGridColumn('Categoria','category_name');
         $this->model()->addGridColumn('Produto','product_name');
         $this->model()->addGridColumn('Valor','price');
@@ -47,7 +47,7 @@ class productControl extends Control {
     }
 
     public function categoryList() {
-        
+
         $this->view()->loadTemplate('categorylist');
         $this->model()->getCategoryList();
         $selected = $this->getQueryString('selected');
@@ -88,8 +88,18 @@ class productControl extends Control {
             'weight'        => $post['weight'],
             'price'         => $post['price'],
             'description'   => $post['description'],
-            'image64'       => $post['image64'],
+            #'image64'       => $post['image64'],
         );
+
+        $image  = $post['image64'];
+        $base64 = explode(',', $image);
+        $imageFile = $this->uploadBase64File($base64[1]);
+
+        if (!$imageFile) {
+            $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
+        } else {
+            $productData['image'] = $imageFile;
+        }
 
         $validation = $this->validateData4Product($productData);
         if(!$validation['valid'])
@@ -107,7 +117,8 @@ class productControl extends Control {
         return RestServer::response(array(
             'status'    => 200,
             'id'        => $this->model()->getLastInsertId(),
-            'message'   => 'Cadastro realizado!'
+            'message'   => 'Cadastro realizado!',
+            'image'     => $imageFile
         ), 200);
 
     }
@@ -137,7 +148,7 @@ class productControl extends Control {
         echo Html::addImageUploadAction('read64', 'product-img');
     }
 
-    public function postEditProduct() {
+    public function updateProduct() {
 
         $post = $this->getPost();
 
@@ -147,8 +158,18 @@ class productControl extends Control {
             'weight'        => $post['weight'],
             'price'         => $post['price'],
             'description'   => $post['description'],
-            'image64'       => $post['image64'],
+            #'image64'       => $post['image64'],
         );
+
+        $image  = $post['image64'];
+        $base64 = explode(',', $image);
+        $imageFile = $this->uploadBase64File($base64[1]);
+
+        if (!$imageFile) {
+            $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
+        } else {
+            $productData['image'] = $imageFile;
+        }
 
         $validation = $this->validateData4Product($productData);
         if(!$validation['valid'])
@@ -162,7 +183,8 @@ class productControl extends Control {
 
         return RestServer::response(array(
             'status'    => 200,
-            'message'   => 'Cadastro atualizado!'
+            'message'   => 'Cadastro atualizado!',
+            'image'     => $imageFile
         ), 200);
     }
 
@@ -170,7 +192,7 @@ class productControl extends Control {
 
         $id = $this->getQueryString('id');
         $this->setId($id);
-        $product = $this->postEditProduct();
+        $product = $this->updateProduct();
 
         if ($product['status'] != 200) {
             $this->commitReplace($product['message'], '#message');

@@ -9,7 +9,7 @@
         </div>
         <div class="image left">
             <div class="image avatar">
-                <img name="image64" id="product-img" type="upload" class="left" src="{$product['image64']}"/>
+                <img name="image64" id="product-img" type="upload" class="left" src="{$product['image']}"/>
             </div>
             <p></p><label>Adicionar foto:</label><input id="read64" type="file"/></p>
         </div>

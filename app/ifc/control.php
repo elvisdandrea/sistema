@@ -113,7 +113,7 @@ class Control {
      * @param   string      $name       - The View name
      * @return  View
      */
-    public function view($name = 'default') {
+    final public function view($name = 'default') {
 
         if (!isset($this->view[$name])) return false;
         return $this->view[$name];
@@ -125,7 +125,7 @@ class Control {
      * @param   string      $name       - The View name
      * @return  bool
      */
-    public function newView($name = 'default') {
+    final public function newView($name = 'default') {
 
         $this->view[$name] = new View();
         $this->view($name)->setModuleName($this->moduleName);
@@ -137,7 +137,7 @@ class Control {
      * @param   string      $name       - The model name
      * @return  bool
      */
-    public function model($name = DEFAULT_CONNECTION) {
+    final public function model($name = DEFAULT_CONNECTION) {
 
         if (!isset($this->model[$name])) return false;
         return $this->model[$name];
@@ -150,10 +150,15 @@ class Control {
      *
      * @param   string      $name       - The model and connection name
      */
-    public function newModel($name = DEFAULT_CONNECTION) {
+    final public function newModel($name = DEFAULT_CONNECTION) {
 
         $model = $this->moduleName . 'Model';
         $this->model[$name] = new $model($name);
+    }
+
+    final protected function getModuleTransferPath() {
+
+        return Session::get('uid', 'company_id') . '/' . $this->moduleName;
     }
 
     /**
@@ -389,6 +394,33 @@ class Control {
 
         $this->view($viewId)->setVariable('params', $params);
         return $this->view($viewId)->render();
+
+    }
+
+    public function uploadBase64File($base64, $destDir = false, $type = 'aws') {
+
+        $destDir ||
+            $destDir = $this->getModuleTransferPath();
+
+        switch ($type) {
+            case 'aws':
+                return $this->uploadBase64FileAws($base64, $destDir);
+                break;
+        }
+    }
+
+    private function uploadBase64FileAws($base64, $destDir) {
+
+        $filename = uniqid() . date('Ymdhis') . '.jpg';
+        FileManager::rmkdir(AWSFILEDIR);
+        $sourceFile = AWSFILEDIR . '/' . $filename;
+        FileManager::saveBase64File($sourceFile, $base64);
+        $uploadAws = new Aws();
+        $uploadAws->setBucket('gravi.orbit.s3.amazonaws.com');
+        $uploadAws->setPath($destDir);
+        $result = $uploadAws->upload($sourceFile, $filename);
+        FileManager::removeFile($sourceFile);
+        return $result;
 
     }
 

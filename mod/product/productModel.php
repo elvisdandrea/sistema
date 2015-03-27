@@ -53,7 +53,7 @@ class productModel extends Model {
         foreach ($fields as $field)
                 $this->addField($field);
 
-        $this->addField('p.image64');
+        $this->addField('p.image');
 
         $this->addFrom('products p');
         $this->addFrom('left join categories c on c.id = p.category_id');
@@ -81,7 +81,7 @@ class productModel extends Model {
         $this->addField('p.weight');
         $this->addField('p.price');
         $this->addField('p.description');
-        $this->addField('p.image64');
+        $this->addField('p.image');
 
         $this->addFrom('products p');
         $this->addWhere('p.id = "' . $id . '"');
