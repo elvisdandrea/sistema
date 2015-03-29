@@ -1,3 +1,4 @@
+{$isPessoaFisica = $client['client_type'] == 'F'}
 <div>
 <form action="{$smarty.const.BASEDIR}client/editClient?id={$client['id']}">
     <div class="top-bar">
@@ -15,8 +16,27 @@
         <p></p><label>Adicionar foto:</label><input id="read64" type="file"/></p>
     </div>
     <div class="centered form-right">
+        <label>Tipo de pessoa</label>
+        <select name="client_type" id="client_type">
+            <option value="F"{if $isPessoaFisica} Selected{/if}>Pessoa física</option>
+            <option value="J"{if !$isPessoaFisica} Selected{/if}>Pessoa jurídica</option>
+        </select>
         <label>Nome:</label>
         <input type="text" name="client_name" value="{$client['client_name']}">
+        <div id="legal_entity" {if $isPessoaFisica} class="no-display"{/if}>
+            <label>Razão social:</label>
+            <input class="legal_entity_field" type="text" name="corporate_name" {if $isPessoaFisica}disabled{/if} value="{$client['corporate_name']}">
+            <label>Inscrição estadual:</label>
+            <input class="legal_entity_field" type="text" name="state_registration" {if $isPessoaFisica}disabled{/if} value="{$client['state_registration']}">
+            <label>Inscrição municipal:</label>
+            <input class="legal_entity_field" type="text" name="municipal_registration" {if $isPessoaFisica}disabled{/if} value="{$client['municipal_registration']}">
+            <label>Pessoa para contato:</label>
+            <input class="legal_entity_field" type="text" name="contact" {if $isPessoaFisica}disabled{/if} value="{$client['contact']}">
+        </div>
+        <label id="cpf_cnpj">{if $isPessoaFisica}CPF:{else}CNPJ:{/if}</label>
+        <input type="text" name="cpf_cnpj" value="{$client['cpf_cnpj']}">
+        <label>Email:</label>
+        <input type="text" name="email" value="{$client['email']}">
         <label>Telefone:</label>
         <input type="text" name="phone_1" value="{$client['phone_1']}">
         <label>Telefone (alternativo):</label>
@@ -38,6 +58,7 @@
         <table class="default">
 
             <thead>
+                <th>Tipo</th>
                 <th>Logradouro</th>
                 <th>Numero</th>
                 <th>Complemento</th>
@@ -51,6 +72,7 @@
             {foreach from=$addrList key="key" item="value"}
 
                 <tr>
+                    <td>{$value['address_type']}</td>
                     <td>{$value['street_addr']}</td>
                     <td>{$value['street_number']}</td>
                     <td>{$value['street_additional']}</td>
@@ -75,6 +97,11 @@
                 <a id="cancel_addr" class="button button-red" href="#">Cancelar</a>
             </div>
             <div class="half-width">
+                <label>Tipo: </label>
+                <select name="address_type">
+                    <option value="Residencial">Residencial</option>
+                    <option value="Comercial">Comercial</option>
+                </select>
                 <label>CEP: </label>
                 <input type="text" name="zip_code" id="zip_code">
                 <label>Rua: </label>

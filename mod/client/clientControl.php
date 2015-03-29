@@ -20,6 +20,8 @@ class clientControl extends Control {
 
         $this->model()->setGridRowLink('client/viewclient', 'id');
         $this->model()->addGridColumn('Imagem','image','Image');
+        $this->model()->addGridColumn('Tipo','client_type');
+        $this->model()->addGridColumn('CPF / CNPJ','cpf_cnpj');
         $this->model()->addGridColumn('Data','client_date');
         $this->model()->addGridColumn('Nome','client_name');
         $this->model()->addGridColumn('Telefone','phone_1');
@@ -155,7 +157,13 @@ class clientControl extends Control {
             'phone_1'       => String::convertTextFormat($post['phone_1'], 'fone'),
             'phone_2'       => String::convertTextFormat($post['phone_2'], 'fone'),
             'description'   => $post['description'],
-            #'image64'       => $post['image64'],
+            'client_type'   => $post['client_type'],
+            'cpf_cnpj'      => $post['cpf_cnpj'],
+            'email'         => $post['email'],
+            'corporate_name'         => $post['corporate_name'],
+            'state_registration'         => $post['state_registration'],
+            'municipal_registration'         => $post['municipal_registration'],
+            'contact'         => $post['contact'],
         );
 
         $validation = $this->validateDataForClient($clientData);
@@ -166,10 +174,15 @@ class clientControl extends Control {
         $base64 = explode(',', $image);
         $imageFile = $this->uploadBase64File($base64[1]);
 
-        if (!$imageFile) {
-            $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
-        } else {
-            $clientData['image'] = $imageFile;
+        if (!Html::isUrl($image)) {
+            $base64 = explode(',', $image);
+            $imageFile = $this->uploadBase64File($base64[1]);
+
+            if (!$imageFile) {
+                $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
+            } else {
+                $productData['image'] = $imageFile;
+            }
         }
 
         $this->model()->updateClient($clientData, $this->getId());
@@ -198,6 +211,7 @@ class clientControl extends Control {
         $post = $this->getPost();
 
         $userData = array(
+            'address_type'   => $post['address_type'],
             'zip_code'   => $post['zip_code'],
             'street_addr'       => $post['street_addr'],
             'hood'       => $post['hood'],

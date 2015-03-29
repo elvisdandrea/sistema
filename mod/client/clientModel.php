@@ -33,10 +33,17 @@ class clientModel extends Model {
         $this->addField('cli.id');
         $this->addField('cli.client_date');
         $this->addField('cli.client_name');
+        $this->addField('cli.client_type');
+        $this->addField('cli.cpf_cnpj');
         $this->addField('cli.phone_1');
         $this->addField('cli.phone_2');
+        $this->addField('cli.corporate_name');
+        $this->addField('cli.state_registration');
+        $this->addField('cli.municipal_registration');
+        $this->addField('cli.contact');
         $this->addField('cli.description');
         $this->addField('cli.image');
+        $this->addField('cli.email');
 
         $this->addFrom('clients cli');
         $this->addWhere('cli.id = "' . $id . '"');
@@ -57,10 +64,17 @@ class clientModel extends Model {
         $this->addField('cli.id');
         $this->addField('cli.client_date');
         $this->addField('cli.client_name');
+        $this->addField('cli.client_type');
+        $this->addField('cli.cpf_cnpj');
         $this->addField('cli.phone_1');
         $this->addField('cli.phone_2');
+        $this->addField('cli.corporate_name');
+        $this->addField('cli.state_registration');
+        $this->addField('cli.municipal_registration');
+        $this->addField('cli.contact');
         $this->addField('cli.description');
         $this->addField('cli.image');
+        $this->addField('cli.email');
 
         $this->addFrom('clients cli');
 
@@ -84,6 +98,7 @@ class clientModel extends Model {
 
     public function getClientAddrList($id){
         $this->addField('cdr.id');
+        $this->addField('cdr.address_type');
         $this->addField('cdr.street_addr');
         $this->addField('cdr.street_number');
         $this->addField('cdr.street_additional');
@@ -92,6 +107,7 @@ class clientModel extends Model {
         $this->addField('cdr.zip_code');
 
         $this->addFrom('client_addr cdr');
+        $this->addWhere('cdr.client_id = "' . $id .'"');
         $this->runQuery();
     }
 

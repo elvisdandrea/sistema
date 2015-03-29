@@ -5,6 +5,27 @@ $("#zip_code").blur(function() {
     }
 });
 
+$("#client_type").change(function(){
+    var data = $("#client_type").val();
+    if(data == 'F'){
+        addLegalEntityInputs();
+    }else{
+        removeLegalEntityInputs();
+    }
+});
+
+function addLegalEntityInputs(){
+    $("#legal_entity").hide();
+    $(".legal_entity_field").prop('disabled', true);
+    $("#cpf_cnpj").text('CPF:');
+}
+
+function removeLegalEntityInputs(){
+    $("#legal_entity").show();
+    $(".legal_entity_field").prop('disabled', false);
+    $("#cpf_cnpj").text('CNPJ:');
+}
+
 $('#new_addr').click(function(){
     $('#addr_list').hide();
     $('#new_addr_form').show();
