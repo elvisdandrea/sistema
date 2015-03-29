@@ -163,10 +163,10 @@ class clientControl extends Control {
             'client_type'   => $post['client_type'],
             'cpf_cnpj'      => $post['cpf_cnpj'],
             'email'         => $post['email'],
-            'corporate_name'         => $post['corporate_name'],
+            'contact'       => $post['contact'],
+            'corporate_name'             => $post['corporate_name'],
             'state_registration'         => $post['state_registration'],
-            'municipal_registration'         => $post['municipal_registration'],
-            'contact'         => $post['contact'],
+            'municipal_registration'     => $post['municipal_registration']
         );
 
         $validation = $this->validateDataForClient($clientData);

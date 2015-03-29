@@ -5,6 +5,7 @@
         <div class="buttons">
             <input class="button" type="submit" value="Salvar" />
             <a class="button button-red" href="{$smarty.const.BASEDIR}client">Voltar</a>
+            <a class="button button-darkblue" href="{$smarty.const.BASEDIR}request/newrequest?client_id={$client['id']}">Novo Pedido</a>
         </div>
         <div class="alert alert-error" id="message" style="display: none"></div>
     </div>

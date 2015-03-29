@@ -78,6 +78,16 @@ class requestModel extends Model {
 
     }
 
+    public function clientAddressListForRequest($client_id) {
+
+        $this->addField('address_type');
+        $this->addField('id');
+        $this->addFrom('client_addr');
+        $this->addWhere('client_id = "' . $client_id . '"');
+
+        $this->runQuery();
+    }
+
 
 
 }

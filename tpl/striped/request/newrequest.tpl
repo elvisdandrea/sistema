@@ -6,6 +6,7 @@
         </div>
         <div class="alert alert-error" id="message" style="display: none"></div>
     </div>
+    <h2>Cliente</h2>
     <input id="searchclient" type="text" value="" placeholder="Pesquise o cliente..." onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchclient?search=' + this.value)"/>
     <div id="client-results">
 
@@ -13,5 +14,7 @@
     <div id="client" style="display: none">
 
     </div>
-
+    <hr/>
+    <h2>Pedido</h2>
+    <a class="button" href="{$smarty.const.BASEDIR}">Adicionar Prato</a>
 </form>

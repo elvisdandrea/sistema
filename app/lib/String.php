@@ -182,7 +182,7 @@ class String {
     public static function phoneFormat($texto) {
 
         $result = '';
-        $s1 = $string = preg_replace('/[^0-9\-]/i','', $texto);
+        $s1 = $string = preg_replace('/[^0-9]/i','', $texto);
         $p = 0;
         for ($i = strlen($s1); $i > 0; $i--) {
             $p++;
@@ -264,10 +264,10 @@ class String {
                 return preg_match('/[0-9]/i', $string);
                 break;
             case 'fone': //Telefone
-                return preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{4,5}[\s\-]?\d{4}$/', $string);
+                return preg_match('/^([0-9]{2}\s[0-9]{4}\-[0-9]{4})|([0-9]{2}\s[0-9]{5}\-[0-9]{4})$/', $string);
                 break;
             case 'ddd': //Telefone com DDD
-                return preg_match('/^(\(0?\d{2}\)\s?|0?\d{2}[\s.-]?)\d{4,5}[\s\-]?\d{4}$/', $string);
+                return preg_match('/^([0-9]{2}\s[0-9]{4}\-[0-9]{4})|([0-9]{2}\s[0-9]{5}\-[0-9]{4})$/', $string);
                 break;
             case 'cnpj': //CNPJ
                 return preg_match('/^(\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2})$/', $string);

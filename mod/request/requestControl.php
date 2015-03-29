@@ -23,11 +23,17 @@ class requestControl extends Control {
         $this->view()->loadTemplate('newrequest');
         $this->view()->appendJs('events');
         $this->commitReplace($this->view()->render(), '#content');
+        $client_id = $this->getQueryString('client_id');
+        if ($client_id)
+            $this->selClient($client_id);
     }
 
     public function searchClient() {
 
         $search = $this->getQueryString('search');
+        if (empty($search))
+            $this->commitReplace('','#client-results', false);
+
         $this->model()->searchClientForRequest($search);
         $this->view()->loadTemplate('clientresult');
         $clients = $this->model()->getRows();
@@ -36,12 +42,14 @@ class requestControl extends Control {
 
     }
 
-    public function selClient() {
-        $id = $this->getQueryString('id');
+    public function selClient($id = false) {
+        $id || $id = $this->getQueryString('id');
         $this->model()->selClientForRequest($id);
         $this->commitReplace('', '#client-results');
         $this->view()->loadTemplate('requestclient');
         $this->view()->setVariable('client', $this->model()->getRow(0));
+        $this->model()->clientAddressListForRequest($id);
+        $this->view()->setVariable('address_list', $this->model()->getRows());
         $this->commitReplace($this->view()->render(),'#client');
         $this->commitShow('#client');
         $this->commitSetValue('#searchclient', '');
@@ -51,6 +59,13 @@ class requestControl extends Control {
     public function changeClient() {
         $this->commitShow('#searchclient');
         $this->commitReplace('', '#client');
+    }
+
+    public function selAddress() {
+
+        $id = $this->getQueryString('id');
+
+
     }
 
 }
