@@ -46,6 +46,17 @@ class productControl extends Control {
         echo Html::addImageUploadAction('read64', 'product-img');
     }
 
+    public function factList() {
+
+        $this->newModel('auth');
+        $this->model('auth')->getNutrictionProductList();
+        $this->view()->loadTemplate('factlist');
+        $selected = $this->getQueryString('selected');
+        if ($selected) $this->view()->setVariable('selected', $selected);
+        $this->view()->setVariable('facts', $this->model('auth')->getRows());
+        $this->commitPrint($this->view()->render());
+    }
+
     public function categoryList() {
 
         $this->view()->loadTemplate('categorylist');
@@ -144,7 +155,8 @@ class productControl extends Control {
         $this->view()->setVariable('product', $product);
         $this->view()->setVariable('id', $id);
         $this->commitReplace($this->view()->render(), '#content');
-        echo Html::AsyncLoadList('addproduct', $product['category_id']);
+        echo Html::AsyncLoadList('categorylist', $product['category_id']);
+        echo Html::AsyncLoadList('fact', $product['product_fact']);
         echo Html::addImageUploadAction('read64', 'product-img');
     }
 

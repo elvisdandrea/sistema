@@ -280,10 +280,12 @@ class Model {
     public function setConnection($name) {
 
         if (Core::isLoggedIn()) {
-            $this->createNewConnection('uid', Session::get('uid', 'db_connection'));
-        } else {
-            isset($this->connections[$name]) || $this->loadConnectionFile($name);
+            isset($this->connections['uid']) ||
+                $this->createNewConnection('uid', Session::get('uid', 'db_connection'));
         }
+
+        isset($this->connections[$name]) || $this->loadConnectionFile($name);
+
         $this->connection = $name;
     }
 

@@ -28,6 +28,18 @@ class productModel extends Model {
         return !$this->isEmpty();
     }
 
+
+    public function getNutrictionProductList() {
+
+        $this->addField('*');
+        $this->addFrom('nutri_facts');
+        $this->runQuery();
+    }
+
+    public function getNutrictionFacts($product) {
+
+    }
+
     public function getCountProducts() {
 
         $this->addField('count(id) as total');
@@ -82,6 +94,7 @@ class productModel extends Model {
         $this->addField('p.price');
         $this->addField('p.description');
         $this->addField('p.image');
+        $this->addField('p.product_fact');
 
         $this->addFrom('products p');
         $this->addWhere('p.id = "' . $id . '"');

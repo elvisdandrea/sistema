@@ -83,28 +83,27 @@ Html.prototype = {
      * called. The request response must be the view of the
      * element with the found options
      *
-     * @param       id      - The Select ID
+     * @param       id          - The Select ID
+     * @param       selected    - The selected option value
      * @constructor
      */
     AsyncLoadList: function(id, selected) {
 
-        $('#'+id).ready(function(){
-            $('#'+id + ' select[href]').each(function(){
+        $('select#' + id + '[href]').each(function(){
 
-                var elemId = $(this).attr('id');
-                var action = $(this).attr('href');
+            var action = $(this).attr('href');
 
-                if (selected != undefined)
-                        action += '?selected='+selected;
-                Html.Get(action, function(a){
-                    $('#'+id + ' #'+elemId).html(a);
-                    //$('#'+id + ' #'+elemId).trigger('chosen:updated');
-                    return false;
-                });
-
+            if (selected != undefined)
+                action += '?selected='+selected;
+            Html.Get(action, function(a){
+                $('#'+id).html(a);
+                //$('#'+id + ' #'+elemId).trigger('chosen:updated');
+                return false;
             });
-            return false;
+
         });
+
+
     },
 
     /**
