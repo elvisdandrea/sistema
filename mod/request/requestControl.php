@@ -45,6 +45,12 @@ class requestControl extends Control {
         $this->commitReplace($this->view()->render(),'#client');
         $this->commitShow('#client');
         $this->commitSetValue('#searchclient', '');
+        $this->commitHide('#searchclient');
+    }
+
+    public function changeClient() {
+        $this->commitShow('#searchclient');
+        $this->commitReplace('', '#client');
     }
 
 }

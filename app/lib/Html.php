@@ -73,7 +73,7 @@ class Html {
      * @return  string
      */
     public static function SetValue($value, $element) {
-        return 'Html.SetValue(\'' . $element . '\',\'' . $value . '\')';
+        return 'Html.SetValue(\'' . $element . '\',\'' . $value . '\');';
     }
 
     /**

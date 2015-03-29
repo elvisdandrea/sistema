@@ -1070,8 +1070,7 @@ div.avatar-small img {
 	max-height: 55px;
 	left: 50%;
 	margin-left: -50%;
-	top: 50%;
-	margin-top: -50%;
+	height: 100%;
 }
 
 div.result-list {
