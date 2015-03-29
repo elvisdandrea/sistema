@@ -6,7 +6,7 @@
 <div class="centered form-right">
     <input type="hidden" value="{$client['id']}" name="client_id" />
     <label >Cliente:</label><label >{$client['client_name']}</label>
-    <label >Fone:</label><label >{$client['phone_1']}</label>
+    <label >Fones:</label><label >{$client['phone_1']}</label>
     <a class="button" href="{$smarty.const.BASEDIR}request/changeclient">Alterar</a>
     <select onchange="Main.quickLink('{$smarty.const.BASEDIR}request/seladdress?id=' + this.value)">
         <option value="">Selecione o endereço...</option>
@@ -14,4 +14,7 @@
             <option value="{$address['id']}">{$address['address_type']}</option>
         {/foreach}
     </select>
+    <div id="address-table">
+
+    </div>
 </div>

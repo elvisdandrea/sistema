@@ -64,7 +64,16 @@ class requestControl extends Control {
     public function selAddress() {
 
         $id = $this->getQueryString('id');
+        $this->model()->getClistAddressForRequest($id);
 
+        $this->model()->addGridColumn('Endereco', 'street_addr');
+        $this->model()->addGridColumn('Numero', 'street_number');
+        $this->model()->addGridColumn('Complemento', 'street_additional');
+        $this->model()->addGridColumn('Bairro', 'hood');
+        $this->model()->addGridColumn('Cidade', 'city');
+        $this->model()->addGridColumn('Cep', 'zip');
+
+        $this->commitReplace($this->model()->dbGrid(), '#address-table');
 
     }
 

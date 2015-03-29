@@ -5,8 +5,7 @@
                 <img src="{$client['image']}" alt="avatar">
             </div>
             <label>{$client['client_name']}</label>
-            <label>{$client['phone_1']}</label>
-            <label>{$client['pphone_2']}</label>
+            <label>{$client['phones']}</label>
             <label>{$client['email']}</label>
         </div>
     {/foreach}

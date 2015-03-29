@@ -22,29 +22,31 @@ class requestModel extends Model {
     public function searchClientForRequest($search) {
 
         $fields = array(
-            'client_name',
-            'cpf_cnpj',
-            'phone_1',
-            'phone_2',
-            'email',
-            'corporate_name',
-            'state_registration',
-            'municipal_registration',
-            'contact'
+            'c.client_name',
+            'c.cpf_cnpj',
+            'c.email',
+            'c.corporate_name',
+            'c.state_registration',
+            'c.municipal_registration',
+            'c.contact'
         );
 
         foreach ($fields as $field)
                 $this->addField($field);
 
-        $this->addField('id');
-        $this->addField('client_type');
-        $this->addField('image');
+        $this->addField('c.id');
+        $this->addField('group_concat(p.phone_number separator ",") as phones');
+        $this->addField('c.client_type');
+        $this->addField('c.image');
 
-        $this->addFrom('clients');
-
+        $this->addFrom('clients c');
+        $this->addFrom('left join client_phone p on p.client_id = c.id');
 
         foreach ($fields as $field)
             $this->addWhere($field . ' like "%' . str_replace(' ', '%', $search) . '%"', 'OR');
+
+        $this->addWhere('p.phone_number like "%' . str_replace(' ', '%', $search) . '%"');
+        $this->addGroup('c.id');
 
         $this->runQuery();
 
@@ -52,27 +54,26 @@ class requestModel extends Model {
 
     public function selClientForRequest($id) {
         $fields = array(
-            'id',
-            'client_name',
-            'cpf_cnpj',
-            'phone_1',
-            'phone_2',
-            'email',
-            'corporate_name',
-            'state_registration',
-            'municipal_registration',
-            'contact',
-            'client_type',
-            'image'
+            'c.id',
+            'c.client_name',
+            'c.cpf_cnpj',
+            'c.email',
+            'group_concat(p.phone_number separator ",") as phones',
+            'c.corporate_name',
+            'c.state_registration',
+            'c.municipal_registration',
+            'c.contact',
+            'c.client_type',
+            'c.image'
         );
 
         foreach ($fields as $field)
             $this->addField($field);
 
 
-        $this->addFrom('clients');
-
-        $this->addWhere('id = "' . $id . '"');
+        $this->addFrom('clients c');
+        $this->addFrom('left join client_phone p on p.client_id = c.id');
+        $this->addWhere('c.id = "' . $id . '"');
 
         $this->runQuery();
 
@@ -86,6 +87,23 @@ class requestModel extends Model {
         $this->addWhere('client_id = "' . $client_id . '"');
 
         $this->runQuery();
+    }
+
+    public function getClistAddressForRequest($address_id) {
+
+        $this->addField('a.street_addr');
+        $this->addField('a.street_number');
+        $this->addField('a.street_additional');
+        $this->addField('a.hood');
+        $this->addField('a.city');
+        $this->addField('a.zip_code');
+        $this->addField('a.lat');
+        $this->addField('a.lng');
+
+        $this->addFrom('client_addr a');
+        $this->addWhere('a.id = "' . $address_id . '"');
+        $this->runQuery();
+
     }
 
 
