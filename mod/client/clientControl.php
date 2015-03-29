@@ -22,7 +22,7 @@ class clientControl extends Control {
         $this->model()->addGridColumn('Imagem','image','Image');
         $this->model()->addGridColumn('Tipo','client_type');
         $this->model()->addGridColumn('CPF / CNPJ','cpf_cnpj');
-        $this->model()->addGridColumn('Data','client_date');
+        $this->model()->addGridColumn('Data','client_date', 'DateTime');
         $this->model()->addGridColumn('Nome','client_name');
         $this->model()->addGridColumn('Telefone','phone_1');
         $this->model()->addGridColumn('Telefone(alternativo)','phone_2');
@@ -51,7 +51,6 @@ class clientControl extends Control {
             'phone_1'       => String::convertTextFormat($post['phone_1'], 'fone'),
             'phone_2'       => String::convertTextFormat($post['phone_2'], 'fone'),
             'description'   => $post['description'],
-            #'image64'       => $post['image64'],
         );
 
         $valitation = $this->validateDataForClient($clientData);
@@ -61,14 +60,18 @@ class clientControl extends Control {
             return RestServer::throwError($message, 400);
         }
 
-        $image  = $post['image64'];
-        $base64 = explode(',', $image);
-        $imageFile = $this->uploadBase64File($base64[1]);
+        $image      = $post['image64'];
+        $imageFile  = $image;
 
-        if (!$imageFile) {
-            $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
-        } else {
-            $clientData['image'] = $imageFile;
+        if (!Html::isUrl($image)) {
+            $base64 = explode(',', $image);
+            $imageFile = $this->uploadBase64File($base64[1]);
+
+            if (!$imageFile) {
+                $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
+            } else {
+                $clientData['image'] = $imageFile;
+            }
         }
 
         $this->model()->addClient($clientData);

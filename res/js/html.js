@@ -64,6 +64,18 @@ Html.prototype = {
     },
 
     /**
+     * Sets an element value
+     *
+     * @param           block       - The element
+     * @param           value       - The value
+     * @constructor
+     */
+    SetValue : function(block, value) {
+
+        $(block).val(value);
+    },
+
+    /**
      * Redirects to a Location
      *
      * @param       location        - Where to go

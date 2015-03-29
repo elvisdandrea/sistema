@@ -341,6 +341,12 @@ class Control {
         $stay || $this->terminate();
     }
 
+    protected function commitSetValue($block, $value, $stay = true) {
+
+        echo Html::SetValue($value, $block);
+        $stay || $this->terminate();
+    }
+
     /**
      * Scrolls to an element
      *

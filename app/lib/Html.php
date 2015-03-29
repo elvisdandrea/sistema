@@ -65,6 +65,18 @@ class Html {
     }
 
     /**
+     * Returns the function to dinamically
+     * set an element value
+     *
+     * @param   string      $value      - The value to be set
+     * @param   string      $element    - The element
+     * @return  string
+     */
+    public static function SetValue($value, $element) {
+        return 'Html.SetValue(\'' . $element . '\',\'' . $value . '\')';
+    }
+
+    /**
      * Still to be implemented
      *
      */

@@ -1052,3 +1052,28 @@ div.alert.alert-error {
 .no-display{
     display: none;
 }
+
+div.avatar-small {
+	border-radius: 50%;
+	display: inline-block;
+	height: 55px;
+	overflow: hidden;
+	vertical-align: middle;
+	width: 55px;
+	margin-top: -5px;
+	margin-right: 15px;
+}
+
+div.avatar-small img {
+	max-height: 55px;
+	margin-left: -20px;
+}
+
+div.result-list {
+
+}
+
+div.result-list label {
+	margin-left: 0.8em;
+	width: 2em;
+}

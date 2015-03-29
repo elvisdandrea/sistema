@@ -40,15 +40,23 @@
                         {if ($fieldparams['type'] == 'Text')}
                             {$row[$fieldparams['field']]}
 
+                        <!--    DateTime Type Cell  -->
+                        {elseif ($fieldparams['type'] == 'DateTime')}
+                            {String::FormatDateTimeToLoad($row[$fieldparams['field']])}
+
+                        <!--    Date Type Cell  -->
+                        {elseif ($fieldparams['type'] == 'Date')}
+                            {String::FormatDateToLoad($row[$fieldparams['field']])}
+
+                        <!--    Date Type Cell  -->
+                        {elseif ($fieldparams['type'] == 'Time')}
+                            {String::FormatTimeToLoad($row[$fieldparams['field']])}
+
                         <!--    Image Type Cell  -->
                         {elseif ($fieldparams['type'] == 'Image')}
                             {if ($row[$fieldparams['field']] != '')}
                                 <img width="120px" src="{$row[$fieldparams['field']]}" />
                             {/if}
-
-                        <!--    Date Type Cell  -->
-                        {elseif ($fieldparams['type'] == 'Date')}
-                            {String::formatDateTimeToLoad($row[$fieldparams['field']])}
 
                         <!--    Input Type Cell  -->
                         {elseif ($fieldparams['type'] == 'Input')}
