@@ -105,6 +105,7 @@ class Aws {
             $factory = S3Client::factory($this->authentication);
         } catch (S3Exception $e) {
             $this->errors[] = $e->getMessage();
+            debug($this->errors);
         }
 
         return $factory;
