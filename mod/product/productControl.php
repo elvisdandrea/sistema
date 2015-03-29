@@ -57,9 +57,9 @@ class productControl extends Control {
         $this->commitPrint($this->view()->render());
     }
 
-    public function loadNutrictionFacts() {
+    public function loadNutrictionFacts($product_id = false) {
 
-        $product_id = $this->getQueryString('id');
+        $product_id || $product_id = $this->getQueryString('id');
         $this->newModel('auth');
         $this->model('auth')->getNutrictionFacts($product_id);
         $this->model('auth')->addGridColumn('Tipo','fact_type');
@@ -109,21 +109,26 @@ class productControl extends Control {
             'weight'        => $post['weight'],
             'price'         => $post['price'],
             'description'   => $post['description'],
-            #'image64'       => $post['image64'],
+            'product_fact'  => $post['product_fact']
         );
 
         $validation = $this->validateData4Product($productData);
         if(!$validation['valid'])
             return RestServer::throwError(implode(', ', $validation['message']));
 
-        $image  = $post['image64'];
-        $base64 = explode(',', $image);
-        $imageFile = $this->uploadBase64File($base64[1]);
+        $image      = $post['image64'];
+        $imageFile  = $image;
 
-        if (!$imageFile) {
-            $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
-        } else {
-            $productData['image'] = $imageFile;
+        if (!Html::isUrl($image)) {
+            $base64 = explode(',', $image);
+            $imageFile = $this->uploadBase64File($base64[1]);
+
+            if (!$imageFile) {
+                $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
+            } else {
+                $productData['image'] = $imageFile;
+            }
+
         }
 
         $this->model()->insertProduct($productData);
@@ -168,6 +173,8 @@ class productControl extends Control {
         echo Html::AsyncLoadList('categorylist', $product['category_id']);
         echo Html::AsyncLoadList('fact', $product['product_fact']);
         echo Html::addImageUploadAction('read64', 'product-img');
+        if (intval($product['product_fact']) > 0)
+            $this->loadNutrictionFacts($product['product_fact']);
     }
 
     public function updateProduct() {
@@ -180,7 +187,7 @@ class productControl extends Control {
             'weight'        => $post['weight'],
             'price'         => $post['price'],
             'description'   => $post['description'],
-            #'image64'       => $post['image64'],
+            'product_fact'  => $post['product_fact'],
         );
 
         $validation = $this->validateData4Product($productData);
@@ -188,13 +195,16 @@ class productControl extends Control {
             return RestServer::throwError(implode(', ', $validation['message']));
 
         $image  = $post['image64'];
-        $base64 = explode(',', $image);
-        $imageFile = $this->uploadBase64File($base64[1]);
 
-        if (!$imageFile) {
-            $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
-        } else {
-            $productData['image'] = $imageFile;
+        if (!Html::isUrl($image)) {
+            $base64 = explode(',', $image);
+            $imageFile = $this->uploadBase64File($base64[1]);
+
+            if (!$imageFile) {
+                $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
+            } else {
+                $productData['image'] = $imageFile;
+            }
         }
 
         $this->model()->updateProduct($productData, $this->getId());

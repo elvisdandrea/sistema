@@ -104,6 +104,12 @@ class Html {
         return implode('&', $result);
     }
 
+    public static function isUrl($string) {
+
+        $url = parse_url($string);
+        return isset($url['scheme']) && in_array($url['scheme'], array('http', 'https'));
+    }
+
     /**
      * Refreshes Current Page
      */
