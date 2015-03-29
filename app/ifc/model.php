@@ -527,7 +527,7 @@ class Model {
         $row = 0;
         while ($res = $result->fetchObject()) {
             foreach ($res as $field => $value) {
-                $obj[$row][$field] = utf8_encode($value);
+                $obj[$row][$field] = $value;
             }
             $row++;
         }

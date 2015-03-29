@@ -71,7 +71,7 @@ class requestControl extends Control {
         $this->model()->addGridColumn('Complemento', 'street_additional');
         $this->model()->addGridColumn('Bairro', 'hood');
         $this->model()->addGridColumn('Cidade', 'city');
-        $this->model()->addGridColumn('Cep', 'zip');
+        $this->model()->addGridColumn('Cep', 'zip_code');
 
         $this->commitReplace($this->model()->dbGrid(), '#address-table');
 
