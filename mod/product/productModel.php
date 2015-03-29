@@ -42,9 +42,11 @@ class productModel extends Model {
         $this->addField('f.product');
         $this->addField('f.serving');
         $this->addField('i.fact_per_serving');
+        $this->addField('concat(i.fact_per_serving, t.unit) as fact_unit');
         $this->addField('t.fact_type');
         $this->addField('t.unit');
         $this->addField('t.vd');
+        $this->addField('CAST(((i.fact_per_serving * 100) / t.vd) AS UNSIGNED) as fact_vd');
 
         $this->addFrom('nutri_facts f');
         $this->addFrom('inner join nutri_facts_item i on i.product_id = f.id');

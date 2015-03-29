@@ -62,7 +62,9 @@ class productControl extends Control {
         $product_id || $product_id = $this->getQueryString('id');
         $this->newModel('auth');
         $this->model('auth')->getNutrictionFacts($product_id);
-        $this->model('auth')->addGridColumn('Tipo','fact_type');
+        $this->model('auth')->addGridColumn('','fact_type');
+        $this->model('auth')->addGridColumn('Quantidade por porção','fact_unit');
+        $this->model('auth')->addGridColumn('VD %','fact_vd');
         $this->commitReplace($this->model('auth')->dbGrid(), '#nutriction-table');
 
     }
