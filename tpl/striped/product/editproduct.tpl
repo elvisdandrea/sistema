@@ -20,7 +20,8 @@
             <label for="weight">Peso:</label><input type="text" id="weight" name="weight"  value="{$product['weight']}" />
             <label for="price">Valor:</label><input type="text" id="price" name="price"  value="{$product['price']}" />
             <label for="description">Descrição:</label><textarea id="description" name="description">{$product['description']}</textarea>
-            <label for="facts">Tipo de produto:</label><select id="fact" name="product_fact" href="{$smarty.const.BASEDIR}product/factlist"></select>
+            <label for="facts">Tipo de produto:</label><select id="fact" name="product_fact" href="{$smarty.const.BASEDIR}product/factlist" onchange="Main.quickLink('{$smarty.const.BASEDIR}product/loadnutrictionfacts?id='+this.value)"></select>
         </div>
     </form>
+    <div id="nutriction-table"></div>
     </div>

@@ -36,7 +36,23 @@ class productModel extends Model {
         $this->runQuery();
     }
 
-    public function getNutrictionFacts($product) {
+    public function getNutrictionFacts($product_id) {
+
+        $this->addField('f.id');
+        $this->addField('f.product');
+        $this->addField('f.serving');
+        $this->addField('i.fact_per_serving');
+        $this->addField('t.fact_type');
+        $this->addField('t.unit');
+        $this->addField('t.vd');
+
+        $this->addFrom('nutri_facts f');
+        $this->addFrom('inner join nutri_facts_item i on i.product_id = f.id');
+        $this->addFrom('inner join nutri_facts_types t on t.id = i.type_id');
+
+        $this->addWhere('f.id = "' . $product_id . '"');
+
+        $this->runQuery();
 
     }
 

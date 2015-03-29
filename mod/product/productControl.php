@@ -57,6 +57,16 @@ class productControl extends Control {
         $this->commitPrint($this->view()->render());
     }
 
+    public function loadNutrictionFacts() {
+
+        $product_id = $this->getQueryString('id');
+        $this->newModel('auth');
+        $this->model('auth')->getNutrictionFacts($product_id);
+        $this->model('auth')->addGridColumn('Tipo','fact_type');
+        $this->commitReplace($this->model('auth')->dbGrid(), '#nutriction-table');
+
+    }
+
     public function categoryList() {
 
         $this->view()->loadTemplate('categorylist');
