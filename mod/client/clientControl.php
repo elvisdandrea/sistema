@@ -173,11 +173,11 @@ class clientControl extends Control {
         if(!$validation['valid'])
             return RestServer::throwError(implode(', ', $validation['message']));
 
-        $image  = $post['image64'];
-        $base64 = explode(',', $image);
-        $imageFile = $this->uploadBase64File($base64[1]);
+        $image      = $post['image64'];
+        $imageFile  = $image;
 
         if (!Html::isUrl($image)) {
+
             $base64 = explode(',', $image);
             $imageFile = $this->uploadBase64File($base64[1]);
 
