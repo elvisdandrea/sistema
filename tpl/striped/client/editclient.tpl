@@ -140,10 +140,7 @@
             </div>
             <div class="half-width">
                 <label>Tipo: </label>
-                <select name="address_type">
-                    <option value="Residencial">Residencial</option>
-                    <option value="Comercial">Comercial</option>
-                </select>
+                <input type="text" name="address_type">
                 <label>CEP: </label>
                 <input type="text" name="zip_code" id="zip_code">
                 <label>Rua: </label>
