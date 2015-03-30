@@ -24,9 +24,8 @@ class clientControl extends Control {
         $this->model()->addGridColumn('CPF / CNPJ','cpf_cnpj');
         $this->model()->addGridColumn('Data','client_date', 'DateTime');
         $this->model()->addGridColumn('Nome','client_name');
-        $this->model()->addGridColumn('Telefone','phone_1');
-        $this->model()->addGridColumn('Telefone(alternativo)','phone_2');
         $this->model()->addGridColumn('Descrição','description');
+        $this->model()->addGridColumn('Email','email');
 
         $this->view()->setVariable('clientlist', $this->model()->dbGrid());
         $this->commitReplace($this->view()->render(), '#content');
@@ -34,13 +33,20 @@ class clientControl extends Control {
 
     public function newClient() {
         $this->view()->loadTemplate('newclient');
+        $this->view()->appendJs('client');
         $this->commitReplace($this->view()->render(), '#content');
         echo Html::addImageUploadAction('read64', 'client-img');
     }
 
     public function addNewClient(){
         $status = $this->postAddClient();
-        $this->commitReplace($status['message'], '#message');
+        if ($status['status'] != 200) {
+            $this->commitReplace($status['message'], '#message');
+            $this->commitShow('#message');
+            $this->terminate();
+        }
+        $clientId = $this->model()->getLastInsertId();
+        $this->viewClient($clientId);
     }
 
     public function postAddClient(){
@@ -48,9 +54,14 @@ class clientControl extends Control {
 
         $clientData = array(
             'client_name'   => $post['client_name'],
-            'phone_1'       => String::convertTextFormat($post['phone_1'], 'fone'),
-            'phone_2'       => String::convertTextFormat($post['phone_2'], 'fone'),
             'description'   => $post['description'],
+            'client_type'   => $post['client_type'],
+            'cpf_cnpj'      => $post['cpf_cnpj'],
+            'email'         => $post['email'],
+            'contact'       => $post['contact'],
+            'corporate_name'             => $post['corporate_name'],
+            'state_registration'         => $post['state_registration'],
+            'municipal_registration'     => $post['municipal_registration']
         );
 
         $valitation = $this->validateDataForClient($clientData);
@@ -103,25 +114,13 @@ class clientControl extends Control {
             $return['message'][] = "O campo 'Nome' não pode ser vazio";
         }
 
-        if(empty($postData['phone_1'])){
-            $return['valid']     = false;
-            $return['message'][] = "O campo 'Telefone' não pode ser vazio";
-        }
-        if(!empty($postData['phone_1']) && !String::validateTextFormat($postData['phone_1'], 'fone')){
-            $return['valid']     = false;
-            $return['message'][] = "O campo 'Telefone' não é um telefone válido";
-        }
-
-        if(!empty($postData['phone_2']) && !String::validateTextFormat($postData['phone_2'], 'fone')){
-            $return['valid']     = false;
-            $return['message'][] = "O campo 'Telefone(alternativo)' não é um telefone válido";
-        }
-
         return $return;
     }
 
-    public function viewClient(){
-        $id = $this->getQueryString('id');
+    public function viewClient($id = false){
+        if($id == false) {
+            $id = $this->getQueryString('id');
+        }
 
         $this->model()->getClient($id);
         $client = $this->model()->getRow(0);
@@ -130,10 +129,13 @@ class clientControl extends Control {
         $this->view()->loadTemplate('editclient');
         $this->view()->appendJs('client');
 
-        $this->model()->getClientAddrList($id);;
+        $this->model()->getClientAddrList($id);
         $addrList = $this->model()->getRows();
+        $this->model()->getClientPhoneList($id);
+        $phoneList = $this->model()->getRows();
 
         $this->view()->setVariable('addrList', $addrList);
+        $this->view()->setVariable('phoneList', $phoneList);
 
         $this->commitReplace($this->view()->render(), '#content');
         echo Html::addImageUploadAction('read64', 'client-img');
@@ -157,8 +159,6 @@ class clientControl extends Control {
 
         $clientData = array(
             'client_name'   => $post['client_name'],
-            'phone_1'       => String::convertTextFormat($post['phone_1'], 'fone'),
-            'phone_2'       => String::convertTextFormat($post['phone_2'], 'fone'),
             'description'   => $post['description'],
             'client_type'   => $post['client_type'],
             'cpf_cnpj'      => $post['cpf_cnpj'],
@@ -247,6 +247,102 @@ class clientControl extends Control {
     public function deleteClientAddr(){
         $id = $this->getId();
         $this->model()->removeClientAddr($id);
+
+        if (!$this->model()->queryOk()) {
+            return RestServer::throwError(Language::QUERY_ERROR(), 500);
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'message'   => 'Cadastro removido!'
+        ), 200);
+    }
+
+    public function addClientPhone(){
+        $id = $this->getQueryString('id');
+        $this->setId($id);
+        $status = $this->postAddClientPhone();
+        if ($status['status'] != 200) {
+            $this->commitReplace($status['message'], '#message');
+            $this->commitShow('#message');
+            $this->terminate();
+        }
+        $this->viewClient();
+    }
+
+    public function postAddClientPhone(){
+        $post = $this->getPost();
+
+        $userData = array(
+            'phone_type'   => $post['phone_type'],
+            'phone_number'   => String::convertTextFormat($post['phone_number'], 'fone'),
+        );
+
+        $valitation = $this->validatePhone($userData);
+
+        if($valitation['valid'] === FALSE) {
+            $message = implode(', ', $valitation['message']);
+            return RestServer::throwError($message, 400);
+        }
+
+        $this->model()->addClientPhone($userData, $this->getId());
+
+        if (!$this->model()->queryOk()) {
+            return RestServer::throwError(Language::QUERY_ERROR(), 500);
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'message'   => 'Cadastro atualizado!'
+        ), 200);
+    }
+
+    private function validatePhone($postData){
+        $return = array(
+            'valid'     => true,
+            'message'   => '',
+        );
+
+        if(empty($postData['phone_type'])){
+            $return['valid']     = false;
+            $return['message'][] = "O tipo de telefone não pode ser vazio";
+        }
+
+        if(empty($postData['phone_number'])){
+            $return['valid']     = false;
+            $return['message'][] = "O campo 'numero' não pode ser vazio";
+        }
+
+        if(!empty($postData['phone_number']) && !String::validateTextFormat($postData['phone_number'], 'fone')) {
+            $return['valid'] = false;
+            $return['message'][] = "O numero inserido não é um telefone válido";
+        }
+
+        $this->model()->findPhoneByNumber($postData['phone_number']);
+        $phoneNumber = $this->model()->getRows();
+        if(!empty($phoneNumber)){
+            $return['valid'] = false;
+            $return['message'][] = "Este numero de telefone já esta cadastrado";
+        }
+
+        return $return;
+    }
+
+    public function removePhone(){
+        $addr_id = $this->getQueryString('addr_id');
+        $this->setId($addr_id);
+        $status = $this->deleteClientPhone();
+        if ($status['status'] != 200) {
+            $this->commitReplace($status['message'], '#message');
+            $this->commitShow('#message');
+            $this->terminate();
+        }
+        $this->viewClient();
+    }
+
+    public function deleteClientPhone(){
+        $id = $this->getId();
+        $this->model()->removeClientPhone($id);
 
         if (!$this->model()->queryOk()) {
             return RestServer::throwError(Language::QUERY_ERROR(), 500);

@@ -36,6 +36,16 @@ $('#cancel_addr').click(function(){
     $('#new_addr_form').hide();
 });
 
+$('#new_phone').click(function(){
+    $('#phone_list').hide();
+    $('#new_phone_form').show();
+});
+
+$('#cancel_phone').click(function(){
+    $('#phone_list').show();
+    $('#new_phone_form').hide();
+});
+
 function cepSearch(cep){
     $.ajax({
         type: "GET",
