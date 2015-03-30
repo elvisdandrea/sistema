@@ -38,10 +38,6 @@
         <input type="text" name="cpf_cnpj" value="{$client['cpf_cnpj']}">
         <label>Email:</label>
         <input type="text" name="email" value="{$client['email']}">
-        <label>Telefone:</label>
-        <input type="text" name="phone_1" value="{$client['phone_1']}">
-        <label>Telefone (alternativo):</label>
-        <input type="text" name="phone_2" value="{$client['phone_2']}">
         <label>Descrição:</label>
         <textarea name="description">{$client['description']}</textarea>
     </div>
@@ -50,6 +46,51 @@
 </div>
 <div id="message">
 
+</div>
+<hr>
+<div id="phone_list">
+    <h3>Telefones:</h3>
+    <a class="button button-red" id="new_phone" href="#">Novo</a>
+    <div class="table-wrapper">
+        <table class="default">
+
+            <thead>
+            <th>Tipo</th>
+            <th>Numero</th>
+            <th></th>
+            </thead>
+            <tbody>
+
+            {foreach from=$phoneList key="key" item="value"}
+
+                <tr>
+                    <td>{$value['phone_type']}</td>
+                    <td>{$value['phone_number']}</td>
+                    <td>
+                        <a href="{$smarty.const.BASEDIR}client/removePhone?id={$client['id']}&addr_id={$value['id']}" class="button button-red">Remover</a>
+                    </td>
+                </tr>
+            {/foreach}
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="new_phone_form" class="no-display">
+    <h3>Telefones:</h3>
+    <div>
+        <form action="{$smarty.const.BASEDIR}client/addClientPhone?id={$client['id']}">
+            <div>
+                <input class="button" type="submit" value="Salvar" />
+                <a id="cancel_phone" class="button button-red" href="#">Cancelar</a>
+            </div>
+            <div class="half-width">
+                <label>Tipo: </label>
+                <input type="text" name="phone_type">
+                <label>Numero: </label>
+                <input type="text" name="phone_number">
+            </div>
+        </form>
+    </div>
 </div>
 <hr>
 <div id="addr_list">
@@ -118,7 +159,7 @@
                 <input type="text" name="street_number">
                 <label>Complemento: </label>
                 <input type="text" name="street_additional">
-                <form>
             </div>
+        </form>
     </div>
 </div>

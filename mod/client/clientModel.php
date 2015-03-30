@@ -35,8 +35,6 @@ class clientModel extends Model {
         $this->addField('cli.client_name');
         $this->addField('cli.client_type');
         $this->addField('cli.cpf_cnpj');
-        $this->addField('cli.phone_1');
-        $this->addField('cli.phone_2');
         $this->addField('cli.corporate_name');
         $this->addField('cli.state_registration');
         $this->addField('cli.municipal_registration');
@@ -66,8 +64,6 @@ class clientModel extends Model {
         $this->addField('cli.client_name');
         $this->addField('cli.client_type');
         $this->addField('cli.cpf_cnpj');
-        $this->addField('cli.phone_1');
-        $this->addField('cli.phone_2');
         $this->addField('cli.corporate_name');
         $this->addField('cli.state_registration');
         $this->addField('cli.municipal_registration');
@@ -111,6 +107,16 @@ class clientModel extends Model {
         $this->runQuery();
     }
 
+    public function getClientPhoneList($id){
+        $this->addField('cph.id');
+        $this->addField('cph.phone_type');
+        $this->addField('cph.phone_number');
+
+        $this->addFrom('client_phone cph');
+        $this->addWhere('cph.client_id = "' . $id .'"');
+        $this->runQuery();
+    }
+
     public function addClientAddress($data, $id){
         array_walk($data, function($item, $key) {
             $this->addInsertSet($key, $item);
@@ -128,4 +134,30 @@ class clientModel extends Model {
         $this->runDelete();
     }
 
+    public function addClientPhone($data, $id){
+        array_walk($data, function($item, $key) {
+            $this->addInsertSet($key, $item);
+        });
+
+        $this->addInsertSet('client_id', $id);
+
+        $this->setInsertTable('client_phone');
+        $this->runInsert();
+    }
+
+    public function removeClientPhone($id){
+        $this->setDeleteFrom('client_phone');
+        $this->addDeleteWhere("id = {$id}");
+        $this->runDelete();
+    }
+
+    public function findPhoneByNumber($phoneNumber){
+        $this->addField('cph.id');
+        $this->addField('cph.phone_type');
+        $this->addField('cph.phone_number');
+
+        $this->addFrom('client_phone cph');
+        $this->addWhere('cph.phone_number = "' . $phoneNumber .'"');
+        $this->runQuery();
+    }
 }

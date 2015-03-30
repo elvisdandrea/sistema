@@ -13,12 +13,27 @@
         <p></p><label>Adicionar foto:</label><input id="read64" type="file"/></p>
     </div>
     <div class="centered form-right">
+        <label>Tipo de pessoa</label>
+        <select name="client_type" id="client_type">
+            <option value="F">Pessoa física</option>
+            <option value="J">Pessoa jurídica</option>
+        </select>
         <label>Nome:</label>
-        <input type="text" name="client_name">
-        <label>Telefone:</label>
-        <input type="text" name="phone_1">
-        <label>Telefone (alternativo):</label>
-        <input type="text" name="phone_2">
+        <input type="text" name="client_name" value="{$client['client_name']}">
+        <div id="legal_entity" class="no-display">
+            <label>Razão social:</label>
+            <input class="legal_entity_field" type="text" name="corporate_name" disabled>
+            <label>Inscrição estadual:</label>
+            <input class="legal_entity_field" type="text" name="state_registration" disabled>
+            <label>Inscrição municipal:</label>
+            <input class="legal_entity_field" type="text" name="municipal_registration" disabled>
+            <label>Pessoa para contato:</label>
+            <input class="legal_entity_field" type="text" name="contact" disabled>
+        </div>
+        <label id="cpf_cnpj">CPF:</label>
+        <input type="text" name="cpf_cnpj">
+        <label>Email:</label>
+        <input type="text" name="email">
         <label>Descrição:</label>
         <textarea name="description"></textarea>
     </div>
