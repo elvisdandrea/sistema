@@ -17,4 +17,7 @@
     <hr/>
     <h2>Pedido</h2>
     <a class="button" href="{$smarty.const.BASEDIR}request/addplate">Adicionar Prato</a>
+    <div id="plates">
+
+    </div>
 </form>
