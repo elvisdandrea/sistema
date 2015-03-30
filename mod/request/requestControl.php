@@ -77,4 +77,8 @@ class requestControl extends Control {
 
     }
 
+    public function addPlate() {
+
+    }
+
 }
