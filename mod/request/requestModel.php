@@ -106,6 +106,30 @@ class requestModel extends Model {
 
     }
 
+    public function searchProductForRequest($search) {
+
+        $fields = array(
+            'p.product_name',
+            'p.description',
+            'c.category_name'
+        );
+
+        foreach ($fields as $field)
+            $this->addField($field);
+
+        $this->addField('p.id');
+        $this->addField('p.image');
+
+        $this->addFrom('products p');
+        $this->addFrom('left join categories c on c.id = p.category_id');
+
+        foreach ($fields as $field)
+            $this->addWhere($field . ' like "%' . str_replace(' ', '%', $search) . '%"', 'OR');
+
+        $this->runQuery();
+
+    }
+
 
 
 }

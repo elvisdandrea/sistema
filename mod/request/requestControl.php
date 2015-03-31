@@ -79,6 +79,22 @@ class requestControl extends Control {
 
     public function addPlate() {
 
+        $this->view()->loadTemplate('plate');
+        $this->commitAdd($this->view()->render(), '#plates');
+
+    }
+
+    public function searchProduct() {
+
+        $search = $this->getQueryString('search');
+        if (empty($search))
+            $this->commitReplace('','#product-results', false);
+
+        $this->model()->searchProductForRequest($search);
+        $this->view()->loadTemplate('productresult');
+        $products = $this->model()->getRows();
+        $this->view()->setVariable('products', $products);
+        $this->commitReplace($this->view()->render(),'#product-results');
     }
 
 }
