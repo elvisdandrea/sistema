@@ -51,10 +51,10 @@ class requestControl extends Control {
     /**
      * Renders the main request page
      */
-    public function requestPage() {
+    public function requestPage($date = false) {
 
         $this->view()->loadTemplate('requestpage');
-        $this->model()->listRequests();
+        $this->model()->listRequests($date);
         $this->model()->setGridRowLink('request/viewrequest', 'id');
         $this->model()->addGridColumn('Imagem', 'image', 'Image');
         $this->model()->addGridColumn('Cliente', 'client_name');
