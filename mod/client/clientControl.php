@@ -20,12 +20,13 @@ class clientControl extends Control {
 
         $this->model()->setGridRowLink('client/viewclient', 'id');
         $this->model()->addGridColumn('Imagem','image','Image');
+        $this->model()->addGridColumn('Nome','client_name');
+        $this->model()->addGridColumn('Email','email');
+        $this->model()->addGridColumn('Telefones','phones');
         $this->model()->addGridColumn('Tipo','client_type');
         $this->model()->addGridColumn('CPF / CNPJ','cpf_cnpj');
         $this->model()->addGridColumn('Data','client_date', 'DateTime');
-        $this->model()->addGridColumn('Nome','client_name');
         $this->model()->addGridColumn('Descrição','description');
-        $this->model()->addGridColumn('Email','email');
 
         $this->view()->setVariable('clientlist', $this->model()->dbGrid());
         $this->commitReplace($this->view()->render(), '#content');

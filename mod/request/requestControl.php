@@ -55,6 +55,7 @@ class requestControl extends Control {
 
         $this->view()->loadTemplate('requestpage');
         $this->model()->listRequests();
+        $this->model()->setGridRowLink('request/viewrequest', 'id');
         $this->model()->addGridColumn('Imagem', 'image', 'Image');
         $this->model()->addGridColumn('Cliente', 'client_name');
         $this->model()->addGridColumn('Telefones', 'phones');

@@ -41,6 +41,8 @@ class requestModel extends Model {
 
         $this->addWhere('r.delivery_date = ' . ( $date ? '"' . $date . '"' : 'curdate()' ) );
 
+        $this->addGroup('r.id');
+
         $this->runQuery();
     }
 
