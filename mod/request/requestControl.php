@@ -224,7 +224,10 @@ class requestControl extends Control {
 
         $result = $this->postAddRequest($requestData);
 
-        debug($result);
+        if ($result['status'] == 200) {
+            $this->requestPage();
+            $this->terminate();
+        }
 
     }
 

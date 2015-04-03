@@ -217,6 +217,7 @@ class requestModel extends Model {
     public function insertNewRequest(array $data) {
 
         $this->addInsertSet('request_date', 'now()', false);
+        $this->addInsertSet('deliver_status', '1');
 
         foreach ($data as $field => $value)
             $this->addInsertSet($field, $value);
