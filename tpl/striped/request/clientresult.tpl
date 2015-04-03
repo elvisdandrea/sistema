@@ -1,6 +1,6 @@
 <div class="result-list" >
     {foreach from=$clients key="client_id" item="client"}
-        <div class="result-list-row" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/selclient?id='+ {$client['id']})" style="cursor: pointer;">
+        <div class="result-list-row" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/selclient?id='+ {$client['id']}+'&request_id={$request_id}')" style="cursor: pointer;">
             <div class="image avatar-small">
                 <img src="{$client['image']}" alt="avatar">
             </div>

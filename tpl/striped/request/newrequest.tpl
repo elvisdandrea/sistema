@@ -1,4 +1,4 @@
-<form action="{$smarty.const.BASEDIR}request/addNewRequest">
+<form action="{$smarty.const.BASEDIR}request/addNewRequest?request_id={$request_id}">
     <div class="top-bar">
         <div class="buttons">
             <input class="button" type="submit" value="Salvar" />
@@ -6,8 +6,9 @@
         </div>
         <div class="alert alert-error" id="message" style="display: none"></div>
     </div>
+    <input type="text" name="delivery_date" placeholder="data da entrega dd/mm/yyyy"/>
     <h2>Cliente</h2>
-    <input id="searchclient" type="text" value="" placeholder="Pesquise o cliente..." onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchclient?search=' + this.value)"/>
+    <input id="searchclient" type="text" value="" placeholder="Pesquise o cliente..." onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchclient?search=' + this.value + '&request_id={$request_id}')"/>
     <div id="client-results">
 
     </div>
@@ -16,7 +17,7 @@
     </div>
     <hr/>
     <h2>Pedido</h2>
-    <a class="button" href="{$smarty.const.BASEDIR}request/addplate">Adicionar Prato</a>
+    <a class="button" href="{$smarty.const.BASEDIR}request/addplate?request_id={$request_id}">Adicionar Prato</a>
     <div id="plates">
 
     </div>

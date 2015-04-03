@@ -1,6 +1,6 @@
 <div class="result-list" >
     {foreach from=$products key="product_id" item="product"}
-        <div class="result-list-row" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/selproduct?id='+ {$product['id']})" style="cursor: pointer; ">
+        <div class="result-list-row" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/selproduct?id='+ {$product['id']}+'&request_id={$request_id}&plate_id={$plate_id}')" style="cursor: pointer; ">
             <div class="image avatar-small">
                 <img src="{$product['image']}" alt="avatar">
             </div>

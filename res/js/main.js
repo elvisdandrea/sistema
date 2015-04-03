@@ -91,6 +91,12 @@ Main.prototype = {
 
     },
 
+    /**
+     * Creates a bas64 loader function for an input type="file"
+     *
+     * @param   inputId     - The input type="file" Id
+     * @param   imgId       - The Id of an element img to set the src as base64
+     */
     imageAction : function(inputId, imgId) {
 
         document.getElementById(inputId).addEventListener('change', readImage, false);

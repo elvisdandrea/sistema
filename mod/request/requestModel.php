@@ -19,6 +19,11 @@ class requestModel extends Model {
     }
 
 
+    /**
+     * Query to list clients for a request
+     *
+     * @param   string      $search     - The search parameter
+     */
     public function searchClientForRequest($search) {
 
         $fields = array(
@@ -52,6 +57,12 @@ class requestModel extends Model {
 
     }
 
+    /**
+     * Query to get all client data
+     * to be selected for a request
+     *
+     * @param   string      $id     - The client Id
+     */
     public function selClientForRequest($id) {
         $fields = array(
             'c.id',
@@ -79,6 +90,11 @@ class requestModel extends Model {
 
     }
 
+    /**
+     * Query to list addresses of a client
+     *
+     * @param   string      $client_id      - The client Id
+     */
     public function clientAddressListForRequest($client_id) {
 
         $this->addField('address_type');
@@ -89,6 +105,11 @@ class requestModel extends Model {
         $this->runQuery();
     }
 
+    /**
+     * Query to get all data of a client address
+     *
+     * @param   string      $address_id     - The address Id
+     */
     public function getClistAddressForRequest($address_id) {
 
         $this->addField('a.street_addr');
@@ -106,6 +127,11 @@ class requestModel extends Model {
 
     }
 
+    /**
+     * Query to list products for a plate
+     *
+     * @param   string      $search     - The search parameter
+     */
     public function searchProductForRequest($search) {
 
         $fields = array(
@@ -129,6 +155,93 @@ class requestModel extends Model {
         $this->runQuery();
 
     }
+
+    /**
+     * Query for listing products
+     *
+     * @param $id
+     */
+    public function selectProductForRequest($id) {
+
+        $this->addField('p.id');
+        $this->addField('c.category_name');
+        $this->addField('p.product_name');
+        $this->addField('p.weight');
+        $this->addField('p.price');
+        $this->addField('p.image');
+        $this->addField('p.description');
+        $this->addField('p.product_fact');
+
+        $this->addFrom('products p');
+        $this->addFrom('left join categories c on c.id = p.category_id');
+
+        $this->addWhere('p.id = "' . $id . '"');
+
+        $this->runQuery();
+    }
+
+    /**
+     * Creates new request
+     *
+     * @param   array       $data   - The request data
+     * @return  bool|int
+     */
+    public function insertNewRequest(array $data) {
+
+        $this->addInsertSet('request_date', 'now()', false);
+
+        foreach ($data as $field => $value)
+            $this->addInsertSet($field, $value);
+
+        $this->setInsertTable('requests');
+        $this->runInsert();
+
+        if ($this->queryOk())
+            return $this->getLastInsertId();
+
+        return false;
+    }
+
+    /**
+     * Creates a new plate
+     *
+     * @param   array      $data    - The plate data
+     * @return  bool|int
+     */
+    public function insertNewPlate(array $data) {
+
+        $this->addInsertSet('request_id', $data['request_id']);
+        $this->setInsertTable('request_plates');
+        $this->runInsert();
+
+        if ($this->queryOk())
+            return $this->getLastInsertId();
+
+        return false;
+    }
+
+    /**
+     * Creates new plate item
+     *
+     * @param   array       $data       - The item data
+     * @return  bool|int
+     */
+    public function insertPlateItem(array $data) {
+
+        $this->addInsertSet('plate_id',     $data['plate_id']);
+        $this->addInsertSet('product_id',   $data['product_id']);
+        $this->addInsertSet('weight',       $data['weight']);
+
+        $this->setInsertTable('request_plate_items');
+
+        $this->runInsert();
+
+        if ($this->queryOk())
+            return $this->getLastInsertId();
+
+        return false;
+    }
+
 
 
 
