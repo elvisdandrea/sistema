@@ -54,6 +54,15 @@ class requestControl extends Control {
     public function requestPage() {
 
         $this->view()->loadTemplate('requestpage');
+        $this->model()->listRequests();
+        $this->model()->addGridColumn('Imagem', 'image', 'Image');
+        $this->model()->addGridColumn('Cliente', 'client_name');
+        $this->model()->addGridColumn('Telefones', 'phones');
+        $this->model()->addGridColumn('Entrega', 'delivery_date', 'Date');
+        $this->model()->addGridColumn('Andamento', 'status_name');
+
+        $this->view()->setVariable('request_table', $this->model()->dbGrid());
+
         $this->commitReplace($this->view()->render(), '#content');
     }
 

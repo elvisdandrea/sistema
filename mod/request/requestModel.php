@@ -18,6 +18,32 @@ class requestModel extends Model {
         parent::__construct($connection);
     }
 
+    /**
+     * Lists requests
+     *
+     * @param   string|bool     $date       - Delivery Date ( false for current date )
+     */
+    public function listRequests($date = false) {
+
+        $this->addField('r.id');
+        $this->addField('r.request_date');
+        $this->addField('r.delivery_date');
+        $this->addField('c.client_name');
+        $this->addField('c.image');
+        $this->addField('group_concat(f.phone_number separator ",") as phones');
+        $this->addField('s.status_name');
+        $this->addField('s.color');
+
+        $this->addFrom('requests r');
+        $this->addFrom('left join clients c on c.id = r.client_id');
+        $this->addFrom('left join client_phone f on f.client_id = c.id');
+        $this->addFrom('left join delivery_status s on s.id = r.deliver_status');
+
+        $this->addWhere('r.delivery_date = ' . ( $date ? '"' . $date . '"' : 'curdate()' ) );
+
+        $this->runQuery();
+    }
+
 
     /**
      * Query to list clients for a request
