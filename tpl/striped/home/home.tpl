@@ -36,4 +36,7 @@
 		<script src="{$smarty.const.JSURL}/html.js"></script>
 		<script src="{$smarty.const.JSURL}/main.js"></script>
 	</body>
+	<div id="loading" style="display: none;">
+		<img id="loading-image" src="{$smarty.const.IMGURL}/loading.gif" alt="Loading..." />
+	</div>
 </html>

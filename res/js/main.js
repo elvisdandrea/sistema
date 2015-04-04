@@ -36,8 +36,10 @@ Main.prototype = {
 
             var action = $(this).attr('href');
             e.preventDefault();
+            $('#loading').show();
             Html.Get(action, function(r){
                 eval(r);
+                $('#loading').hide();
                 //window.history.replaceState(undefined, '', action);
                 return false;
             });
@@ -81,8 +83,10 @@ Main.prototype = {
                 });
             } else if (method == 'get') {
                 var url = $(this).attr('action') + '?' + data.join('&');
+                $('#loading').show();
                 Html.Get(url, function(r){
                     eval(r);
+                    $('#loading').hide();
                     return false;
                 });
             }
@@ -99,6 +103,7 @@ Main.prototype = {
      */
     imageAction : function(inputId, imgId) {
 
+        $('#loading').show();
         document.getElementById(inputId).addEventListener('change', readImage, false);
 
         function readImage(evt){
@@ -112,6 +117,7 @@ Main.prototype = {
                 var tempImg = new Image();
                 tempImg.src = e.target.result;
                 $('#' + imgId).attr('src', tempImg.src);
+                $('#loading').hide();
             }
 
             r.readAsDataURL(f);
@@ -126,9 +132,10 @@ Main.prototype = {
      * @param action
      */
     quickLink : function(action) {
-
+        $('#loading').show();
         Html.Get(action, function(r){
             eval(r);
+            $('#loading').hide();
             //window.history.replaceState(undefined, '', action);
             return false;
         });
