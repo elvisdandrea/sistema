@@ -72,7 +72,10 @@ class homeControl extends Control {
         $request->requestPage();
         $result = ob_get_contents();
         ob_end_clean();
+        $calendarControl = new calendarControl();
+        $calendar = $calendarControl->render(2012,2,4);
         $this->view()->setVariable('page_content', $result);
+        $this->view()->setVariable('calendar', $calendar);
         echo $this->view()->render();
         $this->terminate();
     }

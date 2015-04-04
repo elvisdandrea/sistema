@@ -15,7 +15,7 @@
     </nav>
 
     <!-- Calendar -->
-    {include "home/calendar.tpl"}
+    {$calendar}
 
     <!-- Text -->
     {include "home/sidebar_msg.tpl"}
