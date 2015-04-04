@@ -55,7 +55,7 @@
                         <!--    Image Type Cell  -->
                         {elseif ($fieldparams['type'] == 'Image')}
                             {if ($row[$fieldparams['field']] != '')}
-                                <img width="120px" src="{$row[$fieldparams['field']]}" />
+                                <img height="70px" src="{$row[$fieldparams['field']]}" />
                             {/if}
 
                         <!--    Input Type Cell  -->

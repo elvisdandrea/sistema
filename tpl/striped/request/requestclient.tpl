@@ -15,6 +15,6 @@
         {/foreach}
     </select>
     <div id="address-table">
-
+        {if (isset($addressTable))}{$addressTable}{/if}
     </div>
 </div>

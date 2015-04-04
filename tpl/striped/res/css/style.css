@@ -1077,6 +1077,11 @@ div.result-list {
 
 }
 
+.content-aligned {
+	left: -110px;
+	width: 88%;
+}
+
 div.result-list label {
 	width: 2em;
 	padding: 2em;

@@ -311,6 +311,21 @@ class String {
         }
     }
 
+    /**
+     * Returns the month acronym from month number
+     *
+     * @param   int     $monthNumber        - The month nymber
+     * @return  string                      - The month acronym
+     */
+    public function getMonthAcronym($monthNumber) {
+
+        $months = array(
+            '', 'Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'
+        );
+
+        return $months[intval($monthNumber)];
+    }
+
 
     /**
      * Removes empty values for arrays

@@ -36,6 +36,8 @@ class productControl extends Control {
 
         $this->view()->setVariable('productList', $this->model()->dbGrid());
         $this->commitReplace($this->view()->render(), '#content');
+        if (Core::isAjax())
+            echo Html::AddClass('content-aligned', '#content');
     }
 
     public function newProduct() {

@@ -50,21 +50,29 @@ class requestControl extends Control {
 
     /**
      * Renders the main request page
+     *
+     * @param   string|bool     $date       - The date to show
      */
     public function requestPage($date = false) {
 
         $this->view()->loadTemplate('requestpage');
+        $requestCount = $this->model()->countRequests($date);
         $this->model()->listRequests($date);
         $this->model()->setGridRowLink('request/viewrequest', 'id');
+        $this->model()->addGridColumn('Pedido', 'id');
         $this->model()->addGridColumn('Imagem', 'image', 'Image');
         $this->model()->addGridColumn('Cliente', 'client_name');
         $this->model()->addGridColumn('Telefones', 'phones');
         $this->model()->addGridColumn('Entrega', 'delivery_date', 'Date');
         $this->model()->addGridColumn('Andamento', 'status_name');
 
+        $this->view()->setVariable('requestCount', $requestCount);
+        $this->view()->setVariable('rows', $this->model()->getRow(0));
         $this->view()->setVariable('request_table', $this->model()->dbGrid());
 
         $this->commitReplace($this->view()->render(), '#content');
+        if (Core::isAjax())
+            echo Html::RemoveClass('content-aligned', '#content');
     }
 
     /**
@@ -81,6 +89,9 @@ class requestControl extends Control {
         $client_id = $this->getQueryString('client_id');
         if ($client_id)
             $this->selClient($client_id);
+
+        if (Core::isAjax())
+            echo Html::AddClass('content-aligned', '#content');
     }
 
     /**
@@ -278,6 +289,11 @@ class requestControl extends Control {
             'status'    => 200,
             'request'   => $result
         );
+    }
+
+    public function viewRequest() {
+        $id      = $this->getQueryString('id');
+        $request = $this->model()->getRequestData();
     }
 
 }

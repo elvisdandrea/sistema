@@ -77,6 +77,29 @@ class Html {
     }
 
     /**
+     * Adds a class to an Element
+     *
+     * @param   string      $class      - The class name to be set
+     * @param   string      $element    - The element
+     * @return  string
+     */
+    public static function AddClass($class, $element) {
+        return 'Html.AddClass(\'' . $element . '\',\'' . $class . '\');';
+    }
+
+    /**
+     * Removes an Element class
+     *
+     * @param   string      $class      - The class name to be set
+     * @param   string      $element    - The element
+     * @return  string
+     */
+    public static function RemoveClass($class, $element) {
+
+        return 'Html.RemoveClass(\'' . $element . '\',\'' . $class . '\');';
+    }
+
+    /**
      * Still to be implemented
      *
      */

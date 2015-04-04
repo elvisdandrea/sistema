@@ -76,6 +76,30 @@ Html.prototype = {
     },
 
     /**
+     * Removes an Element Class
+     *
+     * @param           block       - The element
+     * @param           className   - The class name
+     * @constructor
+     */
+    RemoveClass : function (block, className) {
+
+        $(block).removeClass(className);
+    },
+
+    /**
+     * Adds a Class to an Element
+     *
+     * @param           block       - The element
+     * @param           className   - The class name
+     * @constructor
+     */
+    AddClass : function (block, className) {
+
+        $(block).addClass(className);
+    },
+
+    /**
      * Redirects to a Location
      *
      * @param       location        - Where to go

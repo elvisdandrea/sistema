@@ -28,6 +28,8 @@ class requestModel extends Model {
         $this->addField('r.id');
         $this->addField('r.request_date');
         $this->addField('r.delivery_date');
+        $this->addField('month(r.delivery_date) as request_month');
+        $this->addField('day(r.delivery_date) as request_day');
         $this->addField('c.client_name');
         $this->addField('c.image');
         $this->addField('group_concat(f.phone_number separator ",") as phones');
@@ -44,6 +46,24 @@ class requestModel extends Model {
         $this->addGroup('r.id');
 
         $this->runQuery();
+    }
+
+    /**
+     * Returns the number of requests of a date
+     *
+     * @param   bool    $date       - Which date ( false for curdate )
+     */
+    public function countRequests($date = false) {
+
+        $this->addField('count(*) as mxm');
+        $this->addFrom('requests r');
+        $this->addWhere('r.delivery_date = ' . ( $date ? '"' . $date . '"' : 'curdate()' ) );
+        $this->runQuery();
+
+        $result = $this->getRow(0);
+
+        return $result['mxm'];
+
     }
 
 
@@ -269,6 +289,12 @@ class requestModel extends Model {
             return $this->getLastInsertId();
 
         return false;
+    }
+
+    public function getRequestData() {
+
+
+
     }
 
 

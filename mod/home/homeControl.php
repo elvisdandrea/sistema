@@ -66,23 +66,13 @@ class homeControl extends Control {
         }
 
         $this->view()->loadTemplate('home');
-
-        /**
-         * A few usage examples
-         */
-        #$this->view->appendJs('example');  // Example on appending module javascript files
-        #$this->model()->queryExample(1);   // Example of a query (just remember that the default connection has no data yet)
-
-        #$this->newModel('example');                // Example of how to create a new model connected in a different database
-        #$this->model('example')->queryExample();   // This time, the query on queryExample will be executed on the connection of the 'example' file
-
-        #debug($this->view()->getModuleName());     // Example of a code debug
-
-        #throw new ExceptionHandler('teste', 400);  // Example of Exception Handling
-        #$this->view('')->lol();                    // Example of Fatal Error Handling
-
-
         $this->view()->appendJs('sidebar');
+        $request = new requestControl();
+        ob_start();
+        $request->requestPage();
+        $result = ob_get_contents();
+        ob_end_clean();
+        $this->view()->setVariable('page_content', $result);
         echo $this->view()->render();
         $this->terminate();
     }
