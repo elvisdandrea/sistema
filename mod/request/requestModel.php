@@ -42,7 +42,6 @@ class requestModel extends Model {
         $this->addFrom('left join delivery_status s on s.id = r.deliver_status');
 
         $this->addWhere('r.delivery_date = ' . ( $date ? '"' . $date . '"' : 'curdate()' ) );
-
         $this->addGroup('r.id');
 
         $this->runQuery();

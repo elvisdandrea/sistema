@@ -7,6 +7,7 @@
  */
 
 class calendarControl extends Control{
+
     private $_month = array(
         1 => 'Janeiro',
         2 => 'Fevereiro',
@@ -61,6 +62,7 @@ class calendarControl extends Control{
 
         $this->view()->setVariable('monthStart', $monthStart);
         $this->view()->setVariable('monthName', $monthName);
+        $this->view()->setVariable('month', $month);
         $this->view()->setVariable('today', $day);
         $this->view()->setVariable('daysOfWeekNames', $this->_daysOfWeekShort);
         return $this->view()->render();

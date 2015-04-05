@@ -19,7 +19,7 @@
                 {if $monthStart > 0}<td colspan="{$monthStart}" class="pad"><span>&nbsp;</span></td>{/if}
                 {for $day=1 to $daysInMonth}
                     {if $col > 6}</tr><tr>{$col = 0}{/if}
-                    <td{if $day == $today} class="today"{/if}><span><a href="#">{$day}</a></span></td>
+                    <td{if $day == $today} class="today"{/if}><span><a href="{$smarty.const.BASEDIR}request/requestpage?date={$year}-{$month}-{$day}">{$day}</a></span></td>
                     {$col = $col + 1}
                 {/for}
                 {if $col < 7}<td class="pad" colspan="{$col + 7 - ($col * 2)}"><span>&nbsp;</span></td>{/if}

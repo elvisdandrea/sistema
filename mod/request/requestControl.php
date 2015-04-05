@@ -56,6 +56,9 @@ class requestControl extends Control {
     public function requestPage($date = false) {
 
         $this->view()->loadTemplate('requestpage');
+
+        $date || $date = $this->getQueryString('date');
+
         $requestCount = $this->model()->countRequests($date);
         $this->model()->listRequests($date);
         $this->model()->setGridRowLink('request/viewrequest', 'id');
