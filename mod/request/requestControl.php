@@ -294,9 +294,42 @@ class requestControl extends Control {
         );
     }
 
+    /**
+     * Request Handler for viewing a request
+     *
+     */
     public function viewRequest() {
         $id      = $this->getQueryString('id');
-        $request = $this->model()->getRequestData();
+        $this->model()->getRequestData($id);
+        $request = $this->model()->getRow(0);
+        $this->view()->loadTemplate('viewrequest');
+        $this->view()->setVariable('request', $request);
+
+        $this->model()->getAddress($request['address_id']);
+
+        $this->model()->addGridColumn('Endereco', 'street_addr');
+        $this->model()->addGridColumn('Numero', 'street_number');
+        $this->model()->addGridColumn('Complemento', 'street_additional');
+        $this->model()->addGridColumn('Bairro', 'hood');
+        $this->model()->addGridColumn('Cidade', 'city');
+        $this->model()->addGridColumn('Cep', 'zip_code');
+
+        $this->view()->setVariable('addressTable', $this->model()->dbGrid());
+        $clientFields = array(
+            'client_name',
+            'phones',
+            'image'
+        );
+
+        $client = array();
+        foreach ($clientFields as $clientField)
+            $client[$clientField] = $request[$clientField];
+
+        $this->view()->setVariable('noChangeCustomer', false);
+        $this->view()->setVariable('client', $client);
+
+        $this->commitReplace($this->view()->render(), '#content');
+
     }
 
 }

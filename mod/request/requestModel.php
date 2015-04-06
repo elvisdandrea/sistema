@@ -290,10 +290,58 @@ class requestModel extends Model {
         return false;
     }
 
-    public function getRequestData() {
+    /**
+     * Recovers a request information
+     *
+     * @param   string      $id     - The request Id
+     */
+    public function getRequestData($id) {
 
+        $this->addField('r.id');
+        $this->addField('r.request_date');
+        $this->addField('r.delivery_date');
+        $this->addField('r.address_id');
+        $this->addField('c.client_name');
+        $this->addField('c.image');
+        $this->addField('group_concat(f.phone_number separator ",") as phones');
+        $this->addField('s.status_name');
+        $this->addField('s.color');
 
+        $this->addFrom('requests r');
+        $this->addFrom('left join clients c ON c.id = r.client_id');
+        $this->addFrom('left join client_phone f ON f.client_id = c.id');
+        $this->addFrom('left join delivery_status s ON s.id = r.deliver_status');
 
+        $this->addWhere('r.id = "' . $id . '"');
+        $this->addGroup('r.id');
+
+        $this->runQuery();
+
+    }
+
+    /**
+     * Query that returns a specific client address
+     *
+     * @param   $id
+     */
+    public function getAddress($id) {
+
+        $this->addField('a.id');
+        $this->addField('a.client_id');
+        $this->addField('a.address_type');
+        $this->addField('a.street_addr');
+        $this->addField('a.street_number');
+        $this->addField('a.street_additional');
+        $this->addField('a.hood');
+        $this->addField('a.city');
+        $this->addField('a.zip_code');
+        $this->addField('a.lat');
+        $this->addField('a.lng');
+
+        $this->addFrom('client_addr a');
+        $this->addWhere('id = "' . $id . '"');
+
+        $this->runQuery();
     }
 
 
