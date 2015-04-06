@@ -1111,3 +1111,13 @@ div.result-list-row {
 	left: 46%;
 	z-index: 100;
 }
+
+.plate li {
+	width: 10.8em;
+	display: inline-block;
+	margin: 15px 14px 0 0;
+}
+
+.plate-img img {
+	width: 100%;
+}
