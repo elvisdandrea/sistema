@@ -342,4 +342,63 @@ class requestControl extends Control {
 
     }
 
+    /**
+     * Handler for changing request inputs
+     */
+    public function changeRequest() {
+
+        $plate_id           = $this->getQueryString('plate_id');
+        $this->request_id   = $this->getQueryString('request_id');
+
+        $this->view()->loadTemplate('searchproduct');
+        $this->view()->setVariable('plate_id',   $plate_id);
+        $this->view()->setVariable('request_id', $this->request_id);
+        $this->view()->appendJs('events');
+        $this->commitReplace($this->view()->render(), '#search-' . $plate_id);
+        $this->commitShow('#searchproduct-' . $plate_id);
+        $this->commitShow('#save-'   . $plate_id);
+        $this->commitHide('#change-' . $plate_id);
+    }
+
+    public function postAddItem(array $requestData = array()) {
+
+        count($requestData) > 0 ||
+        $requestData = $this->getPost();
+
+        $result     = array();
+        $plate_id   = $requestData['plate_id'];
+        $plates = $requestData['plates'];
+
+        foreach ($plates as $plate) {
+            foreach ($plate as $product_id => $weight) {
+                $item_id = $this->model()->insertPlateItem(
+                    array(
+                        'plate_id'      => $plate_id,
+                        'product_id'    => $product_id,
+                        'weight'        => $weight
+                    )
+                );
+                $result['plates'][$plate_id][] = $item_id;
+            }
+        }
+
+        return $result;
+    }
+
+    public function saveChange() {
+
+        $plate_id         = $this->getQueryString('plate_id');
+        $this->request_id = $this->getQueryString('request_id');
+
+        $items = Session::get('requests', $this->request_id);
+        $items['plate_id']  = $plate_id;
+        $result = $this->postAddItem($items);
+
+        $this->commitHide('#searchproduct-' . $plate_id);
+        $this->commitHide('#save-'   . $plate_id);
+        $this->commitShow('#change-' . $plate_id);
+        $this->commitReplace('', '#search-' . $plate_id);
+
+    }
+
 }

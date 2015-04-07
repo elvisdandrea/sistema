@@ -25,11 +25,13 @@
         </div>
         <hr/>
         <h2>Pedido</h2>
-        <a class="button" href="{$smarty.const.BASEDIR}request/changerequest?request_id={$request_id}">Modificar</a>
         <div id="plates">
             {foreach from=$plates key="plate_id" item="plate"}
+                <a id="change-{$plate_id}" class="button" href="{$smarty.const.BASEDIR}request/changerequest?request_id={$request_id}&plate_id={$plate_id}">Modificar este pedido</a>
+                <a id="save-{$plate_id}" style="display: none;" class="button button-blue" href="{$smarty.const.BASEDIR}request/savechange?request_id={$request_id}&plate_id={$plate_id}">Salvar Alteração</a>
                 <hr>
-                <input style="display: none;" id="searchclient" type="text" value="" placeholder="Pesquise o produto..." onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchproduct?search=' + this.value + '&request_id={$request_id}&plate_id={$plate_id}')"/>
+                <div id="search-{$plate_id}"></div>
+                <div id="product-results_{$plate_id}"></div>
                 <ul id="plate_{$plate_id}" class="plate">
                     {foreach from=$plate key="item_id" item="item"}
                         <li>
