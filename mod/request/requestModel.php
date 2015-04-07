@@ -344,6 +344,28 @@ class requestModel extends Model {
         $this->runQuery();
     }
 
+    /**
+     * Query that returns all request items and plates
+     *
+     * @param $id
+     */
+    public function getRequestItems($id) {
+
+        $this->addField('i.id');
+        $this->addField('i.plate_id');
+        $this->addField('i.weight');
+        $this->addField('pr.product_name');
+        $this->addField('pr.image');
+
+        $this->addFrom('requests r');
+        $this->addFrom('left join request_plates p on p.request_id = r.id');
+        $this->addFrom('left join request_plate_items i on i.plate_id = p.id');
+        $this->addFrom('left join products pr on pr.id = i.product_id');
+
+        $this->addWhere('r.id = "' . $id . '"');
+
+        $this->runQuery();
+    }
 
 
 

@@ -27,7 +27,23 @@
         <h2>Pedido</h2>
         <a class="button" href="{$smarty.const.BASEDIR}request/changerequest?request_id={$request_id}">Modificar</a>
         <div id="plates">
-
+            {foreach from=$plates key="plate_id" item="plate"}
+                <hr>
+                <input style="display: none;" id="searchclient" type="text" value="" placeholder="Pesquise o produto..." onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchproduct?search=' + this.value + '&request_id={$request_id}&plate_id={$plate_id}')"/>
+                <ul id="plate_{$plate_id}" class="plate">
+                    {foreach from=$plate key="item_id" item="item"}
+                        <li>
+                            <div class="plate-img">
+                                <img src="{$item['image']}" />
+                            </div>
+                            <div class="plate-info">
+                                <label>{$item['product_name']}</label>
+                                <input type="text" name="weight" value="{$item['weight']}"/>
+                            </div>
+                        </li>
+                    {/foreach}
+                </ul>
+            {/foreach}
         </div>
     </article>
 </div>

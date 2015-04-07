@@ -325,8 +325,18 @@ class requestControl extends Control {
         foreach ($clientFields as $clientField)
             $client[$clientField] = $request[$clientField];
 
+
+        $this->model()->getRequestItems($id);
+        $requestItems = $this->model()->getRows();
+
+        $plates = array();
+        foreach($requestItems as $item)
+            isset($plates[$item['plate_id']][$item['id']]) || $plates[$item['plate_id']][$item['id']] = $item;
+
         $this->view()->setVariable('noChangeCustomer', false);
         $this->view()->setVariable('client', $client);
+        $this->view()->setVariable('plates', $plates);
+        $this->view()->setVariable('request_id', $id);
 
         $this->commitReplace($this->view()->render(), '#content');
 
