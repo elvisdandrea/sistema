@@ -237,6 +237,7 @@ class requestControl extends Control {
         );
 
         $result = $this->postAddRequest($requestData);
+        Session::del('requests', $this->request_id);
 
         if ($result['status'] == 200) {
             $this->requestPage();
@@ -398,6 +399,7 @@ class requestControl extends Control {
         $this->commitHide('#save-'   . $plate_id);
         $this->commitShow('#change-' . $plate_id);
         $this->commitReplace('', '#search-' . $plate_id);
+        Session::del('requests', $this->request_id);
 
     }
 
