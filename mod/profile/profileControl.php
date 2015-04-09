@@ -50,7 +50,7 @@ class profileControl extends Control {
     public function viewUser($id = false) {
 
         $id || $id = $this->getQueryString('id');
-        
+
     }
 
 

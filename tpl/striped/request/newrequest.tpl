@@ -6,7 +6,7 @@
         </div>
         <div class="alert alert-error" id="message" style="display: none"></div>
     </div>
-    <input type="text" name="delivery_date" placeholder="data da entrega dd/mm/yyyy"/>
+    <input type="text" name="delivery_date" datatype="datepicker" placeholder="data da entrega dd/mm/yyyy"/>
     <h2>Cliente</h2>
     <input id="searchclient" type="text" value="" placeholder="Pesquise o cliente..." onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchclient?search=' + this.value + '&request_id={$request_id}')"/>
     <div id="client-results">

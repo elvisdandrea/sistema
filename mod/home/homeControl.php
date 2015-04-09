@@ -54,28 +54,29 @@ class homeControl extends Control {
      */
     public function itStarts($uri = array()) {
 
-        if (count($uri) > 0) {
-            ob_start();
-            Core::runMethod($uri);
-            $result = ob_get_contents();
-            ob_end_clean();
-            if ($result == '')
-                $result = $this->view()->get404();
-
-            $this->view()->setVariable('page_content', $result);
-        }
-
         $this->view()->loadTemplate('home');
         $this->view()->appendJs('sidebar');
-        $request = new requestControl();
-        ob_start();
-        $request->requestPage();
-        $result = ob_get_contents();
-        ob_end_clean();
+
         $calendarControl = new calendarControl();
         $calendar = $calendarControl->render();
-        $this->view()->setVariable('page_content', $result);
         $this->view()->setVariable('calendar', $calendar);
+
+        if (count($uri) == 0)
+            $uri = array('request');
+
+        ob_start();
+        Core::runMethod($uri);
+        $result = ob_get_contents();
+        ob_end_clean();
+        if ($result == '')
+            $result = $this->view()->get404();
+
+        $this->view()->setVariable('page_content', $result);
+        echo $this->view()->render();
+        $this->terminate();
+
+        $this->view()->setVariable('page_content', $result);
+
         echo $this->view()->render();
         $this->terminate();
     }

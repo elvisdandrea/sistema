@@ -126,6 +126,28 @@ Main.prototype = {
     },
 
     /**
+     * Element interactions
+     *
+     * Useful for loading widgets or handling
+     * data of the elements
+     *
+     * @param   dataType    - The interaction type
+     */
+    interactions : function(dataType) {
+
+        switch (dataType) {
+            case 'datepicker' :
+
+                $(document).on('ready', '[datatype="' + dataType + '"]', function(){
+                    alert('here');
+                    $(this).datepicker();
+                    $(this).datepicker('options', 'dateFormat', 'dd/mm/yyyy');
+                });
+                break;
+        }
+    },
+
+    /**
      * Apply quick links
      * Usable in inline action on elements
      *
@@ -154,4 +176,5 @@ var Main = new Main();
  */
 Main.linkActions();
 Main.formActions();
+Main.interactions('datepicker');
 
