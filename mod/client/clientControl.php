@@ -19,10 +19,21 @@ class clientControl extends Control {
      * Renders the client main page
      */
     public function clientPage() {
+
         $this->view()->loadTemplate('clientpage');
 
-        $total = $this->model()->getClientList();
+        $search = $this->getQueryString('search');
+        $page   = $this->getQueryString('page');
+        $rp     = $this->getQueryString('rp');
+
+        $page || $page = 1;
+        intval($rp) > 0 || $rp = 10;
+
+        $total = $this->model()->getClientList($page, $rp, $search);
         $this->view()->setVariable('total', $total);
+
+        $pagination = $this->getPagination($page, $total, $rp, 'client/clientpage');
+        $this->view()->setVariable('pagination', $pagination);
 
         $this->model()->setGridRowLink('client/viewclient', 'id');
         $this->model()->addGridColumn('Imagem','image','Image');
@@ -264,13 +275,13 @@ class clientControl extends Control {
         $post = $this->getPost();
 
         $userData = array(
-            'address_type'   => $post['address_type'],
-            'zip_code'   => $post['zip_code'],
+            'address_type'      => $post['address_type'],
+            'zip_code'          => $post['zip_code'],
             'street_addr'       => $post['street_addr'],
-            'hood'       => $post['hood'],
-            'city'   => $post['city'],
-            'street_number'       => $post['street_number'],
-            'street_additional'       => $post['street_additional'],
+            'hood'              => $post['hood'],
+            'city'              => $post['city'],
+            'street_number'     => $post['street_number'],
+            'street_additional' => $post['street_additional'],
         );
 
         $this->model()->addClientAddress($userData, $this->getId());
@@ -342,13 +353,13 @@ class clientControl extends Control {
         $post = $this->getPost();
 
         $userData = array(
-            'phone_type'   => $post['phone_type'],
+            'phone_type'     => $post['phone_type'],
             'phone_number'   => String::convertTextFormat($post['phone_number'], 'fone'),
         );
 
         $valitation = $this->validatePhone($userData);
 
-        if($valitation['valid'] === FALSE) {
+        if($valitation['valid'] === false) {
             $message = implode(', ', $valitation['message']);
             return RestServer::throwError($message, 400);
         }
@@ -395,7 +406,7 @@ class clientControl extends Control {
         $this->model()->findPhoneByNumber($postData['phone_number']);
         $phoneNumber = $this->model()->getRows();
         if(!empty($phoneNumber)){
-            $return['valid'] = false;
+            $return['valid']     = false;
             $return['message'][] = "Este numero de telefone já esta cadastrado";
         }
 

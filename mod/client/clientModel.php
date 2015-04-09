@@ -18,6 +18,7 @@ class clientModel extends Model {
         parent::__construct($connection);
     }
 
+
     public function addClient($data){
         array_walk($data, function($item, $key) {
             $this->addInsertSet($key, $item);
@@ -56,8 +57,22 @@ class clientModel extends Model {
         return $result['total'];
     }
 
-    public function getClientList($page = 1, $rp = 10){
+    public function getClientList($page = 1, $rp = 10, $search = false){
+
         $total = $this->getCountClients();
+
+        $fields = array(
+            'cli.id',
+            'cli.client_date',
+            'cli.client_name',
+            'cli.cpf_cnpj',
+            'cli.corporate_name',
+            'cli.state_registration',
+            'cli.municipal_registration',
+            'cli.contact',
+            'cli.email',
+            'fon.phone_number'
+        );
 
         $this->addField('cli.id');
         $this->addField('cli.client_date');
@@ -75,6 +90,11 @@ class clientModel extends Model {
 
         $this->addFrom('clients cli');
         $this->addFrom('left join client_phone fon on fon.client_id = cli.id');
+
+        if ($search) {
+            foreach ($fields as $field)
+                $this->addWhere($field . ' like "%' . str_replace(' ','%',$search) . '%"', 'OR');
+        }
 
         $this->addGroup('cli.id');
         $offset = intval($total / $rp * $page);

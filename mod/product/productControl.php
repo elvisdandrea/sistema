@@ -22,9 +22,10 @@ class productControl extends Control {
         $this->view()->loadTemplate('productpage');
 
         $search = $this->getQueryString('search');
-        $page = $this->getQueryString('page');
+        $page   = $this->getQueryString('page');
+        $rp     = $this->getQueryString('rp');
+
         $page || $page = 1;
-        $rp = $this->getQueryString('rp');
         intval($rp) > 0 || $rp = 10;
 
         $total = $this->model()->getProductList($page, $rp, $search);

@@ -67,7 +67,7 @@ class productModel extends Model {
         return $result['total'];
     }
 
-    public function getProductList($page = 1, $rp = 10, $search = '') {
+    public function getProductList($page = 1, $rp = 10, $search = false) {
 
         $total = $this->getCountProducts();
 
@@ -88,7 +88,7 @@ class productModel extends Model {
         $this->addFrom('products p');
         $this->addFrom('left join categories c on c.id = p.category_id');
 
-        if ($search != '') {
+        if ($search) {
             foreach ($fields as $field)
                 $this->addWhere($field . ' like "%' . str_replace(' ','%',$search) . '%"', 'OR');
         }
