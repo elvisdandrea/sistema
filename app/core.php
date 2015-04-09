@@ -73,11 +73,54 @@ class core {
     private static $server = array();
 
     /**
+     * Server URI
+     *
+     * @var array
+     */
+    private static $uri = array();
+
+    /**
      * The Remote Address
      *
      * @var
      */
     private static $remote_address;
+
+    /**
+     * The constructor
+     *
+     * It loads the core requirements
+     */
+    public function __construct() {
+
+        $this->parseServerData();
+        $this->parseRequestHeaders();
+        $this->loadUrl();
+
+        foreach(array(
+                    LIBDIR . '/smarty/Smarty.class.php',
+
+                    IFCDIR . '/control.php',
+                    IFCDIR . '/model.php',
+                    IFCDIR . '/view.php')
+
+                as $dep) include_once $dep;
+
+    }
+
+    /**
+     * Data access prevention
+     *
+     * Returns server information instead of
+     * class privates
+     *
+     * @param   string  $name   - Server info name
+     * @return  bool
+     */
+    public static function __get($name) {
+
+        return self::getServerInfo(strtoupper($name));
+    }
 
     /**
      * The URL Loader
@@ -101,7 +144,8 @@ class core {
             $item = substr($item, 0, strpos($item, '?'));
         });
 
-        return $uri;
+        String::arrayTrimNumericIndexed($uri);
+        self::$uri = $uri;
     }
 
     /**
@@ -113,6 +157,16 @@ class core {
     }
 
     /**
+     * Returns an array of the current Server URI
+     *
+     * @return array
+     */
+    public static function getUri() {
+
+        return self::$uri;
+    }
+
+    /**
      * Checks if server is under a certain subdomain
      *
      * @param   string      $subdomain      - The subdomain to test
@@ -120,16 +174,34 @@ class core {
      */
     public static function isUnderSubdomain($subdomain) {
 
-        $domain = explode('.' ,self::getDomain());
+        $domain = explode('.' , self::getDomain());
         return $domain[0] == $subdomain;
     }
 
     /**
      * Gets server values
      */
-    private static function parsetServerData() {
+    private static function parseServerData() {
 
         self::$server = filter_input_array(INPUT_SERVER, FILTER_SANITIZE_MAGIC_QUOTES, FILTER_SANITIZE_URL);
+    }
+
+    /**
+     * Returns a server information
+     *
+     * @param   bool|string      $info   - The information ( false for full server information )
+     * @return  bool
+     */
+    public function getServerInfo($info = false) {
+
+        if (!$info) return
+                self::$server;
+
+        $result = false;
+        !self::$server[$info] ||
+            $result = self::$server[$info];
+
+        return $result;
     }
 
     /**
@@ -183,15 +255,6 @@ class core {
         return is_array($uid) && isset($uid['db_connection']);
     }
 
-    /**
-     * Returns the called URI
-     *
-     * @return array|mixed
-     */
-    public static function getURI() {
-
-        return self::loadUrl();
-    }
 
     /**
      * Executes the Method called by URI
@@ -249,24 +312,6 @@ class core {
         }
 
         return $result;
-    }
-
-    /**
-     * The constructor
-     *
-     * It loads the core requirements
-     */
-    public function __construct() {
-
-        foreach(array(
-                    LIBDIR . '/smarty/Smarty.class.php',
-
-                    IFCDIR . '/control.php',
-                    IFCDIR . '/model.php',
-                    IFCDIR . '/view.php')
-
-                as $dep) include_once $dep;
-
     }
 
     /**
@@ -332,11 +377,7 @@ class core {
      */
     public function execute() {
 
-        $this->parsetServerData();
-        $this->parseRequestHeaders();
-
-        $uri = $this->loadUrl();                    // Loads the called URL
-        String::arrayTrimNumericIndexed($uri);      // Trim the URL array indexes
+        $uri = self::getUri();
 
         /**
          * When server is running as a RESTful server

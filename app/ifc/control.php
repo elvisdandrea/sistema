@@ -108,6 +108,16 @@ class Control {
     }
 
     /**
+     * Returns Server URI
+     *
+     * @return array
+     */
+    final public function getUri() {
+
+        return Core::getUri();
+    }
+
+    /**
      * Returns the desired View
      *
      * @param   string      $name       - The View name

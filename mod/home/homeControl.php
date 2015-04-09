@@ -141,6 +141,9 @@ class homeControl extends Control {
     }
 
 
+    /**
+     * Good bye
+     */
     public function logout() {
 
         Session::del('uid');
