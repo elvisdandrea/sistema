@@ -97,8 +97,8 @@ class Control {
      */
     public function __construct() {
 
-        $this->post = filter_input_array(INPUT_POST);
-        $this->get  = filter_input_array(INPUT_GET);
+        $this->post = filter_input_array(INPUT_POST, FILTER_SANITIZE_MAGIC_QUOTES, FILTER_SANITIZE_URL);
+        $this->get  = filter_input_array(INPUT_GET,  FILTER_SANITIZE_MAGIC_QUOTES, FILTER_SANITIZE_URL);
 
         $ref = new ReflectionClass($this);
         $this->moduleName = basename(dirname($ref->getFileName()));

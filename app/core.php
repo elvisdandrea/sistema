@@ -129,7 +129,7 @@ class core {
      */
     private static function parsetServerData() {
 
-        self::$server = filter_input_array(INPUT_SERVER);
+        self::$server = filter_input_array(INPUT_SERVER, FILTER_SANITIZE_MAGIC_QUOTES, FILTER_SANITIZE_URL);
     }
 
     /**
@@ -227,6 +227,28 @@ class core {
         self::$static_controller = new $module;
         $result = self::$static_controller->$action();
         echo $result;
+    }
+
+    /**
+     * Get the response of a method execution
+     * into a string
+     *
+     * @param   array       $uri    - The method URI
+     * @return  string              - The response
+     */
+    public static function getMethodContent($uri) {
+
+        ob_start();
+        self::runMethod($uri);
+        $result = ob_get_contents();
+        ob_end_clean();
+
+        if ($result == '') {
+            $view = new View();
+            $result = $view->get404();
+        }
+
+        return $result;
     }
 
     /**

@@ -131,14 +131,12 @@ class Html {
         return 'Main.imageAction(\'' . $inputId . '\', \'' . $imgId . '\');';
     }
 
-    public static function httpBuildUrl(array $array) {
-
-        $result = array();
-        foreach ($array as $key => $value)
-            $result[] = $key . '=' . $value;
-        return implode('&', $result);
-    }
-
+    /**
+     * Validates if string is URL
+     *
+     * @param   string      $string
+     * @return  bool
+     */
     public static function isUrl($string) {
 
         $url = parse_url($string);

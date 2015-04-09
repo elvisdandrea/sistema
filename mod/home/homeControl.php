@@ -62,21 +62,11 @@ class homeControl extends Control {
         $this->view()->setVariable('calendar', $calendar);
 
         if (count($uri) == 0)
-            $uri = array('request');
+            $uri = array(MAIN);
 
-        ob_start();
-        Core::runMethod($uri);
-        $result = ob_get_contents();
-        ob_end_clean();
-        if ($result == '')
-            $result = $this->view()->get404();
+        $content = Core::getMethodContent($uri);
 
-        $this->view()->setVariable('page_content', $result);
-        echo $this->view()->render();
-        $this->terminate();
-
-        $this->view()->setVariable('page_content', $result);
-
+        $this->view()->setVariable('page_content', $content);
         echo $this->view()->render();
         $this->terminate();
     }

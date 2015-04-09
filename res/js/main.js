@@ -176,5 +176,5 @@ var Main = new Main();
  */
 Main.linkActions();
 Main.formActions();
-Main.interactions('datepicker');
+//Main.interactions('datepicker');
 
