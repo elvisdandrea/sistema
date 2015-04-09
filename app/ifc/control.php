@@ -162,7 +162,7 @@ class Control {
     }
 
     /**
-     * Returns a post value
+     * Returns one or more post values
      *
      * @return  mixed
      */
@@ -174,7 +174,7 @@ class Control {
             return $this->post;
 
         if (count($args) == 1)
-            return $this->post[$args[0]];
+            return isset($this->post[$args[0]]) ? $this->post[$args[0]] : false;
 
         $result = array();
         foreach ($args as $arg)
@@ -257,26 +257,34 @@ class Control {
     }
 
     /**
-     * Throws a 404 Error
+     * Drops to a 404 Error
      *
      * Used for security features
      */
-    protected function throw404() {
+    protected function drop404() {
         header('HTTP/1.0 404 Not Found');
         exit;
     }
 
     /**
-     * Returns a URI query string value
+     * Returns one or more URI query string values
      *
-     * @param   bool|string     $name       - the query string field name
      * @return  mixed
      */
-    protected function getQueryString($name = false) {
-        if ($name)
-            return (isset($this->get[$name]) ? $this->get[$name] : false);
+    protected function getQueryString() {
+        $args = func_get_args();
 
-        return $this->get;
+        if (count($args) == 0)
+            return $this->get;
+
+        if (count($args) == 1)
+            return isset($this->get[$args[0]]) ? $this->get[$args[0]] : false;
+
+        $result = array();
+        foreach ($args as $arg)
+            !isset($this->get[$arg]) || $result[$arg] = $this->get[$arg];
+
+        return $result;
     }
 
     /**
@@ -341,6 +349,13 @@ class Control {
         $stay || $this->terminate();
     }
 
+    /**
+     * Sets an element value
+     *
+     * @param   string      $block  - The element
+     * @param   string      $value  - The value to set
+     * @param   bool        $stay   - If it should not finish execution after rendering
+     */
     protected function commitSetValue($block, $value, $stay = true) {
 
         echo Html::SetValue($value, $block);
@@ -403,35 +418,50 @@ class Control {
 
     }
 
+    /**
+     * Saves a base64 string into file and
+     * uploads to the storage server
+     *
+     * @param   string          $base64         - The base64 string
+     * @param   string|bool     $destDir        - The file destination directory ( false for auto-generate destination based on company Id and module name )
+     * @param   string          $type           - The storage server type
+     * @return \Guzzle\Service\Resource\Model
+     */
     public function uploadBase64File($base64, $destDir = false, $type = 'aws') {
 
-        $destDir ||
-            $destDir = $this->getModuleTransferPath();
+        $destDir || $destDir = $this->getModuleTransferPath();
 
         switch ($type) {
             case 'aws':
                 return $this->uploadBase64FileAws($base64, $destDir);
                 break;
+            //TODO: implement ftp upload type
         }
     }
 
+    /**
+     * Aws storage Upload type
+     *
+     * @param   string      $base64     - The base64 string
+     * @param   string      $destDir    - The file destination dir
+     * @return \Guzzle\Service\Resource\Model
+     */
     private function uploadBase64FileAws($base64, $destDir) {
 
-        $filename = uniqid() . date('Ymdhis') . '.jpg';
+        $filename   = uniqid() . date('Ymdhis') . '.jpg';
         FileManager::rmkdir(AWSFILEDIR);
         $sourceFile = AWSFILEDIR . '/' . $filename;
         FileManager::saveBase64File($sourceFile, $base64);
-        $uploadAws = new Aws();
+        $uploadAws  = new Aws();
         $uploadAws->setBucket('gravi.orbit');
         $uploadAws->setPath($destDir);
-        $result = $uploadAws->upload($sourceFile, $filename);
+        $result     = $uploadAws->upload($sourceFile, $filename);
         FileManager::removeFile($sourceFile);
         return $result;
-
     }
 
     /**
-     * Preventing Memory Leaks
+     * Preventing Some Memory Leaks
      */
     protected function terminate() {
 

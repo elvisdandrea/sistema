@@ -56,7 +56,7 @@ class requestModel extends Model {
 
         $this->addField('count(*) as mxm');
         $this->addFrom('requests r');
-        $this->addWhere('r.delivery_date = ' . ( $date ? '"' . $date . '"' : 'curdate()' ) );
+        $this->addWhere('date(r.delivery_date) = ' . ( $date ? '"' . $date . '"' : 'curdate()' ) );
         $this->runQuery();
 
         $result = $this->getRow(0);
@@ -300,6 +300,8 @@ class requestModel extends Model {
         $this->addField('r.id');
         $this->addField('r.request_date');
         $this->addField('r.delivery_date');
+        $this->addField('month(r.delivery_date) as request_month');
+        $this->addField('day(r.delivery_date) as request_day');
         $this->addField('r.address_id');
         $this->addField('c.client_name');
         $this->addField('c.image');

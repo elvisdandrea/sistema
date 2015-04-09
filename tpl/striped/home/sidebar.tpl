@@ -9,6 +9,7 @@
             <li class="current"><a href="{$smarty.const.BASEDIR}request">Pedidos</a></li>
             <li><a href="{$smarty.const.BASEDIR}client">Clientes</a></li>
             <li><a href="{$smarty.const.BASEDIR}product">Produtos</a></li>
+            <li><a href="{$smarty.const.BASEDIR}profile">Usuários</a></li>
             <li><a href="{$smarty.const.BASEDIR}config">Configurar</a></li>
             <li><a href="{$smarty.const.BASEDIR}home/logout">Sair</a></li>
         </ul>
