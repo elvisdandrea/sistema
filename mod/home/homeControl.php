@@ -103,10 +103,10 @@ class homeControl extends Control {
         #throw new ExceptionHandler('teste', 400);  // Example of Exception Handling
         #$this->view('')->lol();                    // Example of Fatal Error Handling
 
-        $result = array(
+        $result = RestServer::response(array(
             'execution'     => 'Hooray, green test!',
             'working_id'    => $this->getId()
-        );
+        ));
 
         return $result;
     }
@@ -149,11 +149,6 @@ class homeControl extends Control {
         $this->commitReplace('Created!', '#alert');
     }
 
-    public function addUser() {
-
-        $this->view()->loadTemplate('createuser');
-        $this->commitReplace($this->view()->render(), '#main');
-    }
 
     public function logout() {
 

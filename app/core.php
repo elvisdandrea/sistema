@@ -88,7 +88,7 @@ class core {
      */
     private static function loadUrl(){
 
-        $uri = $_SERVER['REQUEST_URI'];
+        $uri = filter_input(INPUT_SERVER, 'REQUEST_URI');
 
         if (ENCRYPTURL == '1')
             $uri = CR::decrypt($uri);

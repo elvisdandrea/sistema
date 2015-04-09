@@ -7,11 +7,17 @@
  */
 class clientControl extends Control {
 
+    /**
+     * Constructor
+     */
     public function __construct() {
         parent::__construct();
     }
 
 
+    /**
+     * Renders the client main page
+     */
     public function clientPage() {
         $this->view()->loadTemplate('clientpage');
 
@@ -34,6 +40,9 @@ class clientControl extends Control {
             echo Html::AddClass('content-aligned', '#content');
     }
 
+    /**
+     * View for adding a client
+     */
     public function newClient() {
         $this->view()->loadTemplate('newclient');
         $this->view()->appendJs('client');
@@ -41,6 +50,9 @@ class clientControl extends Control {
         echo Html::addImageUploadAction('read64', 'client-img');
     }
 
+    /**
+     * Handler for adding a client
+     */
     public function addNewClient(){
         $status = $this->postAddClient();
         if ($status['status'] != 200) {
@@ -52,6 +64,12 @@ class clientControl extends Control {
         $this->viewClient($clientId);
     }
 
+    /**
+     * Rest handler for adding a client
+     *
+     * @return array|string
+     * @throws ExceptionHandler
+     */
     public function postAddClient(){
         $post = $this->getPost();
 
@@ -106,6 +124,12 @@ class clientControl extends Control {
 
     }
 
+    /**
+     * New client data validation
+     *
+     * @param   $postData
+     * @return  array
+     */
     private function validateDataForClient($postData){
         $return = array(
             'valid'     => true,
@@ -120,6 +144,11 @@ class clientControl extends Control {
         return $return;
     }
 
+    /**
+     * View of a client
+     *
+     * @param   bool|int    $id     - The client Id
+     */
     public function viewClient($id = false){
         if($id == false) {
             $id = $this->getQueryString('id');
@@ -144,6 +173,9 @@ class clientControl extends Control {
         echo Html::addImageUploadAction('read64', 'client-img');
     }
 
+    /**
+     * View for editing a client
+     */
     public function editClient() {
         $id = $this->getQueryString('id');
         $this->setId($id);
@@ -157,6 +189,12 @@ class clientControl extends Control {
         $this->clientPage();
     }
 
+    /**
+     * Rest handler for updating a client
+     *
+     * @return  array|string        - The client data
+     * @throws  ExceptionHandler
+     */
     public function updateClient() {
         $post = $this->getPost();
 
@@ -204,6 +242,9 @@ class clientControl extends Control {
         ), 200);
     }
 
+    /**
+     * Handler of adding a client
+     */
     public function addClientAddr(){
         $id = $this->getQueryString('id');
         $this->setId($id);
@@ -213,6 +254,12 @@ class clientControl extends Control {
         }
     }
 
+    /**
+     * Rest handler for adding a client
+     *
+     * @return  array|string        - The client data
+     * @throws  ExceptionHandler
+     */
     public function postAddClientAddr(){
         $post = $this->getPost();
 
@@ -238,6 +285,9 @@ class clientControl extends Control {
         ), 200);
     }
 
+    /**
+     * Handler for removing an address
+     */
     public function removeAddr(){
         $addr_id = $this->getQueryString('addr_id');
         $this->setId($addr_id);
@@ -247,6 +297,12 @@ class clientControl extends Control {
         }
     }
 
+    /**
+     * Rest Handler for removing an adress
+     *
+     * @return  array|string
+     * @throws  ExceptionHandler
+     */
     public function deleteClientAddr(){
         $id = $this->getId();
         $this->model()->removeClientAddr($id);
@@ -261,6 +317,9 @@ class clientControl extends Control {
         ), 200);
     }
 
+    /**
+     * Handler for adding a client
+     */
     public function addClientPhone(){
         $id = $this->getQueryString('id');
         $this->setId($id);
@@ -273,6 +332,12 @@ class clientControl extends Control {
         $this->viewClient();
     }
 
+    /**
+     * Rest Handler for adding a client
+     *
+     * @return array|string
+     * @throws ExceptionHandler
+     */
     public function postAddClientPhone(){
         $post = $this->getPost();
 
@@ -300,6 +365,12 @@ class clientControl extends Control {
         ), 200);
     }
 
+    /**
+     * Validation for adding a client phone
+     *
+     * @param   $postData       - The phone data
+     * @return  array
+     */
     private function validatePhone($postData){
         $return = array(
             'valid'     => true,
@@ -331,6 +402,9 @@ class clientControl extends Control {
         return $return;
     }
 
+    /**
+     * Handler for removing a client phone
+     */
     public function removePhone(){
         $addr_id = $this->getQueryString('addr_id');
         $this->setId($addr_id);
@@ -343,6 +417,12 @@ class clientControl extends Control {
         $this->viewClient();
     }
 
+    /**
+     * Rest Handler for removing a client phone
+     *
+     * @return array|string
+     * @throws ExceptionHandler
+     */
     public function deleteClientPhone(){
         $id = $this->getId();
         $this->model()->removeClientPhone($id);

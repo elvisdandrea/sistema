@@ -237,6 +237,13 @@ class requestControl extends Control {
         );
 
         $result = $this->postAddRequest($requestData);
+
+        if ($result['status'] != 200) {
+            $this->commitReplace($result['message'], '#message');
+            $this->commitShow('#message');
+            $this->terminate();
+        }
+
         Session::del('requests', $this->request_id);
 
         if ($result['status'] == 200) {
@@ -244,6 +251,23 @@ class requestControl extends Control {
             $this->terminate();
         }
 
+    }
+
+    /**
+     * Data validation for new requests
+     *
+     * @param   array       $requestData    - The request data
+     * @return  array
+     */
+    private function validateNewRequest($requestData) {
+
+        $errors = array();
+
+        !empty($requestData['client_id'])     || $errors[] = 'Você deve informar um cliente';
+        !empty($requestData['address_id'])    || $errors[] = 'Você deve selecionar um endereço';
+        !empty($requestData['delivery_date']) || $errors[] = 'Você deve selecionar uma data de entrega';
+
+        return $errors;
     }
 
     /**
@@ -265,8 +289,13 @@ class requestControl extends Control {
             unset($requestData['plates']);
         }
 
-        $request_id = $this->model()->insertNewRequest($requestData);
-        $result['id']   = $request_id;
+        $errors = $this->validateNewRequest($requestData);
+
+        if (count($errors) > 0)
+            return RestServer::throwError(implode(', ', $errors));
+
+        $request_id   = $this->model()->insertNewRequest($requestData);
+        $result['id'] = $request_id;
 
         foreach ($plates as $plate) {
 
@@ -289,10 +318,10 @@ class requestControl extends Control {
 
         }
 
-        return array(
+        return RestServer::response(array(
             'status'    => 200,
             'request'   => $result
-        );
+        ));
     }
 
     /**
@@ -361,10 +390,16 @@ class requestControl extends Control {
         $this->commitHide('#change-' . $plate_id);
     }
 
+    /**
+     * Handler for adding a plate item
+     *
+     * @param   array       $requestData    - The request data
+     * @return  string
+     */
     public function postAddItem(array $requestData = array()) {
 
         count($requestData) > 0 ||
-        $requestData = $this->getPost();
+            $requestData = $this->getPost();
 
         $result     = array();
         $plate_id   = $requestData['plate_id'];
@@ -383,9 +418,12 @@ class requestControl extends Control {
             }
         }
 
-        return $result;
+        return RestServer::response($result);
     }
 
+    /**
+     * Handler for changing plate items
+     */
     public function saveChange() {
 
         $plate_id         = $this->getQueryString('plate_id');
@@ -395,11 +433,13 @@ class requestControl extends Control {
         $items['plate_id']  = $plate_id;
         $result = $this->postAddItem($items);
 
-        $this->commitHide('#searchproduct-' . $plate_id);
-        $this->commitHide('#save-'   . $plate_id);
-        $this->commitShow('#change-' . $plate_id);
-        $this->commitReplace('', '#search-' . $plate_id);
-        Session::del('requests', $this->request_id);
+        if ($result['status'] == 200) {
+            $this->commitHide('#searchproduct-' . $plate_id);
+            $this->commitHide('#save-'   . $plate_id);
+            $this->commitShow('#change-' . $plate_id);
+            $this->commitReplace('', '#search-' . $plate_id);
+            Session::del('requests', $this->request_id);
+        }
 
     }
 

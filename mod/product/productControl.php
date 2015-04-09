@@ -7,10 +7,16 @@
  */
 class productControl extends Control {
 
+    /**
+     * Constructor
+     */
     public function __construct() {
         parent::__construct();
     }
 
+    /**
+     * Main view of products
+     */
     public function productPage() {
 
         $this->view()->loadTemplate('productpage');
@@ -40,6 +46,9 @@ class productControl extends Control {
             echo Html::AddClass('content-aligned', '#content');
     }
 
+    /**
+     * View for adding a product
+     */
     public function newProduct() {
 
         $this->view()->loadTemplate('newproduct');
@@ -48,6 +57,9 @@ class productControl extends Control {
         echo Html::addImageUploadAction('read64', 'product-img');
     }
 
+    /**
+     * Handler that returns a list options of nutrition facts
+     */
     public function factList() {
 
         $this->newModel('auth');
@@ -59,6 +71,11 @@ class productControl extends Control {
         $this->commitPrint($this->view()->render());
     }
 
+    /**
+     * Loads the nutrition facts of an item
+     *
+     * @param   bool    $product_id     - The product Id
+     */
     public function loadNutrictionFacts($product_id = false) {
 
         $product_id || $product_id = $this->getQueryString('id');
@@ -71,6 +88,9 @@ class productControl extends Control {
 
     }
 
+    /**
+     * Handler that returns the list options of categories
+     */
     public function categoryList() {
 
         $this->view()->loadTemplate('categorylist');
@@ -81,6 +101,12 @@ class productControl extends Control {
         $this->commitPrint($this->view()->render());
     }
 
+    /**
+     * Validator dor adding products
+     *
+     * @param   $productData        - The product data
+     * @return  array
+     */
     private function validateData4Product($productData) {
 
         $return = array(
@@ -103,6 +129,12 @@ class productControl extends Control {
         return $return;
     }
 
+    /**
+     * Rest Handler for adding products
+     *
+     * @return array|string
+     * @throws ExceptionHandler
+     */
     public function postAddProduct() {
 
         $post = $this->getPost();
@@ -153,6 +185,9 @@ class productControl extends Control {
 
     }
 
+    /**
+     * Handler for adding products
+     */
     public function addProduct() {
 
         $product = $this->postAddProduct();
@@ -165,6 +200,9 @@ class productControl extends Control {
         $this->productPage();
     }
 
+    /**
+     * View of a product
+     */
     public function viewProduct() {
 
         $id = $this->getQueryString('id');
@@ -181,6 +219,12 @@ class productControl extends Control {
             $this->loadNutrictionFacts($product['product_fact']);
     }
 
+    /**
+     * Rest handler for updating products
+     *
+     * @return  array|string
+     * @throws  ExceptionHandler
+     */
     public function updateProduct() {
 
         $post = $this->getPost();
@@ -224,6 +268,9 @@ class productControl extends Control {
         ), 200);
     }
 
+    /**
+     * Handler for editing products
+     */
     public function editproduct() {
 
         $id = $this->getQueryString('id');
