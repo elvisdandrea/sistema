@@ -64,6 +64,13 @@ class View {
     private $jsFiles = array();
 
     /**
+     * When you need to append a generic template Javascript to the committed HTML
+     *
+     * @var array
+     */
+    private $templateJsFiles = array();
+
+    /**
      * The constructor
      *
      * It instances the Smarty class
@@ -71,7 +78,7 @@ class View {
      */
     public function __construct() {
 
-        $this->setTemplateName('striped');      //The default Template Name
+        $this->setTemplateName('orbit');      //The default Template Name
         $this->smarty = new Smarty();
         $this->smarty->setTemplateDir(TPLDIR . '/' . $this->templateName);
         $this->smarty->setCompileDir(IFCDIR . '/cache');
@@ -104,6 +111,11 @@ class View {
             $result[] = '<script src="'. $jsFileName. '"></script>';
         }
 
+        foreach ($this->templateJsFiles as $jsFileName) {
+            $jsFileName =  T_JSURL . '/' . $jsFileName . '.js';
+            $result[] = '<script src="'. $jsFileName. '"></script>';
+        }
+
         return implode(' ', $result);
     }
 
@@ -115,6 +127,16 @@ class View {
     public function appendJs($jsFile) {
 
         $this->jsFiles[] = $jsFile;
+    }
+
+    /**
+     * Adds a js file to be committed along with HTML
+     *
+     * @param   string      $jsFile     - The JS file name in the module template folder
+     */
+    public function appendTemplateJs($jsFile) {
+
+        $this->templateJsFiles[] = $jsFile;
     }
 
     /**
