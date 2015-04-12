@@ -45,7 +45,7 @@
                             <i class="fa fa-list"></i>
                         </div>
                         <input type="text" name="category_id" data-id="{$product['category_id']}" value="{$product['category_name']}" class="form-control" placeholder="Localizar uma categoria" data-toggle="dropdown" />
-
+                        <div id="category-dropdown"></div>
                     </div>
                 </div>
             </div>

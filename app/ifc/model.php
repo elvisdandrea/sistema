@@ -249,6 +249,27 @@ class Model {
     private $gridClass = 'table-striped';
 
     /**
+     * The parameters used to
+     * a result shown as dropdown
+     *
+     * @var array
+     */
+    private $dropdownParams = array(
+        'title'        => '',
+        'action'        => '',
+        'field_id'      => '',
+        'field_img'     => '',
+        'field_content' => ''
+    );
+
+    /**
+     * The dropdown template
+     *
+     * @var string
+     */
+    private $dropdownTemplate = 'dropdown';
+
+    /**
      * The Current Connection Resource Name
      *
      * @var string
@@ -392,6 +413,35 @@ class Model {
     public function setGridRowLink($action, $fieldId) {
         $this->gridRowLink['action'] = $action;
         $this->gridRowLink['fieldId'] = $fieldId;
+    }
+
+    /**
+     * Dropdown Setup
+     *
+     * @param string    $title              - Dropdown Title
+     * @param string    $field_content      - Field to show in li content
+     * @param string    $action             - Action to set on click
+     * @param string    $field_id           - Field to set as row Id
+     * @param string    $field_img          - Field to set as row image
+     */
+    public function setDropDownParams($title, $field_content, $action = '', $field_id = '', $field_img = '') {
+
+        $this->dropdownParams = array(
+            'title'         => $title,
+            'action'        => $action,
+            'field_id'      => $field_id,
+            'field_img'     => $field_img,
+            'field_content' => $field_content
+        );
+    }
+
+    /**
+     * Sets the dropdown template
+     *
+     * @param $template
+     */
+    public function setDropDownTemplate($template) {
+        $this->dropdownTemplate = $template;
     }
 
     /**
@@ -1017,6 +1067,24 @@ class Model {
 
         return $view->render();
 
+    }
+
+    /**
+     * Renders a dropdown list with
+     * query result
+     *
+     * @return string
+     */
+    public function dropDown() {
+
+        $view = new View();
+        $view->setVariable('id', $this->id);
+
+        $view->setVariable('dropdownParams', $this->dropdownParams);
+        $view->setVariable('content', $this->dataset);
+        $view->loadTemplate($this->dropdownTemplate);
+
+        return $view->render();
     }
 
 
