@@ -8,7 +8,7 @@
     E-mail: elvis.vista@gmail.com
 -->
 <div class="box-body">
-    <table id="{$id}" class="table table-striped table-responsive">
+    <table id="{$id}" class="table {$gridClass} table-responsive">
 
         <!--    Table Header    -->
         <thead>

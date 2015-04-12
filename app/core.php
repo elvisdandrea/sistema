@@ -117,7 +117,7 @@ class core {
      * @param   string  $name   - Server info name
      * @return  bool
      */
-    public static function __get($name) {
+    public function __get($name) {
 
         return self::getServerInfo(strtoupper($name));
     }
