@@ -67,8 +67,9 @@ class clientControl extends Control {
     public function addNewClient(){
         $status = $this->postAddClient();
         if ($status['status'] != 200) {
-            $this->commitReplace($status['message'], '#message');
-            $this->commitShow('#message');
+            $this->commitAdd(
+                $this->view()->showAlert('error', 'Ops! Verifique seu cadastro', $status['message'])
+            , '#content');
             $this->terminate();
         }
         $clientId = $this->model()->getLastInsertId();

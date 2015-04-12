@@ -230,6 +230,36 @@ class View {
     }
 
     /**
+     * Displays an alert box
+     *
+     * @param   string  $type       - The alert type
+     * @param   string  $title      - Title of the box
+     * @param   string  $content    - Content of the box
+     * @return  string              - The rendered box html
+     */
+    public function showAlert($type, $title, $content) {
+        $types = array(
+            'warning'       => 'alert-warning',
+            'error'         => 'alert-error',
+            'info'          => 'alert-info',
+            'danger'        => 'alert-danger',
+            'success'       => 'alert-success',
+            'dismissable'   => 'alert-dismissable'
+        );
+
+        isset($types[$type]) || $type = 'warning';
+
+        $this->template = 'ifc/alert';
+        debug($this->template);
+
+        $this->setVariable('title',   $title);
+        $this->setVariable('content', $content);
+        $this->setVariable('type',    $types[$type]);
+
+        return $this->render();
+    }
+
+    /**
      * Renders a template
      *
      * @param   bool        $fetch      - Just return the html instead of rendering directly on screen
