@@ -48,14 +48,26 @@
                         {elseif ($fieldparams['type'] == 'Date')}
                             {String::FormatDateToLoad($row[$fieldparams['field']])}
 
-                        <!--    Date Type Cell  -->
+                        <!--    Currency Type Cell  -->
+                        {elseif ($fieldparams['type'] == 'Currency')}
+                            {String::convertTextFormat($row[$fieldparams['field']], 'currency')}
+
+                        <!--    Unit Type Cell  -->
+                        {elseif ($fieldparams['type'] == 'Unit')}
+                            {$row[$fieldparams['field']]} {$unit}
+
+                        <!--    Template content Type Cell  -->
+                        {elseif ($fieldparams['type'] == 'Tpl')}
+                            {include "{$fieldparams['field']}"}
+
+                            <!--    Date Type Cell  -->
                         {elseif ($fieldparams['type'] == 'Time')}
                             {String::FormatTimeToLoad($row[$fieldparams['field']])}
 
                         <!--    Image Type Cell  -->
                         {elseif ($fieldparams['type'] == 'Image')}
                             {if ($row[$fieldparams['field']] != '')}
-                                <img height="70px" src="{$row[$fieldparams['field']]}" />
+                                <img width="70px" height="70px" src="{$row[$fieldparams['field']]}" />
                             {/if}
 
                         <!--    Input Type Cell  -->

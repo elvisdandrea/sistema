@@ -52,10 +52,14 @@
                         {elseif ($fieldparams['type'] == 'Time')}
                             {String::FormatTimeToLoad($row[$fieldparams['field']])}
 
+                        <!--    Currency Type Cell  -->
+                        {elseif ($fieldparams['type'] == 'Currency')}
+                            {String::convertTextFormat($row[$fieldparams['field']], 'currency')}
+
                         <!--    Image Type Cell  -->
                         {elseif ($fieldparams['type'] == 'Image')}
                             {if ($row[$fieldparams['field']] != '')}
-                                <img height="70px" src="{$row[$fieldparams['field']]}" />
+                                <img width="70px" src="{$row[$fieldparams['field']]}" />
                             {/if}
 
                         <!--    Input Type Cell  -->

@@ -58,10 +58,25 @@ class productModel extends Model {
 
     }
 
-    public function getCountProducts() {
+    public function getCountProducts($search = false) {
+
+        $fields = array(
+            'p.id',
+            'c.category_name',
+            'p.product_name',
+            'p.weight',
+            'p.price',
+            'p.description'
+        );
 
         $this->addField('count(id) as total');
         $this->addFrom('products');
+
+        if ($search) {
+            foreach ($fields as $field)
+                $this->addWhere($field . ' like "%' . str_replace(' ','%',$search) . '%"', 'OR');
+        }
+
         $this->runQuery();
         $result = $this->getRow(0);
         return $result['total'];
@@ -69,7 +84,7 @@ class productModel extends Model {
 
     public function getProductList($page = 1, $rp = 10, $search = false) {
 
-        $total = $this->getCountProducts();
+        $total = $this->getCountProducts($search);
 
         $fields = array(
             'p.id',
@@ -107,6 +122,7 @@ class productModel extends Model {
 
         $this->addField('p.id');
         $this->addField('p.category_id');
+        $this->addField('c.category_name');
         $this->addField('p.product_name');
         $this->addField('p.weight');
         $this->addField('p.price');
@@ -115,6 +131,8 @@ class productModel extends Model {
         $this->addField('p.product_fact');
 
         $this->addFrom('products p');
+        $this->addFrom('left join categories c on c.id = p.category_id');
+
         $this->addWhere('p.id = "' . $id . '"');
         $this->runQuery();
 

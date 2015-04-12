@@ -249,6 +249,27 @@ class Model {
     private $gridClass = 'table-striped';
 
     /**
+     * The parameters used to
+     * a result shown as dropdown
+     *
+     * @var array
+     */
+    private $dropdownParams = array(
+        'title'        => '',
+        'action'        => '',
+        'field_id'      => '',
+        'field_img'     => '',
+        'field_content' => ''
+    );
+
+    /**
+     * The dropdown template
+     *
+     * @var string
+     */
+    private $dropdownTemplate = 'dropdown';
+
+    /**
      * The Current Connection Resource Name
      *
      * @var string
@@ -305,13 +326,15 @@ class Model {
      * @param   string      $title      - The column title
      * @param   string      $field      - The column field name
      * @param   string      $type       - Text|Date|Input|Checkbox|Select|Image
+     * @param   array       $params     - Content parameters
      * @param   bool|string $subtitle   - A subtitle field: a text to be show under the line content
      */
-    public function addGridColumn($title, $field, $type = 'Text', $subtitle = false) {
+    public function addGridColumn($title, $field, $type = 'Text', $params = array(), $subtitle = false) {
         $this->dbGridColumns[$field] = array(
             'field'     => $field,
             'title'     => $title,
             'type'      => $type,
+            'params'    => $params,
             'subtitle'  => $subtitle
         );
     }
@@ -390,6 +413,48 @@ class Model {
     public function setGridRowLink($action, $fieldId) {
         $this->gridRowLink['action'] = $action;
         $this->gridRowLink['fieldId'] = $fieldId;
+    }
+
+    /**
+     * Dropdown Setup
+     *
+     * @param string    $title              - Dropdown Title
+     * @param string    $field_content      - Field to show in li content
+     * @param string    $action             - Action to set on click
+     * @param string    $field_id           - Field to set as row Id
+     * @param string    $field_img          - Field to set as row image
+     */
+    public function setDropDownParams($title, $field_content, $action = '', $field_id = '', $field_img = '') {
+
+        $this->dropdownParams = array(
+            'title'         => $title,
+            'action'        => $action,
+            'field_id'      => $field_id,
+            'field_img'     => $field_img,
+            'field_content' => $field_content
+        );
+    }
+
+    /**
+     * Setup for Dropdown Footer
+     *
+     * @param string    $text       - The footer text
+     * @param string    $action     - Footer Onclick
+     */
+    public function setDropDownFooter($text, $action = '') {
+        $this->dropdownParams['footer'] = array(
+            'text'      => $text,
+            'action'    => $action
+        );
+    }
+
+    /**
+     * Sets the dropdown template
+     *
+     * @param $template
+     */
+    public function setDropDownTemplate($template) {
+        $this->dropdownTemplate = $template;
     }
 
     /**
@@ -856,7 +921,9 @@ class Model {
     /**
      * Adds a SET for UPDATE queries
      *
-     * @param   string      $set        - The field and value
+     * @param   string      $field      - The field
+     * @param   string      $value      - The Value
+     * @param   bool        $quoted     - If the value must be quoted
      */
     protected function addUpdateSet($field, $value, $quoted = true) {
 
@@ -1001,6 +1068,11 @@ class Model {
             }
         }
 
+        foreach ($this->dbGridColumns as $column) {
+            if (count($column['params']) > 0)
+                foreach ($column['params'] as $var => $val) $view->setVariable($var, $val);
+        }
+
         $view->setVariable('head', $this->dbGridColumns);
         $view->setVariable('gridClass', $this->gridClass);
         $view->setVariable('content', $this->dataset);
@@ -1008,6 +1080,24 @@ class Model {
 
         return $view->render();
 
+    }
+
+    /**
+     * Renders a dropdown list with
+     * query result
+     *
+     * @return string
+     */
+    public function dropDown() {
+
+        $view = new View();
+        $view->setVariable('id', $this->id);
+
+        $view->setVariable('dropdownParams', $this->dropdownParams);
+        $view->setVariable('content', $this->dataset);
+        $view->loadTemplate($this->dropdownTemplate);
+
+        return $view->render();
     }
 
 
