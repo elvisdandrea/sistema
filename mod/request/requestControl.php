@@ -53,29 +53,45 @@ class requestControl extends Control {
      *
      * @param   string|bool     $date       - The date to show
      */
-    public function requestPage($date = false) {
+    public function requestPage() {
 
         $this->view()->loadTemplate('requestpage');
 
-        $date || $date = $this->getQueryString('date');
+        $dateFrom = $this->getQueryString('date_from');
+        $dateTo = $this->getQueryString('date_to');
 
-        $requestCount = $this->model()->countRequests($date);
-        $this->model()->listRequests($date);
+        $page   = $this->getQueryString('page');
+        $rp     = $this->getQueryString('rp');
+
+        $page || $page = 1;
+        intval($rp) > 0 || $rp = 10;
+
+        $totalRequest = $this->model()->getTotalRequests();
+        $this->view()->setVariable('totalRequest', $totalRequest);
+        $pendingRequests = $this->model()->getTotalPendingRequests();
+
+        $this->view()->setVariable('pendingRequests', $pendingRequests);
+
+        $countRequests = $this->model()->countRequests($dateFrom, $dateTo);
+
+        $pagination = $this->getPagination($page, $countRequests, $rp, 'client/clientpage');
+        $this->view()->setVariable('pagination', $pagination);
+
+        $this->model()->listRequests($dateFrom, $dateTo);
         $this->model()->setGridRowLink('request/viewrequest', 'id');
-        $this->model()->addGridColumn('Pedido', 'id');
-        $this->model()->addGridColumn('Imagem', 'image', 'Image');
+        $this->model()->addGridColumn('Pedido #', 'id');
+        $this->model()->addGridColumn('', 'image', 'Image');
         $this->model()->addGridColumn('Cliente', 'client_name');
         $this->model()->addGridColumn('Telefones', 'phones');
         $this->model()->addGridColumn('Entrega', 'delivery_date', 'Date');
-        $this->model()->addGridColumn('Andamento', 'status_name');
+        $this->model()->addGridColumn('Status', 'status_name');
+        $this->model()->setGridClass('table-bordered');
 
-        $this->view()->setVariable('requestCount', $requestCount);
         $this->view()->setVariable('rows', $this->model()->getRow(0));
         $this->view()->setVariable('request_table', $this->model()->dbGrid());
+        $this->view()->appendJs('requestpage');
 
         $this->commitReplace($this->view()->render(), '#content');
-        if (Core::isAjax())
-            echo Html::RemoveClass('content-aligned', '#content');
     }
 
     /**

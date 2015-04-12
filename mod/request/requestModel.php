@@ -23,7 +23,7 @@ class requestModel extends Model {
      *
      * @param   string|bool     $date       - Delivery Date ( false for current date )
      */
-    public function listRequests($date = false) {
+    public function listRequests($dateFrom, $dateTo){
 
         $this->addField('r.id');
         $this->addField('r.request_date');
@@ -32,7 +32,7 @@ class requestModel extends Model {
         $this->addField('day(r.delivery_date) as request_day');
         $this->addField('c.client_name');
         $this->addField('c.image');
-        $this->addField('group_concat(f.phone_number separator ",") as phones');
+        $this->addField('group_concat(f.phone_number separator "<br>") as phones');
         $this->addField('s.status_name');
         $this->addField('s.color');
 
@@ -41,7 +41,9 @@ class requestModel extends Model {
         $this->addFrom('left join client_phone f on f.client_id = c.id');
         $this->addFrom('left join delivery_status s on s.id = r.deliver_status');
 
-        $this->addWhere('r.delivery_date = ' . ( $date ? '"' . $date . '"' : 'curdate()' ) );
+        if (!empty($dateFrom) && !empty($dateTo))
+            $this->addWhere('r.delivery_date BETWEEN "' . $dateFrom . '" AND "' . $dateTo . '"');
+
         $this->addGroup('r.id');
 
         $this->runQuery();
@@ -52,11 +54,14 @@ class requestModel extends Model {
      *
      * @param   bool    $date       - Which date ( false for curdate )
      */
-    public function countRequests($date = false) {
+    public function countRequests($dateFrom, $dateTo) {
 
         $this->addField('count(*) as mxm');
         $this->addFrom('requests r');
-        $this->addWhere('date(r.delivery_date) = ' . ( $date ? '"' . $date . '"' : 'curdate()' ) );
+
+        if (!empty($dateFrom) && !empty($dateTo))
+            $this->addWhere('r.delivery_date BETWEEN "' . $dateFrom . '" AND "' . $dateTo . '"');
+
         $this->runQuery();
 
         $result = $this->getRow(0);
@@ -65,6 +70,27 @@ class requestModel extends Model {
 
     }
 
+    public function getTotalRequests(){
+        $this->addField('count(*) as mxm');
+        $this->addFrom('requests r');
+        $this->runQuery();
+
+        $result = $this->getRow(0);
+
+        return $result['mxm'];
+    }
+
+    public function getTotalPendingRequests(){
+        $this->addField('count(*) as mxm');
+        $this->addFrom('requests r');
+        $this->addWhere('r.deliver_status = 1');
+
+        $this->runQuery();
+
+        $result = $this->getRow(0);
+
+        return $result['mxm'];
+    }
 
     /**
      * Query to list clients for a request
