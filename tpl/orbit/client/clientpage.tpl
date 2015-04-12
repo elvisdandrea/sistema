@@ -3,7 +3,7 @@
 
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
-            <button class="btn btn-success" onclick="{$smarty.const.BASEDIR}client/newclient">Clique aqui e adicione um novo cliente
+            <a class="btn btn-success" href="{$smarty.const.BASEDIR}client/newclient">Clique aqui e adicione um novo cliente</a>
         </div><!-- /.box -->
     </div><!-- /.col -->
 
@@ -12,9 +12,9 @@
 <div class="col-md-12">
     <div class="box">
         <!-- search form -->
-        <form action="#" method="get" class="sidebar-form">
+        <form action="{$smarty.const.BASEDIR}client" method="get" class="sidebar-form">
             <div class="input-group">
-                <input type="text" name="q" class="form-control" placeholder="Localizar dentro da lista"/>
+                <input type="text" name="search" class="form-control" placeholder="Localizar dentro da lista"/>
                                     <span class="input-group-btn">
                                         <button type='submit' name='seach' id='search-btn' class="btn btn-flat">
                                             <i class="fa fa-search"></i>

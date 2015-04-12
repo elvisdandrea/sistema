@@ -3344,4 +3344,8 @@ fieldset[disabled] .btn-vk.active {
   display: none;
 }
 
+a.curpage {
+  background: #CCC !important;
+}
+
 /* -- */

@@ -110,7 +110,8 @@ class homeControl extends Control {
     public function notFound($url) {
 
         $this->view()->setVariable('url', $url);
-        $this->commitReplace($this->view()->get404(), 'body');
+        $this->commitReplace($this->view()->get404(), '#content');
+        $this->terminate();
     }
 
     /**

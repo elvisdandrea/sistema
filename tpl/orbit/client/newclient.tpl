@@ -4,7 +4,7 @@
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
             <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;">Cadastrar cliente</button>
-            <a type="button" class="btn btn-danger" title="Excluir o cliente" href="{$smarty.const.BASEDIR}client"><i class="fa fa-times"></i></a>
+            <a type="button" class="btn btn-danger" title="Excluir o cliente" href="{$smarty.const.BASEDIR}client">Cancelar</i></a>
         </div><!-- /.box -->
     </div><!-- /.col -->
     <!-- /.Buttons (Options) -->
