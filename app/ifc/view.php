@@ -78,7 +78,7 @@ class View {
      */
     public function __construct() {
 
-        $this->setTemplateName('orbit');      //The default Template Name
+        $this->setTemplateName(TEMPLATE);      //The default Template Name
         $this->smarty = new Smarty();
         $this->smarty->setTemplateDir(TPLDIR . '/' . $this->templateName);
         $this->smarty->setCompileDir(IFCDIR . '/cache');
@@ -240,7 +240,7 @@ class View {
     public function showAlert($type, $title, $content) {
         $types = array(
             'warning'       => 'alert-warning',
-            'error'         => 'alert-error',
+            'error'         => 'alert-danger',
             'info'          => 'alert-info',
             'danger'        => 'alert-danger',
             'success'       => 'alert-success',
@@ -249,8 +249,7 @@ class View {
 
         isset($types[$type]) || $type = 'warning';
 
-        $this->template = 'ifc/alert';
-        debug($this->template);
+        $this->template = 'ifc/alert.tpl';
 
         $this->setVariable('title',   $title);
         $this->setVariable('content', $content);
@@ -267,8 +266,16 @@ class View {
      */
     public function render($fetch = true) {
 
-        $method   = $fetch ? 'fetch' : 'display';
-        return $this->smarty->$method($this->template) . (count($this->jsFiles) > 0 ? $this->injectJSFiles() : '');
+        try {
+            $method = $fetch ? 'fetch' : 'display';
+            return $this->smarty->$method($this->template) . (count($this->jsFiles) > 0 ? $this->injectJSFiles() : '');
+        } catch (Exception $e) {
+            echo Html::ReplaceHtml(ExceptionHandler::throwException(array(
+                'message'  => $e->getMessage(),
+                'file'     => $e->getFile(),
+                'line'     => $e->getLine()
+            )), '#content');
+        }
     }
 
     /**

@@ -74,16 +74,16 @@ Class ExceptionHandler extends Exception {
     public static function FatalExceptionListener() {
 
         $error = error_get_last();
-        ENVDEV == '1' || $error['message'] = Language::FATAL_ERROR_MESSAGE();   // Preventing internal errors to be displayed on production server
         if (in_array($error['type'],
-            array(E_PARSE, E_COMPILE_ERROR, E_CORE_ERROR, E_ERROR, E_PARSE, E_COMPILE_ERROR)))
-                if (RESTFUL == '0') {
-                    self::throwException($error, 500);
-                } else {
-                    header('Content-type: application/json');
-                    self::throwRestException($error);
-                }
-
+            array(E_PARSE, E_COMPILE_ERROR, E_CORE_ERROR, E_ERROR, E_PARSE, E_COMPILE_ERROR))) {
+            ENVDEV == '1' || $error['message'] = Language::FATAL_ERROR_MESSAGE();   // Preventing internal errors to be displayed on production server
+            if (RESTFUL == '0') {
+                self::throwException($error, 500);
+            } else {
+                header('Content-type: application/json');
+                self::throwRestException($error);
+            }
+        }
 
     }
 
@@ -102,7 +102,7 @@ Class ExceptionHandler extends Exception {
      * @param   $error      - The error trace ( an array('message' => 'The Error Message', 'file' => 'The File Name', 'Class' => 'The Class Name') )
      * @return  string      - The rendered error page
      */
-    private static function throwException(array $error) {
+    public static function throwException(array $error) {
 
         $trace = debug_backtrace();
 
@@ -113,7 +113,7 @@ Class ExceptionHandler extends Exception {
         $view->setVariable('error', $error);
         $view->setVariable('trace', $trace);
 
-        return $view->render(false);
+        return $view->render();
 
     }
 

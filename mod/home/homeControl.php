@@ -57,10 +57,6 @@ class homeControl extends Control {
         $this->view()->loadTemplate('home');
         $this->view()->appendJs('sidebar');
 
-        $calendarControl = new calendarControl();
-        $calendar = $calendarControl->render();
-        $this->view()->setVariable('calendar', $calendar);
-
         if (count($uri) == 0)
             $uri = array(MAIN);
 

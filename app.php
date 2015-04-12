@@ -1,7 +1,7 @@
 <?php
 
 /**
- * App Configuration and Startup File
+ * App Configuration and Bootstrap File
  *
  * This is the begging of the magic.
  *
@@ -30,10 +30,10 @@
 /**
  * Directory Definition
  */
-define('MAINURL',   ( strpos($_SERVER['SERVER_NAME'], 'http://') !== false ? $_SERVER['SERVER_NAME'] :
-        'http://' . $_SERVER['SERVER_NAME'] ) . dirname($_SERVER["PHP_SELF"]));
-
-define('BASEDIR',     (dirname($_SERVER['PHP_SELF']) != '/' ? dirname($_SERVER['PHP_SELF']) . '/' : '/'));
+define('SERVER_NAME', filter_input(INPUT_SERVER, 'SERVER_NAME'));
+define('PHP_SELF',    filter_input(INPUT_SERVER, 'PHP_SELF'));
+define('MAINURL',   (strpos(SERVER_NAME, 'http://') !== false ? SERVER_NAME : 'http://' . SERVER_NAME ) . dirname(PHP_SELF) );
+define('BASEDIR',   (dirname(PHP_SELF) != '/' ? dirname(PHP_SELF) . '/' : '/'));
 
 define('MAINDIR',   __DIR__);
 define('APPDIR',    MAINDIR .   '/app');
@@ -63,18 +63,20 @@ require_once MAINDIR . '/handler.php';
 /**
  * Some configuration
  */
-if (Core::isUnderSubdomain('api'))
-                    define('RESTFUL', '1');     // If attends to ReSTful requests
+(Core::isUnderSubdomain('api') ?                // If attends to ReSTful requests
+    define('RESTFUL', '1') :                    // ReSTful Server is ON
+    define('RESTFUL', '0'));                    // ReSTful Server is OFF
 
-define('HOME', 'home');                         // Home Sweet Home - The module name to be used as home module
-define('MAIN', 'request');                      // The well known Main() - the bootstrap function after core loading
-define('AUTH', 'auth');                         // The module to be used as authentication module
-define('TEMPLATE',  'default');                 // The view template
+define('HOME',      'home');                    // Home Sweet Home - The module name to be used as home module
+define('MAIN',      'request');                 // The well known Main() - the bootstrap function after core loading
+define('AUTH',      'auth');                    // The module to be used as authentication module
+define('TEMPLATE',  'orbit');                   // The view template
 
 define('LNG', 'pt');                            // Site Language
 
-(Core::isLocal() ? define('ENVDEV', '1') :      // An elegant way of preventing ENVDEV = 1 on deploy
-    define('ENVDEV', '0'));                     // Development Enviroment
+(Core::isLocal() ?                              // An elegant way of preventing ENVDEV = 1 on deploy server
+    define('ENVDEV', '1') :                     // Development Enviroment is ON
+    define('ENVDEV', '0'));                     // Development Enviroment is OFF
 
 define('RESTFORMAT', 'json');                   // If ReSTful, which format we're working (JSON please)
 define('ENCRYPTURL', '0');                      // If requests must run over encrypted URLs
