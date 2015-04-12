@@ -42,7 +42,7 @@
                 <div class="row">
                     <!-- radio -->
                     <div class="form-group col-md-9">
-                        <div class="radio" style="float:left; margin: 0;">
+                        <div class="radio" style="float:left; margin: 0 40px;">
                             <label>
                                 <input type="radio" name="client_type" id="client_type_f" value="F" checked>
                                 Cadastro de pessoa física

@@ -380,10 +380,7 @@ class Control {
      * @param   bool        $stay       - If it should not finish execution after rendering
      */
     protected function scrollToElement($element, $speed = '1000', $stay = true) {
-        echo (!Core::isAjax() ?
-            '<script>$("html, body").animate({scrollTop: $("'.$element.'").offset().top}, ' . $speed . ');</script>' :
-            '$("html, body").animate({scrollTop: $("'.$element.'").offset().top}, ' . $speed . ');'
-        );
+        echo Html::ScrollToElement($element, $speed);
         $stay || $this->terminate();
     }
 
@@ -431,7 +428,7 @@ class Control {
     /**
      * Saves a base64 string into file and
      * uploads to the storage server
-     *
+     *$this->view()->setPageTitle($this->moduleName)
      * @param   string          $base64         - The base64 string
      * @param   string|bool     $destDir        - The file destination directory ( false for auto-generate destination based on company Id and module name )
      * @param   string          $type           - The storage server type

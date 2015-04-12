@@ -41,8 +41,8 @@
 	<aside class="right-side">
 		<!-- Content Header (Page header) -->
 		<section id="content-header" class="content-header">
-			<h1>
-				Clientes
+			<h1 id="page_title">
+				Bem-vindo ao Orbit
 			</h1>
 			<ol class="breadcrumb">
 				<li><a href="#"><i class="fa fa-dashboard"></i>Página inicial</a></li>

@@ -113,6 +113,20 @@ Html.prototype = {
     },
 
     /**
+     * Scrolls page to an element
+     *
+     * @param       element     - The element
+     * @param       speed       - The speed to reach the element
+     * @constructor
+     */
+    ScrollToElement : function (element, speed) {
+        $('html, body').animate(
+            {
+                scrollTop: $(element).offset().top
+            }, speed);
+    },
+
+    /**
      * Loads the options of a select input asynchronously
      *
      * The select must have an attribute href, so it will be

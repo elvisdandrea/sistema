@@ -100,6 +100,20 @@ class Html {
     }
 
     /**
+     * Scrolls page to an element
+     *
+     * @param   string      $element    - The element
+     * @param   string      $speed      - The speed to reach the element
+     * @return  string
+     */
+    public static function ScrollToElement($element, $speed = '1000') {
+        return (!Core::isAjax() ?
+            '<script>Html.ScrollToElement("' . $element . '","' . $speed . '");</script>' :
+            'Html.ScrollToElement("' . $element . '","' . $speed . '");'
+        );
+    }
+
+    /**
      * Still to be implemented
      *
      */

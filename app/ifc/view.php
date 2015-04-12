@@ -213,6 +213,23 @@ class View {
     }
 
     /**
+     * Sets the page_title variable on the layout
+     *
+     * You must place this variable in a position you
+     * want to display the current page title
+     *
+     * @param   string  $title      - The title
+     * @return  string
+     */
+    public function setPageTitle($title) {
+
+        return (Core::isAjax() ?
+            Html::ReplaceHtml(String::camelize($title), '#page_title') :
+            '<script>' . Html::ReplaceHtml(String::camelize($title), '#page_title') . '</script>'
+        );
+    }
+
+    /**
      * Renders a template
      *
      * @param   bool        $fetch      - Just return the html instead of rendering directly on screen
@@ -220,7 +237,7 @@ class View {
      */
     public function render($fetch = true) {
 
-        $method = $fetch ? 'fetch' : 'display';
+        $method   = $fetch ? 'fetch' : 'display';
         return $this->smarty->$method($this->template) . (count($this->jsFiles) > 0 ? $this->injectJSFiles() : '');
     }
 

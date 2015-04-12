@@ -40,10 +40,10 @@ class clientControl extends Control {
         $this->model()->addGridColumn('Nome','client_name');
         $this->model()->addGridColumn('Email','email');
         $this->model()->addGridColumn('Telefones','phones');
-        $this->model()->addGridColumn('Tipo','client_type');
+        #$this->model()->addGridColumn('Tipo','client_type');
         $this->model()->addGridColumn('CPF / CNPJ','cpf_cnpj');
-        $this->model()->addGridColumn('Data','client_date', 'DateTime');
-        $this->model()->addGridColumn('Descrição','description');
+        #$this->model()->addGridColumn('Data','client_date', 'DateTime');
+        #$this->model()->addGridColumn('Descrição','description');
 
         $this->view()->setVariable('clientlist', $this->model()->dbGrid());
         $this->commitReplace($this->view()->render(), '#content');

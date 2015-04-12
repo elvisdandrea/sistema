@@ -41,14 +41,15 @@
                     <div class="row">
                         <!-- radio -->
                         <div class="form-group col-md-9">
-                            <div class="radio" style="float:left; margin: 0;">
+                            <div class="radio" style="float:left; margin: 0 40px;">
                                 <label>
                                     <input type="radio" name="client_type" id="client_type_f" value="F" {if $isPessoaFisica} checked{/if}>
                                     Cadastro de pessoa física
                                 </label>
                             </div>
+
                             <div class="radio" style="float:left; margin:0 40px;">
-                                <label>9
+                                <label>
                                     <input type="radio" name="client_type" id="client_type_j" value="J" {if !$isPessoaFisica} checked{/if}>
                                     Cadastro de pessoa jurídica
                                 </label>
@@ -126,7 +127,7 @@
                         <td>{$value['phone_type']}</td>
                         <td>{$value['phone_number']}</td>
                         <td>
-                            <a href="{$smarty.const.BASEDIR}client/removePhone?id={$client['id']}&addr_id={$value['id']}" class="btn btn-danger">X</a>
+                            <a href="{$smarty.const.BASEDIR}client/removePhone?id={$client['id']}&addr_id={$value['id']}" class="btn btn-danger"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                 {/foreach}
@@ -149,7 +150,7 @@
                             </div>
                             <div class="form-group col-xs-6">
                                 <input class="btn btn-success" type="submit" value="Salvar" />
-                                <a id="cancel_phone" class="btn btn-danger" href="#">X</a>
+                                <a id="cancel_phone" class="btn btn-danger" href="#"><i class="fa fa-times"></i></a>
                             </div>
                         </div>
                     </form>
@@ -194,7 +195,7 @@
                         <td>{$value['city']}</td>
                         <td>{$value['zip_code']}</td>
                         <td>
-                            <a href="{$smarty.const.BASEDIR}client/removeAddr?id={$client['id']}&addr_id={$value['id']}" class="btn btn-danger">X</a>
+                            <a href="{$smarty.const.BASEDIR}client/removeAddr?id={$client['id']}&addr_id={$value['id']}" class="btn btn-danger"><i class="fa fa-times"></i></a>
                         </td>
                     </tr>
                 {/foreach}
@@ -203,43 +204,54 @@
 
 
             <div id="new_addr_form" class="new_addr no-display">
-                <div>
-                    <form action="{$smarty.const.BASEDIR}client/addClientAddr?id={$client['id']}">
-                        <div class="form-group col-xs-12">
-                            <label>Tipo: </label>
-                            <input type="text" name="address_type">
-                        </div>
-                        <div class="form-group col-xs-12">
-                            <label>CEP: </label>
-                            <input type="text" name="zip_code" id="zip_code">
-                        </div>
-                            <label>Rua: </label>
-                            <input type="hidden" name="street_addr" id="street_addr">
-                            <input type="text" disabled id="street_addr_label">
-                            <label>Bairro: </label>
-                            <input type="hidden" name="hood" id="hood">
-                            <input type="text" disabled id="hood_label">
-                            <label>Cidade: </label>
-                            <input type="hidden" name="city" id="city">
-                            <input type="text" disabled id="city_label">
-                            <label>Numero: </label>
-                            <input type="text" name="street_number">
-                            <label>Complemento: </label>
-                            <input type="text" name="street_additional">
+                <div class="row">
+                    <div class="form-group col-md-9">
+                        <form action="{$smarty.const.BASEDIR}client/addClientAddr?id={$client['id']}">
+                            <div class="form-group col-xs-6">
+                                <label>Tipo: </label>
+                                <input type="text" name="address_type">
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label>CEP: </label>
+                                <input type="text" name="zip_code" id="zip_code">
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label>Rua: </label>
+                                <input type="hidden" name="street_addr" id="street_addr">
+                                <input type="text" disabled id="street_addr_label">
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label>Bairro: </label>
+                                <input type="hidden" name="hood" id="hood">
+                                <input type="text" disabled id="hood_label">
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label>Cidade: </label>
+                                <input type="hidden" name="city" id="city">
+                                <input type="text" disabled id="city_label">
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label>Numero: </label>
+                                <input type="text" name="street_number">
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label>Complemento: </label>
+                                <input type="text" name="street_additional">
+                            </div>
 
-                        <div class="form-group col-xs-12">
-                            <input class="btn btn-success" type="submit" value="Salvar" />
-                            <a id="cancel_addr" class="btn btn-danger" href="#">X</a>
-                        </div>
-                    </form>
+                            <div class="form-group col-xs-12">
+                                <input class="btn btn-success" type="submit" value="Salvar" />
+                                <a id="cancel_addr" class="btn btn-danger" href="#"><i class="fa fa-times"></i></a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
 
 
-
-
         </div>
     </div>
+
 </div>
 
 
