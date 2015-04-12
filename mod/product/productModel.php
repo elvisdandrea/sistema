@@ -132,7 +132,7 @@ class productModel extends Model {
 
         $this->addFrom('products p');
         $this->addFrom('left join categories c on c.id = p.category_id');
-        
+
         $this->addWhere('p.id = "' . $id . '"');
         $this->runQuery();
 

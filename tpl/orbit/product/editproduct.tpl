@@ -2,17 +2,11 @@
     <!-- Buttons (Options) -->
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
-            <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;">Cadastrar produto</button>
+            <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;">Salvar alterações</button>
             <a type="button" class="btn btn-danger" title="Cancelar" href="{$smarty.const.BASEDIR}product">Cancelar</i></a>
         </div><!-- /.box -->
     </div><!-- /.col -->
     <!-- /.Buttons (Options) -->
-        <div class="centered form-right">
-            <label for="category">Categoria:</label>
-            <select id="categorylist" name="category_id" href="{$smarty.const.BASEDIR}product/categorylist"></select>
-        </div>
-    </form>
-
 
 <div class="row">
 
@@ -98,3 +92,4 @@
         </div>
     </div>
 </div>
+</form>
