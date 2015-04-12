@@ -21,6 +21,8 @@ class productControl extends Control {
 
         $this->view()->loadTemplate('productpage');
 
+        $this->view()->setVariable('productinfo', $this->productInfo());
+
         $search = $this->getQueryString('search');
         $page   = $this->getQueryString('page');
         $rp     = $this->getQueryString('rp');
@@ -38,13 +40,24 @@ class productControl extends Control {
         $this->model()->addGridColumn('Imagem','image','Image');
         $this->model()->addGridColumn('Categoria','category_name');
         $this->model()->addGridColumn('Produto','product_name');
-        $this->model()->addGridColumn('Valor','price');
-        $this->model()->addGridColumn('Peso','weight');
+        $this->model()->addGridColumn('Valor','price', 'Currency');
+        $this->model()->addGridColumn('Peso','weight', 'Unit', array('unit' => 'g'));
 
         $this->view()->setVariable('productList', $this->model()->dbGrid());
         $this->commitReplace($this->view()->render(), '#content');
-        if (Core::isAjax())
-            echo Html::AddClass('content-aligned', '#content');
+
+    }
+
+    /**
+     * Returns the box with product info
+     *
+     * @return string
+     */
+    private function productInfo() {
+
+        $this->newView('info');
+        $this->view('info')->loadTemplate('productinfo');
+        return $this->view('info')->render();
     }
 
     /**
@@ -213,7 +226,7 @@ class productControl extends Control {
         $this->view()->setVariable('product', $product);
         $this->view()->setVariable('id', $id);
         $this->commitReplace($this->view()->render(), '#content');
-        echo Html::AsyncLoadList('categorylist', $product['category_id']);
+
         echo Html::AsyncLoadList('fact', $product['product_fact']);
         echo Html::addImageUploadAction('read64', 'product-img');
         if (intval($product['product_fact']) > 0)

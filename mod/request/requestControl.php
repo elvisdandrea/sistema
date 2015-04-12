@@ -74,8 +74,7 @@ class requestControl extends Control {
         $this->view()->setVariable('request_table', $this->model()->dbGrid());
 
         $this->commitReplace($this->view()->render(), '#content');
-        if (Core::isAjax())
-            echo Html::RemoveClass('content-aligned', '#content');
+
     }
 
     /**

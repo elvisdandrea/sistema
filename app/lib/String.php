@@ -233,6 +233,9 @@ class String {
             case 'cep': //CEP
                 $string = self::mask($string, '#####-###');
                 break;
+            case 'currency':
+                $string = 'R$ ' . number_format($string, 2, ',', '.');
+                break;
             case 'email': //E-MAIL
                 // Nothing we can do here
                 break;

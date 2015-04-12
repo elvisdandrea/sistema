@@ -305,13 +305,15 @@ class Model {
      * @param   string      $title      - The column title
      * @param   string      $field      - The column field name
      * @param   string      $type       - Text|Date|Input|Checkbox|Select|Image
+     * @param   array       $params     - Content parameters
      * @param   bool|string $subtitle   - A subtitle field: a text to be show under the line content
      */
-    public function addGridColumn($title, $field, $type = 'Text', $subtitle = false) {
+    public function addGridColumn($title, $field, $type = 'Text', $params = array(), $subtitle = false) {
         $this->dbGridColumns[$field] = array(
             'field'     => $field,
             'title'     => $title,
             'type'      => $type,
+            'params'    => $params,
             'subtitle'  => $subtitle
         );
     }
@@ -856,7 +858,9 @@ class Model {
     /**
      * Adds a SET for UPDATE queries
      *
-     * @param   string      $set        - The field and value
+     * @param   string      $field      - The field
+     * @param   string      $value      - The Value
+     * @param   bool        $quoted     - If the value must be quoted
      */
     protected function addUpdateSet($field, $value, $quoted = true) {
 
@@ -999,6 +1003,11 @@ class Model {
             foreach ($this->getRow(0) as $field => $value) {
                 $this->addGridColumn(ucwords(String::decamelize($field)), $field);
             }
+        }
+
+        foreach ($this->dbGridColumns as $column) {
+            if (count($column['params']) > 0)
+                foreach ($column['params'] as $var => $val) $view->setVariable($var, $val);
         }
 
         $view->setVariable('head', $this->dbGridColumns);

@@ -19,7 +19,7 @@
  */
 session_start();
 error_reporting(E_ERROR | E_PARSE | E_ALL);
-#ini_set('display_errors', '1');
+ini_set('display_errors', '1');
 
 /**
  * Handler functions registration
