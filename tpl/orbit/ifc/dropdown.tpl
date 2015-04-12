@@ -17,7 +17,7 @@
     </li>
     {if (isset({$dropdownParams['footer']}))}
         <li class="footer">
-            <a href="#" class="btn" data-toggle="modal" data-target="#compose-modal">Edite as categorias</a>
+            <a href="{$smarty.const.BASEDIR}{$dropdownParams['footer']['action']}" class="btn" data-toggle="modal" data-target="#compose-modal">{$dropdownParams['footer']['text']}</a>
         </li>
     {/if}
 </ul>

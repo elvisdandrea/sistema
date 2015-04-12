@@ -436,6 +436,19 @@ class Model {
     }
 
     /**
+     * Setup for Dropdown Footer
+     *
+     * @param string    $text       - The footer text
+     * @param string    $action     - Footer Onclick
+     */
+    public function setDropDownFooter($text, $action = '') {
+        $this->dropdownParams['footer'] = array(
+            'text'      => $text,
+            'action'    => $action
+        );
+    }
+
+    /**
      * Sets the dropdown template
      *
      * @param $template
