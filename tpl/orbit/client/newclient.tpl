@@ -44,41 +44,56 @@
                     <div class="form-group col-md-9">
                         <div class="radio" style="float:left; margin: 0;">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios1" value="option1" checked>
+                                <input type="radio" name="client_type" id="client_type_f" value="F" checked>
                                 Cadastro de pessoa física
                             </label>
                         </div>
                         <div class="radio" style="float:left; margin:0 40px;">
                             <label>
-                                <input type="radio" name="optionsRadios" id="optionsRadios2" value="option2">
+                                <input type="radio" name="client_type" id="client_type_j" value="J">
                                 Cadastro de pessoa jurídica
                             </label>
                         </div>
                     </div>
                 </div>
-                <!-- Cadastro de pessoa física -->
                 <div class="row">
                     <div class="form-group col-md-9">
                         <hr /><h5>Cliente pessoa física</h5>
                         <div class="form-group col-xs-6">
                             <label>Nome:</label>
-                            <input type="text" class="form-control" />
+                            <input type="text" class="form-control" name="client_name" />
                         </div>
                         <div class="form-group col-xs-6">
-                            <label>CPF:</label>
-                            <input type="text" class="form-control" />
+                            <label id="cpf_cnpj">CPF:</label>
+                            <input type="text" class="form-control" name="cpf_cnpj" />
                         </div>
                         <div class="form-group col-xs-6">
                             <label>E-mail:</label>
-                            <input type="text" class="form-control" />
+                            <input type="text" class="form-control"  name="email" />
+                        </div>
+                    </div>
+                    <div id="legal_entity" class="no-display form-group col-md-9">
+                        <div class="form-group col-xs-6">
+                            <label>Razão social:</label>
+                            <input class="legal_entity_field form-control" type="text" name="corporate_name" disabled>
                         </div>
                         <div class="form-group col-xs-6">
-                            <label>Telefone:</label>
-                            <input type="text" class="form-control" />
+                            <label>Inscrição estadual:</label>
+                            <input class="legal_entity_field form-control" type="text" name="state_registration" disabled>
+                         </div>
+                        <div class="form-group col-xs-6">
+                            <label>Inscrição municipal:</label>
+                            <input class="legal_entity_field form-control" type="text" name="municipal_registration" disabled>
                         </div>
-                        <div class="form-group col-xs-12">
-                            <label>Endereço:</label>
-                            <input type="text" class="form-control" />
+                        <div class="form-group col-xs-6">
+                            <label>Pessoa para contato:</label>
+                            <input class="legal_entity_field form-control" type="text" name="contact" disabled>
+                        </div>
+                    </div>
+                    <div class="form-group col-md-9">
+                        <div class="form-group col-xs-6">
+                            <label>Descrição:</label>
+                            <textarea style="width: 100%;" name="description">{$client['description']}</textarea>
                         </div>
                     </div>
                 </div>

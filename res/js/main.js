@@ -39,8 +39,7 @@ Main.prototype = {
             $('#loading').show();
             Html.Get(action, function(r){
                 eval(r);
-                $('#loading').hide();
-                //window.history.replaceState(undefined, '', action);
+                window.history.replaceState(undefined, '', action);
                 return false;
             });
         });
@@ -83,7 +82,6 @@ Main.prototype = {
                 });
             } else if (method == 'get') {
                 var url = $(this).attr('action') + '?' + data.join('&');
-                $('#loading').show();
                 Html.Get(url, function(r){
                     eval(r);
                     $('#loading').hide();
@@ -139,7 +137,6 @@ Main.prototype = {
             case 'datepicker' :
 
                 $(document).on('ready', '[datatype="' + dataType + '"]', function(){
-                    alert('here');
                     $(this).datepicker();
                     $(this).datepicker('options', 'dateFormat', 'dd/mm/yyyy');
                 });
@@ -157,8 +154,7 @@ Main.prototype = {
         $('#loading').show();
         Html.Get(action, function(r){
             eval(r);
-            $('#loading').hide();
-            //window.history.replaceState(undefined, '', action);
+            window.history.replaceState(undefined, '', action);
             return false;
         });
     }

@@ -5,8 +5,8 @@ $("#zip_code").blur(function() {
     }
 });
 
-$("#client_type").change(function(){
-    var data = $("#client_type").val();
+$('[name="client_type"]').change(function(){
+    var data = $(this).val();
     if(data == 'F'){
         addLegalEntityInputs();
     }else{
