@@ -165,7 +165,7 @@ class clientControl extends Control {
         if($id == false) {
             $id = $this->getQueryString('id');
         }
-
+#
         $this->model()->getClient($id);
         $client = $this->model()->getRow(0);
 

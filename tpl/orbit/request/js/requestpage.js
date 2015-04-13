@@ -13,7 +13,7 @@ $(function() {
             endDate: moment()
         },
         function(start, end) {
-            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+            submitDateSearch(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'));
         }
     );
 
@@ -40,7 +40,7 @@ $(function() {
 });
 
 var colorChooser = $("#item-chooser-btn");
-$("#item-chooser > li > a").click(function(e) {
+$("#item-chooser > li > a").mouseup(function(e) {
     e.preventDefault();
     //Save color
     currColor = $(this).css("color");
@@ -50,23 +50,14 @@ $("#item-chooser > li > a").click(function(e) {
         .html('<i class="fa fa-check"></i> '+ $(this).text() + ' <span class="caret"></span>');
 });
 
-$('div.ranges ul li').click(function(){
-    submitDateSearch();
-});
 
-$('div.ranges').find('button.applyBtn').click(function(){
-    submitDateSearch();
-});
+function submitDateSearch(dateFrom, dateTo) {
 
-function submitDateSearch() {
-    var dateFrom = $('[name="daterangepicker_start"]').val();
-    var dateTo = $('[name="daterangepicker_end"]').val();
-
-    var url = '/sistema/request?date+from=' + dateFrom + '&date_to=' + dateTo;
+    var url = '/sistema/request?date_from=' + dateFrom + '&date_to=' + dateTo;
     Html.Get(url, function(r){
         eval(r);
         $('#loading').hide();
         return false;
     });
 
-};
+}
