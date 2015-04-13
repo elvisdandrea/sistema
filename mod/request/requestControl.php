@@ -84,7 +84,7 @@ class requestControl extends Control {
         $this->model()->addGridColumn('Cliente', 'client_name');
         $this->model()->addGridColumn('Telefones', 'phones');
         $this->model()->addGridColumn('Entrega', 'delivery_date', 'DateTime');
-        $this->model()->addGridColumn('Status', 'status_name');
+        $this->model()->addGridColumn('Status', 'request/statuslist.tpl', 'Tpl');
         $this->model()->setGridClass('table-bordered');
 
         $this->view()->setVariable('rows', $this->model()->getRow(0));
