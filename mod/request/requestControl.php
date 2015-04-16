@@ -346,7 +346,6 @@ class requestControl extends Control {
     public function viewRequest() {
 
         $id           = $this->getQueryString('id');
-        $count_plates = $this->model()->getRequestCountPlates();
         $this->model()->getRequestData($id);
 
         $request = $this->model()->getRow(0);
@@ -356,7 +355,6 @@ class requestControl extends Control {
         $this->model()->getAddress($request['client_id']);
         $addressList = $this->model()->getRows();
 
-        $this->view()->setVariable('count_plates', $count_plates);
         $this->view()->setVariable('addressList', $addressList);
         $clientFields = array(
             'client_name',
@@ -372,14 +370,18 @@ class requestControl extends Control {
         $this->model()->getRequestItems($id);
         $requestItems = $this->model()->getRows();
 
-        $plates = array();
-        foreach($requestItems as $item)
-            isset($plates[$item['plate_id']][$item['id']]) || $plates[$item['plate_id']][$item['id']] = $item;
+        $plates = array(); $count_plates = 0;
+        foreach($requestItems as $item) {
+            in_array($item['plate_id'], array_keys($plates)) || $count_plates++;
+            isset($plates[$item['plate_id']][$item['id']])   || $plates[$item['plate_id']][$item['id']] = $item;
+        }
 
+        $this->view()->setVariable('count_plates', $count_plates);
         $this->view()->setVariable('noChangeCustomer', false);
         $this->view()->setVariable('client', $client);
         $this->view()->setVariable('plates', $plates);
         $this->view()->setVariable('request_id', $id);
+//        $this->view()->setVariable('productTable', $this->model()->dbGrid());
 
         $this->commitReplace($this->view()->render(), '#content');
 

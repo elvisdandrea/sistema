@@ -1,0 +1,1 @@
+<button type="button" class="btn label btn-{$class}">{$text}</button>

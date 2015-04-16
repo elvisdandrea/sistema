@@ -275,6 +275,7 @@ class View {
                 'file'     => $e->getFile(),
                 'line'     => $e->getLine()
             )), '#content');
+            exit;
         }
     }
 
