@@ -51,7 +51,6 @@ class requestControl extends Control {
     /**
      * Renders the main request page
      *
-     * @param   string|bool     $date       - The date to show
      */
     public function requestPage() {
 
@@ -345,22 +344,20 @@ class requestControl extends Control {
      *
      */
     public function viewRequest() {
-        $id      = $this->getQueryString('id');
+
+        $id           = $this->getQueryString('id');
+        $count_plates = $this->model()->getRequestCountPlates();
         $this->model()->getRequestData($id);
+
         $request = $this->model()->getRow(0);
         $this->view()->loadTemplate('viewrequest');
         $this->view()->setVariable('request', $request);
 
-        $this->model()->getAddress($request['address_id']);
+        $this->model()->getAddress($request['client_id']);
+        $addressList = $this->model()->getRows();
 
-        $this->model()->addGridColumn('Endereco', 'street_addr');
-        $this->model()->addGridColumn('Numero', 'street_number');
-        $this->model()->addGridColumn('Complemento', 'street_additional');
-        $this->model()->addGridColumn('Bairro', 'hood');
-        $this->model()->addGridColumn('Cidade', 'city');
-        $this->model()->addGridColumn('Cep', 'zip_code');
-
-        $this->view()->setVariable('addressTable', $this->model()->dbGrid());
+        $this->view()->setVariable('count_plates', $count_plates);
+        $this->view()->setVariable('addressList', $addressList);
         $clientFields = array(
             'client_name',
             'phones',

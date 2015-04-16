@@ -329,6 +329,7 @@ class requestModel extends Model {
         $this->addField('month(r.delivery_date) as request_month');
         $this->addField('day(r.delivery_date) as request_day');
         $this->addField('r.address_id');
+        $this->addField('r.client_id');
         $this->addField('c.client_name');
         $this->addField('c.image');
         $this->addField('group_concat(f.phone_number separator ",") as phones');
@@ -367,7 +368,7 @@ class requestModel extends Model {
         $this->addField('a.lng');
 
         $this->addFrom('client_addr a');
-        $this->addWhere('id = "' . $id . '"');
+        $this->addWhere('client_id = "' . $id . '"');
 
         $this->runQuery();
     }
@@ -393,6 +394,25 @@ class requestModel extends Model {
         $this->addWhere('r.id = "' . $id . '"');
 
         $this->runQuery();
+    }
+
+    /**
+     * Query that counts the number
+     * of plates of a request
+     *
+     * @param   string      $id
+     * @return  mixed
+     */
+    public function getRequestCountPlates($id) {
+
+        $this->addField('count(id) as mxm');
+        $this->addFrom('request_plates');
+        $this->addWhere('request_id = "' . $id . '"');
+
+        $this->runQuery();
+        $result = $this->getRow(0);
+        return $result['mxm'];
+
     }
 
 
