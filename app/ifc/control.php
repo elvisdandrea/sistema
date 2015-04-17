@@ -338,6 +338,20 @@ class Control {
     }
 
     /**
+     * Renders a HTML appending
+     * the content into the body of a table
+     *
+     * @param   string      $html   - The HTML content
+     * @param   string      $block  - The element
+     * @param   bool        $stay   - If it should not finish execution after rendering
+     */
+    protected function commitAddToTable($html, $block, $stay = true) {
+
+        echo (!Core::isAjax() ? $html : Html::AppendToTable($html, $block));
+        $stay || $this->terminate();
+    }
+
+    /**
      * Shows a hidden element
      *
      * @param   string      $block  - The element

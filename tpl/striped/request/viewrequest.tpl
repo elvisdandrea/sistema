@@ -28,7 +28,7 @@
         <div id="plates">
             {foreach from=$plates key="plate_id" item="plate"}
                 <a id="change-{$plate_id}" class="button" href="{$smarty.const.BASEDIR}request/changerequest?request_id={$request_id}&plate_id={$plate_id}">Adicionar itens a este prato</a>
-                <a id="save-{$plate_id}" style="display: none;" class="button button-blue" href="{$smarty.const.BASEDIR}request/savechange?request_id={$request_id}&plate_id={$plate_id}">Salvar Alteração</a>
+                <!--<a id="save-{$plate_id}" style="display: none;" class="button button-blue" href="{$smarty.const.BASEDIR}request/savechange?request_id={$request_id}&plate_id={$plate_id}">Salvar Alteração</a>-->
                 <hr>
                 <div id="search-{$plate_id}"></div>
                 <div id="product-results_{$plate_id}"></div>

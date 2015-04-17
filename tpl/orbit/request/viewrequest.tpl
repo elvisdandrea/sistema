@@ -35,15 +35,6 @@
             <!-- Cliente -->
             <div class="form-group">
                 <label>Para qual cliente:</label>
-                <div class="input-group col-md-6">
-                    <div class="input-group-addon">
-                        <i class="fa fa-user"></i>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Localizar um cliente" data-toggle="dropdown" />
-
-                    <!-- listagem de clientes-->
-
-                </div><!-- /.input group -->
             </div><!-- /.form group -->
             <!-- /.Cliente -->
 

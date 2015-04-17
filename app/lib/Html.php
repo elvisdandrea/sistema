@@ -31,6 +31,19 @@ class Html {
 
     /**
      * Returns the function to dynamically
+     * append a row to a table element
+     *
+     * @param   string      $html       - The inner HTML to be rendered
+     * @param   string      $block      - The element to contain the HTML
+     * @return  string
+     */
+    public static function AppendToTable($html, $block) {
+
+        return 'Html.AppendToTable(\'' . String::BuildStringNewLines(String::AddSQSlashes($html)) . '\',\'' . $block . '\');';
+    }
+
+    /**
+     * Returns the function to dynamically
      * replace some HTML on screen
      *
      * @param   string      $html       - The inner HTML to be rendered

@@ -1,9 +1,7 @@
-<li>
-    <div class="plate-img">
-        <img src="{$item['image']}" />
-    </div>
-    <div class="plate-info">
-        <label>{$item['product_name']}</label>
-        <input type="text" name="weight" value="{$item['weight']}"/>
-    </div>
-</li>
+<tr>
+    <td><img  src="{$item['image']}" width="50px" alt="{$item['product_name']}" /></td>
+    <td>{$item['product_name']}</td>
+    <td>{$item['category_name']}</td>
+    <td>{String::convertTextFormat($item['price'], 'currency')}</td>
+    <td><button type="button" class="btn label btn-danger">Retirar</button></td>
+</tr>

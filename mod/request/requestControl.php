@@ -212,10 +212,13 @@ class requestControl extends Control {
         $this->model()->searchProductForRequest($search);
         $this->view()->loadTemplate('productresult');
         $products = $this->model()->getRows();
+        $this->view()->setVariable('count', count($products));
         $this->view()->setVariable('products', $products);
+        $this->view()->setVariable('search', $search);
         $this->view()->setVariable('request_id', $this->request_id);
         $this->view()->setVariable('plate_id', $plate_id);
         $this->commitReplace($this->view()->render(),'#product-results_'. $plate_id);
+        $this->commitShow('#result-' . $plate_id);
     }
 
     /**
@@ -229,10 +232,27 @@ class requestControl extends Control {
         $this->commitReplace('', '#product-results_' . $plate_id);
         $this->model()->selectProductForRequest($product_id);
         $item = $this->model()->getRow(0);
-        Session::set('requests', $this->request_id, 'plates', $plate_id, $product_id, $item['weight']);
+
+        $data = array(
+            'request_id'    => $this->request_id,
+            'product_id'    => $item['id'],
+            'plate_id'      => $plate_id,
+            'weight'        => $item['weight']
+        );
+
+        $result = $this->postAddItem($data);
+
+//        Session::set('requests', $this->request_id, 'plates', $plate_id, $product_id, $item['weight']);
+
+        if ($result['status'] != 200) {
+            //TODO: something went wrong
+        }
         $this->view()->loadTemplate('plateitem');
         $this->view()->setVariable('item', $item);
-        $this->commitAdd($this->view()->render(), '#plate_' . $plate_id);
+        $this->commitAddToTable($this->view()->render(), '#plate_' . $plate_id);
+        $this->commitReplace('', 'result-' . $plate_id);
+        $this->commitShow('#change-' . $plate_id);
+        $this->commitReplace('', '#search-' . $plate_id);
     }
 
     /**
@@ -406,19 +426,19 @@ class requestControl extends Control {
     }
 
     /**
-     * Handler for adding a plate item
+     * Handler for adding many plate items
      *
      * @param   array       $requestData    - The request data
      * @return  string
      */
-    public function postAddItem(array $requestData = array()) {
+    public function postAddItems(array $requestData = array()) {
 
         count($requestData) > 0 ||
             $requestData = $this->getPost();
 
         $result     = array();
         $plate_id   = $requestData['plate_id'];
-        $plates = $requestData['plates'];
+        $plates     = $requestData['plates'];
 
         foreach ($plates as $plate) {
             foreach ($plate as $product_id => $weight) {
@@ -437,12 +457,40 @@ class requestControl extends Control {
     }
 
     /**
-     * Handler for changing plate items
+     * Handler for adding a plate item
+     *
+     * @param   array       $requestData    - The request data
+     * @return  string
      */
-    public function saveChange() {
+    public function postAddItem(array $requestData = array()) {
 
-        $plate_id         = $this->getQueryString('plate_id');
-        $this->request_id = $this->getQueryString('request_id');
+        count($requestData) > 0 ||
+            $requestData = $this->getPost();
+
+        $item_id = $this->model()->insertPlateItem(
+            array(
+                'plate_id'      => $requestData['plate_id'],
+                'product_id'    => $requestData['product_id'],
+                'weight'        => $requestData['weight']
+            )
+        );
+
+        return RestServer::response(array('item_id' => $item_id));
+
+    }
+
+    /**
+     * Handler for changing plate items
+     *
+     * @param   string|bool     $plate_id
+     * @param   string|bool     $request_id
+     */
+    public function saveChange($plate_id = false, $request_id = false) {
+
+        $plate_id   || $plate_id   = $this->getQueryString('plate_id');
+        $request_id || $request_id = $this->getQueryString('request_id');
+
+        $this->request_id = $request_id;
 
         $items = Session::get('requests', $this->request_id);
         $items['plate_id']  = $plate_id;

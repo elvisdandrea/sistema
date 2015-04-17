@@ -218,6 +218,8 @@ class requestModel extends Model {
 
         $this->addField('p.id');
         $this->addField('p.image');
+        $this->addField('p.price');
+        $this->addField('p.weight');
 
         $this->addFrom('products p');
         $this->addFrom('left join categories c on c.id = p.category_id');

@@ -127,6 +127,18 @@ Html.prototype = {
     },
 
     /**
+     * Appends a row to a Table
+     *
+     * @param           html        - The tr html
+     * @param           block       - The table Id/attribute
+     * @constructor
+     */
+    AppendToTable : function (html, block) {
+
+        $(block + ' tbody').append(html);
+    },
+
+    /**
      * Loads the options of a select input asynchronously
      *
      * The select must have an attribute href, so it will be
