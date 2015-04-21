@@ -12,11 +12,11 @@
             <li class="treeview">
                 <a href="">
                     <i class="fa fa-bullhorn"></i>
-                    <span>Pedidos </span><small class="badge pull-right bg-red" style="right:32px; position:absolute;margin-top:-1px;">18</small>
+                    <span>Pedidos </span><small class="badge pull-right bg-red" style="right:32px; position:absolute;margin-top:-1px;">{$countNewRequests}</small>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{$smarty.const.BASEDIR}request"><i class="fa fa-angle-double-right"></i>18 novos pedidos</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}request"><i class="fa fa-angle-double-right"></i>{$countNewRequests} novos pedidos</a></li>
                     <li><a href="{$smarty.const.BASEDIR}request"><i class="fa fa-angle-double-right"></i> Todos os pedidos</a></li>
                     <li><a href="{$smarty.const.BASEDIR}request/newrequest"><i class="fa fa-angle-double-right"></i> Novo pedido</a></li>
                 </ul>

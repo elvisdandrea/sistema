@@ -19,11 +19,13 @@ class requestModel extends Model {
     }
 
     /**
-     * Lists requests
+     * Query to get a list of requests
      *
-     * @param   string|bool     $date       - Delivery Date ( false for current date )
+     * @param string        $dateFrom       - Start Date
+     * @param string        $dateTo         - End Date
+     * @param string|bool   $status         - Request status
      */
-    public function listRequests($dateFrom, $dateTo){
+    public function listRequests($dateFrom, $dateTo, $status = false){
 
         $this->addField('r.id');
         $this->addField('r.request_date');
@@ -44,6 +46,9 @@ class requestModel extends Model {
         if (!empty($dateFrom) && !empty($dateTo))
             $this->addWhere('r.delivery_date BETWEEN "' . $dateFrom . '" AND "' . $dateTo . '"');
 
+        if ($status)
+            $this->addWhere('r.deliver_status = "' . $status . '"');
+
         $this->addGroup('r.id');
 
         $this->runQuery();
@@ -52,15 +57,21 @@ class requestModel extends Model {
     /**
      * Returns the number of requests of a date
      *
-     * @param   bool    $date       - Which date ( false for curdate )
+     * @param   bool|string     $dateFrom       - Which date from
+     * @param   bool|string     $dateTo         - Which date to
+     * @param   bool|string     $status         - Which status
      */
-    public function countRequests($dateFrom, $dateTo) {
+    public function countRequests($dateFrom, $dateTo, $status = false) {
 
-        $this->addField('count(*) as mxm');
+        $this->addField('count(r.id) as mxm');
         $this->addFrom('requests r');
 
         if (!empty($dateFrom) && !empty($dateTo))
             $this->addWhere('r.delivery_date BETWEEN "' . $dateFrom . '" AND "' . $dateTo . '"');
+
+        if ($status)
+            $this->addWhere('r.deliver_status = "' . $status . '"');
+
 
         $this->runQuery();
 
@@ -69,6 +80,7 @@ class requestModel extends Model {
         return $result['mxm'];
 
     }
+
 
     public function getTotalRequests(){
         $this->addField('count(*) as mxm');
@@ -80,10 +92,13 @@ class requestModel extends Model {
         return $result['mxm'];
     }
 
-    public function getTotalPendingRequests(){
+    public function getTotalPendingRequests($dateFrom = false, $dateTo = false){
         $this->addField('count(*) as mxm');
         $this->addFrom('requests r');
         $this->addWhere('r.deliver_status = 1');
+
+        if (!empty($dateFrom) && !empty($dateTo))
+            $this->addWhere('r.delivery_date BETWEEN "' . $dateFrom . '" AND "' . $dateTo . '"');
 
         $this->runQuery();
 

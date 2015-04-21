@@ -2,42 +2,24 @@
     <!-- Notifications -->
     <li class="dropdown notifications-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-            <small class="badge pull-right bg-red" style="margin-left:10px;">18</small>
+            <small class="badge pull-right bg-red" style="margin-left:10px;">{$countNewRequests}</small>
             <i class="fa fa-bullhorn" style="width:20px;"></i><span>Novos pedidos</span>
         </a>
         <ul class="dropdown-menu">
-            <li class="header">Você tem 18 novos pedidos</li>
+            <li class="header">Você tem {$countNewRequests} novos pedidos</li>
             <li>
                 <!-- inner menu: contains the actual data -->
                 <ul class="menu">
+                {foreach from=$newRequests item="row"}
                     <li>
-                        <a href="pedido-view.html" title="Pendente">
-                            <i class="fa fa-minus warning"></i>Migalhas de água pra emagrecer
+                        <a href="{$smarty.const.BASEDIR}request/viewrequest?id={$row['id']}" title="{$row['status_name']}">
+                            <i class="fa fa-minus warning"></i>{$row['client_name']}
                         </a>
                     </li>
-                    <li>
-                        <a href="pedido-view.html" title="Em andamento">
-                            <i class="fa fa-check info"></i>Jovens Albaneses e Frango
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pedido-view.html" title="Concluído">
-                            <i class="fa fa-check success"></i>Arroz com tomate e júnior
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pedido-view.html" title="Cancelado">
-                            <i class="glyphicon glyphicon-remove danger"></i>Pão seco com mistura
-                        </a>
-                    </li>
-                    <li>
-                        <a href="pedido-view.html" title="Entregue">
-                            <i class="fa fa-check success"></i>Larvas Fit, afinal Fit é chique feito o cão
-                        </a>
-                    </li>
+                {/foreach}
                 </ul>
             </li>
-            <li class="footer"><a href="pedidos.html">Veja todos os novos pedidos</a></li>
+            <li class="footer"><a href="{$smarty.const.BASEDIR}request?status=1">Veja todos os novos pedidos</a></li>
         </ul>
     </li>
     <!-- User Account: style can be found in dropdown.less -->

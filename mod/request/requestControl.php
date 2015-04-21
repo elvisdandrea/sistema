@@ -57,7 +57,8 @@ class requestControl extends Control {
         $this->view()->loadTemplate('requestpage');
 
         $dateFrom = $this->getQueryString('date_from');
-        $dateTo = $this->getQueryString('date_to');
+        $dateTo   = $this->getQueryString('date_to');
+        $status   = $this->getQueryString('status');
 
         $page   = $this->getQueryString('page');
         $rp     = $this->getQueryString('rp');
@@ -65,18 +66,16 @@ class requestControl extends Control {
         $page || $page = 1;
         intval($rp) > 0 || $rp = 10;
 
-        $totalRequest = $this->model()->getTotalRequests();
-        $this->view()->setVariable('totalRequest', $totalRequest);
-        $pendingRequests = $this->model()->getTotalPendingRequests();
+        $countRequests = $this->model()->countRequests($dateFrom, $dateTo, $status);
+        $this->view()->setVariable('totalRequest', $countRequests);
+        $pendingRequests = $this->model()->getTotalPendingRequests($dateFrom, $dateTo, $status);
 
         $this->view()->setVariable('pendingRequests', $pendingRequests);
-
-        $countRequests = $this->model()->countRequests($dateFrom, $dateTo);
 
         $pagination = $this->getPagination($page, $countRequests, $rp, 'client/clientpage');
         $this->view()->setVariable('pagination', $pagination);
 
-        $this->model()->listRequests($dateFrom, $dateTo);
+        $this->model()->listRequests($dateFrom, $dateTo, $status);
         $this->model()->setGridRowLink('request/viewrequest', 'id');
         $this->model()->addGridColumn('Pedido #', 'id');
         $this->model()->addGridColumn('', 'image', 'Image');
@@ -91,6 +90,29 @@ class requestControl extends Control {
         $this->view()->appendJs('requestpage');
 
         $this->commitReplace($this->view()->render(), '#content');
+    }
+
+    /**
+     * Returns the number of new requests
+     *
+     * @return mixed
+     */
+    public function countNewRequests() {
+
+        $this->model()->countRequests(null, null, '1');
+        $result = $this->model()->getRow(0);
+        return $result['mxm'];
+    }
+
+    /**
+     * Returns a list of new requests
+     *
+     * @return mixed
+     */
+    public function listNewRequests() {
+
+        $this->model()->listRequests(null, null, '1');
+        return $this->model()->getRows();
     }
 
     /**

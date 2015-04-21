@@ -60,6 +60,10 @@ class homeControl extends Control {
         if (count($uri) == 0)
             $uri = array(MAIN);
 
+        $request = new requestControl();
+        $this->view()->setVariable('countNewRequests', $request->countNewRequests());
+        $this->view()->setVariable('newRequests',      $request->listNewRequests());
+
         $content = Core::getMethodContent($uri);
 
         $this->view()->setVariable('page_content', $content);
