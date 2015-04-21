@@ -28,13 +28,13 @@
             <tr id="{$id}_{$index}"
                     {if ($rowAction != '' && $rowFieldId != '')}
                         style="cursor: pointer;"
-                        onclick="Main.quickLink('{$rowAction}?{$rowFieldId}={$row[$rowFieldId]}')"
+                        onclick="Main.quickLink('{$rowAction}?{$rowFieldId}={$row[$rowFieldId]}', event, 'a')"
                     {/if}>
 
 
                 <!--    Row Each Column -->
                 {foreach from=$head key="field" item="fieldparams"}
-                    <td id="{$id}_{$index}_{$field}">
+                    <td id="{$id}_{$index}_{$field}" style="position: relative;">
 
                         <!--    Text Type Cell  -->
                         {if ($fieldparams['type'] == 'Text')}

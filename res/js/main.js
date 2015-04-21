@@ -152,8 +152,12 @@ Main.prototype = {
      *
      * @param action
      */
-    quickLink : function(action) {
-        $('#loading').show();
+    quickLink : function(action, event, avoidElement) {
+
+        if (event != undefined && avoidElement != undefined) {
+            var target = event.target;
+            if ($(target).is(avoidElement)) return false;
+        }
         Html.Get(action, function(r){
             eval(r);
             //window.history.replaceState(undefined, '', action);

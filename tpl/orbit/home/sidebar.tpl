@@ -5,24 +5,24 @@
         <!-- sidebar menu -->
         <ul class="sidebar-menu">
             <li>
-                <a href="index.html">
+                <a href="{$smarty.const.BASEDIR}home">
                     <i class="fa fa-dashboard"></i> <span>Página inicial</span>
                 </a>
             </li>
-            <li class="treeview">
-                <a href="">
+            <li class="treeview active">
+                <a href="#">
                     <i class="fa fa-bullhorn"></i>
                     <span>Pedidos </span><small class="badge pull-right bg-red" style="right:32px; position:absolute;margin-top:-1px;">{$countNewRequests}</small>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{$smarty.const.BASEDIR}request"><i class="fa fa-angle-double-right"></i>{$countNewRequests} novos pedidos</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}request?status=1"><i class="fa fa-angle-double-right"></i>{$countNewRequests} novos pedidos</a></li>
                     <li><a href="{$smarty.const.BASEDIR}request"><i class="fa fa-angle-double-right"></i> Todos os pedidos</a></li>
                     <li><a href="{$smarty.const.BASEDIR}request/newrequest"><i class="fa fa-angle-double-right"></i> Novo pedido</a></li>
                 </ul>
             </li>
-            <li class="treeview active">
-                <a href="">
+            <li class="treeview">
+                <a href="#">
                     <i class="fa fa-users"></i>
                     <span>Clientes </span>
                     <i class="fa fa-angle-left pull-right"></i>
@@ -33,7 +33,7 @@
                 </ul>
             </li>
             <li class="treeview">
-                <a href="">
+                <a href="#">
                     <i class="fa fa-cutlery"></i>
                     <span>Produtos </span>
                     <i class="fa fa-angle-left pull-right"></i>
@@ -44,7 +44,7 @@
                 </ul>
             </li>
             <li>
-                <a href="settings.html">
+                <a href="{$smarty.const.BASEDIR}settings">
                     <i class="fa fa-cog"></i> <span>Configurações</span>
                     <span class="label label-danger">Requer atenção</span>
                 </a>
