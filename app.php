@@ -86,7 +86,7 @@ define('DEFAULT_CONNECTION', 'uid');            // The default connection used b
 define('AWSFILEDIR',   IFCDIR . '/cache/img');  // The Aws upload exchange directory
 
 define('PUBLICFILEDIR', '/home/public/public_html');
-define('PUBLICFILEURL', 'http://orbit.gravi.com.br');
+define('PUBLICFILEURL', 'http://public.gravi.com.br');
 
 /**
  * The main execution
