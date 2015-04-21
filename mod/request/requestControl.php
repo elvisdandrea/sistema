@@ -56,9 +56,10 @@ class requestControl extends Control {
 
         $this->view()->loadTemplate('requestpage');
 
-        $dateFrom = $this->getQueryString('date_from');
-        $dateTo   = $this->getQueryString('date_to');
-        $status   = $this->getQueryString('status');
+        $dateFrom  = $this->getQueryString('date_from');
+        $dateTo    = $this->getQueryString('date_to');
+        $status    = $this->getQueryString('status');
+        $client_id = $this->getQueryString('client_id');
 
         $page   = $this->getQueryString('page');
         $rp     = $this->getQueryString('rp');
@@ -66,10 +67,10 @@ class requestControl extends Control {
         $page || $page = 1;
         intval($rp) > 0 || $rp = 10;
 
-        $countRequests = $this->model()->countRequests($dateFrom, $dateTo, $status);
+        $countRequests = $this->model()->countRequests($dateFrom, $dateTo, $status, $client_id);
         $this->view()->setVariable('totalRequest', $countRequests);
-        $pendingRequests = $this->model()->getTotalPendingRequests($dateFrom, $dateTo, $status);
-        $totalPrice = $this->model()->getTotalPriceRequests($dateFrom, $dateTo, $status);
+        $pendingRequests = $this->model()->getTotalPendingRequests($dateFrom, $dateTo, $client_id);
+        $totalPrice = $this->model()->getTotalPriceRequests($dateFrom, $dateTo, $status, $client_id);
 
         $this->view()->setVariable('pendingRequests', $pendingRequests);
         $this->view()->setVariable('totalPrice', String::convertTextFormat($totalPrice, 'currency'));
@@ -77,7 +78,7 @@ class requestControl extends Control {
         $pagination = $this->getPagination($page, $countRequests, $rp, 'client/clientpage');
         $this->view()->setVariable('pagination', $pagination);
 
-        $this->model()->listRequests($dateFrom, $dateTo, $status);
+        $this->model()->listRequests($dateFrom, $dateTo, $status, $client_id);
         $this->model()->setGridRowLink('request/viewrequest', 'id');
         $this->model()->addGridColumn('Pedido #', 'id');
         $this->model()->addGridColumn('', 'image', 'Image');

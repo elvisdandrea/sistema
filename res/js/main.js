@@ -150,7 +150,7 @@ Main.prototype = {
                     var ctx = canvas.getContext("2d");
                     ctx.drawImage(this, 0, 0, tempW, tempH);
                     var dataURL = canvas.toDataURL("image/jpeg");
-                    
+
                     $('#' + imgId).attr('src', dataURL);
                     $('#loading').hide();
 

@@ -25,7 +25,7 @@ class requestModel extends Model {
      * @param string        $dateTo         - End Date
      * @param string|bool   $status         - Request status
      */
-    public function listRequests($dateFrom, $dateTo, $status = false){
+    public function listRequests($dateFrom, $dateTo, $status = false, $client_id = false){
 
         $this->addField('r.id');
         $this->addField('r.request_date');
@@ -49,6 +49,9 @@ class requestModel extends Model {
         if ($status)
             $this->addWhere('r.deliver_status = "' . $status . '"');
 
+        if ($client_id)
+            $this->addWhere('r.client_id = "' . $client_id . '"');
+
         $this->addGroup('r.id');
 
         $this->runQuery();
@@ -60,8 +63,9 @@ class requestModel extends Model {
      * @param   bool|string     $dateFrom       - Which date from
      * @param   bool|string     $dateTo         - Which date to
      * @param   bool|string     $status         - Which status
+     * @param   bool|string     $client_id
      */
-    public function countRequests($dateFrom, $dateTo, $status = false) {
+    public function countRequests($dateFrom, $dateTo, $status = false, $client_id = false) {
 
         $this->addField('count(r.id) as mxm');
         $this->addFrom('requests r');
@@ -72,6 +76,8 @@ class requestModel extends Model {
         if ($status)
             $this->addWhere('r.deliver_status = "' . $status . '"');
 
+        if ($client_id)
+            $this->addWhere('r.client_id = "' . $client_id . '"');
 
         $this->runQuery();
 
@@ -92,13 +98,16 @@ class requestModel extends Model {
         return $result['mxm'];
     }
 
-    public function getTotalPendingRequests($dateFrom = false, $dateTo = false){
+    public function getTotalPendingRequests($dateFrom = false, $dateTo = false, $client_id = false){
         $this->addField('count(*) as mxm');
         $this->addFrom('requests r');
         $this->addWhere('r.deliver_status = 1');
 
         if (!empty($dateFrom) && !empty($dateTo))
             $this->addWhere('r.delivery_date BETWEEN "' . $dateFrom . '" AND "' . $dateTo . '"');
+
+        if ($client_id)
+            $this->addWhere('r.client_id = "' . $client_id . '"');
 
         $this->runQuery();
 
@@ -107,7 +116,7 @@ class requestModel extends Model {
         return $result['mxm'];
     }
 
-    public function getTotalPriceRequests($dateFrom = false, $dateTo = false, $status = false) {
+    public function getTotalPriceRequests($dateFrom = false, $dateTo = false, $status = false, $client_id = false) {
 
         $this->addField('sum(i.price) as total');
         $this->addFrom('request_plate_items i');
@@ -120,6 +129,8 @@ class requestModel extends Model {
         if ($status)
             $this->addWhere('r.deliver_status = "' . $status . '"');
 
+        if ($client_id)
+            $this->addWhere('r.client_id = "' . $client_id . '"');
 
         $this->runQuery();
 

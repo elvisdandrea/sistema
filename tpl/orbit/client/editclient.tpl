@@ -6,7 +6,7 @@
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
             <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;">Salvar alterações</button>
-            <a type="button" class="btn btn-primary" title="Pedidos deste cliente" href="{$smarty.const.BASEDIR}client/clientrequests">Pedidos deste cliente</a>
+            <a type="button" class="btn btn-primary" title="Pedidos deste cliente" href="{$smarty.const.BASEDIR}request?client_id={$client['id']}">Pedidos deste cliente</a>
             <a type="button" class="btn btn-danger" title="Excluir o cliente" href="{$smarty.const.BASEDIR}client/removeclient"><i class="fa fa-times"></i></a>
         </div><!-- /.box -->
     </div><!-- /.col -->
