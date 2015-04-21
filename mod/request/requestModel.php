@@ -402,7 +402,7 @@ class requestModel extends Model {
         $this->addField('i.weight');
         $this->addField('pr.product_name');
         $this->addField('pr.image');
-        $this->addField('pr.price');
+        $this->addField('i.price');
         $this->addField('c.category_name');
 
         $this->addFrom('requests r');
@@ -414,6 +414,17 @@ class requestModel extends Model {
         $this->addWhere('r.id = "' . $id . '"');
 
         $this->runQuery();
+    }
+
+    public function getRequestFinalPrice($id) {
+
+        $this->addField('sum(price) as total');
+        $this->addFrom('request_plate_items i');
+        $this->addFrom('inner join request_plates p on p.id = i.plate_id');
+        $this->addWhere('p.request_id = "' . $id . '"');
+        $this->runQuery();
+        $result = $this->getRow(0);
+        return $result['total'];
     }
 
     /**
@@ -432,6 +443,29 @@ class requestModel extends Model {
         $this->runQuery();
         $result = $this->getRow(0);
         return $result['mxm'];
+
+    }
+
+    public function getStatusName($id) {
+        //TODO: fazer por query
+        $status = array(
+            '', 'Novo pedido', 'Em andamento', 'Entregue', 'Cancelado'
+        );
+
+        if (isset($status[$id])) return $status[$id];
+
+        return false;
+    }
+
+    public function updateRequest($id, $requestData) {
+
+        foreach ($requestData as $field => $value)
+            $this->addUpdateSet($field, $value);
+
+        $this->setUpdateTable('requests');
+        $this->addUpdateWhere('id = "' . $id . '"');
+
+        $this->runUpdate();
 
     }
 

@@ -34,7 +34,7 @@
 
                 <!--    Row Each Column -->
                 {foreach from=$head key="field" item="fieldparams"}
-                    <td id="{$id}_{$index}_{$field}" style="position: relative;">
+                    <td id="{$id}_{$index}_{str_replace(array('/','.'),'_',$field)}" style="position: relative;">
 
                         <!--    Text Type Cell  -->
                         {if ($fieldparams['type'] == 'Text')}

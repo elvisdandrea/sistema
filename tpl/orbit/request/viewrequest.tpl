@@ -4,7 +4,7 @@
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
             <blockquote>
-                <p>Total do pedido: {$request['final_price']}</p>
+                <p>Total do pedido: {$finalPrice}</p>
                 <small>{$count_plates} pratos selecionados</small>
             </blockquote>
             <!-- <button  class="btn btn-success" title="Salvar" onclick="Salvar.html" style="width:150px;">Salvar pedido</button>
@@ -96,7 +96,7 @@
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
             <blockquote>
-                <p>Total do pedido: {$request['final_price']}</p>
+                <p>Total do pedido: {$finalPrice}</p>
                 <small>{$count_plates} pratos selecionados</small>
             </blockquote>
         </div><!-- /.box -->

@@ -258,6 +258,7 @@ class requestControl extends Control {
         $data = array(
             'request_id'    => $this->request_id,
             'product_id'    => $item['id'],
+            'price'         => $item['price'],
             'plate_id'      => $plate_id,
             'weight'        => $item['weight']
         );
@@ -423,6 +424,7 @@ class requestControl extends Control {
         $this->view()->setVariable('client', $client);
         $this->view()->setVariable('plates', $plates);
         $this->view()->setVariable('request_id', $id);
+        $this->view()->setVariable('finalPrice', String::convertTextFormat($this->model()->getRequestFinalPrice($id), 'currency'));
 //        $this->view()->setVariable('productTable', $this->model()->dbGrid());
 
         $this->commitReplace($this->view()->render(), '#content');
@@ -524,6 +526,54 @@ class requestControl extends Control {
             $this->commitShow('#change-' . $plate_id);
             $this->commitReplace('', '#search-' . $plate_id);
             Session::del('requests', $this->request_id);
+        }
+
+    }
+
+    public function updateSetStatus(array $requestData = array()) {
+
+        count($requestData) > 0 ||
+        $requestData = $this->getPost();
+
+        if (!isset($requestData['id']))
+            return RestServer::throwError('Você deve informar o Id', 400);
+
+        $id = $requestData['id'];
+        unset($requestData['id']);
+
+
+        $this->model()->updateRequest($id, $requestData);
+
+        return RestServer::response(array('status' => 200));
+
+    }
+
+    public function setStatus($request_id = false, $status = false) {
+
+        $status     || $status     = $this->getQueryString('status');
+        $request_id || $request_id = $this->getQueryString('id');
+
+        $result = $this->updateSetStatus(array(
+            'id'             => $request_id,
+            'deliver_status' => $status
+        ));
+
+        if ($result['status'] == 200) {
+            $row = array(
+                'id'          => $request_id,
+                'status_name' => $this->model()->getStatusName(intval($status))
+            );
+
+            $table = $this->getQueryString('table');
+            $index = $this->getQueryString('index');
+            $field = $this->getQueryString('field');
+
+            $this->view()->setVariable('table', $table);
+            $this->view()->setVariable('index', $index);
+            $this->view()->setVariable('field', $field);
+            $this->view()->setVariable('row',   $row);
+            $this->view()->loadTemplate('statuslist');
+            $this->commitReplace($this->view()->render(), '#' . $table . '_' . $index . '_' . $field);
         }
 
     }

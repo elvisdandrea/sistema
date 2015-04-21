@@ -23,7 +23,7 @@
 <!-- Itens -->
 <ul class="dropdown-menu" id="item-chooser" style="margin-top: -15px; text-align: left;">
     <li>
-        <a href="{$smarty.const.BASEDIR}request/setstatus?id={$row['id']}&status=2" class="text-aqua"><i class="fa fa-magic"></i>Em andamento</a>
+        <a href="{$smarty.const.BASEDIR}request/setstatus?id={$row['id']}&status=2&table={$id}&index={$index}&field={str_replace(array('/','.'),'_',$field)}" class="text-aqua"><i class="fa fa-magic"></i>Em andamento</a>
     </li>
     <!--
     <li>
@@ -31,9 +31,9 @@
     </li>
     -->
     <li>
-        <a href="{$smarty.const.BASEDIR}request/setstatus?id={$row['id']}&status=3" class="text-green"><i class="fa fa-thumbs-o-up"></i>Entregue</a>
+        <a href="{$smarty.const.BASEDIR}request/setstatus?id={$row['id']}&status=3&table={$id}&index={$index}&field={str_replace(array('/','.'),'_',$field)}" class="text-green"><i class="fa fa-thumbs-o-up"></i>Entregue</a>
     </li>
     <li>
-        <a href="{$smarty.const.BASEDIR}request/setstatus?id={$row['id']}&status=4" class="text-red"><i class="fa fa-times"></i>Cancelado</a>
+        <a href="{$smarty.const.BASEDIR}request/setstatus?id={$row['id']}&status=4&table={$id}&index={$index}&field={str_replace(array('/','.'),'_',$field)}" class="text-red"><i class="fa fa-times"></i>Cancelado</a>
     </li>
 </ul>

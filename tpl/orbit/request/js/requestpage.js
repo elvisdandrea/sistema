@@ -39,18 +39,6 @@ $(function() {
     $(".datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/aaaa"});
 });
 
-
-//$('[data-chooser="item-chooser-btn"] > ul > li').click(function(e){
-//    e.preventDefault();
-//
-//    currColor = $(this).css("color");
-//
-//    $(this).parent('ul').parent()
-//        .css({"background-color": currColor, "border-color": currColor, "color": "#FFF"})
-//        .html('<i class="fa fa-check"></i> '+ $(this).text() + ' <span class="caret"></span>');
-//});
-
-
 function submitDateSearch(dateFrom, dateTo) {
 
     var url = '/sistema/request?date_from=' + dateFrom + '&date_to=' + dateTo;
