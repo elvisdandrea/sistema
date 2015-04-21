@@ -69,8 +69,10 @@ class requestControl extends Control {
         $countRequests = $this->model()->countRequests($dateFrom, $dateTo, $status);
         $this->view()->setVariable('totalRequest', $countRequests);
         $pendingRequests = $this->model()->getTotalPendingRequests($dateFrom, $dateTo, $status);
+        $totalPrice = $this->model()->getTotalPriceRequests($dateFrom, $dateTo, $status);
 
         $this->view()->setVariable('pendingRequests', $pendingRequests);
+        $this->view()->setVariable('totalPrice', String::convertTextFormat($totalPrice, 'currency'));
 
         $pagination = $this->getPagination($page, $countRequests, $rp, 'client/clientpage');
         $this->view()->setVariable('pagination', $pagination);

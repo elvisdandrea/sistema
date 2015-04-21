@@ -62,7 +62,7 @@
                     <div class="small-box bg-olive">
                         <div class="inner">
                             <h3>
-                                R$ PLACEHOLDER
+                                {$totalPrice}
                             </h3>
                             <p>
                                 Em pedidos

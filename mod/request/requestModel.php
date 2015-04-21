@@ -107,6 +107,27 @@ class requestModel extends Model {
         return $result['mxm'];
     }
 
+    public function getTotalPriceRequests($dateFrom = false, $dateTo = false, $status = false) {
+
+        $this->addField('sum(i.price) as total');
+        $this->addFrom('request_plate_items i');
+        $this->addFrom('inner join request_plates p on p.id = i.plate_id');
+        $this->addFrom('inner join requests r on r.id = p.request_id');
+
+        if (!empty($dateFrom) && !empty($dateTo))
+            $this->addWhere('r.delivery_date BETWEEN "' . $dateFrom . '" AND "' . $dateTo . '"');
+
+        if ($status)
+            $this->addWhere('r.deliver_status = "' . $status . '"');
+
+
+        $this->runQuery();
+
+        $result = $this->getRow(0);
+
+        return $result['total'];
+    }
+
     /**
      * Query to list clients for a request
      *
