@@ -87,6 +87,10 @@ class requestControl extends Control {
         $this->model()->addGridColumn('Status', 'request/statuslist.tpl', 'Tpl');
         $this->model()->setGridClass('table-bordered');
 
+
+        if (!empty($dateFrom)) $this->view()->setVariable('dateFrom', $dateFrom);
+        if (!empty($dateTo))   $this->view()->setVariable('dateTo', $dateTo);
+
         $this->view()->setVariable('rows', $this->model()->getRow(0));
         $this->view()->setVariable('request_table', $this->model()->dbGrid());
         $this->view()->appendJs('requestpage');
