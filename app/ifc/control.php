@@ -448,13 +448,16 @@ class Control {
      * @param   string          $type           - The storage server type
      * @return \Guzzle\Service\Resource\Model
      */
-    public function uploadBase64File($base64, $destDir = false, $type = 'aws') {
+    public function uploadBase64File($base64, $destDir = false, $type = 'public_dir') {
 
         $destDir || $destDir = $this->getModuleTransferPath();
 
         switch ($type) {
             case 'aws':
                 return $this->uploadBase64FileAws($base64, $destDir);
+                break;
+            case 'public_dir':
+                return $this->uploadBase64FilePublicDir($base64, $destDir);
                 break;
             //TODO: implement ftp upload type
         }
@@ -479,6 +482,24 @@ class Control {
         $result     = $uploadAws->upload($sourceFile, $filename);
         FileManager::removeFile($sourceFile);
         return $result;
+    }
+
+    /**
+     * Public directory Upload Type
+     *
+     * @param $base64
+     * @param $destDir
+     * @return string
+     */
+    private function uploadBase64FilePublicDir($base64, $destDir) {
+
+        $filename   = uniqid() . date('Ymdhis') . '.jpg';
+        FileManager::rmkdir(PUBLICFILEDIR . '/' . $destDir);
+        $destFile = PUBLICFILEDIR . '/' . $destDir . '/' . $filename;
+        FileManager::saveBase64File($destFile, $base64);
+        $url = PUBLICFILEURL . '/' . $destDir . '/' . $filename;
+
+        return $url;
     }
 
     /**

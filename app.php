@@ -83,8 +83,10 @@ define('ENCRYPTURL', '0');                      // If requests must run over enc
 define('ENCRYPT_POST_DATA', '0');               // If it should encrypt data sent through post
 define('METHOD_NOT_FOUND', 'notFound');         // What to call when a method is not found
 define('DEFAULT_CONNECTION', 'uid');            // The default connection used by models
-define('AWSFILEDIR', IFCDIR . '/cache/img');    // The Aws upload exchange directory
+define('AWSFILEDIR',   IFCDIR . '/cache/img');  // The Aws upload exchange directory
 
+define('PUBLICFILEDIR', '/home/public/public_html');
+define('PUBLICFILEURL', 'http://orbit.gravi.com.br');
 
 /**
  * The main execution
