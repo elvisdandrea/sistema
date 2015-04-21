@@ -237,7 +237,7 @@ class clientControl extends Control {
             if (!$imageFile) {
                 $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
             } else {
-                $productData['image'] = $imageFile;
+                $clientData['image'] = $imageFile;
             }
         }
 

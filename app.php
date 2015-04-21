@@ -85,8 +85,8 @@ define('METHOD_NOT_FOUND', 'notFound');         // What to call when a method is
 define('DEFAULT_CONNECTION', 'uid');            // The default connection used by models
 define('AWSFILEDIR',   IFCDIR . '/cache/img');  // The Aws upload exchange directory
 
-define('PUBLICFILEDIR', '/home/public/public_html');
-define('PUBLICFILEURL', 'http://public.gravi.com.br');
+define('PUBLICFILEDIR', '/home/public/public_html/orbit');
+define('PUBLICFILEURL', 'http://public.gravi.com.br/orbit');
 
 /**
  * The main execution
