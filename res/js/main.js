@@ -116,8 +116,47 @@ Main.prototype = {
             r.onloadend = function(e) {
                 var tempImg = new Image();
                 tempImg.src = e.target.result;
-                $('#' + imgId).attr('src', tempImg.src);
-                $('#loading').hide();
+
+                //Resize Image
+
+                tempImg.onload = function() {
+
+                    var MAX_WIDTH = 640;
+                    var MAX_HEIGHT = 480;
+                    var tempW = tempImg.width;
+                    var tempH = tempImg.height;
+                    if (tempW > tempH) {
+                        if (tempW > MAX_WIDTH) {
+                            tempH *= MAX_WIDTH / tempW;
+                            tempW = MAX_WIDTH;
+                        }
+                        if (tempH > MAX_HEIGHT) {
+                            tempW *= MAX_HEIGHT / tempH;
+                            tempH = MAX_HEIGHT;
+                        }
+                    } else {
+                        if (tempH > MAX_HEIGHT) {
+                            tempW *= MAX_HEIGHT / tempH;
+                            tempH = MAX_HEIGHT;
+                        }
+                        if (tempW > MAX_WIDTH) {
+                            tempH *= MAX_WIDTH / tempW;
+                            tempW = MAX_WIDTH;
+                        }
+                    }
+                    var canvas = document.createElement('canvas');
+                    canvas.width = tempW;
+                    canvas.height = tempH;
+                    var ctx = canvas.getContext("2d");
+                    ctx.drawImage(this, 0, 0, tempW, tempH);
+                    var dataURL = canvas.toDataURL("image/jpeg");
+                    
+                    $('#' + imgId).attr('src', dataURL);
+                    $('#loading').hide();
+
+                }
+
+
             }
 
             r.readAsDataURL(f);
