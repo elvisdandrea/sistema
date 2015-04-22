@@ -67,7 +67,7 @@
 <script src="{$smarty.const.T_JSURL}/bootstrap.min.js" type="text/javascript"></script>
 <script src="{$smarty.const.T_JSURL}/moment.min.js" type="text/javascript"></script>
 <script src="{$smarty.const.T_JSURL}/moment.locale.min.js" type="text/javascript"></script>
-<script src="{$smarty.const.T_JSURL}/bootstrap-datetimepicker.js" type="text/javascript"></script>
+<script src="{$smarty.const.T_JSURL}/bootstrap-datetimepicker.min.js" type="text/javascript"></script>
 <!-- date-range-picker -->
 <script src="{$smarty.const.T_JSURL}/AdminLTE/app.js" type="text/javascript"></script>
 <script src="{$smarty.const.T_JSURL}/plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
