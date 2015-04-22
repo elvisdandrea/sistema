@@ -2,7 +2,7 @@
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
             <a href="{$smarty.const.BASEDIR}request/newrequest" class="btn btn-success">Clique aqui e adicione um novo pedido</a>
-            <button id="daterange-btn" class="btn btn-default pull-right">
+            <button id="daterange-btn" data-url="{$smarty.const.BASEDIR}request" class="btn btn-default pull-right">
                 <i class="fa fa-calendar"></i> Escolha o período: Hoje
                 <i class="fa fa-caret-down"></i>
             </button>

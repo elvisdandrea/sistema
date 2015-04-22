@@ -40,8 +40,8 @@ $(function() {
 });
 
 function submitDateSearch(dateFrom, dateTo) {
-
-    var url = '/sistema/request?date_from=' + dateFrom + '&date_to=' + dateTo;
+    
+    var url = $('#daterange-btn').attr('data-url') + '?date_from=' + dateFrom + '&date_to=' + dateTo;
     Html.Get(url, function(r){
         eval(r);
         $('#loading').hide();
