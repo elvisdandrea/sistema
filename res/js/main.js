@@ -170,19 +170,13 @@ Main.prototype = {
      * Useful for loading widgets or handling
      * data of the elements
      *
-     * @param   dataType    - The interaction type
      */
-    interactions : function(dataType) {
+    interactions : function() {
 
-        switch (dataType) {
-            case 'datepicker' :
-
-                $(document).on('ready', '[datatype="' + dataType + '"]', function(){
-                    $(this).datepicker();
-                    $(this).datepicker('options', 'dateFormat', 'dd/mm/yyyy');
-                });
-                break;
-        }
+        $(document).on('ready', '.datemask', function(){
+            alert('here');
+            $(this).datetimepicker();
+        });
     },
 
     /**
@@ -217,5 +211,4 @@ var Main = new Main();
  */
 Main.linkActions();
 Main.formActions();
-//Main.interactions('datepicker');
-
+//Main.interactions();

@@ -442,7 +442,8 @@ class requestControl extends Control {
         $this->view()->setVariable('plates', $plates);
         $this->view()->setVariable('request_id', $id);
         $this->view()->setVariable('finalPrice', String::convertTextFormat($this->model()->getRequestFinalPrice($id), 'currency'));
-//        $this->view()->setVariable('productTable', $this->model()->dbGrid());
+
+        $this->view()->appendJs('viewrequest');
 
         $this->commitReplace($this->view()->render(), '#content');
 
@@ -603,6 +604,24 @@ class requestControl extends Control {
             $this->commitReplace($this->view()->render(), '#request-status');
         }
 
+    }
+
+    /**
+     * Sets new Request Delivery Date
+     */
+    public function setDate() {
+
+        $id      = $this->getQueryString('id');
+        $newdate = String::formatDateTimeToSave($this->getPost('newdate'));
+
+        if (empty($newdate)) {
+            //TODO: show a tough error here
+            $this->terminate();
+        }
+
+        $this->model()->updateRequest($id, array(
+            'delivery_date' => $newdate
+        ));
     }
 
 }

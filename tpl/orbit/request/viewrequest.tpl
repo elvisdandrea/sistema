@@ -28,10 +28,16 @@
             <div class="form-group">
                 <label>Data da entrega:</label>
                 <div class="input-group col-md-6">
-                    <div class="input-group-addon">
-                        <i class="fa fa-calendar"></i>
+                    <!--
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span> -->
+                    <div class='input-group date' id='datetimepicker'>
+                        <input id="delivery-date" data-setvalue="{$smarty.const.BASEDIR}request/setdate?id={$request['id']}" value="{$request['delivery_date']}" type="text" class="form-control datemask" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
                     </div>
-                    <input value="{$request['delivery_date']}" type="text" class="form-control datemask" data-inputmask="'alias': 'dd/mm/aaaa'" data-mask/>
                 </div><!-- /.input group -->
             </div><!-- /.form group -->
             <!-- /.Data de entrega -->

@@ -102,10 +102,20 @@ class String {
      * if the incoming string isn't correct
      *
      * @param   string      $date       - The original string date in dd/mm/yyyy format
-     * @param   string      $time       - The original time in hh:mm:ss
+     * @param   string|bool $time       - The original time in hh:mm:ss
      * @return  string                  - The string formatted to yyyy-mm-dd hh:mm:ss
      */
-    public static function formatDateTimeToSave($date, $time) {
+    public static function formatDateTimeToSave($date, $time = false) {
+
+        if (!$time) {
+            $date = str_replace('+', ' ', $date);
+            $data = explode(' ', $date);
+            if (count($data) > 0) {
+                $date = $data[0];
+                $time = $data[1];
+            }
+        }
+
         $date = self::formatDateToSave($date);
         if (strpos($time, ':') === false) $time = '00:00:00';
         return $date . ' ' . $time;

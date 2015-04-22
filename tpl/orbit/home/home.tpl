@@ -5,6 +5,7 @@
 	<title>Clientes - Orbit | Gravi</title>
 	<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 	<link href="{$smarty.const.T_CSSURL}/bootstrap.css" rel="stylesheet" type="text/css" />
+	<link href="{$smarty.const.T_CSSURL}/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
 	<link href="{$smarty.const.T_CSSURL}/font-awesome.min.css" rel="stylesheet" type="text/css" />
 	<link href="{$smarty.const.T_CSSURL}/ionicons.min.css" rel="stylesheet" type="text/css" />
 	<link href="{$smarty.const.T_CSSURL}/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
@@ -64,6 +65,9 @@
 <script src="{$smarty.const.JSURL}/jquery.js"></script>
 <!-- Bootstrap -->
 <script src="{$smarty.const.T_JSURL}/bootstrap.min.js" type="text/javascript"></script>
+<script src="{$smarty.const.T_JSURL}/moment.min.js" type="text/javascript"></script>
+<script src="{$smarty.const.T_JSURL}/moment.locale.min.js" type="text/javascript"></script>
+<script src="{$smarty.const.T_JSURL}/bootstrap-datetimepicker.js" type="text/javascript"></script>
 <!-- date-range-picker -->
 <script src="{$smarty.const.T_JSURL}/AdminLTE/app.js" type="text/javascript"></script>
 <script src="{$smarty.const.T_JSURL}/plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
