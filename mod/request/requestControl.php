@@ -575,13 +575,19 @@ class requestControl extends Control {
             'deliver_status' => $status
         ));
 
-        if ($result['status'] == 200) {
-            $row = array(
-                'id'          => $request_id,
-                'status_name' => $this->model()->getStatusName(intval($status))
-            );
+        if ($result['status'] != 200) {
+            //TODO: gerar mensagem de erro
+            $this->terminate();
+        }
 
-            $table = $this->getQueryString('table');
+        $row = array(
+            'id'          => $request_id,
+            'status_name' => $this->model()->getStatusName(intval($status))
+        );
+
+        $table = $this->getQueryString('table');
+
+        if ($table) {
             $index = $this->getQueryString('index');
             $field = $this->getQueryString('field');
 
@@ -591,6 +597,10 @@ class requestControl extends Control {
             $this->view()->setVariable('row',   $row);
             $this->view()->loadTemplate('statuslist');
             $this->commitReplace($this->view()->render(), '#' . $table . '_' . $index . '_' . $field);
+        } else {
+            $this->view()->setVariable('request', $row);
+            $this->view()->loadTemplate('statuslistrequest');
+            $this->commitReplace($this->view()->render(), '#request-status');
         }
 
     }

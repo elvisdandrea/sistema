@@ -4,11 +4,15 @@
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
             <blockquote>
+                <p>Pedido #: {$request['id']}</p>
                 <p>Total do pedido: {$finalPrice}</p>
                 <small>{$count_plates} pratos selecionados</small>
             </blockquote>
-            <!-- <button  class="btn btn-success" title="Salvar" onclick="Salvar.html" style="width:150px;">Salvar pedido</button>
-            <button type="button" class="btn btn-danger" title="Cancelar o pedido" onclick="pedidos-new.html"><i class="fa fa-times"></i></button> -->
+            <!--<button  class="btn btn-success" title="Salvar" onclick="Salvar.html" style="width:150px;"></button>-->
+            <div id="request-status">
+                {include "request/statuslistrequest.tpl"}
+            </div>
+            <!--<button type="button" class="btn btn-danger" title="Cancelar o pedido" onclick="{$smarty.const.BASEDIR}request/cancelrequest?id={$request['id']}"><i class="fa fa-times"></i></button>-->
         </div><!-- /.box -->
     </div><!-- /.col -->
     <!-- /.Buttons (Options) -->
