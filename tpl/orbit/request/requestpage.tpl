@@ -86,12 +86,18 @@
     <div class="box">
         <form action="{$smarty.const.BASEDIR}request" method="get" class="sidebar-form">
             <div class="input-group">
-                <input type="text" name="search" class="form-control" placeholder="Localizar dentro da lista"/>
+                <input type="text" name="search" class="form-control" placeholder="Localizar dentro da lista" value="{$search}"/>
                     <span class="input-group-btn">
                         <button type='submit' name='seach' id='search-btn' class="btn btn-flat">
                             <i class="fa fa-search"></i>
                         </button>
                     </span>
+                {if isset($dateFrom)}
+                    <input type="hidden" name="date_from" value="{$dateFrom}">
+                {/if}
+                {if isset($dateTo)}
+                    <input type="hidden" name="date_from" value="{$dateTo}">
+                {/if}
             </div>
         </form>
 

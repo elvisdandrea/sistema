@@ -8,6 +8,14 @@
 class productControl extends Control {
 
     /**
+     * The module title
+     *
+     * This will be automatically
+     * rendered on the Template Title bar
+     */
+    const module_title = 'Produtos';
+
+    /**
      * Constructor
      */
     public function __construct() {
@@ -31,7 +39,8 @@ class productControl extends Control {
         intval($rp) > 0 || $rp = 10;
 
         $total = $this->model()->getProductList($page, $rp, $search);
-        $this->view()->setVariable('total', $total);
+        $this->view()->setVariable('total',  $total);
+        $this->view()->setVariable('search', $search);
 
         $pagination = $this->getPagination($page, $total, $rp, 'product/productpage');
         $this->view()->setVariable('pagination', $pagination);

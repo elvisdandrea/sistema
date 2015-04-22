@@ -8,6 +8,14 @@
 class clientControl extends Control {
 
     /**
+     * The module title
+     *
+     * This will be automatically
+     * rendered on the Template Title bar
+     */
+    const module_title = 'Clientes';
+
+    /**
      * Constructor
      */
     public function __construct() {
@@ -25,12 +33,15 @@ class clientControl extends Control {
         $search = $this->getQueryString('search');
         $page   = $this->getQueryString('page');
         $rp     = $this->getQueryString('rp');
+        $search = $this->getQueryString('search');
 
         $page || $page = 1;
         intval($rp) > 0 || $rp = 10;
 
         $total = $this->model()->getClientList($page, $rp, $search);
-        $this->view()->setVariable('total', $total);
+
+        $this->view()->setVariable('total',  $total);
+        $this->view()->setVariable('search', $search);
 
         $pagination = $this->getPagination($page, $total, $rp, 'client/clientpage');
         $this->view()->setVariable('pagination', $pagination);
@@ -40,10 +51,7 @@ class clientControl extends Control {
         $this->model()->addGridColumn('Nome','client_name');
         $this->model()->addGridColumn('Email','email');
         $this->model()->addGridColumn('Telefones','phones');
-        #$this->model()->addGridColumn('Tipo','client_type');
         $this->model()->addGridColumn('CPF / CNPJ','cpf_cnpj');
-        #$this->model()->addGridColumn('Data','client_date', 'DateTime');
-        #$this->model()->addGridColumn('Descrição','description');
 
         $this->view()->setVariable('clientlist', $this->model()->dbGrid());
         $this->commitReplace($this->view()->render(), '#content');

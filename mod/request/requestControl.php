@@ -8,6 +8,14 @@
 class requestControl extends Control {
 
     /**
+     * The module title
+     *
+     * This will be automatically
+     * rendered on the Template Title bar
+     */
+    const module_title = 'Pedidos';
+
+    /**
      * The request handler Id
      *
      * This is to handle a session position
@@ -60,6 +68,7 @@ class requestControl extends Control {
         $dateTo    = $this->getQueryString('date_to');
         $status    = $this->getQueryString('status');
         $client_id = $this->getQueryString('client_id');
+        $search    = $this->getQueryString('search');
 
         $page   = $this->getQueryString('page');
         $rp     = $this->getQueryString('rp');
@@ -67,18 +76,19 @@ class requestControl extends Control {
         $page || $page = 1;
         intval($rp) > 0 || $rp = 10;
 
-        $countRequests = $this->model()->countRequests($dateFrom, $dateTo, $status, $client_id);
-        $this->view()->setVariable('totalRequest', $countRequests);
-        $pendingRequests = $this->model()->getTotalPendingRequests($dateFrom, $dateTo, $client_id);
-        $totalPrice = $this->model()->getTotalPriceRequests($dateFrom, $dateTo, $status, $client_id);
+        $countRequests   = $this->model()->countRequests($dateFrom, $dateTo, $status, $client_id, $search);
+        $pendingRequests = $this->model()->getTotalPendingRequests($dateFrom, $dateTo, $client_id, $search);
+        $totalPrice      = $this->model()->getTotalPriceRequests($dateFrom, $dateTo, $status, $client_id, $search);
 
+        $this->view()->setVariable('totalRequest',    $countRequests);
         $this->view()->setVariable('pendingRequests', $pendingRequests);
-        $this->view()->setVariable('totalPrice', String::convertTextFormat($totalPrice, 'currency'));
+        $this->view()->setVariable('totalPrice',      String::convertTextFormat($totalPrice, 'currency'));
+        $this->view()->setVariable('search',          $search);
 
         $pagination = $this->getPagination($page, $countRequests, $rp, 'client/clientpage');
         $this->view()->setVariable('pagination', $pagination);
 
-        $this->model()->listRequests($dateFrom, $dateTo, $status, $client_id);
+        $this->model()->listRequests($dateFrom, $dateTo, $status, $client_id, $search);
         $this->model()->setGridRowLink('request/viewrequest', 'id');
         $this->model()->addGridColumn('Pedido #', 'id');
         $this->model()->addGridColumn('', 'image', 'Image');

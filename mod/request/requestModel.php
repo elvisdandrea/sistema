@@ -24,8 +24,10 @@ class requestModel extends Model {
      * @param string        $dateFrom       - Start Date
      * @param string        $dateTo         - End Date
      * @param string|bool   $status         - Request status
+     * @param string|bool   $client_id      - A client Id
+     * @param string|bool   $search         - Search string
      */
-    public function listRequests($dateFrom, $dateTo, $status = false, $client_id = false){
+    public function listRequests($dateFrom, $dateTo, $status = false, $client_id = false, $search = false){
 
         $this->addField('r.id');
         $this->addField('r.request_date');
@@ -52,9 +54,31 @@ class requestModel extends Model {
         if ($client_id)
             $this->addWhere('r.client_id = "' . $client_id . '"');
 
+        if ($search)
+            $this->addWhere($this->mountSearchString($search));
+
         $this->addGroup('r.id');
 
         $this->runQuery();
+    }
+
+    private function mountSearchString($search) {
+
+        $fields = array(
+            'r.id',
+            'r.request_date',
+            'r.delivery_date',
+            'c.client_name',
+            's.status_name',
+        );
+
+        $result = array();
+        foreach ($fields as $field) {
+            $result[] = $field . ' like "%' . str_replace(' ', '%', $search) . '%"';
+        }
+
+        return '(' . implode(' OR ', $result) . ')';
+
     }
 
     /**
@@ -65,7 +89,7 @@ class requestModel extends Model {
      * @param   bool|string     $status         - Which status
      * @param   bool|string     $client_id
      */
-    public function countRequests($dateFrom, $dateTo, $status = false, $client_id = false) {
+    public function countRequests($dateFrom, $dateTo, $status = false, $client_id = false, $search = false) {
 
         $this->addField('count(r.id) as mxm');
         $this->addFrom('requests r');
@@ -78,6 +102,10 @@ class requestModel extends Model {
 
         if ($client_id)
             $this->addWhere('r.client_id = "' . $client_id . '"');
+
+        if ($search)
+            $this->addWhere($this->mountSearchString($search));
+
 
         $this->runQuery();
 
@@ -98,7 +126,7 @@ class requestModel extends Model {
         return $result['mxm'];
     }
 
-    public function getTotalPendingRequests($dateFrom = false, $dateTo = false, $client_id = false){
+    public function getTotalPendingRequests($dateFrom = false, $dateTo = false, $client_id = false, $search = false){
         $this->addField('count(*) as mxm');
         $this->addFrom('requests r');
         $this->addWhere('r.deliver_status = 1');
@@ -109,6 +137,9 @@ class requestModel extends Model {
         if ($client_id)
             $this->addWhere('r.client_id = "' . $client_id . '"');
 
+        if ($search)
+            $this->addWhere($this->mountSearchString($search));
+
         $this->runQuery();
 
         $result = $this->getRow(0);
@@ -116,7 +147,7 @@ class requestModel extends Model {
         return $result['mxm'];
     }
 
-    public function getTotalPriceRequests($dateFrom = false, $dateTo = false, $status = false, $client_id = false) {
+    public function getTotalPriceRequests($dateFrom = false, $dateTo = false, $status = false, $client_id = false, $search = false) {
 
         $this->addField('sum(i.price) as total');
         $this->addFrom('request_plate_items i');
@@ -131,6 +162,9 @@ class requestModel extends Model {
 
         if ($client_id)
             $this->addWhere('r.client_id = "' . $client_id . '"');
+
+        if ($search)
+            $this->addWhere($this->mountSearchString($search));
 
         $this->runQuery();
 

@@ -92,6 +92,13 @@ class Control {
     private $moduleName;
 
     /**
+     * The Controller Module Title
+     *
+     * @var
+     */
+    private $moduleTitle;
+
+    /**
      * Thou shalt not call superglobals directly
      * even though I'm doing it in this function
      */
@@ -102,6 +109,8 @@ class Control {
 
         $ref = new ReflectionClass($this);
         $this->moduleName = basename(dirname($ref->getFileName()));
+        $this->moduleTitle =  $ref->getConstant('module_title');
+        $this->setTitle();
 
         $this->newView();
         $this->newModel();
@@ -169,6 +178,11 @@ class Control {
     final protected function getModuleTransferPath() {
 
         return Session::get('uid', 'company_id') . '/' . $this->moduleName;
+    }
+
+    private function setTitle() {
+
+        echo Html::ReplaceHtml($this->moduleTitle, '#page_title');
     }
 
     /**
@@ -506,6 +520,8 @@ class Control {
      * Preventing Some Memory Leaks
      */
     protected function terminate() {
+
+
 
         unset($this->view);
         unset($this->model);

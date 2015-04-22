@@ -26,6 +26,14 @@
 class homeControl extends Control {
 
     /**
+     * The module title
+     *
+     * This will be automatically
+     * rendered on the Template Title bar
+     */
+    const module_title = 'Bem vindo ao Orbit';
+
+    /**
      * The constructor
      *
      * The parent constructor is the
@@ -79,9 +87,8 @@ class homeControl extends Control {
      */
     public function homePage() {
 
-        $this->view()->loadTemplate('overview');
-        $this->view()->appendJs('sidebar');
-        $this->commitReplace($this->view()->render(), '#main', true);
+        $this->view()->loadTemplate('dashboard');
+        $this->commitReplace($this->view()->render(), '#content', true);
     }
 
     /**
