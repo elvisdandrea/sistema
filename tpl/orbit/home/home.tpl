@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<title>Clientes - Orbit | Gravi</title>
+	<title>Dashboard - Orbit | Gravi</title>
 	<meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
 	<link href="{$smarty.const.T_CSSURL}/bootstrap.css" rel="stylesheet" type="text/css" />
 	<link href="{$smarty.const.T_CSSURL}/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />

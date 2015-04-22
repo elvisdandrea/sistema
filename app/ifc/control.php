@@ -183,6 +183,7 @@ class Control {
     private function setTitle() {
 
         echo Html::ReplaceHtml($this->moduleTitle, '#page_title');
+        echo Html::ReplaceHtml($this->moduleTitle . ' - Orbit | gravi', 'title');
     }
 
     /**
