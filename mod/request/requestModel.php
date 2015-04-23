@@ -253,6 +253,7 @@ class requestModel extends Model {
 
         $this->addField('address_type');
         $this->addField('id');
+        $this->addField('client_id');
         $this->addFrom('client_addr');
         $this->addWhere('client_id = "' . $client_id . '"');
 
@@ -482,6 +483,12 @@ class requestModel extends Model {
         $this->runQuery();
     }
 
+    /**
+     * Returns the request final price
+     *
+     * @param   string      $id     - The request Id
+     * @return  mixed
+     */
     public function getRequestFinalPrice($id) {
 
         $this->addField('sum(price) as total');

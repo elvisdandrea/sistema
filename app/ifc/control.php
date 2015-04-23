@@ -523,8 +523,6 @@ class Control {
      */
     protected function terminate() {
 
-
-
         unset($this->view);
         unset($this->model);
         unset($this);

@@ -637,6 +637,13 @@ class requestControl extends Control {
         ));
     }
 
+    /**
+     * Rest Handler to remove a request item
+     *
+     * @param   array               $requestData    - The data
+     * @return  array|string
+     * @throws  ExceptionHandler
+     */
     public function deleteRemoveItem(array $requestData = array()) {
 
         $item_id = $requestData['id'];
@@ -652,6 +659,9 @@ class requestControl extends Control {
         ), 200);
     }
 
+    /**
+     * Handler to remove a request item
+     */
     public function removeItem() {
 
         $this->deleteRemoveItem(array(
@@ -659,6 +669,29 @@ class requestControl extends Control {
         ));
 
         $this->commitReplace('', '#' . $this->getQueryString('row_id'));
+    }
+
+    public function setAddress() {
+
+        $request_id = $this->getQueryString('id');
+        $client_id  = $this->getQueryString('client_id');
+        $address_id = $this->getQueryString('address_id');
+
+        $requestData = array(
+            'address_id'    => $address_id
+        );
+
+        $this->model()->updateRequest($request_id, $requestData);
+        $this->model()->getAddress($client_id);
+        $address_list = $this->model()->getRows();
+
+        $this->view()->loadTemplate('addresslist');
+        $this->view()->setVariable('client',      array('id' => $client_id));
+        $this->view()->setVariable('addressList', $address_list);
+        $this->view()->setVariable('request',     array('address_id' => $address_id));
+
+        $this->commitReplace($this->view()->render(), '#addresslist');
+
     }
 
 }
