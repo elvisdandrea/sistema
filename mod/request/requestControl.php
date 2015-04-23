@@ -548,6 +548,13 @@ class requestControl extends Control {
 
     }
 
+    /**
+     * Rest Handler to Update request status
+     *
+     * @param   array               $requestData    - The request data
+     * @return  array|string
+     * @throws  ExceptionHandler
+     */
     public function updateSetStatus(array $requestData = array()) {
 
         count($requestData) > 0 ||
@@ -566,6 +573,12 @@ class requestControl extends Control {
 
     }
 
+    /**
+     * Handler to Update request status
+     *
+     * @param   bool    $request_id     - The request Id
+     * @param   bool    $status         - The new status Id
+     */
     public function setStatus($request_id = false, $status = false) {
 
         $status     || $status     = $this->getQueryString('status');
@@ -622,6 +635,30 @@ class requestControl extends Control {
         $this->model()->updateRequest($id, array(
             'delivery_date' => $newdate
         ));
+    }
+
+    public function deleteRemoveItem(array $requestData = array()) {
+
+        $item_id = $requestData['id'];
+        $this->model()->deleteItem($item_id);
+
+        if (!$this->model()->queryOk()) {
+            return RestServer::throwError(Language::QUERY_ERROR(), 500);
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'message'   => 'Item removido!',
+        ), 200);
+    }
+
+    public function removeItem() {
+
+        $this->deleteRemoveItem(array(
+            'id'    => $this->getQueryString('id')
+        ));
+
+        $this->commitReplace('', '#' . $this->getQueryString('row_id'));
     }
 
 }

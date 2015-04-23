@@ -40,7 +40,7 @@ $(function() {
 });
 
 function submitDateSearch(dateFrom, dateTo) {
-    
+
     var url = $('#daterange-btn').attr('data-url') + '?date_from=' + dateFrom + '&date_to=' + dateTo;
     Html.Get(url, function(r){
         eval(r);

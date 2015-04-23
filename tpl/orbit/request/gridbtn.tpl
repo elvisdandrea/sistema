@@ -1,1 +1,1 @@
-<button type="button" class="btn label btn-{$class}">{$text}</button>
+<button type="button" class="btn label btn-{$class}" onclick="{$smarty.const.BASEDIR}request/removeitem?id={$row['id']}">{$text}</button>
