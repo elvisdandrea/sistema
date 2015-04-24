@@ -22,7 +22,9 @@ Class ExceptionHandler extends Exception {
     public function __construct($message, $status = 500) {
 
         http_response_code($status);
-        !($status == 500 && ENVDEV == '1') || $message = Language::FATAL_ERROR_MESSAGE();   // Preventing internal errors to be displayed on production server
+        !($status == 500 && ENVDEV == '1') ||
+            $message = Language::FATAL_ERROR_MESSAGE();   // Preventing internal errors to be displayed on production server
+
         ini_set('display_errors', '0');
         $error = array(
             'message'   => $message,
@@ -33,7 +35,7 @@ Class ExceptionHandler extends Exception {
             $error['file'] = $this->getFile();
             $error['line'] = $this->getLine();
         }
-        
+        print_r('here'); exit;
         $error = RESTFUL == '0' ? $this->throwException($error) : $this->throwRestException($error);
         return parent::__construct($error, $status);
 

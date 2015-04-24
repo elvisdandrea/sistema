@@ -73,20 +73,12 @@
         <div class="box-header">
             <h3 class="box-title">Monte o pedido:</h3>
         </div>
-
         <div class="box-body">
-            <!-- Prato -->
-            <div class="form-group">
-                <label>Adicione os pratos:</label>
-
-            </div><!-- /.form group -->
-            <!-- /.Prato -->
-
-            {include "request/platelist.tpl"}
-
-        </div><!-- /.box-body -->
-
+            <a href="{$smarty.const.BASEDIR}request/addplate?id={$request['id']}" class="btn btn-primary">Adicionar Prato</a>
+        </div><!-- /.form group -->
     </div><!-- /.box -->
+        {include "request/platelist.tpl"}
+
     <!-- /.Conteúdo PEDIDO -->
 
     <!-- Buttons (Options) -->

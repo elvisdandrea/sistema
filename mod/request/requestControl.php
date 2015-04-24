@@ -142,6 +142,7 @@ class requestControl extends Control {
 
         $this->view()->loadTemplate('newrequest');
         $this->view()->appendJs('events');
+        $this->view()->appendJs('newrequest');
         $this->commitReplace($this->view()->render(), '#content');
         $client_id = $this->getQueryString('client_id');
         if ($client_id)
@@ -164,10 +165,13 @@ class requestControl extends Control {
         $this->model()->searchClientForRequest($search);
         $this->view()->loadTemplate('clientresult');
         $clients = $this->model()->getRows();
+
+        $this->view()->setVariable('countClient', count($clients));
         $this->view()->setVariable('clients', $clients);
+        $this->view()->setVariable('search', $search);
         $this->view()->setVariable('request_id', $this->request_id);
         $this->commitReplace($this->view()->render(),'#client-results');
-
+        $this->commitShow('#clientresult');
     }
 
     /**
@@ -181,11 +185,11 @@ class requestControl extends Control {
         Session::set('requests', $this->request_id, 'client_id', $id);
         $this->model()->selClientForRequest($id);
         $this->commitReplace('', '#client-results');
-        $this->view()->loadTemplate('requestclient');
+        $this->view()->loadTemplate('clientprofile');
         $this->view()->setVariable('client', $this->model()->getRow(0));
-        $this->model()->clientAddressListForRequest($id);
+        $this->model()->getAddress($id);
         $this->view()->setVariable('request_id', $this->request_id);
-        $this->view()->setVariable('address_list', $this->model()->getRows());
+        $this->view()->setVariable('addressList', $this->model()->getRows());
         $this->commitReplace($this->view()->render(),'#client');
         $this->commitShow('#client');
         $this->commitSetValue('#searchclient', '');
@@ -671,6 +675,9 @@ class requestControl extends Control {
         $this->commitReplace('', '#' . $this->getQueryString('row_id'));
     }
 
+    /**
+     * Handler to set a new delivery address
+     */
     public function setAddress() {
 
         $request_id = $this->getQueryString('id');
@@ -682,13 +689,16 @@ class requestControl extends Control {
         );
 
         $this->model()->updateRequest($request_id, $requestData);
+        $this->model()->getRequestData($request_id);
+        $request = $this->model()->getRow(0);
+
         $this->model()->getAddress($client_id);
         $address_list = $this->model()->getRows();
 
         $this->view()->loadTemplate('addresslist');
         $this->view()->setVariable('client',      array('id' => $client_id));
         $this->view()->setVariable('addressList', $address_list);
-        $this->view()->setVariable('request',     array('address_id' => $address_id));
+        $this->view()->setVariable('request',     $request);
 
         $this->commitReplace($this->view()->render(), '#addresslist');
 

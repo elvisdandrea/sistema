@@ -414,6 +414,15 @@ class requestModel extends Model {
         $this->addField('day(r.delivery_date) as request_day');
         $this->addField('r.address_id');
         $this->addField('r.client_id');
+        $this->addField('a.address_type');
+        $this->addField('a.street_addr');
+        $this->addField('a.street_number');
+        $this->addField('a.street_additional');
+        $this->addField('a.hood');
+        $this->addField('a.city');
+        $this->addField('a.zip_code');
+        $this->addField('a.lat');
+        $this->addField('a.lng');
         $this->addField('c.client_name');
         $this->addField('c.image');
         $this->addField('group_concat(f.phone_number separator ",") as phones');
@@ -424,6 +433,7 @@ class requestModel extends Model {
         $this->addFrom('left join clients c ON c.id = r.client_id');
         $this->addFrom('left join client_phone f ON f.client_id = c.id');
         $this->addFrom('left join delivery_status s ON s.id = r.deliver_status');
+        $this->addFrom('left join client_addr a ON a.id = r.address_id');
 
         $this->addWhere('r.id = "' . $id . '"');
         $this->addGroup('r.id');

@@ -618,6 +618,8 @@ class Model {
             'message'   => $info[2]
         );
 
+        if (ENVDEV == '1' && $info[2] != '') debug($this->errorInfo);
+
         $this->lastId = $this->connections[$this->connection]['conn']->lastInsertId();
 
         $this->result = $this->errorInfo['code'] == 0;

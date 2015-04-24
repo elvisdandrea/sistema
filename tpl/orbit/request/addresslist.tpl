@@ -1,4 +1,7 @@
-<a id="item-chooser-btn" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
+<h5>{$request['address_type']}:
+<small>{$request['street_addr']}, {$request['street_number']}, {if {$request['street_additional'] != ''}}{$request['street_additional']},{/if} {$request['hood']}, {$request['city']}, {$request['zip_code']}</small>
+</h5>
+    <a id="item-chooser-btn" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
     <i class="fa fa-map-marker"></i> Escolha o endereço de entrega
 </a><br />
 <!-- Itens -->
