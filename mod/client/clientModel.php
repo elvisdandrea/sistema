@@ -97,7 +97,7 @@ class clientModel extends Model {
         }
 
         $this->addGroup('cli.id');
-        $offset = intval($total / $rp * $page);
+        $offset = intval(($page - 1) * $rp);
 
         $this->addLimit($offset . ',' . $rp);
         $this->runQuery();
