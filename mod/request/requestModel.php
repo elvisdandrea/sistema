@@ -267,7 +267,9 @@ class requestModel extends Model {
      */
     public function getClistAddressForRequest($address_id) {
 
+        $this->addField('a.id');
         $this->addField('a.street_addr');
+        $this->addField('a.address_type');
         $this->addField('a.street_number');
         $this->addField('a.street_additional');
         $this->addField('a.hood');

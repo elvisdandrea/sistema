@@ -1,13 +1,14 @@
 <!-- Client profile -->
 <div class="box-body client-profile">
     <!-- chat item -->
+    <input type="hidden" name="client_id" value="{$client['id']}"/>
     <div class="item">
         <img src="{$client['image']}" alt="user image" />
         <div class="client-dados">
             <h5>
                 {$client['client_name']} <small>Telefones: {$client['phones']}</small>
             </h5>
-            <div id="addresslist">
+            <div id="seladdress">
 
             </div>
             <a id="item-chooser-btn" class="btn btn-default btn-flat dropdown-toggle" data-toggle="dropdown">
@@ -17,7 +18,7 @@
             <ul class="dropdown-menu list-clients" id="item-chooser">
                 {foreach from=$addressList item="address"}
                     <li>
-                        <a href="{$smarty.const.BASEDIR}request/seladdress?id=address_id={$address['id']}&client_id={$address['client_id']}">
+                        <a href="{$smarty.const.BASEDIR}request/seladdress?id={$address['id']}&&request_id={$request_id}client_id={$address['client_id']}">
                             <i {if ($address['id'] == $request['address_id'])}class="fa fa-check-circle-o"{/if}></i>
                             {$address['address_type']}: {$address['street_addr']}, {$address['street_number']}, {$address['street_additional']}, {$address['hood']}, {$address['city']}
                         </a>

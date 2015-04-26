@@ -59,7 +59,7 @@ Main.prototype = {
             if ($(this).attr('action') == undefined) return false;
 
             data = [];
-            $(this).find('input[type="hidden"][name],input[type][name]:not("[type=password]"),select[name],textarea[name]').each(function(){
+            $(this).find('input[type="hidden"][name],input[type][name]:not("[type=password]"),select[name],textarea[name]').each(function(e){
                 var value = $(this).val();
                 if ($(this).attr('data-id') != undefined) value = $(this).attr('data-id');
                 data.push($(this).attr('name')+'='+encodeURIComponent(value));

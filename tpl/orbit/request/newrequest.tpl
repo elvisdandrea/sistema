@@ -29,7 +29,8 @@
                         <span class="glyphicon glyphicon-calendar"></span>
                     </span> -->
                     <div class='input-group date' id='datetimepicker'>
-                        <input id="delivery-date" value="" type="text" class="form-control datemask" />
+                        <input id="datetimepicker" value="" type="text" class="form-control datemask" />
+                        <input id="delivery-date" type="hidden" name="delivery_date" />
                         <span class="input-group-addon">
                             <span class="glyphicon glyphicon-calendar"></span>
                         </span>
@@ -72,13 +73,7 @@
             <!-- Prato -->
             <div class="form-group">
                 <label>Adicione os pratos:</label>
-                <div class="input-group col-md-6">
-                    <div class="input-group-addon">
-                        <i class="fa fa-cutlery"></i>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Localizar um prato" data-toggle="dropdown" />
-
-                </div><!-- /.input group -->
+                <button type="button" class="btn btn-primary" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/addPlate?request_id={$request_id}')" >Adicionar um prato</button>
             </div><!-- /.form group -->
             <!-- /.Prato -->
 
@@ -86,6 +81,9 @@
 
     </div><!-- /.box -->
     <!-- /.Conteúdo PEDIDO -->
+        <div id="plates">
+
+        </div>
 
     <!-- Buttons (Options) -->
     <div class="box box-solid">

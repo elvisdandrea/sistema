@@ -215,14 +215,11 @@ class requestControl extends Control {
         Session::set('requests', $this->request_id, 'address_id', $id);
         $this->model()->getClistAddressForRequest($id);
 
-        $this->model()->addGridColumn('Endereco', 'street_addr');
-        $this->model()->addGridColumn('Numero', 'street_number');
-        $this->model()->addGridColumn('Complemento', 'street_additional');
-        $this->model()->addGridColumn('Bairro', 'hood');
-        $this->model()->addGridColumn('Cidade', 'city');
-        $this->model()->addGridColumn('Cep', 'zip_code');
+        $this->view()->loadTemplate('seladdress');
+        $this->view()->setVariable('address', $this->model()->getRow(0));
 
-        $this->commitReplace($this->model()->dbGrid(), '#address-table');
+
+        $this->commitReplace($this->view()->render(), '#seladdress');
 
     }
 
@@ -252,11 +249,15 @@ class requestControl extends Control {
         if (empty($search))
             $this->commitReplace('','#product-results_' . $plate_id, false);
 
+        $action = $this->getQueryString('action');
+        $action || $action = 'selproduct';
+
         $this->model()->searchProductForRequest($search);
         $this->view()->loadTemplate('productresult');
         $products = $this->model()->getRows();
         $this->view()->setVariable('count', count($products));
         $this->view()->setVariable('products', $products);
+        $this->view()->setVariable('action', $action);
         $this->view()->setVariable('search', $search);
         $this->view()->setVariable('request_id', $this->request_id);
         $this->view()->setVariable('plate_id', $plate_id);
@@ -300,6 +301,39 @@ class requestControl extends Control {
     }
 
     /**
+     * Selects a product into a plate
+     */
+    public function selProductNew() {
+
+        $this->setId();
+        $plate_id   = $this->getQueryString('plate_id');
+        $product_id = $this->getQueryString('id');
+        $this->commitReplace('', '#product-results_' . $plate_id);
+        $this->model()->selectProductForRequest($product_id);
+        $item = $this->model()->getRow(0);
+
+        $data = array(
+            'request_id'    => $this->request_id,
+            'product_id'    => $item['id'],
+            'price'         => $item['price'],
+            'plate_id'      => $plate_id,
+            'weight'        => $item['weight']
+        );
+
+//        $result = $this->postAddItem($data);
+
+        Session::set('requests', $this->request_id, 'plates', $plate_id, $product_id, $item['weight']);
+
+        $this->view()->loadTemplate('plateitem');
+        $this->view()->setVariable('item', $item);
+        $this->commitAddToTable($this->view()->render(), '#plate_' . $plate_id);
+        $this->commitReplace('', 'result-' . $plate_id);
+        $this->commitShow('#change-' . $plate_id);
+        $this->commitReplace('', '#search-' . $plate_id);
+    }
+
+
+    /**
      * Saves a request
      */
     public function addNewRequest() {
@@ -311,15 +345,15 @@ class requestControl extends Control {
         $requestData = array(
             'client_id'     => $post['client_id'],
             'address_id'    => $post['address_id'],
-            'delivery_date' => String::formatDateToSave($post['delivery_date']),
+            'delivery_date' => String::formatDateTimeToSave($post['delivery_date']),
             'plates'        => $items['plates']
         );
 
         $result = $this->postAddRequest($requestData);
 
         if ($result['status'] != 200) {
-            $this->commitReplace($result['message'], '#message');
-            $this->commitShow('#message');
+            $this->view()->showAlert('danger','', $result['message']);
+            $this->commitAdd($this->view()->render(), 'body');
             $this->terminate();
         }
 
