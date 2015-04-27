@@ -17,7 +17,7 @@
             </div><!-- /.box-header -->
 
             <div class="box-body">
-                <img id="product-img" name="image64" src="{$product['image']}" class="image-user" alt="user image" style="display:block; margin:0 auto;" />
+                <img type="upload" id="product-img" name="image64" src="{$product['image']}" class="image-user" alt="user image" style="display:block; margin:0 auto;" />
 
                 <div class="form-group" style="display: block; margin: 20px auto 0px; width: 150px; text-align: center;" />
                 <div class="btn btn-success btn-file">
