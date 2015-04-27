@@ -22,7 +22,7 @@
                 <div class="form-group" style="display: block; margin: 20px auto 0px; width: 150px; text-align: center;" />
                 <div class="btn btn-success btn-file">
                     <i class="fa fa-upload"></i> Enviar uma imagem
-                    <input type="file" name="attachment"/>
+                    <input id="read64" type="file" name="attachment"/>
                 </div>
                 <p class="help-block">Max. XXX MB</p>
             </div>
