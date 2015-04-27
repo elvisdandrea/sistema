@@ -24,7 +24,7 @@
                     <i class="fa fa-upload"></i> Enviar uma imagem
                     <input id="read64" type="file" name="attachment"/>
                 </div>
-                <p class="help-block">Max. XXX MB</p>
+                <p class="help-block">Max. 4 MB</p>
             </div>
         </div><!-- /.box-body -->
     </div><!-- /.box -->

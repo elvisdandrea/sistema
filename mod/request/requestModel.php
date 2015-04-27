@@ -304,6 +304,7 @@ class requestModel extends Model {
         $this->addField('p.image');
         $this->addField('p.price');
         $this->addField('p.weight');
+        $this->addField('p.unit');
 
         $this->addFrom('products p');
         $this->addFrom('left join categories c on c.id = p.category_id');
@@ -326,6 +327,7 @@ class requestModel extends Model {
         $this->addField('c.category_name');
         $this->addField('p.product_name');
         $this->addField('p.weight');
+        $this->addField('p.unit');
         $this->addField('p.price');
         $this->addField('p.image');
         $this->addField('p.description');
@@ -391,6 +393,7 @@ class requestModel extends Model {
         $this->addInsertSet('plate_id',     $data['plate_id']);
         $this->addInsertSet('product_id',   $data['product_id']);
         $this->addInsertSet('weight',       $data['weight']);
+//        $this->addInsertSet('unit',         $data['unit']);
 
         $this->setInsertTable('request_plate_items');
 
@@ -479,6 +482,7 @@ class requestModel extends Model {
         $this->addField('i.id');
         $this->addField('i.plate_id');
         $this->addField('i.weight');
+        $this->addField('i.unit');
         $this->addField('pr.product_name');
         $this->addField('pr.image');
         $this->addField('i.price');
