@@ -20,9 +20,12 @@ class productModel extends Model {
 
     public function getCategoryList() {
 
-        $this->addField('id');
-        $this->addField('category_name');
-        $this->addFrom('categories');
+        $this->addField('c.id');
+        $this->addField('c.category_name');
+        $this->addField('count(p.id) as product_count');
+        $this->addFrom('categories c');
+        $this->addFrom('left join products p on p.category_id = c.id');
+        $this->addGroup('c.id');
         $this->runQuery();
 
         return !$this->isEmpty();
