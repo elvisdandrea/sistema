@@ -47,7 +47,7 @@ class clientControl extends Control {
         $this->view()->setVariable('pagination', $pagination);
 
         $this->model()->setGridRowLink('client/viewclient', 'id');
-        $this->model()->addGridColumn('Imagem','image','Image');
+        $this->model()->addGridColumn('','image','Image');
         $this->model()->addGridColumn('Nome','client_name');
         $this->model()->addGridColumn('Email','email');
         $this->model()->addGridColumn('Telefones','phones');

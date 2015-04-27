@@ -46,9 +46,10 @@ class productControl extends Control {
         $this->view()->setVariable('pagination', $pagination);
 
         $this->model()->setGridRowLink('product/viewproduct', 'id');
-        $this->model()->addGridColumn('Imagem','image','Image');
+        $this->model()->addGridColumn('','image','Image');
         $this->model()->addGridColumn('Categoria','category_name');
         $this->model()->addGridColumn('Produto','product_name');
+        $this->model()->addGridColumn('Peso','weight');
         $this->model()->addGridColumn('Valor','price', 'Currency');
         $this->model()->addGridColumn('Peso','weight', 'Unit', array('unit' => 'g'));
 
@@ -234,9 +235,12 @@ class productControl extends Control {
         $product = $this->model()->getRow(0);
         $this->view()->setVariable('product', $product);
         $this->view()->setVariable('id', $id);
+
+        $this->model()->getCategoryList();
+        $this->view()->setVariable('categories', $this->model()->getRows());
+
         $this->commitReplace($this->view()->render(), '#content');
 
-        echo Html::AsyncLoadList('fact', $product['product_fact']);
         echo Html::addImageUploadAction('read64', 'product-img');
         if (intval($product['product_fact']) > 0)
             $this->loadNutrictionFacts($product['product_fact']);
@@ -267,7 +271,7 @@ class productControl extends Control {
 
         $image  = $post['image64'];
 
-        if (!Html::isUrl($image)) {
+        if (!empty($image) && !Html::isUrl($image)) {
             $base64 = explode(',', $image);
             $imageFile = $this->uploadBase64File($base64[1]);
 

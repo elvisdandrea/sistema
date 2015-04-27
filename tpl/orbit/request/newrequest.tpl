@@ -5,7 +5,7 @@
         <div class="box-body pad table-responsive">
             <blockquote>
                 <p>Total do pedido: </p>
-                <small>3 pratos selecionados</small>
+                <small>nenhum prato adicionado</small>
             </blockquote>
             <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;">Salvar pedido</button>
             <button type="button" class="btn btn-danger" title="Cancelar o pedido" onclick="Main.quickLink('{$smarty.const.BASEDIR}request')"><i class="fa fa-times"></i></button>
@@ -90,7 +90,7 @@
         <div class="box-body pad table-responsive">
             <blockquote>
                 <p>Total do pedido: </p>
-                <small>3 pratos selecionados</small>
+                <small>nenhum prato adicionado</small>
             </blockquote>
             <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;">Salvar pedido</button>
             <button type="button" class="btn btn-danger" title="Cancelar o pedido" onclick="Main.quickLink('{$smarty.const.BASEDIR}request')"><i class="fa fa-times"></i></button>

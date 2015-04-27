@@ -69,8 +69,9 @@ class productModel extends Model {
             'p.description'
         );
 
-        $this->addField('count(id) as total');
-        $this->addFrom('products');
+        $this->addField('count(p.id) as total');
+        $this->addFrom('products p');
+        $this->addFrom('left join categories c on c.id = p.category_id');
 
         if ($search) {
             foreach ($fields as $field)

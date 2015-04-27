@@ -43,6 +43,14 @@ Main.prototype = {
                 return false;
             });
         });
+
+        $(document).on('click','[data-type="selitem"]', function(e){
+            e.preventDefault();
+            var target = $(this).attr('data-target');
+            if (target == undefined) return false;
+            $('#'+target).attr('data-id', $(this).attr('data-id')).val($(this).attr('data-value'));
+            return false;
+        });
     },
 
     /**
