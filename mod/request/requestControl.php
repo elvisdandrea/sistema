@@ -746,9 +746,10 @@ class requestControl extends Control {
      */
     public function addItemPortion() {
 
-        $id       = $this->getQueryString('id');
-        $plate_id = $this->getQueryString('plate_id');
-        $amount   = $this->getQueryString('amount');
+        $id         = $this->getQueryString('id');
+        $request_id = $this->getQueryString('request_id');
+        $plate_id   = $this->getQueryString('plate_id');
+        $amount     = $this->getQueryString('amount');
 
         $this->model()->getRequestItem($id);
         $item     = $this->model()->getRow(0);
@@ -761,15 +762,19 @@ class requestControl extends Control {
             'price'     => $newPrice
         ));
 
+        $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
+
         $this->commitReplace($newValue . $item['unit'], '#amount_' . $plate_id . '_' . $id);
         $this->commitReplace(String::convertTextFormat($newPrice, 'currency'), '#price_'  . $plate_id . '_' . $id);
+        $this->commitReplace('Total do pedido: ' . String::convertTextFormat($newTotalPrice, 'currency'), '[data-id="totalprice"]');
     }
 
     public function dropItemPortion() {
 
-        $id       = $this->getQueryString('id');
-        $plate_id = $this->getQueryString('plate_id');
-        $amount   = $this->getQueryString('amount');
+        $id         = $this->getQueryString('id');
+        $request_id = $this->getQueryString('request_id');
+        $plate_id   = $this->getQueryString('plate_id');
+        $amount     = $this->getQueryString('amount');
 
         $this->model()->getRequestItem($id);
         $item     = $this->model()->getRow(0);
@@ -785,8 +790,11 @@ class requestControl extends Control {
             'price'     => $newPrice
         ));
 
+        $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
+
         $this->commitReplace($newValue . $item['unit'], '#amount_' . $plate_id . '_' . $id);
         $this->commitReplace(String::convertTextFormat($newPrice, 'currency'), '#price_'  . $plate_id . '_' . $id);
+        $this->commitReplace('Total do pedido: ' . String::convertTextFormat($newTotalPrice, 'currency'), '[data-id="totalprice"]');
     }
 
 }
