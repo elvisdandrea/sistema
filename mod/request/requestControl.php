@@ -282,7 +282,8 @@ class requestControl extends Control {
             'product_id'    => $item['id'],
             'price'         => $item['price'],
             'plate_id'      => $plate_id,
-            'weight'        => $item['weight']
+            'weight'        => $item['weight'],
+            'unit'          => $item['unit']
         );
 
         $result = $this->postAddItem($data);
@@ -418,12 +419,13 @@ class requestControl extends Control {
 
             $result['plates'][$plate_id] = array();
 
-            foreach ($plate as $product_id => $weight) {
+            foreach ($plate as $product_id => $product) {
                 $item_id = $this->model()->insertPlateItem(
                     array(
                         'plate_id'      => $plate_id,
                         'product_id'    => $product_id,
-                        'weight'        => $weight
+                        'weight'        => $product['weight'],
+                        'unit'          => $product['unit']
                     )
                 );
                 $result['plates'][$plate_id][] = $item_id;
@@ -551,7 +553,8 @@ class requestControl extends Control {
             array(
                 'plate_id'      => $requestData['plate_id'],
                 'product_id'    => $requestData['product_id'],
-                'weight'        => $requestData['weight']
+                'weight'        => $requestData['weight'],
+                'unit'          => $requestData['unit']
             )
         );
 
@@ -736,6 +739,54 @@ class requestControl extends Control {
 
         $this->commitReplace($this->view()->render(), '#addresslist');
 
+    }
+
+    /**
+     * Adds a portion to a request item
+     */
+    public function addItemPortion() {
+
+        $id       = $this->getQueryString('id');
+        $plate_id = $this->getQueryString('plate_id');
+        $amount   = $this->getQueryString('amount');
+
+        $this->model()->getRequestItem($id);
+        $item     = $this->model()->getRow(0);
+        $weight   = $item['weight'];
+        $newValue = $weight + $amount;
+        $newPrice = $item['price'] + $item['product_price'];
+
+        $this->model()->updateItem($id, array(
+            'weight'    => $newValue,
+            'price'     => $newPrice
+        ));
+
+        $this->commitReplace($newValue . $item['unit'], '#amount_' . $plate_id . '_' . $id);
+        $this->commitReplace(String::convertTextFormat($newPrice, 'currency'), '#price_'  . $plate_id . '_' . $id);
+    }
+
+    public function dropItemPortion() {
+
+        $id       = $this->getQueryString('id');
+        $plate_id = $this->getQueryString('plate_id');
+        $amount   = $this->getQueryString('amount');
+
+        $this->model()->getRequestItem($id);
+        $item     = $this->model()->getRow(0);
+        $weight   = $item['weight'];
+        $newValue = $weight - $amount;
+
+        if ($newValue <= 0) return;
+
+        $newPrice = $item['price'] - $item['product_price'];
+
+        $this->model()->updateItem($id, array(
+            'weight'    => $newValue,
+            'price'     => $newPrice
+        ));
+
+        $this->commitReplace($newValue . $item['unit'], '#amount_' . $plate_id . '_' . $id);
+        $this->commitReplace(String::convertTextFormat($newPrice, 'currency'), '#price_'  . $plate_id . '_' . $id);
     }
 
 }

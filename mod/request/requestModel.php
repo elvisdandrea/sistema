@@ -393,7 +393,7 @@ class requestModel extends Model {
         $this->addInsertSet('plate_id',     $data['plate_id']);
         $this->addInsertSet('product_id',   $data['product_id']);
         $this->addInsertSet('weight',       $data['weight']);
-//        $this->addInsertSet('unit',         $data['unit']);
+        $this->addInsertSet('unit',         $data['unit']);
 
         $this->setInsertTable('request_plate_items');
 
@@ -486,6 +486,8 @@ class requestModel extends Model {
         $this->addField('pr.product_name');
         $this->addField('pr.image');
         $this->addField('i.price');
+        $this->addField('pr.price as product_price');
+        $this->addField('pr.weight as product_weight');
         $this->addField('c.category_name');
 
         $this->addFrom('requests r');
@@ -497,6 +499,23 @@ class requestModel extends Model {
         $this->addWhere('r.id = "' . $id . '"');
 
         $this->runQuery();
+    }
+
+    public function getRequestItem($id) {
+
+        $this->addField('i.id');
+        $this->addField('i.plate_id');
+        $this->addField('i.weight');
+        $this->addField('i.unit');
+        $this->addField('i.price');
+        $this->addField('pr.price as product_price');
+
+        $this->addFrom('request_plate_items i');
+        $this->addFrom('left join products pr on pr.id = i.product_id');
+        $this->addWhere('i.id = "' . $id . '"');
+
+        $this->runQuery();
+
     }
 
     /**
@@ -546,7 +565,13 @@ class requestModel extends Model {
         return false;
     }
 
-    public function updateRequest($id, $requestData) {
+    /**
+     * Query to update a request
+     *
+     * @param   string  $id             - The request Id
+     * @param   array   $requestData    - The request data
+     */
+    public function updateRequest($id, array $requestData) {
 
         foreach ($requestData as $field => $value)
             $this->addUpdateSet($field, $value);
@@ -558,12 +583,29 @@ class requestModel extends Model {
 
     }
 
+    /**
+     * Removes an Item from a request
+     *
+     * @param   string      $id         - The item id
+     */
     public function deleteItem($id) {
 
         $this->setDeleteFrom('request_plate_items');
         $this->addDeleteWhere('id = "' . $id . '"');
 
         $this->runDelete();
+    }
+
+    public function updateItem($id, array $itemData) {
+
+        foreach ($itemData as $field => $value)
+            $this->addUpdateSet($field, $value);
+
+        $this->setUpdateTable('request_plate_items');
+        $this->addUpdateWhere('id = "' . $id . '"');
+
+        $this->runUpdate();
+
     }
 
 

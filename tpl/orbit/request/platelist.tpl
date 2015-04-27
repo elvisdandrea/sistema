@@ -19,11 +19,11 @@
                             <td>{$item['product_name']}</td>
                             <td>{$item['category_name']}</td>
                             <td>
-                                <button class="btn btn-primary"><i class="fa fa-minus-circle"></i></button>
-                                <label style="width: 60px; text-align: center;">{$item['weight']}{$item['unit']}</label>
-                                <button class="btn btn-primary"><i class="fa fa-plus-circle"></i></button>
+                                <button onclick="Main.quickLink('{$smarty.const.BASEDIR}request/dropitemportion?id={$item['id']}&amount={$item['product_weight']}&plate_id={$plate_id}')" class="btn btn-primary"><i class="fa fa-minus-circle"></i></button>
+                                <label id="amount_{$plate_id}_{$item['id']}" style="width: 60px; text-align: center;">{$item['weight']}{$item['unit']}</label>
+                                <button onclick="Main.quickLink('{$smarty.const.BASEDIR}request/additemportion?id={$item['id']}&amount={$item['product_weight']}&plate_id={$plate_id}')" class="btn btn-primary"><i class="fa fa-plus-circle"></i></button>
                             </td>
-                            <td>{String::convertTextFormat($item['price'], 'currency')}</td>
+                            <td id="price_{$plate_id}_{$item['id']}">{String::convertTextFormat($item['price'], 'currency')}</td>
                             <td><button type="button" class="btn label btn-danger" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/removeitem?id={$item['id']}&row_id={$plate_id}_{$item['id']}')">Retirar</button></td>
                         </tr>
                     {/foreach}
