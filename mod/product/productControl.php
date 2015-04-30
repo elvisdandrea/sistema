@@ -75,6 +75,9 @@ class productControl extends Control {
      */
     public function newProduct() {
 
+        $this->model()->getCategoryList();
+        $this->view()->setVariable('categories', $this->model()->getRows());
+
         $this->view()->loadTemplate('newproduct');
         $this->commitReplace($this->view()->render(), '#content');
         echo Html::AsyncLoadList('addproduct');
@@ -216,8 +219,7 @@ class productControl extends Control {
 
         $product = $this->postAddProduct();
         if ($product['status'] != 200) {
-            $this->commitReplace($product['message'], '#message');
-            $this->commitShow('#message');
+            $this->commitAdd($this->view()->showAlert('danger','', $product['message']), 'body');
             $this->terminate();
         }
 
