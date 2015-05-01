@@ -204,8 +204,9 @@ class requestModel extends Model {
         foreach ($fields as $field)
             $this->addWhere($field . ' like "%' . str_replace(' ', '%', $search) . '%"', 'OR');
 
-        $this->addWhere('p.phone_number like "%' . str_replace(' ', '%', $search) . '%"');
+        $this->addWhere('p.phone_number like "%' . str_replace(' ', '%', $search) . '%"', 'OR');
         $this->addGroup('c.id');
+        $this->addLimit('10');
 
         $this->runQuery();
 
