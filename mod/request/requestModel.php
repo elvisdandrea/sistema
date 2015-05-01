@@ -393,6 +393,7 @@ class requestModel extends Model {
         $this->addInsertSet('plate_id',     $data['plate_id']);
         $this->addInsertSet('product_id',   $data['product_id']);
         $this->addInsertSet('weight',       $data['weight']);
+        $this->addInsertSet('price',        $data['price']);
         $this->addInsertSet('unit',         $data['unit']);
 
         $this->setInsertTable('request_plate_items');

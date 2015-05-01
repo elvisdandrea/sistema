@@ -294,8 +294,7 @@ class requestControl extends Control {
         );
 
         if ($action == 'selproductnew') {
-            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, $product_id, $item['weight']);
-            Session::set('uid', 'requests', $this->request_id, 'prices', $plate_id, $product_id, $item['price']);
+            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, $product_id, array('weight' => $item['weight'], 'price' => $item['price'], 'unit' => $item['unit']));
             $curTotalPrice = intval(Session::get('uid', 'requests', $this->request_id, 'price'));
             $newTotalPrice = $curTotalPrice + $item['price'];
             Session::set('uid', 'requests', $this->request_id, 'price', $newTotalPrice);
@@ -412,6 +411,7 @@ class requestControl extends Control {
                         'plate_id'      => $plate_id,
                         'product_id'    => $product_id,
                         'weight'        => $product['weight'],
+                        'price'         => $product['price'],
                         'unit'          => $product['unit']
                     )
                 );
@@ -741,8 +741,8 @@ class requestControl extends Control {
 
         if ($action == 'selproductnew') {
             $this->setId();
-            $weight   = Session::get('uid', 'requests', $this->request_id, 'plates', $plate_id, $id);
-            $curprice = Session::get('uid', 'requests', $this->request_id, 'prices', $plate_id, $id);
+            $weight   = Session::get('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'weight');
+            $curprice = Session::get('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'price');
             $newValue = $weight + $amount;
             $this->model()->selectProductForRequest($id);
             $item          = $this->model()->getRow(0);
@@ -750,8 +750,8 @@ class requestControl extends Control {
             $newTotalPrice = $curTotalprice + $item['price'];
             $newPrice      = $curprice + $item['price'];
             Session::set('uid', 'requests', $this->request_id, 'price', $newTotalPrice);
-            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, $newValue);
-            Session::set('uid', 'requests', $this->request_id, 'prices', $plate_id, $id, $newPrice);
+            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'weight', $newValue);
+            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'price',  $newPrice);
         } else {
             $this->model()->getRequestItem($id);
             $item     = $this->model()->getRow(0);
@@ -784,7 +784,7 @@ class requestControl extends Control {
         $action     = $this->getQueryString('action');
 
         if ($action == 'selproductnew') {
-
+            //TODO: remove from session
         } else {
             $this->model()->getRequestItem($id);
             $item     = $this->model()->getRow(0);
