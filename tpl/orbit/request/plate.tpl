@@ -10,7 +10,7 @@
             <div id="product-results_{$plate_id}"></div>
         </div><!-- /.input group -->
         <div class="input-group col-md-12">
-            <table id="plate_{$plate_id}">
+            <table id="plate_{$plate_id}" class="table table-striped">
                 <tbody></tbody>
             </table>
         </div>

@@ -1,17 +1,5 @@
 <div class="col-md-12">
     <form action="{$smarty.const.BASEDIR}request/addNewRequest?request_id={$request_id}">
-    <!-- Buttons (Options) -->
-    <div class="box box-solid">
-        <div class="box-body pad table-responsive">
-            <blockquote>
-                <p>Total do pedido: </p>
-                <small>nenhum prato adicionado</small>
-            </blockquote>
-            <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;">Salvar pedido</button>
-            <button type="button" class="btn btn-danger" title="Cancelar o pedido" onclick="Main.quickLink('{$smarty.const.BASEDIR}request')"><i class="fa fa-times"></i></button>
-        </div><!-- /.box -->
-    </div><!-- /.col -->
-    <!-- /.Buttons (Options) -->
 
     <!-- Conteúdo ENTREGA -->
     <div class="box">
@@ -20,24 +8,6 @@
         </div>
 
         <div class="box-body">
-            <!-- Data de entrega -->
-            <div class="form-group">
-                <label>Data da entrega:</label>
-                <div class="input-group col-md-6">
-                    <!--
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span> -->
-                    <div class='input-group date' id='datetimepicker'>
-                        <input id="datetimepicker" value="" type="text" class="form-control datemask" />
-                        <input id="delivery-date" type="hidden" name="delivery_date" />
-                        <span class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </span>
-                    </div>
-                </div><!-- /.input group -->
-            </div><!-- /.form group -->
-            <!-- /.Data de entrega -->
 
             <!-- Cliente -->
             <div id="searchclient" class="form-group">
@@ -59,6 +29,26 @@
             <div id="client-results">
 
             </div>
+
+            <!-- Data de entrega -->
+            <div class="form-group">
+                <label>Data da entrega:</label>
+                <div class="input-group col-md-6">
+                    <!--
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span> -->
+                    <div class='input-group date' id='datetimepicker'>
+                        <input id="datetimepicker" value="" type="text" class="form-control datemask" />
+                        <input id="delivery-date" type="hidden" name="delivery_date" />
+                        <span class="input-group-addon">
+                            <span class="glyphicon glyphicon-calendar"></span>
+                        </span>
+                    </div>
+                </div><!-- /.input group -->
+            </div><!-- /.form group -->
+            <!-- /.Data de entrega -->
+
         </div><!-- /.box-body -->
     </div><!-- /.box -->
     <!-- /.Conteúdo ENTREGA -->
@@ -89,7 +79,7 @@
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
             <blockquote>
-                <p>Total do pedido: </p>
+                <p data-id="totalprice">Total do pedido: </p>
                 <small>nenhum prato adicionado</small>
             </blockquote>
             <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;">Salvar pedido</button>

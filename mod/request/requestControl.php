@@ -52,7 +52,7 @@ class requestControl extends Control {
     public function createId() {
 
         $this->request_id = uniqid();
-        Session::set('requests', $this->request_id, array());
+        Session::set('uid', 'requests', $this->request_id, array());
     }
 
 
@@ -85,7 +85,7 @@ class requestControl extends Control {
         $this->view()->setVariable('totalPrice',      String::convertTextFormat($totalPrice, 'currency'));
         $this->view()->setVariable('search',          $search);
 
-        $pagination = $this->getPagination($page, $countRequests, $rp, 'client/clientpage');
+        $pagination = $this->getPagination($page, $countRequests, $rp, 'request/requestpage');
         $this->view()->setVariable('pagination', $pagination);
 
         $this->model()->listRequests($dateFrom, $dateTo, $status, $client_id, $search);
@@ -182,7 +182,7 @@ class requestControl extends Control {
     public function selClient($id = false) {
         $this->setId();
         $id || $id = $this->getQueryString('id');
-        Session::set('requests', $this->request_id, 'client_id', $id);
+        Session::set('uid', 'requests', $this->request_id, 'client_id', $id);
         $this->model()->selClientForRequest($id);
         $this->commitReplace('', '#client-results');
         $this->view()->loadTemplate('clientprofile');
@@ -212,7 +212,7 @@ class requestControl extends Control {
 
         $this->setId();
         $id = $this->getQueryString('id');
-        Session::set('requests', $this->request_id, 'address_id', $id);
+        Session::set('uid', 'requests', $this->request_id, 'address_id', $id);
         $this->model()->getClistAddressForRequest($id);
 
         $this->view()->loadTemplate('seladdress');
@@ -230,8 +230,13 @@ class requestControl extends Control {
 
         $this->setId();
         $this->view()->loadTemplate('plate');
+        $action = $this->getQueryString('action');
         $plate_id = uniqid();
-        Session::set('requests', $this->request_id, 'plates', $plate_id, array());
+        if ($action == 'addplatenew') {
+            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, array());
+        } else {
+
+        }
         $this->view()->setVariable('request_id', $this->request_id);
         $this->view()->setVariable('plate_id', $plate_id);
         $this->commitAdd($this->view()->render(), '#plates');
@@ -273,6 +278,8 @@ class requestControl extends Control {
         $this->setId();
         $plate_id   = $this->getQueryString('plate_id');
         $product_id = $this->getQueryString('id');
+        $request_id = $this->getQueryString('request_id');
+        $action     = $this->getQueryString('action');
         $this->commitReplace('', '#product-results_' . $plate_id);
         $this->model()->selectProductForRequest($product_id);
         $item = $this->model()->getRow(0);
@@ -286,51 +293,31 @@ class requestControl extends Control {
             'unit'          => $item['unit']
         );
 
-        $result = $this->postAddItem($data);
-
-//        Session::set('requests', $this->request_id, 'plates', $plate_id, $product_id, $item['weight']);
-
-        if ($result['status'] != 200) {
-            //TODO: something went wrong
+        if ($action == 'selproductnew') {
+            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, $product_id, $item['weight']);
+            Session::set('uid', 'requests', $this->request_id, 'prices', $plate_id, $product_id, $item['price']);
+            $curTotalPrice = intval(Session::get('uid', 'requests', $this->request_id, 'price'));
+            $newTotalPrice = $curTotalPrice + $item['price'];
+            Session::set('uid', 'requests', $this->request_id, 'price', $newTotalPrice);
+        } else {
+            $result = $this->postAddItem($data);
+            $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
+            if ($result['status'] != 200) {
+                //TODO: something went wrong
+            }
         }
+
         $this->view()->loadTemplate('plateitem');
-        $this->view()->setVariable('item', $item);
+        $this->view()->setVariable('item',       $item);
+        $this->view()->setVariable('plate_id',   $plate_id);
+        $this->view()->setVariable('id',         $product_id);
+        $this->view()->setVariable('request_id', $this->request_id);
+        $this->view()->setVariable('action', $action);
         $this->commitAddToTable($this->view()->render(), '#plate_' . $plate_id);
         $this->commitReplace('', 'result-' . $plate_id);
         $this->commitShow('#change-' . $plate_id);
         $this->commitReplace('', '#search-' . $plate_id);
-    }
-
-    /**
-     * Selects a product into a plate
-     */
-    public function selProductNew() {
-
-        $this->setId();
-        $plate_id   = $this->getQueryString('plate_id');
-        $product_id = $this->getQueryString('id');
-        $this->commitReplace('', '#product-results_' . $plate_id);
-        $this->model()->selectProductForRequest($product_id);
-        $item = $this->model()->getRow(0);
-
-        $data = array(
-            'request_id'    => $this->request_id,
-            'product_id'    => $item['id'],
-            'price'         => $item['price'],
-            'plate_id'      => $plate_id,
-            'weight'        => $item['weight']
-        );
-
-//        $result = $this->postAddItem($data);
-
-        Session::set('requests', $this->request_id, 'plates', $plate_id, $product_id, $item['weight']);
-
-        $this->view()->loadTemplate('plateitem');
-        $this->view()->setVariable('item', $item);
-        $this->commitAddToTable($this->view()->render(), '#plate_' . $plate_id);
-        $this->commitReplace('', 'result-' . $plate_id);
-        $this->commitShow('#change-' . $plate_id);
-        $this->commitReplace('', '#search-' . $plate_id);
+        $this->commitReplace('Total do pedido: ' . String::convertTextFormat($newTotalPrice, 'currency'), '[data-id="totalprice"]');
     }
 
 
@@ -341,7 +328,7 @@ class requestControl extends Control {
 
         $this->setId();
         $post  = $this->getPost();
-        $items = Session::get('requests', $this->request_id);
+        $items = Session::get('uid', 'requests', $this->request_id);
 
         $requestData = array(
             'client_id'     => $post['client_id'],
@@ -358,7 +345,7 @@ class requestControl extends Control {
             $this->terminate();
         }
 
-        Session::del('requests', $this->request_id);
+        Session::del('uid', 'requests', $this->request_id);
 
         if ($result['status'] == 200) {
             $this->requestPage();
@@ -575,7 +562,7 @@ class requestControl extends Control {
 
         $this->request_id = $request_id;
 
-        $items = Session::get('requests', $this->request_id);
+        $items = Session::get('uid', 'requests', $this->request_id);
         $items['plate_id']  = $plate_id;
         $result = $this->postAddItem($items);
 
@@ -584,7 +571,7 @@ class requestControl extends Control {
             $this->commitHide('#save-'   . $plate_id);
             $this->commitShow('#change-' . $plate_id);
             $this->commitReplace('', '#search-' . $plate_id);
-            Session::del('requests', $this->request_id);
+            Session::del('uid', 'requests', $this->request_id);
         }
 
     }
@@ -750,47 +737,72 @@ class requestControl extends Control {
         $request_id = $this->getQueryString('request_id');
         $plate_id   = $this->getQueryString('plate_id');
         $amount     = $this->getQueryString('amount');
+        $action     = $this->getQueryString('action');
 
-        $this->model()->getRequestItem($id);
-        $item     = $this->model()->getRow(0);
-        $weight   = $item['weight'];
-        $newValue = $weight + $amount;
-        $newPrice = $item['price'] + $item['product_price'];
+        if ($action == 'selproductnew') {
+            $this->setId();
+            $weight   = Session::get('uid', 'requests', $this->request_id, 'plates', $plate_id, $id);
+            $curprice = Session::get('uid', 'requests', $this->request_id, 'prices', $plate_id, $id);
+            $newValue = $weight + $amount;
+            $this->model()->selectProductForRequest($id);
+            $item          = $this->model()->getRow(0);
+            $curTotalprice = Session::get('uid', 'requests', $this->request_id, 'price');
+            $newTotalPrice = $curTotalprice + $item['price'];
+            $newPrice      = $curprice + $item['price'];
+            Session::set('uid', 'requests', $this->request_id, 'price', $newTotalPrice);
+            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, $newValue);
+            Session::set('uid', 'requests', $this->request_id, 'prices', $plate_id, $id, $newPrice);
+        } else {
+            $this->model()->getRequestItem($id);
+            $item     = $this->model()->getRow(0);
+            $weight   = $item['weight'];
+            $newValue = $weight + $amount;
+            $newPrice = $item['price'] + $item['product_price'];
 
-        $this->model()->updateItem($id, array(
-            'weight'    => $newValue,
-            'price'     => $newPrice
-        ));
+            $this->model()->updateItem($id, array(
+                'weight'    => $newValue,
+                'price'     => $newPrice
+            ));
 
-        $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
+            $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
+        }
 
         $this->commitReplace($newValue . $item['unit'], '#amount_' . $plate_id . '_' . $id);
         $this->commitReplace(String::convertTextFormat($newPrice, 'currency'), '#price_'  . $plate_id . '_' . $id);
         $this->commitReplace('Total do pedido: ' . String::convertTextFormat($newTotalPrice, 'currency'), '[data-id="totalprice"]');
     }
 
+    /**
+     * Drops a portion of a request item
+     */
     public function dropItemPortion() {
 
         $id         = $this->getQueryString('id');
         $request_id = $this->getQueryString('request_id');
         $plate_id   = $this->getQueryString('plate_id');
         $amount     = $this->getQueryString('amount');
+        $action     = $this->getQueryString('action');
 
-        $this->model()->getRequestItem($id);
-        $item     = $this->model()->getRow(0);
-        $weight   = $item['weight'];
-        $newValue = $weight - $amount;
+        if ($action == 'selproductnew') {
 
-        if ($newValue <= 0) return;
+        } else {
+            $this->model()->getRequestItem($id);
+            $item     = $this->model()->getRow(0);
+            $weight   = $item['weight'];
+            $newValue = $weight - $amount;
 
-        $newPrice = $item['price'] - $item['product_price'];
+            if ($newValue <= 0) return;
 
-        $this->model()->updateItem($id, array(
-            'weight'    => $newValue,
-            'price'     => $newPrice
-        ));
+            $newPrice = $item['price'] - $item['product_price'];
 
-        $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
+            $this->model()->updateItem($id, array(
+                'weight'    => $newValue,
+                'price'     => $newPrice
+            ));
+
+            $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
+        }
+
 
         $this->commitReplace($newValue . $item['unit'], '#amount_' . $plate_id . '_' . $id);
         $this->commitReplace(String::convertTextFormat($newPrice, 'currency'), '#price_'  . $plate_id . '_' . $id);
