@@ -88,7 +88,7 @@ class requestControl extends Control {
         $pagination = $this->getPagination($page, $countRequests, $rp, 'request/requestpage');
         $this->view()->setVariable('pagination', $pagination);
 
-        $this->model()->listRequests($dateFrom, $dateTo, $status, $client_id, $search);
+        $this->model()->listRequests($dateFrom, $dateTo, $status, $client_id, $search, $page, $rp);
         $this->model()->setGridRowLink('request/viewrequest', 'id');
         $this->model()->addGridColumn('Pedido #', 'id');
         $this->model()->addGridColumn('', 'image', 'Image');

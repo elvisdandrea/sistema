@@ -43,11 +43,17 @@
                     <li><a href="{$smarty.const.BASEDIR}product/newproduct"><i class="fa fa-angle-double-right"></i>Novo produtos</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="{$smarty.const.BASEDIR}settings">
-                    <i class="fa fa-cog"></i> <span>Configurações</span>
-                    <span class="label label-danger">Requer atenção</span>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-cog"></i>
+                    <span>Configurações</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                    <!--<span class="label label-danger">Requer atenção</span>-->
                 </a>
+                <ul class="treeview-menu">
+                    <li><a href="{$smarty.const.BASEDIR}settings"><i class="fa fa-angle-double-right"></i>Ajustes</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}profile"><i class="fa fa-angle-double-right"></i>Usuarios</a></li>
+                </ul>
             </li>
             <li>
                 <a href="{$smarty.const.BASEDIR}home/logout">

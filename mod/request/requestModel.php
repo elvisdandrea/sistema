@@ -26,8 +26,10 @@ class requestModel extends Model {
      * @param string|bool   $status         - Request status
      * @param string|bool   $client_id      - A client Id
      * @param string|bool   $search         - Search string
+     * @param int           $page           - The current page number
+     * @param int           $rp             - The bumber of results per page
      */
-    public function listRequests($dateFrom, $dateTo, $status = false, $client_id = false, $search = false){
+    public function listRequests($dateFrom, $dateTo, $status = false, $client_id = false, $search = false, $page = 1, $rp = 10){
 
         $this->addField('r.id');
         $this->addField('r.request_date');
@@ -56,6 +58,10 @@ class requestModel extends Model {
 
         if ($search)
             $this->addWhere($this->mountSearchString($search));
+
+        $offset = intval(($page - 1) * $rp);
+
+        $this->addLimit($offset . ',' . $rp);
 
         $this->addGroup('r.id');
 
@@ -312,6 +318,8 @@ class requestModel extends Model {
 
         foreach ($fields as $field)
             $this->addWhere($field . ' like "%' . str_replace(' ', '%', $search) . '%"', 'OR');
+
+        $this->addLimit('20');
 
         $this->runQuery();
 
