@@ -102,7 +102,7 @@ class Control {
      * Thou shalt not call superglobals directly
      * even though I'm doing it in this function
      */
-    public function __construct() {
+    public function __construct($change_title = true) {
 
         $this->post = filter_input_array(INPUT_POST, FILTER_SANITIZE_MAGIC_QUOTES, FILTER_SANITIZE_URL);
         $this->get  = filter_input_array(INPUT_GET,  FILTER_SANITIZE_MAGIC_QUOTES, FILTER_SANITIZE_URL);

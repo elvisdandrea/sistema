@@ -31,6 +31,27 @@
             </div><!-- /.box-body -->
         </div><!-- /.box -->
 
+    <div class="col-md-9">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Telefone</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="half-width col-xs-9">
+                        <div class="form-group col-xs-6">
+                            <label>Tipo: </label>
+                            <input type="text" class="form-control" name="phone_type">
+                        </div>
+                        <div class="form-group col-xs-6">
+                            <label>Numero: </label>
+                            <input id="new_client_phone" type="text" class="form-control" name="phone_number">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="col-md-9">
         <div class="box">
@@ -58,7 +79,7 @@
                 </div>
                 <div class="row">
                     <div class="form-group col-md-9">
-                        <hr /><h5>Cliente pessoa física</h5>
+                        <hr /><h5 id="tipo_pessoa_label">Cliente pessoa física</h5>
                         <div class="form-group col-xs-6">
                             <label>Nome:</label>
                             <input type="text" class="form-control" name="client_name" />
@@ -101,6 +122,53 @@
             </div><!-- /.box-body -->
         </div><!-- /.box -->
     </div><!-- /.col -->
+
+    <div class="col-md-9 col-md-offset-3">
+        <div class="box">
+            <div class="box-header">
+                <h3 class="box-title">Endereço</h3>
+            </div>
+            <div class="box-body">
+                <div class="row">
+                    <div class="form-group col-md-9">
+                        <form action="{$smarty.const.BASEDIR}client/addClientAddr?id={$client['id']}">
+                            <div class="form-group col-xs-6">
+                                <label>Tipo: </label>
+                                <input type="text" class="form-control" name="address_type">
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label>CEP: </label>
+                                <input type="text" class="form-control" name="zip_code" id="zip_code">
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label>Rua: </label>
+                                <input type="hidden" name="street_addr" id="street_addr">
+                                <input type="text" class="form-control" disabled id="street_addr_label">
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label>Bairro: </label>
+                                <input type="hidden" name="hood" id="hood">
+                                <input type="text" class="form-control" disabled id="hood_label">
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label>Cidade: </label>
+                                <input type="hidden" name="city" id="city">
+                                <input type="text" class="form-control" disabled id="city_label">
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label>Numero: </label>
+                                <input type="text" class="form-control" name="street_number">
+                            </div>
+                            <div class="form-group col-xs-6">
+                                <label>Complemento: </label>
+                                <input type="text" class="form-control" name="street_additional">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div> <!-- /.row -->
 <!-- /.Conteúdo principal -->

@@ -80,7 +80,7 @@ class clientControl extends Control {
             , '#content');
             $this->terminate();
         }
-        $clientId = $this->model()->getLastInsertId();
+        $clientId = $status['uid'];
         $this->viewClient($clientId);
     }
 
@@ -112,6 +112,28 @@ class clientControl extends Control {
             return RestServer::throwError($message, 400);
         }
 
+        $phoneData = array(
+            'phone_type'     => $post['phone_type'],
+            'phone_number'   => String::convertTextFormat($post['phone_number'], 'fone'),
+        );
+
+        $addrData = array(
+            'address_type'      => $post['address_type'],
+            'zip_code'          => $post['zip_code'],
+            'street_addr'       => $post['street_addr'],
+            'hood'              => $post['hood'],
+            'city'              => $post['city'],
+            'street_number'     => $post['street_number'],
+            'street_additional' => $post['street_additional'],
+        );
+
+        $validation = $this->validatePhone($phoneData);
+
+        if($validation['valid'] === false) {
+            $message = implode(', ', $validation['message']);
+            return RestServer::throwError($message, 400);
+        }
+
         $image      = $post['image64'];
         $imageFile  = $image;
 
@@ -135,9 +157,21 @@ class clientControl extends Control {
                 return RestServer::throwError(Language::QUERY_ERROR(), 500);
         }
 
+        $newUserId = $this->model()->getLastInsertId();
+
+        $this->model()->addClientPhone($phoneData, $newUserId);
+
+        if (!$this->model()->queryOk())
+            return RestServer::throwError(Language::QUERY_ERROR(), 500);
+
+        $this->model()->addClientAddress($addrData, $newUserId);
+
+        if (!$this->model()->queryOk())
+            return RestServer::throwError(Language::QUERY_ERROR(), 500);
+
         return RestServer::response(array(
             'status'    => 200,
-            'uid'       => $this->model()->getLastInsertId(),
+            'uid'       => $newUserId,
             'message'   => 'Cadastro realizado!',
             'image'     => $imageFile
         ), 200);
@@ -173,7 +207,7 @@ class clientControl extends Control {
         if($id == false) {
             $id = $this->getQueryString('id');
         }
-#
+
         $this->model()->getClient($id);
         $client = $this->model()->getRow(0);
 
@@ -455,5 +489,17 @@ class clientControl extends Control {
             'status'    => 200,
             'message'   => 'Cadastro removido!'
         ), 200);
+    }
+
+    public function checkPhoneExists(){
+        $postData = $this->getPost();
+        $phoneNumber = String::convertTextFormat($postData['phone_number'], 'fone');
+
+        $this->model()->findPhoneByNumber($phoneNumber);
+        $phoneNumbers = $this->model()->getRows();
+        if(!empty($phoneNumbers)){
+            $this->commitAdd($this->view()->showAlert('error', '', 'Este numero de telefone já esta cadastrado'), '#content');
+            $this->terminate();
+        }
     }
 }

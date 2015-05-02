@@ -59,7 +59,7 @@
                     </div>
                     <div class="row">
                         <div class="form-group col-md-9">
-                            <hr /><h5>Cliente pessoa física</h5>
+                            <hr /><h5 id="tipo_pessoa_label">{if $isPessoaFisica}Cliente pessoa física{else}Cliente pessoa jurídica{/if}</h5>
                             <div class="form-group col-xs-6">
                                 <label>Nome:</label>
                                 <input type="text" class="form-control" name="client_name" value="{$client['client_name']}"/>
@@ -73,7 +73,7 @@
                                 <input type="text" class="form-control"  name="email" value="{$client['email']}" />
                             </div>
                         </div>
-                        <div id="legal_entity" class="no-display form-group col-md-9" {if $isPessoaFisica} class="no-display"{/if}>
+                        <div id="legal_entity" class="form-group col-md-9 {if $isPessoaFisica}no-display{/if}">
                             <div class="form-group col-xs-6">
                                 <label>Razão social:</label>
                                 <input class="legal_entity_field form-control" type="text" name="corporate_name" {if $isPessoaFisica}disabled{/if} value="{$client['corporate_name']}">
@@ -156,7 +156,6 @@
                         </div>
                     </form>
                 </div>
-            </div>
             </div>
         </div>
     </div>

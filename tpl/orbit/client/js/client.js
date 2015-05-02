@@ -5,25 +5,41 @@ $("#zip_code").blur(function() {
     }
 });
 
-$('[name="client_type"]').change(function(){
-    var data = $(this).val();
-    if(data == 'F'){
-        addLegalEntityInputs();
-    }else{
-        removeLegalEntityInputs();
+$('#new_client_phone').blur(function(){
+    var phoneNumber = $('#new_client_phone').val();
+    if(phoneNumber != '') {
+        $.ajax({
+            type: "POST",
+            url: "client/checkPhoneExists",
+            data: {phone_number: phoneNumber},
+            success: function (data) {
+                eval(data);
+            }
+        });
     }
 });
 
-function addLegalEntityInputs(){
+$('[name="client_type"]').change(function(){
+    var data = $(this).val();
+    if(data == 'F'){
+        removeLegalEntityInputs();
+    }else{
+        addLegalEntityInputs();
+    }
+});
+
+function removeLegalEntityInputs(){
     $("#legal_entity").hide();
     $(".legal_entity_field").prop('disabled', true);
     $("#cpf_cnpj").text('CPF:');
+    $('#tipo_pessoa_label').text('Cliente pessoa física');
 }
 
-function removeLegalEntityInputs(){
+function addLegalEntityInputs(){
     $("#legal_entity").show();
     $(".legal_entity_field").prop('disabled', false);
     $("#cpf_cnpj").text('CNPJ:');
+    $('#tipo_pessoa_label').text('Cliente pessoa jurídica');
 }
 
 $('#new_addr').click(function(){
