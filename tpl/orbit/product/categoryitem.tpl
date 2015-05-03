@@ -1,2 +1,2 @@
 <input data-id="{$category['id']}" onkeyup="updateCategory({$category['id']}, this.value, event, '{$smarty.const.BASEDIR}product/savecategory')" type="text" class="form-control" value="{$category['category_name']}" style="display: none;">
-<label>{$category['category_name']}</label>
+<label style="cursor: pointer;">{$category['category_name']}</label>

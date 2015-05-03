@@ -281,7 +281,8 @@ class productControl extends Control {
         if(!$validation['valid'])
             return RestServer::throwError(implode(', ', $validation['message']));
 
-        $image  = $post['image64'];
+        $image     = $post['image64'];
+        $imageFile = $image;
 
         if (!empty($image) && !Html::isUrl($image)) {
             $base64 = explode(',', $image);
@@ -325,7 +326,7 @@ class productControl extends Control {
         $this->productPage();
     }
 
-    public function updateCategory(array $data = array()) {
+    public function putCategory(array $data = array()) {
 
         $id     = $data['id'];
         $value  = $data['category_name'];
@@ -351,7 +352,7 @@ class productControl extends Control {
         $id     = $this->getPost('id');
         $value  = $this->getPost('value');
 
-        $update = $this->updateCategory(array(
+        $update = $this->putCategory(array(
             'id'            => $id,
             'category_name' => $value
         ));
@@ -379,6 +380,7 @@ class productControl extends Control {
         $rp   || $rp   = 5;
 
         $total      = $this->model()->getCountCategories();
+        if ($page == 'last') $page = intval((($total - 1) / $rp)) + 1;
         $this->model()->getCategoryList($page, $rp);
         $categories = $this->model()->getRows();
         $pagination = $this->getPagination($page, $total, $rp, 'product/vieweditcategories');
@@ -388,6 +390,39 @@ class productControl extends Control {
         $this->view()->setVariable('pagination', $pagination);
 
         $this->commitReplace($this->view()->render(), '#categorytable');
+
+    }
+
+    public function postCategory() {
+
+        $name = $this->getPost('category_name');
+
+        $this->model()->addCategory($name);
+
+        if (!$this->model()->queryOk()) {
+            if (in_array($this->model('auth')->getErrorCode(), array(23000, 1062)))
+                return RestServer::throwError('Categoria já cadastrada!');
+            else
+                return RestServer::throwError(Language::QUERY_ERROR(), 500);
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'id'        => $this->model()->getLastInsertId(),
+            'message'   => 'Cadastro realizado!',
+        ), 200);
+
+    }
+
+    public function addCategory() {
+
+        $result = $this->postCategory();
+        if ($result['status'] != 200) {
+            $this->commitAdd($this->view()->showAlert('danger','', $result['message']), 'body');
+            $this->terminate();
+        }
+
+        $this->viewEditCategories('last');
 
     }
 

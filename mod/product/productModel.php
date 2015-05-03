@@ -190,5 +190,13 @@ class productModel extends Model {
         $this->runUpdate();
     }
 
+    public function addCategory($name) {
+
+        $this->addInsertSet('category_name', $name);
+        $this->setInsertTable('categories');
+        $this->runInsert();
+
+    }
+
 
 }

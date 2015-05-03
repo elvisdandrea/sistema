@@ -429,6 +429,7 @@ class Control {
     protected function getPagination($currentPage, $totalRows, $rp = 10, $callUrl = '', $urlParams = array(), $nPages = 5, $viewId = 'pagination') {
 
         $totalPages = intval((($totalRows - 1) / $rp)) + 1;
+        if ($currentPage == 'last') $currentPage = $totalPages;
 
         $this->newView($viewId);
         $this->view($viewId)->loadSystemTemplate('ifc', 'pagination');
