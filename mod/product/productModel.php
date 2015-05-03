@@ -198,5 +198,13 @@ class productModel extends Model {
 
     }
 
+    public function deleteCategory($id) {
+
+        $this->setDeleteFrom('categories');
+        $this->addDeleteWhere('id = "' . $id . '"');
+
+        $this->runDelete();
+    }
+
 
 }

@@ -22,7 +22,7 @@
                     {if ($category['product_count'] > 0)}
                         <span class="badge" style="background-color:#FCC">Não permitida</span>
                     {else}
-                        <button type="button" class="btn badge bg-red" title="Deletar essa categoria">Remover</button>
+                        <button type="button" onclick="Main.quickLink('{$smarty.const.BASEDIR}product/removecategory?id={$category['id']}')" class="btn badge bg-red" title="Remover essa categoria">Remover</button>
                     {/if}
                 </td>
             </tr>

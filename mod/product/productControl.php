@@ -426,6 +426,37 @@ class productControl extends Control {
 
     }
 
+    public function deleteCategory($id = false) {
+
+        $id || $id = $this->getQueryString('id');
+        $this->model()->deleteCategory($id);
+
+        if (!$this->model()->queryOk()) {
+            return RestServer::throwError(Language::QUERY_ERROR(), 500);
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'id'        => $id,
+            'message'   => 'Cadastro removido!',
+        ), 200);
+
+    }
+
+    public function removeCategory() {
+
+        $id     = $this->getQueryString('id');
+        $result = $this->deleteCategory($id);
+
+        if ($result['status'] != 200) {
+            $this->commitAdd($this->view()->showAlert('danger','', $result['message']), 'body');
+            $this->terminate();
+        }
+
+        $this->viewEditCategories(1);
+
+    }
+
 
 
 }
