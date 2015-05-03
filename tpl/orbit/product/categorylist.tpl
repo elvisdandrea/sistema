@@ -2,10 +2,10 @@
     <li class="menu">
         <!-- inner menu: contains the actual data -->
         <ul class="menu">
-            {foreach from=$categories item="category"}
+            {foreach from=$categoryList item="category"}
                 <li>
                     <a href="#" data-type="selitem" data-target="category_id" data-id="{$category['id']}" data-value="{$category['category_name']}" title="select">
-                        {$category['category_name']}
+                        <img src="{$smarty.const.T_IMGURL}/food-icon.png" alt="Prato principal"/>{$category['category_name']}
                     </a>
                 </li>
             {/foreach}

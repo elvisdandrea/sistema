@@ -18,7 +18,7 @@ class productModel extends Model {
         parent::__construct($connection);
     }
 
-    public function getCategoryList() {
+    public function getCategoryList($page = false, $rp = false) {
 
         $this->addField('c.id');
         $this->addField('c.category_name');
@@ -26,9 +26,26 @@ class productModel extends Model {
         $this->addFrom('categories c');
         $this->addFrom('left join products p on p.category_id = c.id');
         $this->addGroup('c.id');
+
+        if ($page && $rp) {
+
+            $offset = intval(($page - 1) * $rp);
+            $this->addLimit($offset . ',' . $rp);
+        }
+
         $this->runQuery();
 
         return !$this->isEmpty();
+    }
+
+    public function getCountCategories() {
+
+        $this->addField('count(c.id) as total');
+        $this->addFrom('categories c');
+        $this->runQuery();
+
+        $result = $this->getRow(0);
+        return $result['total'];
     }
 
 
@@ -162,6 +179,15 @@ class productModel extends Model {
         $this->addUpdateWhere('id = "' . $id . '"');
         $this->runUpdate();
 
+    }
+
+    public function updateCategory($id, $value) {
+
+        $this->addUpdateSet('category_name', $value);
+        $this->setUpdateTable('categories');
+        $this->addUpdateWhere('id = "' . $id . '"');
+
+        $this->runUpdate();
     }
 
 

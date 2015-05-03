@@ -239,7 +239,17 @@ class productControl extends Control {
         $this->view()->setVariable('id', $id);
 
         $this->model()->getCategoryList();
-        $this->view()->setVariable('categories', $this->model()->getRows());
+        $this->view()->setVariable('categoryList', $this->model()->getRows());
+
+        $total      = $this->model()->getCountCategories();
+        $this->model()->getCategoryList(1, 5);
+        $categories = $this->model()->getRows();
+        $pagination = $this->getPagination(1, $total, 5, 'product/vieweditcategories');
+
+        $this->view()->setVariable('categories', $categories);
+        $this->view()->setVariable('pagination', $pagination);
+
+        $this->view()->appendJs('category');
 
         $this->commitReplace($this->view()->render(), '#content');
 
@@ -313,6 +323,72 @@ class productControl extends Control {
         }
 
         $this->productPage();
+    }
+
+    public function updateCategory(array $data = array()) {
+
+        $id     = $data['id'];
+        $value  = $data['category_name'];
+
+        $this->model()->updateCategory($id, $value);
+
+        if (!$this->model()->queryOk()) {
+            return RestServer::throwError(Language::QUERY_ERROR(), 500);
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'message'   => 'Cadastro atualizado!',
+        ), 200);
+
+    }
+
+    /**
+     * Saves a category
+     */
+    public function saveCategory() {
+
+        $id     = $this->getPost('id');
+        $value  = $this->getPost('value');
+
+        $update = $this->updateCategory(array(
+            'id'            => $id,
+            'category_name' => $value
+        ));
+
+        if ($update['status'] != 200) {
+            $this->commitReplace($update['message'], '#message');
+            $this->commitShow('#message');
+            $this->terminate();
+        }
+
+        $this->view()->loadTemplate('categoryitem');
+        $this->view()->setVariable('category', array(
+            'id' => $id,
+            'category_name' => $value)
+        );
+
+        $this->commitReplace($this->view()->render(), '#edit' . $id);
+
+    }
+
+    public function viewEditCategories($page = false, $rp = false) {
+
+        $page || $page = $this->getQueryString('page');
+        $rp   || $rp   = $this->getQueryString('rp');
+        $rp   || $rp   = 5;
+
+        $total      = $this->model()->getCountCategories();
+        $this->model()->getCategoryList($page, $rp);
+        $categories = $this->model()->getRows();
+        $pagination = $this->getPagination($page, $total, $rp, 'product/vieweditcategories');
+
+        $this->view()->loadTemplate('editcategorytable');
+        $this->view()->setVariable('categories', $categories);
+        $this->view()->setVariable('pagination', $pagination);
+
+        $this->commitReplace($this->view()->render(), '#categorytable');
+
     }
 
 
