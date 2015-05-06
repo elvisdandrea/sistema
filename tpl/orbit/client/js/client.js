@@ -19,6 +19,21 @@ $('#new_client_phone').blur(function(){
     }
 });
 
+$('[name="cpf_cnpj"]').blur(function() {
+    var entityType = $('[name="client_type"]').val();
+    var cpf = $('[name="cpf_cnpj"]').val();
+    if(entityType != 'J' && cpf != '') {
+        $.ajax({
+            type: "POST",
+            url: "client/validateCpf",
+            data: {cpf: cpf},
+            success: function (data) {
+                eval(data);
+            }
+        });
+    }
+});
+
 $('[name="client_type"]').change(function(){
     var data = $(this).val();
     if(data == 'F'){
@@ -59,7 +74,7 @@ $('#new_phone').click(function(){
 
 $('#cancel_phone').click(function(){
     $('#phone_list').show();
-    $('#new_phone_form').hide();
+        $('#new_phone_form').hide();
 });
 
 function cepSearch(cep){
