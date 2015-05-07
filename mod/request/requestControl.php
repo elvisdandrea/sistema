@@ -784,7 +784,18 @@ class requestControl extends Control {
         $action     = $this->getQueryString('action');
 
         if ($action == 'selproductnew') {
-            //TODO: remove from session
+            $this->setId();
+            $weight   = Session::get('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'weight');
+            $curprice = Session::get('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'price');
+            $newValue = $weight - $amount;
+            $this->model()->selectProductForRequest($id);
+            $item          = $this->model()->getRow(0);
+            $curTotalprice = Session::get('uid', 'requests', $this->request_id, 'price');
+            $newTotalPrice = $curTotalprice - $item['price'];
+            $newPrice      = $curprice + $item['price'];
+            Session::set('uid', 'requests', $this->request_id, 'price', $newTotalPrice);
+            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'weight', $newValue);
+            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'price',  $newPrice);
         } else {
             $this->model()->getRequestItem($id);
             $item     = $this->model()->getRow(0);
