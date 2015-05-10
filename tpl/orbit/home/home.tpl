@@ -63,6 +63,7 @@
 
 <!-- jQuery 2.0.2 -->
 <script src="{$smarty.const.JSURL}/jquery.js"></script>
+<script src="{$smarty.const.JSURL}/jquery.maskMoney.js"></script>
 <!-- Bootstrap -->
 <script src="{$smarty.const.T_JSURL}/bootstrap.min.js" type="text/javascript"></script>
 <script src="{$smarty.const.T_JSURL}/moment.min.js" type="text/javascript"></script>

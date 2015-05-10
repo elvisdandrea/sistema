@@ -181,10 +181,7 @@ Main.prototype = {
      */
     interactions : function() {
 
-        $(document).on('ready', '.datemask', function(){
-            alert('here');
-            $(this).datetimepicker();
-        });
+        //TODO: Interactions
     },
 
     /**

@@ -1,0 +1,1 @@
+$('input[format="currency"]').maskMoney();

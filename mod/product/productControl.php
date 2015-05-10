@@ -65,9 +65,20 @@ class productControl extends Control {
     public function newProduct() {
 
         $this->model()->getCategoryList();
-        $this->view()->setVariable('categories', $this->model()->getRows());
+        $this->view()->setVariable('categoryList', $this->model()->getRows());
 
+        $total      = $this->model()->getCountCategories();
+        $this->model()->getCategoryList(1, 5);
+        $categories = $this->model()->getRows();
+        $pagination = $this->getPagination(1, $total, 5, 'product/vieweditcategories');
+
+        $this->view()->setVariable('categories', $categories);
+        $this->view()->setVariable('pagination', $pagination);
         $this->view()->loadTemplate('newproduct');
+
+
+        $this->view()->appendJs('category');
+        $this->view()->appendJs('product');
         $this->commitReplace($this->view()->render(), '#content');
         echo Html::AsyncLoadList('addproduct');
         echo Html::addImageUploadAction('read64', 'product-img');
