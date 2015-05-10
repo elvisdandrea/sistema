@@ -29,3 +29,7 @@ function updateCategory(id, value, e, url) {
     return false;
 
 }
+
+$('#category-list').click(function(){
+    $(this).dropdown('toggle');
+});

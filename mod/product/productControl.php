@@ -29,8 +29,6 @@ class productControl extends Control {
 
         $this->view()->loadTemplate('productpage');
 
-        $this->view()->setVariable('productinfo', $this->productInfo());
-
         $search = $this->getQueryString('search');
         $page   = $this->getQueryString('page');
         $rp     = $this->getQueryString('rp');
@@ -39,10 +37,13 @@ class productControl extends Control {
         intval($rp) > 0 || $rp = 10;
 
         $total = $this->model()->getProductList($page, $rp, $search);
-        $this->view()->setVariable('total',  $total);
+        $this->view()->setVariable('total',  $total['total']);
+        $this->view()->setVariable('totalPrice',  String::convertTextFormat($total['totalprice'], 'currency'));
         $this->view()->setVariable('search', $search);
 
-        $pagination = $this->getPagination($page, $total, $rp, 'product/productpage');
+        $this->view()->setVariable('totalProduct', $total['total']);
+
+        $pagination = $this->getPagination($page, $total['total'], $rp, 'product/productpage');
         $this->view()->setVariable('pagination', $pagination);
 
         $this->model()->setGridRowLink('product/viewproduct', 'id');
@@ -56,18 +57,6 @@ class productControl extends Control {
         $this->view()->setVariable('productList', $this->model()->dbGrid());
         $this->commitReplace($this->view()->render(), '#content');
 
-    }
-
-    /**
-     * Returns the box with product info
-     *
-     * @return string
-     */
-    private function productInfo() {
-
-        $this->newView('info');
-        $this->view('info')->loadTemplate('productinfo');
-        return $this->view('info')->render();
     }
 
     /**

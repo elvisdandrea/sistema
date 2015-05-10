@@ -14,7 +14,7 @@
                 <div class="small-box bg-aqua">
                     <div class="inner">
                         <h3>
-                            150
+                            {$totalProduct}
                         </h3>
                         <p>
                             Produtos Cadastrados
@@ -33,7 +33,7 @@
                 <div class="small-box bg-red">
                     <div class="inner">
                         <h3>
-                            12
+                            0
                         </h3>
                         <p>
                             Produtos em falta
@@ -52,7 +52,7 @@
                 <div class="small-box bg-olive">
                     <div class="inner">
                         <h3>
-                            R$ 8.990,00
+                            {$totalPrice}
                         </h3>
                         <p>
                             Em produtos

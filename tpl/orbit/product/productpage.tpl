@@ -6,7 +6,7 @@
         </div><!-- /.box -->
     </div><!-- /.col -->
 
-    {$productinfo}
+    {include "product/productinfo.tpl"}
 
 </div><!-- ./row -->
 

@@ -90,6 +90,7 @@ class productModel extends Model {
         );
 
         $this->addField('count(p.id) as total');
+        $this->addField('sum(p.price) as totalprice');
         $this->addFrom('products p');
         $this->addFrom('left join categories c on c.id = p.category_id');
 
@@ -100,7 +101,7 @@ class productModel extends Model {
 
         $this->runQuery();
         $result = $this->getRow(0);
-        return $result['total'];
+        return $result;
     }
 
     public function getProductList($page = 1, $rp = 10, $search = false) {
