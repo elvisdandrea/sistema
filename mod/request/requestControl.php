@@ -692,9 +692,15 @@ class requestControl extends Control {
      */
     public function removeItem() {
 
-        $this->deleteRemoveItem(array(
-            'id'    => $this->getQueryString('id')
-        ));
+        $action = $this->getQueryString('action');
+
+        if ($action == 'remproductnew') {
+
+        } else {
+            $this->deleteRemoveItem(array(
+                'id'    => $this->getQueryString('id')
+            ));
+        }
 
         $this->commitReplace('', '#' . $this->getQueryString('row_id'));
     }

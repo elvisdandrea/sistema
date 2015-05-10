@@ -8,5 +8,5 @@
         <button type="button" class="btn btn-primary" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/additemportion?id={$item['id']}&amount={$item['weight']}&plate_id={$plate_id}&request_id={$request_id}&action={$action}')"><i class="fa fa-plus-circle"></i></button>
     </td>
     <td id="price_{$plate_id}_{$item['id']}">{String::convertTextFormat($item['price'], 'currency')}</td>
-    <td><button type="button" class="btn label btn-danger">Retirar</button></td>
+    <td><button onclick="Main.quickLink('{$smarty.const.BASEDDIR}request/removeitem?id={$item['id']}&request_id={$request_id}&action=remproductnew')" type="button" class="btn label btn-danger">Retirar</button></td>
 </tr>
