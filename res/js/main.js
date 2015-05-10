@@ -39,7 +39,7 @@ Main.prototype = {
             $('#loading').show();
             Html.Get(action, function(r){
                 eval(r);
-                window.history.replaceState(undefined, '', action);
+//                window.history.replaceState(undefined, '', action);
                 return false;
             });
         });

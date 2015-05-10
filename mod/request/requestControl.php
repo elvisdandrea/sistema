@@ -692,17 +692,29 @@ class requestControl extends Control {
      */
     public function removeItem() {
 
-        $action = $this->getQueryString('action');
+        $this->setId();
+        $action     = $this->getQueryString('action');
+        $plate_id   = $this->getQueryString('plate_id');
+        $request_id = $this->getQueryString('request_id');
 
         if ($action == 'remproductnew') {
 
+            $item       = Session::get('uid', 'requests', $this->request_id, 'plates', $plate_id, $this->getQueryString('id'));
+
+            $curTotalprice = Session::get('uid', 'requests', $this->request_id, 'price');
+            $newTotalPrice = $curTotalprice - $item['price'];
+
+            Session::set('uid', 'requests', $this->request_id, 'price', $newTotalPrice);
+            Session::del('uid', 'requests', $this->request_id, 'plates', $plate_id, $this->getQueryString('id'));
         } else {
             $this->deleteRemoveItem(array(
                 'id'    => $this->getQueryString('id')
             ));
+            $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
         }
 
         $this->commitReplace('', '#' . $this->getQueryString('row_id'));
+        $this->commitReplace('Total do pedido: ' . String::convertTextFormat($newTotalPrice, 'currency'), '[data-id="totalprice"]');
     }
 
     /**
