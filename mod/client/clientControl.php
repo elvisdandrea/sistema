@@ -195,6 +195,21 @@ class clientControl extends Control {
             $return['message'][] = "O campo 'Nome' não pode ser vazio";
         }
 
+        if($postData['client_type'] == 'J' && empty($postData['cpf_cnpj'])){
+            $return['valid']     = false;
+            $return['message'][] = "O campo 'CPF' não pode ser vazio";
+        }
+
+        if($postData['client_type'] == 'F' && empty($postData['cpf_cnpj'])){
+            $return['valid']     = false;
+            $return['message'][] = "O campo 'CNPJ' não pode ser vazio";
+        }
+
+        if($postData['client_type'] == 'J' && !String::validateCpf($postData['cpf_cnpj'])){
+            $return['valid']     = false;
+            $return['message'][] = "CPF inválido";
+        }
+
         return $return;
     }
 
@@ -499,6 +514,15 @@ class clientControl extends Control {
         $phoneNumbers = $this->model()->getRows();
         if(!empty($phoneNumbers)){
             $this->commitAdd($this->view()->showAlert('error', '', 'Este numero de telefone já esta cadastrado'), '#content');
+            $this->terminate();
+        }
+    }
+
+    public function validateCpf(){
+        $postData = $this->getPost();
+
+        if(!String::validateCpf($postData['cpf'])){
+            $this->commitAdd($this->view()->showAlert('error', '', 'CPF inválido'), '#content');
             $this->terminate();
         }
     }
