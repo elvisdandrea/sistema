@@ -70,6 +70,7 @@ Main.prototype = {
             $(this).find('input[type="hidden"][name],input[type][name]:not("[type=password]"),select[name],textarea[name]').each(function(e){
                 var value = $(this).val();
                 if ($(this).attr('data-id') != undefined) value = $(this).attr('data-id');
+                if ($(this).attr('format') == 'currency') value = $(this).maskMoney('unmasked')[0];
                 data.push($(this).attr('name')+'='+encodeURIComponent(value));
             });
             $(this).find('input[type="password"]').each(function(){

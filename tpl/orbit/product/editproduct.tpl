@@ -59,11 +59,36 @@
                     </div>
                     <div class="form-group col-xs-3">
                         <label>Peso:</label>
-                        <input type="text" class="form-control" name="weight"  value="{$product['weight']}" />
+                        <input type="text" class="form-control" name="weight"  value="{String::convertTextFormat($product['weight'],'float')}" format="currency" data-affixes-stay="true" data-prefix="" data-thousands="." data-decimal=","/>
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <label>Medida:</label>
+                        <input id="unit_id" name="unit" type="text" class="form-control" data-toggle="dropdown" data-id="{$product['unit']}" value="{$unit}" data-id="g"/>
+                        <ul id="unit-list" class="dropdown-menu list-clients">
+                            <li class="menu">
+                                <ul class="menu">
+                                    <li data-toggle="collapse" data-target="#unit-list">
+                                        <a href="#" data-type="selitem" data-target="unit_id" data-id="g" data-value="Gramas" title="select">
+                                            <img src="{$smarty.const.T_IMGURL}/food-icon.png" alt="unit"/>Gramas
+                                        </a>
+                                        <a href="#" data-type="selitem" data-target="unit_id" data-id="kg" data-value="Kilos" title="select">
+                                            <img src="{$smarty.const.T_IMGURL}/food-icon.png" alt="unit"/>Kilos
+                                        </a>
+                                        <a href="#" data-type="selitem" data-target="unit_id" data-id="lt" data-value="Litros" title="select">
+                                            <img src="{$smarty.const.T_IMGURL}/food-icon.png" alt="unit"/>Litros
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
                     </div>
                     <div class="form-group col-xs-3">
                         <label>Valor:</label>
-                        <input type="text" class="form-control" id="price" name="price"  value="{$product['price']}" />
+                        <input type="text" class="form-control" id="price" name="price"  value="{String::convertTextFormat($product['price'], 'currency')}" format="currency" data-affixes-stay="true" data-prefix="R$ " data-thousands="." data-decimal=","/>
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <label>Valor de custo:</label>
+                        <input name="cost" type="text" class="form-control"  value="{String::convertTextFormat($product['cost'], 'currency')}" format="currency" data-affixes-stay="true" data-prefix="R$ " data-thousands="." data-decimal=","/>
                     </div>
                     <div class="form-group col-xs-12">
                         <label>Descrição:</label>

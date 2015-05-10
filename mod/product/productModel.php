@@ -148,6 +148,8 @@ class productModel extends Model {
         $this->addField('p.product_name');
         $this->addField('p.weight');
         $this->addField('p.price');
+        $this->addField('p.cost');
+        $this->addField('p.unit');
         $this->addField('p.description');
         $this->addField('p.image');
         $this->addField('p.product_fact');

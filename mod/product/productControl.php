@@ -171,6 +171,8 @@ class productControl extends Control {
             'category_id'   => $post['category_id'],
             'weight'        => $post['weight'],
             'price'         => $post['price'],
+            'cost'          => $post['cost'],
+            'unit'          => $post['unit'],
             'description'   => $post['description'],
             'product_fact'  => $post['product_fact']
         );
@@ -249,7 +251,18 @@ class productControl extends Control {
         $this->view()->setVariable('categories', $categories);
         $this->view()->setVariable('pagination', $pagination);
 
+        $units = array(
+            'g'     => 'Gramas',
+            'kg'    => 'Kilos',
+            'lt'    => 'Litros'
+        );
+
+        $unit = isset($units[$product['unit']]) ? $units[$product['unit']] : '';
+
+        $this->view()->setVariable('unit', $unit);
+
         $this->view()->appendJs('category');
+        $this->view()->appendJs('product');
 
         $this->commitReplace($this->view()->render(), '#content');
 
@@ -273,6 +286,8 @@ class productControl extends Control {
             'category_id'   => $post['category_id'],
             'weight'        => $post['weight'],
             'price'         => $post['price'],
+            'cost'          => $post['cost'],
+            'unit'          => $post['unit'],
             'description'   => $post['description'],
             'product_fact'  => $post['product_fact'],
         );

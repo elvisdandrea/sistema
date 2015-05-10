@@ -252,6 +252,9 @@ class String {
             case 'int': //Numeros Inteiros
                 $string = preg_replace('/[^0-9\-]/i','',$string);
                 break;
+            case 'float':
+                $string = number_format($string, 2, ',', '.');
+                break;
         }
 
         return $string;

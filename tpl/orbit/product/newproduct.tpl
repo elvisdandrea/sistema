@@ -68,7 +68,7 @@
                         </div>
                         <div class="form-group col-xs-3">
                             <label>Medida:</label>
-                            <input id="unit_id" name="unit" type="text" class="form-control" data-toggle="dropdown" value="" data-id=""/>
+                            <input id="unit_id" name="unit" type="text" class="form-control" data-toggle="dropdown" value="Gramas" data-id="g"/>
                             <ul id="unit-list" class="dropdown-menu list-clients">
                                 <li class="menu">
                                     <ul class="menu">
