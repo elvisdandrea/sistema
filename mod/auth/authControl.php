@@ -215,7 +215,9 @@ class authControl extends Control {
             return;
         }
 
-        Session::set('uid', $this->model('auth')->getRow(0));
+
+        UID::set($this->model('auth')->getRow(0));
+        UID::set('remote_address', Core::getRemoteAddress());
         Html::refresh();
         $this->terminate();
 

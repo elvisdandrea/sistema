@@ -70,6 +70,8 @@ class View {
      */
     private $templateJsFiles = array();
 
+    private $pageTitle = array();
+
     /**
      * The constructor
      *
@@ -218,14 +220,15 @@ class View {
      * You must place this variable in a position you
      * want to display the current page title
      *
-     * @param   string  $title      - The title
+     * @param   string  $title          - The title
+     * @param   string  $description    - The page description
      * @return  string
      */
-    public function setPageTitle($title) {
+    public function setPageTitle($title, $description) {
 
-        return (Core::isAjax() ?
-            Html::ReplaceHtml(String::camelize($title), '#page_title') :
-            '<script>' . Html::ReplaceHtml(String::camelize($title), '#page_title') . '</script>'
+        $this->pageTitle = array(
+            'title'         =>  $title,
+            'description'   => $description
         );
     }
 
@@ -268,6 +271,12 @@ class View {
 
         try {
             $method = $fetch ? 'fetch' : 'display';
+
+            if (count($this->pageTitle) > 0 && Core::isAjax()) {
+                echo Html::ReplaceHtml($this->pageTitle['title'], '#page_title');
+                echo Html::ReplaceHtml($this->pageTitle['description'] . ' - Orbit | gravi', 'title');
+            }
+
             return $this->smarty->$method($this->template) . (count($this->jsFiles) > 0 ? $this->injectJSFiles() : '');
         } catch (Exception $e) {
             echo Html::ReplaceHtml(ExceptionHandler::throwException(array(

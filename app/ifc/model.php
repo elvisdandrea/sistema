@@ -300,7 +300,7 @@ class Model {
      */
     public function setConnection($name) {
 
-        if (Core::isLoggedIn()) {
+        if (UID::isLoggedIn()) {
             isset($this->connections['uid']) ||
                 $this->createNewConnection('uid', Session::get('uid', 'db_connection'));
         }

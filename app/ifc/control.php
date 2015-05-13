@@ -110,10 +110,10 @@ class Control {
         $ref = new ReflectionClass($this);
         $this->moduleName = basename(dirname($ref->getFileName()));
         $this->moduleTitle =  $ref->getConstant('module_title');
-        $this->setTitle();
 
         $this->newView();
         $this->newModel();
+        $this->setTitle();
     }
 
     /**
@@ -177,14 +177,13 @@ class Control {
 
     final protected function getModuleTransferPath() {
 
-        return Session::get('uid', 'company_id') . '/' . $this->moduleName;
+        return UID::get('company_id') . '/' . $this->moduleName;
     }
 
     private function setTitle() {
 
         if (!Core::isAjax()) return;
-        echo Html::ReplaceHtml($this->moduleTitle, '#page_title');
-        echo Html::ReplaceHtml($this->moduleTitle . ' - Orbit | gravi', 'title');
+        $this->view()->setPageTitle($this->moduleTitle, $this->moduleTitle . ' - Orbit | gravi');
     }
 
     /**

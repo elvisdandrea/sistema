@@ -52,7 +52,7 @@ class requestControl extends Control {
     public function createId() {
 
         $this->request_id = uniqid();
-        Session::set('uid', 'requests', $this->request_id, array());
+        UID::set('requests', $this->request_id, array());
     }
 
 
@@ -182,7 +182,7 @@ class requestControl extends Control {
     public function selClient($id = false) {
         $this->setId();
         $id || $id = $this->getQueryString('id');
-        Session::set('uid', 'requests', $this->request_id, 'client_id', $id);
+        UID::set('requests', $this->request_id, 'client_id', $id);
         $this->model()->selClientForRequest($id);
         $this->commitReplace('', '#client-results');
         $this->view()->loadTemplate('clientprofile');
@@ -212,7 +212,7 @@ class requestControl extends Control {
 
         $this->setId();
         $id = $this->getQueryString('id');
-        Session::set('uid', 'requests', $this->request_id, 'address_id', $id);
+        UID::set('requests', $this->request_id, 'address_id', $id);
         $this->model()->getClistAddressForRequest($id);
 
         $this->view()->loadTemplate('seladdress');
@@ -233,7 +233,7 @@ class requestControl extends Control {
         $action = $this->getQueryString('action');
         $plate_id = uniqid();
         if ($action == 'addplatenew') {
-            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, array());
+            UID::set('requests', $this->request_id, 'plates', $plate_id, array());
         } else {
 
         }
@@ -294,10 +294,10 @@ class requestControl extends Control {
         );
 
         if ($action == 'selproductnew') {
-            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, $product_id, array('weight' => $item['weight'], 'price' => $item['price'], 'unit' => $item['unit']));
-            $curTotalPrice = intval(Session::get('uid', 'requests', $this->request_id, 'price'));
+            UID::set('requests', $this->request_id, 'plates', $plate_id, $product_id, array('weight' => $item['weight'], 'price' => $item['price'], 'unit' => $item['unit']));
+            $curTotalPrice = intval(UID::get( 'requests', $this->request_id, 'price'));
             $newTotalPrice = $curTotalPrice + $item['price'];
-            Session::set('uid', 'requests', $this->request_id, 'price', $newTotalPrice);
+            UID::set('requests', $this->request_id, 'price', $newTotalPrice);
         } else {
             $result = $this->postAddItem($data);
             $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
@@ -327,7 +327,7 @@ class requestControl extends Control {
 
         $this->setId();
         $post  = $this->getPost();
-        $items = Session::get('uid', 'requests', $this->request_id);
+        $items = UID::get( 'requests', $this->request_id);
 
         $requestData = array(
             'client_id'     => $post['client_id'],
@@ -344,7 +344,7 @@ class requestControl extends Control {
             $this->terminate();
         }
 
-        Session::del('uid', 'requests', $this->request_id);
+        UID::del('requests', $this->request_id);
 
         if ($result['status'] == 200) {
             $this->requestPage();
@@ -562,7 +562,7 @@ class requestControl extends Control {
 
         $this->request_id = $request_id;
 
-        $items = Session::get('uid', 'requests', $this->request_id);
+        $items = UID::get( 'requests', $this->request_id);
         $items['plate_id']  = $plate_id;
         $result = $this->postAddItem($items);
 
@@ -571,7 +571,7 @@ class requestControl extends Control {
             $this->commitHide('#save-'   . $plate_id);
             $this->commitShow('#change-' . $plate_id);
             $this->commitReplace('', '#search-' . $plate_id);
-            Session::del('uid', 'requests', $this->request_id);
+            UID::del('requests', $this->request_id);
         }
 
     }
@@ -699,13 +699,13 @@ class requestControl extends Control {
 
         if ($action == 'remproductnew') {
 
-            $item       = Session::get('uid', 'requests', $this->request_id, 'plates', $plate_id, $this->getQueryString('id'));
+            $item       = UID::get( 'requests', $this->request_id, 'plates', $plate_id, $this->getQueryString('id'));
 
-            $curTotalprice = Session::get('uid', 'requests', $this->request_id, 'price');
+            $curTotalprice = UID::get( 'requests', $this->request_id, 'price');
             $newTotalPrice = $curTotalprice - $item['price'];
 
-            Session::set('uid', 'requests', $this->request_id, 'price', $newTotalPrice);
-            Session::del('uid', 'requests', $this->request_id, 'plates', $plate_id, $this->getQueryString('id'));
+            UID::set('requests', $this->request_id, 'price', $newTotalPrice);
+            UID::del('requests', $this->request_id, 'plates', $plate_id, $this->getQueryString('id'));
         } else {
             $this->deleteRemoveItem(array(
                 'id'    => $this->getQueryString('id')
@@ -759,17 +759,17 @@ class requestControl extends Control {
 
         if ($action == 'selproductnew') {
             $this->setId();
-            $weight   = Session::get('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'weight');
-            $curprice = Session::get('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'price');
+            $weight   = UID::get( 'requests', $this->request_id, 'plates', $plate_id, $id, 'weight');
+            $curprice = UID::get( 'requests', $this->request_id, 'plates', $plate_id, $id, 'price');
             $newValue = $weight + $amount;
             $this->model()->selectProductForRequest($id);
             $item          = $this->model()->getRow(0);
-            $curTotalprice = Session::get('uid', 'requests', $this->request_id, 'price');
+            $curTotalprice = UID::get( 'requests', $this->request_id, 'price');
             $newTotalPrice = $curTotalprice + $item['price'];
             $newPrice      = $curprice + $item['price'];
-            Session::set('uid', 'requests', $this->request_id, 'price', $newTotalPrice);
-            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'weight', $newValue);
-            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'price',  $newPrice);
+            UID::set('requests', $this->request_id, 'price', $newTotalPrice);
+            UID::set('requests', $this->request_id, 'plates', $plate_id, $id, 'weight', $newValue);
+            UID::set('requests', $this->request_id, 'plates', $plate_id, $id, 'price',  $newPrice);
         } else {
             $this->model()->getRequestItem($id);
             $item     = $this->model()->getRow(0);
@@ -803,17 +803,17 @@ class requestControl extends Control {
 
         if ($action == 'selproductnew') {
             $this->setId();
-            $weight   = Session::get('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'weight');
-            $curprice = Session::get('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'price');
+            $weight   = UID::get( 'requests', $this->request_id, 'plates', $plate_id, $id, 'weight');
+            $curprice = UID::get( 'requests', $this->request_id, 'plates', $plate_id, $id, 'price');
             $newValue = $weight - $amount;
             $this->model()->selectProductForRequest($id);
             $item          = $this->model()->getRow(0);
-            $curTotalprice = Session::get('uid', 'requests', $this->request_id, 'price');
+            $curTotalprice = UID::get( 'requests', $this->request_id, 'price');
             $newTotalPrice = $curTotalprice - $item['price'];
             $newPrice      = $curprice + $item['price'];
-            Session::set('uid', 'requests', $this->request_id, 'price', $newTotalPrice);
-            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'weight', $newValue);
-            Session::set('uid', 'requests', $this->request_id, 'plates', $plate_id, $id, 'price',  $newPrice);
+            UID::set('requests', $this->request_id, 'price', $newTotalPrice);
+            UID::set('requests', $this->request_id, 'plates', $plate_id, $id, 'weight', $newValue);
+            UID::set('requests', $this->request_id, 'plates', $plate_id, $id, 'price',  $newPrice);
         } else {
             $this->model()->getRequestItem($id);
             $item     = $this->model()->getRow(0);

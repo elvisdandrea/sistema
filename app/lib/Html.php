@@ -138,7 +138,8 @@ class Html {
      * Function to Asynchronously load
      * a select input content
      *
-     * @param   string      $id     - The select input Id
+     * @param   string      $id         - The select input Id
+     * @param   bool        $selected   - The selected option value
      * @return  string
      */
     public static function AsyncLoadList($id, $selected = false) {
@@ -168,6 +169,16 @@ class Html {
 
         $url = parse_url($string);
         return isset($url['scheme']) && in_array($url['scheme'], array('http', 'https'));
+    }
+
+    /**
+     * Logs string into console
+     *
+     * @param   $string
+     */
+    public static function logConsole($string) {
+
+        echo 'console.log("' . $string . '");';
     }
 
     /**

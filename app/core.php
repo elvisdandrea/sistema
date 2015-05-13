@@ -245,18 +245,6 @@ class core {
     }
 
     /**
-     * Tests if user is logged in
-     *
-     * @return bool
-     */
-    public static function isLoggedIn() {
-
-        $uid = Session::get('uid');
-        return is_array($uid) && isset($uid['db_connection']);
-    }
-
-
-    /**
      * Executes the Method called by URI
      *
      * If no module is called, then let's go home
@@ -280,7 +268,7 @@ class core {
 
             $notFoundAction = METHOD_NOT_FOUND;
             self::$static_controller = self::requireHome();
-            if (self::isLoggedIn())
+            if (UID::isLoggedIn())
                 self::$static_controller->newModel('uid');
 
             self::$static_controller->$notFoundAction($uri);
@@ -324,13 +312,13 @@ class core {
     }
 
     /**
-     * Is it running localhost server or prod server?
+     * Is it running localhost/local network server or prod server?
      *
      * @return bool
      */
     public static function isLocal() {
-        return (strpos(filter_input(INPUT_SERVER, 'SERVER_ADDR'), '192.168') !== false ||
-            filter_input(INPUT_SERVER, 'HTTP_HOST') == 'localhost');
+        return !filter_var(filter_input(INPUT_SERVER,'SERVER_ADDR'), FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE)
+                || (((ip2long(filter_input(INPUT_SERVER,'SERVER_ADDR')) & 0xff000000) == 0x7f000000) );
     }
 
     /**
@@ -352,7 +340,7 @@ class core {
      */
     private function checkAuthenticated(array $uri) {
 
-        if (self::isLoggedIn()) return;
+        if (UID::isLoggedIn()) return;
         // TODO: Refractor me, for the lord's sake
         if ($this->isAjax()) {
             if (count($uri) == 0 || !($uri[0] == 'auth' && $uri[1] == 'login')) {
@@ -397,7 +385,7 @@ class core {
         if (!$this->isAjax()) {
 
             $this->controller = $this->requireHome();
-            if (self::isLoggedIn())
+            if (UID::isLoggedIn())
                 $this->controller->newModel('uid');
 
             $this->controller->itStarts($uri);

@@ -76,6 +76,10 @@ class homeControl extends Control {
 
         $this->view()->setVariable('page_content', $content);
         echo $this->view()->render();
+
+        $this->view()->loadTemplate('keepalive');
+        echo $this->view()->render();
+
         $this->terminate();
     }
 
@@ -154,9 +158,28 @@ class homeControl extends Control {
      */
     public function logout() {
 
-        Session::del('uid');
-        Html::refresh();
+        UID::logout();
         $this->terminate();
+    }
+
+    /**
+     * Keep Alive Ajax Request
+     *
+     * This request should be called
+     * asynchronously and with fixed time
+     * to keep current session alive
+     */
+    public function keepAlive() {
+
+        if (UID::isLoggedIn()) {
+            $current = date('d/m/Y h:i:s');
+            UID::set('alive', $current);
+            Html::logConsole('last Checked: ' . $current);
+            $this->terminate();
+        }
+
+        Html::refresh();
+
     }
 
 
