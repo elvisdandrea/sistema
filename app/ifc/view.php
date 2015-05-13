@@ -278,7 +278,6 @@ class View {
                             Html::ReplaceHtml($this->pageTitle['description'] . ' - Orbit | gravi', 'title');
 
                 if    (Core::isAjax()) echo $setTitle;
-
             }
 
             return $this->smarty->$method($this->template) . (count($this->jsFiles) > 0 ? $this->injectJSFiles() : '');

@@ -59,7 +59,6 @@
 	</aside><!-- /.right-side -->
 </div><!-- ./wrapper -->
 
-
 <!-- jQuery 2.0.2 -->
 <script src="{$smarty.const.JSURL}/jquery.js"></script>
 <script src="{$smarty.const.JSURL}/jquery.maskMoney.js"></script>

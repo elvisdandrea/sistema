@@ -32,7 +32,9 @@ Main.prototype = {
 
         $(document).on('click','a[href]', function(e){
 
-            if ( $(this).attr('href').indexOf('#') === 0 || $(this).attr('href').indexOf('http://') === 0 ) return false;
+            if ( $(this).attr('href').indexOf('#') === 0 ||
+                 $(this).attr('href').indexOf('http://')  === 0 ||
+                 $(this).attr('href').indexOf('https://') === 0 ) return false;
 
             var action = $(this).attr('href');
             e.preventDefault();
@@ -40,7 +42,6 @@ Main.prototype = {
             Html.Get(action, function(r){
                 eval(r);
                 window.history.pushState(undefined, '', action);
-//                window.history.replaceState(undefined, '', action);
                 return false;
             });
         });
@@ -183,7 +184,11 @@ Main.prototype = {
      */
     interactions : function() {
 
-        //TODO: Interactions
+        window.onpopstate = function(e){
+            window.location.href = e.target.window.location.href;
+            return false;
+        }
+
     },
 
     /**
@@ -201,7 +206,6 @@ Main.prototype = {
         Html.Get(action, function(r){
             eval(r);
             window.history.pushState(undefined, '', action);
-//            window.history.replaceState(undefined, '', action);
             return false;
         });
     }
@@ -219,4 +223,4 @@ var Main = new Main();
  */
 Main.linkActions();
 Main.formActions();
-//Main.interactions();
+Main.interactions();
