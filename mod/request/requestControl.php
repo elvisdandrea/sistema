@@ -85,11 +85,11 @@ class requestControl extends Control {
         $this->view()->setVariable('totalPrice',      String::convertTextFormat($totalPrice, 'currency'));
         $this->view()->setVariable('search',          $search);
 
-        $pagination = $this->getPagination($page, $countRequests, $rp, 'request/requestpage');
+        $pagination = $this->getPagination($page, $countRequests, $rp, BASEDIR . 'request/requestpage');
         $this->view()->setVariable('pagination', $pagination);
 
         $this->model()->listRequests($dateFrom, $dateTo, $status, $client_id, $search, $page, $rp);
-        $this->model()->setGridRowLink('request/viewrequest', 'id');
+        $this->model()->setGridRowLink(BASEDIR . 'request/viewrequest', 'id');
         $this->model()->addGridColumn('Pedido #', 'id');
         $this->model()->addGridColumn('', 'image', 'Image');
         $this->model()->addGridColumn('Cliente', 'client_name');

@@ -264,17 +264,21 @@ class View {
     /**
      * Renders a template
      *
-     * @param   bool        $fetch      - Just return the html instead of rendering directly on screen
+     * @param   bool        $fetch          - Just return the html instead of rendering directly on screen
+     * @param   bool        $changeTitle    - If it must change the title to the module's title
      * @return  string
      */
-    public function render($fetch = true) {
+    public function render($fetch = true, $changeTitle = true) {
 
         try {
             $method = $fetch ? 'fetch' : 'display';
 
-            if (count($this->pageTitle) > 0 && Core::isAjax()) {
-                echo Html::ReplaceHtml($this->pageTitle['title'], '#page_title');
-                echo Html::ReplaceHtml($this->pageTitle['description'] . ' - Orbit | gravi', 'title');
+            if ($changeTitle && count($this->pageTitle) > 0) {
+                $setTitle = Html::ReplaceHtml($this->pageTitle['title'], '#page_title') .
+                            Html::ReplaceHtml($this->pageTitle['description'] . ' - Orbit | gravi', 'title');
+
+                if    (Core::isAjax()) echo $setTitle;
+
             }
 
             return $this->smarty->$method($this->template) . (count($this->jsFiles) > 0 ? $this->injectJSFiles() : '');

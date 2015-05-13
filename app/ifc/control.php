@@ -182,7 +182,6 @@ class Control {
 
     private function setTitle() {
 
-        if (!Core::isAjax()) return;
         $this->view()->setPageTitle($this->moduleTitle, $this->moduleTitle . ' - Orbit | gravi');
     }
 

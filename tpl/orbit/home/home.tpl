@@ -53,8 +53,7 @@
 
 		<!-- Main content -->
 		<section id="content" class="content">
-
-
+            {$page_content}
 
 		</section><!-- /.content -->
 	</aside><!-- /.right-side -->
@@ -74,7 +73,7 @@
 <script src="{$smarty.const.T_JSURL}/plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
 <script src="{$smarty.const.T_JSURL}/plugins/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
 <script src="{$smarty.const.T_JSURL}/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
-<!-- AdminLTE App -->
+<!-- App -->
 <script src="{$smarty.const.JSURL}/md5.js"></script>
 <script src="{$smarty.const.JSURL}/html.js"></script>
 <script src="{$smarty.const.JSURL}/main.js"></script>

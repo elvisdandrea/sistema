@@ -156,7 +156,10 @@ class Html {
      * @return  string
      */
     public static function addImageUploadAction($inputId, $imgId) {
-        return 'Main.imageAction(\'' . $inputId . '\', \'' . $imgId . '\');';
+        if (Core::isAjax())
+            return 'Main.imageAction(\'' . $inputId . '\', \'' . $imgId . '\');';
+
+        return '<script>Main.imageAction(\'' . $inputId . '\', \'' . $imgId . '\');</script>';
     }
 
     /**

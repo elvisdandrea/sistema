@@ -75,10 +75,10 @@ class homeControl extends Control {
         $content = Core::getMethodContent($uri);
 
         $this->view()->setVariable('page_content', $content);
-        echo $this->view()->render();
+        echo $this->view()->render(true, false);
 
         $this->view()->loadTemplate('keepalive');
-        echo $this->view()->render();
+        echo $this->view()->render(true, false);
 
         $this->terminate();
     }
