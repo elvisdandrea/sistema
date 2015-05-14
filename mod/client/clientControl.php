@@ -43,10 +43,10 @@ class clientControl extends Control {
         $this->view()->setVariable('total',  $total);
         $this->view()->setVariable('search', $search);
 
-        $pagination = $this->getPagination($page, $total, $rp, BASEDIR . 'client/clientpage');
+        $pagination = $this->getPagination($page, $total, $rp, 'client/clientpage');
         $this->view()->setVariable('pagination', $pagination);
 
-        $this->model()->setGridRowLink(BASEDIR . 'client/viewclient', 'id');
+        $this->model()->setGridRowLink('client/viewclient', 'id');
         $this->model()->addGridColumn('','image','Image');
         $this->model()->addGridColumn('Nome','client_name');
         $this->model()->addGridColumn('Email','email');
