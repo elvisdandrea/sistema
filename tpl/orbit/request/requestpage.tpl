@@ -1,7 +1,7 @@
 <div class="col-md-12">
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
-            <a href="{$smarty.const.BASEDIR}request/newrequest" class="btn btn-success">Clique aqui e adicione um novo pedido</a>
+            <a href="{$smarty.const.BASEDIR}request/newrequest"  changeurl class="btn btn-success">Clique aqui e adicione um novo pedido</a>
             <button id="daterange-btn" data-url="{$smarty.const.BASEDIR}request" class="btn btn-default pull-right">
                 <i class="fa fa-calendar"></i> Escolha o período: Hoje
                 <i class="fa fa-caret-down"></i>
@@ -33,7 +33,7 @@
                         <div class="icon">
                             <i class="fa fa-bullhorn"></i>
                         </div>
-                        <a href="{$smarty.const.BASEDIR}request" class="small-box-footer">
+                        <a href="{$smarty.const.BASEDIR}request" class="small-box-footer"  changeurl >
                             Veja todos os pedidos <i class="fa fa-arrow-circle-down"></i>
                         </a>
                     </div>
@@ -52,7 +52,7 @@
                         <div class="icon">
                             <i class="fa fa-warning"></i>
                         </div>
-                        <a href="{$smarty.const.BASEDIR}request?status=1{if (isset($dateFrom))}&date_from={$dateFrom}{/if}{if (isset($dateTo))}&date_to={$dateTo}{/if}" class="small-box-footer">
+                        <a href="{$smarty.const.BASEDIR}request?status=1{if (isset($dateFrom))}&date_from={$dateFrom}{/if}{if (isset($dateTo))}&date_to={$dateTo}{/if}" class="small-box-footer"  changeurl >
                             Veja todos <i class="fa fa-arrow-circle-down"></i>
                         </a>
                     </div>

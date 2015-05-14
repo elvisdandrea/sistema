@@ -2,7 +2,7 @@
 
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
-            <a class="btn btn-success" href="{$smarty.const.BASEDIR}product/newproduct">Clique aqui e adicione um novo produto</a>
+            <a class="btn btn-success" href="{$smarty.const.BASEDIR}product/newproduct" changeurl >Clique aqui e adicione um novo produto</a>
         </div><!-- /.box -->
     </div><!-- /.col -->
 

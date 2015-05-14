@@ -31,10 +31,10 @@ class profileControl extends Control {
         $total = $this->model()->getUserList($page, $rp, $search);
         $this->view()->setVariable('total', $total);
 
-        $pagination = $this->getPagination($page, $total, $rp, BASEDIR . 'profile/profilepage');
+        $pagination = $this->getPagination($page, $total, $rp, 'profile/profilepage');
         $this->view()->setVariable('pagination', $pagination);
 
-        $this->model()->setGridRowLink(BASEDIR . 'profile/viewuser', 'id');
+        $this->model()->setGridRowLink('profile/viewuser', 'id');
         $this->model()->addGridColumn('Imagem','image','Image');
         $this->model()->addGridColumn('Nome','name');
         $this->model()->addGridColumn('Email','email');

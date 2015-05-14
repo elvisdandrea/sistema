@@ -36,12 +36,13 @@ Main.prototype = {
                  $(this).attr('href').indexOf('http://')  === 0 ||
                  $(this).attr('href').indexOf('https://') === 0 ) return false;
 
-            var action = $(this).attr('href');
+            var action    = $(this).attr('href');
+            var changeUrl = $(this).attr('changeurl') != undefined;
             e.preventDefault();
             $('#loading').show();
             Html.Get(action, function(r){
                 eval(r);
-                window.history.pushState(undefined, '', action);
+                if (changeUrl) window.history.pushState(undefined, '', action);
                 return false;
             });
         });
@@ -87,17 +88,18 @@ Main.prototype = {
             if ($(this).attr('method') != undefined) {
                 method = $(this).attr('method');
             }
-
+            var changeUrl = $(this).attr('changeurl') != undefined;
             if (method == 'post') {
                 Html.Post($(this).attr('action'), data.join('&'), function(r) {
                     eval(r);
+                    if (changeUrl) window.history.pushState(undefined, '', action);
                     return false;
                 });
             } else if (method == 'get') {
                 var url = $(this).attr('action') + '?' + data.join('&');
                 Html.Get(url, function(r){
                     eval(r);
-                    $('#loading').hide();
+                    if (changeUrl) window.history.pushState(undefined, '', action);
                     return false;
                 });
             }
@@ -197,15 +199,16 @@ Main.prototype = {
      *
      * @param action
      */
-    quickLink : function(action, event, avoidElement) {
+    quickLink : function(action, changeUrl,event, avoidElement) {
 
         if (event != undefined && avoidElement != undefined) {
             var target = event.target;
             if ($(target).is(avoidElement)) return false;
         }
+
         Html.Get(action, function(r){
             eval(r);
-            window.history.pushState(undefined, '', action);
+            if (changeUrl) window.history.pushState(undefined, '', action);
             return false;
         });
     }

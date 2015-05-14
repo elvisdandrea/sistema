@@ -3,7 +3,7 @@
 
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
-            <a class="btn btn-success" href="{$smarty.const.BASEDIR}client/newclient">Clique aqui e adicione um novo cliente</a>
+            <a class="btn btn-success" href="{$smarty.const.BASEDIR}client/newclient" changeurl >Clique aqui e adicione um novo cliente</a>
         </div><!-- /.box -->
     </div><!-- /.col -->
 

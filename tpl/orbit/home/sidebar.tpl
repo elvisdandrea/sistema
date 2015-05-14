@@ -16,9 +16,9 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{$smarty.const.BASEDIR}request?status=1"><i class="fa fa-angle-double-right"></i>{$countNewRequests} novos pedidos</a></li>
-                    <li><a href="{$smarty.const.BASEDIR}request"><i class="fa fa-angle-double-right"></i> Todos os pedidos</a></li>
-                    <li><a href="{$smarty.const.BASEDIR}request/newrequest"><i class="fa fa-angle-double-right"></i> Novo pedido</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}request?status=1" changeurl ><i class="fa fa-angle-double-right"></i>{$countNewRequests} novos pedidos</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}request" changeurl ><i class="fa fa-angle-double-right"></i> Todos os pedidos</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}request/newrequest" changeurl ><i class="fa fa-angle-double-right"></i> Novo pedido</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -28,8 +28,8 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{$smarty.const.BASEDIR}client"><i class="fa fa-angle-double-right"></i>Todos os clientes</a></li>
-                    <li><a href="{$smarty.const.BASEDIR}client/newclient"><i class="fa fa-angle-double-right"></i>Novo cliente</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}client" changeurl ><i class="fa fa-angle-double-right"></i>Todos os clientes</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}client/newclient" changeurl ><i class="fa fa-angle-double-right"></i>Novo cliente</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -39,8 +39,8 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{$smarty.const.BASEDIR}product"><i class="fa fa-angle-double-right"></i>Todos os produtos</a></li>
-                    <li><a href="{$smarty.const.BASEDIR}product/newproduct"><i class="fa fa-angle-double-right"></i>Novo produtos</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}product" changeurl ><i class="fa fa-angle-double-right"></i>Todos os produtos</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}product/newproduct" changeurl ><i class="fa fa-angle-double-right"></i>Novo produtos</a></li>
                 </ul>
             </li>
             <li class="treeview">
@@ -51,8 +51,8 @@
                     <!--<span class="label label-danger">Requer atenção</span>-->
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{$smarty.const.BASEDIR}settings"><i class="fa fa-angle-double-right"></i>Ajustes</a></li>
-                    <li><a href="{$smarty.const.BASEDIR}profile"><i class="fa fa-angle-double-right"></i>Usuarios</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}settings" changeurl ><i class="fa fa-angle-double-right"></i>Ajustes</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}profile" changeurl ><i class="fa fa-angle-double-right"></i>Usuarios</a></li>
                 </ul>
             </li>
             <li>
