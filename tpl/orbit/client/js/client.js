@@ -10,7 +10,7 @@ $('#new_client_phone').blur(function(){
     if(phoneNumber != '') {
         $.ajax({
             type: "POST",
-            url: "client/checkPhoneExists",
+            url: "checkPhoneExists",
             data: {phone_number: phoneNumber},
             success: function (data) {
                 eval(data);
@@ -20,13 +20,33 @@ $('#new_client_phone').blur(function(){
 });
 
 $('[name="cpf_cnpj"]').blur(function() {
-    var entityType = $('[name="client_type"]').val();
-    var cpf = $('[name="cpf_cnpj"]').val();
-    if(entityType != 'J' && cpf != '') {
+    var entityType = $('[name="client_type"]:checked').val();
+    var cpfCnpj = $(this).val();
+
+    if(entityType != 'J')
+        var url = "validateCpf";
+    else
+        var url = "validateCnpj";
+
+    if(cpfCnpj != '') {
         $.ajax({
             type: "POST",
-            url: "client/validateCpf",
-            data: {cpf: cpf},
+            url: url,
+            data: {cpf_cnpj: cpfCnpj},
+            success: function (data) {
+                eval(data);
+            }
+        });
+    }
+});
+
+$('[name="email"]').blur(function() {
+    var email = $(this).val();
+    if(email != '') {
+        $.ajax({
+            type: "POST",
+            url: "validateEmail",
+            data: {email: email},
             success: function (data) {
                 eval(data);
             }

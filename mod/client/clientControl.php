@@ -195,19 +195,29 @@ class clientControl extends Control {
             $return['message'][] = "O campo 'Nome' não pode ser vazio";
         }
 
-        if($postData['client_type'] == 'J' && empty($postData['cpf_cnpj'])){
+        if(!filter_var($postData['email'], FILTER_VALIDATE_EMAIL)){
             $return['valid']     = false;
-            $return['message'][] = "O campo 'CPF' não pode ser vazio";
+            $return['message'][] = "Email inválido";
         }
 
         if($postData['client_type'] == 'F' && empty($postData['cpf_cnpj'])){
             $return['valid']     = false;
+            $return['message'][] = "O campo 'CPF' não pode ser vazio";
+        }
+
+        if($postData['client_type'] == 'J' && empty($postData['cpf_cnpj'])){
+            $return['valid']     = false;
             $return['message'][] = "O campo 'CNPJ' não pode ser vazio";
         }
 
-        if($postData['client_type'] == 'J' && !String::validateCpf($postData['cpf_cnpj'])){
+        if($postData['client_type'] == 'F' && !String::validateCpf($postData['cpf_cnpj'])){
             $return['valid']     = false;
             $return['message'][] = "CPF inválido";
+        }
+
+        if($postData['client_type'] == 'J' && !String::validateCnpj($postData['cpf_cnpj'])){
+            $return['valid']     = false;
+            $return['message'][] = "CNPJ inválido";
         }
 
         return $return;
@@ -521,8 +531,26 @@ class clientControl extends Control {
     public function validateCpf(){
         $postData = $this->getPost();
 
-        if(!String::validateCpf($postData['cpf'])){
+        if(!String::validateCpf($postData['cpf_cnpj'])){
             $this->commitAdd($this->view()->showAlert('error', '', 'CPF inválido'), '#content');
+            $this->terminate();
+        }
+    }
+
+    public function validateCnpj(){
+        $postData = $this->getPost();
+
+        if(!String::validateCnpj($postData['cpf_cnpj'])){
+            $this->commitAdd($this->view()->showAlert('error', '', 'CNPJ inválido'), '#content');
+            $this->terminate();
+        }
+    }
+
+    public function validateEmail(){
+        $postData = $this->getPost();
+
+        if(!filter_var($postData['email'], FILTER_VALIDATE_EMAIL)){
+            $this->commitAdd($this->view()->showAlert('error', '', 'Email inválido'), '#content');
             $this->terminate();
         }
     }
