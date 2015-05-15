@@ -46,13 +46,25 @@
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-cog"></i>
+                    <span>Usuários</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                    <!--<span class="label label-danger">Requer atenção</span>-->
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{$smarty.const.BASEDIR}profile" changeurl ><i class="fa fa-angle-double-right"></i>Todos os Usuarios</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}profile/myprofile" changeurl ><i class="fa fa-angle-double-right"></i>Meu Perfil</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}profile/newuser" changeurl ><i class="fa fa-angle-double-right"></i>Novo Usuário</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-cog"></i>
                     <span>Configurações</span>
                     <i class="fa fa-angle-left pull-right"></i>
                     <!--<span class="label label-danger">Requer atenção</span>-->
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{$smarty.const.BASEDIR}settings" changeurl ><i class="fa fa-angle-double-right"></i>Ajustes</a></li>
-                    <li><a href="{$smarty.const.BASEDIR}profile" changeurl ><i class="fa fa-angle-double-right"></i>Usuarios</a></li>
                 </ul>
             </li>
             <li>

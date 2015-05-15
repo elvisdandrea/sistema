@@ -8,6 +8,14 @@
 class profileControl extends Control {
 
     /**
+     * The module title
+     *
+     * This will be automatically
+     * rendered on the Template Title bar
+     */
+    const module_title = 'Usuários';
+
+    /**
      * The constructor
      */
     public function __construct() {
@@ -31,7 +39,7 @@ class profileControl extends Control {
         $total = $this->model()->getUserList($page, $rp, $search);
         $this->view()->setVariable('total', $total);
 
-        $pagination = $this->getPagination($page, $total, $rp, 'profile/profilepage');
+        $pagination = $this->getPagination($page, $total, $rp, 'profile');
         $this->view()->setVariable('pagination', $pagination);
 
         $this->model()->setGridRowLink('profile/viewuser', 'id');
@@ -43,13 +51,17 @@ class profileControl extends Control {
 
         $this->view()->setVariable('profilelist', $this->model()->dbGrid());
         $this->commitReplace($this->view()->render(), '#content');
-        if (Core::isAjax())
-            echo Html::AddClass('content-aligned', '#content');
+
     }
 
     public function viewUser($id = false) {
 
         $id || $id = $this->getQueryString('id');
+        $this->model()->getProfile($id);
+
+        $this->view()->loadTemplate('edituser');
+        $this->view()->setVariable('profile', $this->model()->getRow(0));
+        $this->commitReplace($this->view()->render(), '#content');
 
     }
 

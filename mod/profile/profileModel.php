@@ -59,8 +59,7 @@ class profileModel extends Model {
                 $this->addWhere($field . ' like "%' . str_replace(' ','%',$search) . '%"', 'OR');
         }
 
-        $offset = intval($total / $rp * $page);
-
+        $offset = intval(($page - 1) * $rp);
         $this->addLimit($offset . ',' . $rp);
 
         $this->runQuery();
@@ -84,6 +83,23 @@ class profileModel extends Model {
 
         return $result['mxm'];
 
+    }
+
+    /**
+     * Query to return a profile data
+     *
+     * @param  string     $id
+     * @return bool
+     */
+    public function getProfile($id) {
+
+        $this->addField('*');
+        $this->addFrom('profile');
+        $this->addWhere('id = "' . $id . '"');
+
+        $this->runQuery();
+
+        return !$this->isEmpty();
     }
 
 

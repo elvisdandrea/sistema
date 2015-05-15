@@ -55,8 +55,7 @@ class clientControl extends Control {
 
         $this->view()->setVariable('clientlist', $this->model()->dbGrid());
         $this->commitReplace($this->view()->render(), '#content');
-        if (Core::isAjax())
-            echo Html::AddClass('content-aligned', '#content');
+
     }
 
     /**
