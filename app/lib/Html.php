@@ -25,8 +25,10 @@ class Html {
      * @return  string
      */
     public static function AddHtml($html, $block) {
+        if (Core::isAjax())
+            return 'Html.Add(\'' . String::BuildStringNewLines(String::AddSQSlashes($html)) . '\',\'' . $block . '\');';
 
-        return 'Html.Add(\'' . String::BuildStringNewLines(String::AddSQSlashes($html)) . '\',\'' . $block . '\');';
+        return '<script>Html.Add(\'' . String::BuildStringNewLines(String::AddSQSlashes($html)) . '\',\'' . $block . '\');</script>';
     }
 
     /**
@@ -38,8 +40,10 @@ class Html {
      * @return  string
      */
     public static function AppendToTable($html, $block) {
+        if (Core::isAjax())
+            return 'Html.AppendToTable(\'' . String::BuildStringNewLines(String::AddSQSlashes($html)) . '\',\'' . $block . '\');';
 
-        return 'Html.AppendToTable(\'' . String::BuildStringNewLines(String::AddSQSlashes($html)) . '\',\'' . $block . '\');';
+        return '<script>Html.AppendToTable(\'' . String::BuildStringNewLines(String::AddSQSlashes($html)) . '\',\'' . $block . '\');</script>';
     }
 
     /**
@@ -63,7 +67,10 @@ class Html {
      * @return  string
      */
     public static function ShowHtml($block) {
-        return 'Html.Show(\''.$block.'\');';
+        if (Core::isAjax())
+            return 'Html.Show(\''.$block.'\');';
+
+        return '<script>Html.Show(\''.$block.'\');</script>';
     }
 
     /**
@@ -74,7 +81,10 @@ class Html {
      * @return  string
      */
     public static function HideHtml($block) {
-        return 'Html.Hide(\''.$block.'\');';
+        if (Core::isAjax())
+            return 'Html.Hide(\''.$block.'\');';
+
+        return '<script>Html.Hide(\''.$block.'\');</script>';
     }
 
     /**
@@ -86,7 +96,10 @@ class Html {
      * @return  string
      */
     public static function SetValue($value, $element) {
-        return 'Html.SetValue(\'' . $element . '\',\'' . $value . '\');';
+        if (Core::isAjax())
+            return 'Html.SetValue(\'' . $element . '\',\'' . $value . '\');';
+
+        return '<script>Html.SetValue(\'' . $element . '\',\'' . $value . '\');</script>';
     }
 
     /**
@@ -97,7 +110,10 @@ class Html {
      * @return  string
      */
     public static function AddClass($class, $element) {
-        return 'Html.AddClass(\'' . $element . '\',\'' . $class . '\');';
+        if (Core::isAjax())
+            return 'Html.AddClass(\'' . $element . '\',\'' . $class . '\');';
+
+        return '<script>Html.AddClass(\'' . $element . '\',\'' . $class . '\');</script>';
     }
 
     /**
@@ -108,8 +124,10 @@ class Html {
      * @return  string
      */
     public static function RemoveClass($class, $element) {
+        if (Core::isAjax())
+            return 'Html.RemoveClass(\'' . $element . '\',\'' . $class . '\');';
 
-        return 'Html.RemoveClass(\'' . $element . '\',\'' . $class . '\');';
+        return '<script>Html.RemoveClass(\'' . $element . '\',\'' . $class . '\');</script>';
     }
 
     /**
@@ -143,7 +161,10 @@ class Html {
      * @return  string
      */
     public static function AsyncLoadList($id, $selected = false) {
-        return 'Html.AsyncLoadList(\'' . $id . '\'' . ($selected ? ',' . $selected : '') . ');';
+        if (Core::isAjax())
+            return 'Html.AsyncLoadList(\'' . $id . '\'' . ($selected ? ',' . $selected : '') . ');';
+
+        return '<script>Html.AsyncLoadList(\'' . $id . '\'' . ($selected ? ',' . $selected : '') . ');</script>';
     }
 
     /**
@@ -180,16 +201,20 @@ class Html {
      * @param   $string
      */
     public static function logConsole($string) {
+        if (Core::isAjax())
+            echo 'console.log("' . $string . '");';
 
-        echo 'console.log("' . $string . '");';
+        echo '<script>console.log("' . $string . '");</script>';
     }
 
     /**
      * Refreshes Current Page
      */
     public static function refresh() {
+        if (Core::isAjax())
+            echo 'window.location.href = "' . filter_input(INPUT_SERVER, 'HTTP_REFERER') . '"';
 
-        echo 'window.location.href = "' . filter_input(INPUT_SERVER, 'HTTP_REFERER') . '"';
+        echo '<script>window.location.href = "' . filter_input(INPUT_SERVER, 'HTTP_REFERER') . '"</script>';
     }
 
 }

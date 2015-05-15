@@ -1,12 +1,31 @@
-<div class="top-bar">
-    <a class="button small" href="{$smarty.const.BASEDIR}profile/newuser">Adicionar Usuário</a>
-</div>
-<section class="box search">
-    <form method="get" action="{$smarty.const.BASEDIR}profile">
-        <input type="text" class="text" name="search" placeholder="Pesquisa" />
-    </form>
-</section>
-{$pagination}
-<div id="client-list">
-    {$profilelist}
-</div>
+<!-- Buttons (Options) -->
+<div class="col-md-12">
+
+    <div class="box box-solid">
+        <div class="box-body pad table-responsive">
+            <a class="btn btn-success" href="{$smarty.const.BASEDIR}profile/newuser" changeurl >Clique aqui e adicione um novo usuário</a>
+        </div><!-- /.box -->
+    </div><!-- /.col -->
+
+</div><!-- ./row -->
+
+<div class="col-md-12">
+    <div class="box">
+        <!-- search form -->
+        <form action="{$smarty.const.BASEDIR}profile" method="get" class="sidebar-form">
+            <div class="input-group">
+                <input type="text" name="search" class="form-control" placeholder="Localizar dentro da lista" value="{$search}"/>
+                                    <span class="input-group-btn">
+                                        <button type='submit' name='seach' id='search-btn' class="btn btn-flat">
+                                            <i class="fa fa-search"></i>
+                                        </button>
+                                    </span>
+            </div>
+        </form>
+        <!-- /.search form -->
+        {$profilelist}
+
+        {$pagination}
+
+
+    </div><!-- /.box -->
