@@ -201,8 +201,10 @@ class Html {
      * @param   $string
      */
     public static function logConsole($string) {
-        if (Core::isAjax())
+        if (Core::isAjax()) {
             echo 'console.log("' . $string . '");';
+            return;
+        }
 
         echo '<script>console.log("' . $string . '");</script>';
     }
@@ -211,8 +213,10 @@ class Html {
      * Refreshes Current Page
      */
     public static function refresh() {
-        if (Core::isAjax())
+        if (Core::isAjax()) {
             echo 'window.location.href = "' . filter_input(INPUT_SERVER, 'HTTP_REFERER') . '"';
+            return;
+        }
 
         echo '<script>window.location.href = "' . filter_input(INPUT_SERVER, 'HTTP_REFERER') . '"</script>';
     }
