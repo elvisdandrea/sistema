@@ -45,7 +45,7 @@
                             <input type="text" class="form-control" name="phone_type">
                         </div>
                         <div class="form-group col-xs-6">
-                            <label>Numero: </label>
+                            <label id="label_phone">Numero: </label>
                             <input id="new_client_phone" type="text" class="form-control" name="phone_number">
                         </div>
                     </div>
