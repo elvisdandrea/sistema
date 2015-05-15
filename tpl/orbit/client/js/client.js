@@ -5,9 +5,7 @@ $("#zip_code").blur(function() {
     }
 });
 
-var novo_fone = $('#new_client_phone');
-
-novo_fone.blur(function(){
+$('#new_client_phone').blur(function(){
     var phoneNumber = $('#new_client_phone').val();
     if(phoneNumber != '') {
         $.ajax({
@@ -143,19 +141,8 @@ function id( el ){
     return document.getElementById( el );
 }
 
-
-$('#label_phone').click(function(){
-    alert("aqui voce funciona!");
-});
-
-novo_fone.onkeyup(function(){
-    alert('oi');
-});
-
-window.onload = function(){
-
-    novo_fone.click = function(){
-        mascara(this, mtel);
-
+$(document).ready(function() {
+    id("new_client_phone").onkeypress = function(){
+        mascara( this, mtel );
     }
-}
+});
