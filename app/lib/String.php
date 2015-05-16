@@ -19,13 +19,8 @@ class String {
      * @return  string                  - The escaped string
      */
     public static function ClearString( $string ) {
-        //TODO: It's begging for a real anti-injection algorith
 
-        strpos($string, 'data:image') !== false ||
-                            $string = addslashes($string);
-
-        #$string = mysql_real_escape_string($string);
-        return $string;
+        return filter_var($string, FILTER_SANITIZE_URL, FILTER_SANITIZE_MAGIC_QUOTES);
     }
 
 
@@ -327,6 +322,15 @@ class String {
         }
     }
 
+    /**
+     * Checks for a valid CPF
+     *
+     * Not just if the format matches, but
+     * really checks using the code validator
+     *
+     * @param   string      $cpf        - The CPF
+     * @return  bool
+     */
     public static function validateCpf($cpf){
         if(empty($cpf))
             return true;
@@ -347,13 +351,19 @@ class String {
         $mod2 = ($sum2 * 10) % 11;
         $mod2 != 0 || $mod2 = 0;
 
-        if($mod1 == $cpf[9] && $mod2 == $cpf[10])
-            return true;
-        else
-            return false;
+        return $mod1 == $cpf[9] && $mod2 == $cpf[10];
     }
 
-    function validateCnpj($cnpj) {
+    /**
+     * Checks for a valid CNPJ
+     *
+     * Not just if the format matches, but
+     * really checks using the code validator
+     *
+     * @param   string      $cnpj        - The CNPJ
+     * @return  bool
+     */
+    public static function validateCnpj($cnpj) {
         $cnpj = preg_replace('/[\-\.\/]/','',$cnpj);
         $cnpj = str_split($cnpj);
 
@@ -370,12 +380,7 @@ class String {
         $mod2 = $sum2 % 11;
         $mod2 = $mod2 < 2 ? 0 : 11 - $mod2;
 
-        if ($cnpj[12] == $mod1 && $cnpj[13] == $mod2) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        return $cnpj[12] == $mod1 && $cnpj[13] == $mod2;
     }
 
     /**

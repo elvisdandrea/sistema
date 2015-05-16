@@ -111,7 +111,6 @@ class clientModel extends Model {
 
         $this->setUpdateTable('clients');
         $this->addUpdateWhere('id = "' . $id . '"');
-
         $this->runUpdate();
     }
 

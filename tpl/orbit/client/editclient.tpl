@@ -1,6 +1,6 @@
 {$isPessoaFisica = $client['client_type'] == 'F'}
 <div>
-<form action="{$smarty.const.BASEDIR}client/editClient?id={$client['id']}">
+<form action="{$smarty.const.BASEDIR}client/editClient?id={$client['id']}" changeurl="{$smarty.const.BASEDIR}client">
 
     <!-- Buttons (Options) -->
     <div class="box box-solid">

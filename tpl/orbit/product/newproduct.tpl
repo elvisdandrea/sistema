@@ -1,4 +1,4 @@
-<form id="addproduct" action="{$smarty.const.BASEDIR}product/addproduct" >
+<form id="addproduct" action="{$smarty.const.BASEDIR}product/addproduct"  changeurl="{$smarty.const.BASEDIR}product" >
 
 <div class="col-md-12">
 

@@ -1,5 +1,5 @@
 <div class="col-md-12">
-    <form action="{$smarty.const.BASEDIR}request/addNewRequest?request_id={$request_id}">
+    <form action="{$smarty.const.BASEDIR}request/addNewRequest?request_id={$request_id}" changeurl="{$smarty.const.BASEDIR}request">
 
     <!-- Conteúdo ENTREGA -->
     <div class="box">

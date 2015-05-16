@@ -88,18 +88,18 @@ Main.prototype = {
             if ($(this).attr('method') != undefined) {
                 method = $(this).attr('method');
             }
-            var changeUrl = $(this).attr('changeurl') != undefined;
+            var changeUrl = $(this).attr('changeurl');
             if (method == 'post') {
                 Html.Post($(this).attr('action'), data.join('&'), function(r) {
                     eval(r);
-                    if (changeUrl) window.history.pushState(undefined, '', action);
+                    if (changeUrl) window.history.pushState(undefined, '', changeUrl);
                     return false;
                 });
             } else if (method == 'get') {
                 var url = $(this).attr('action') + '?' + data.join('&');
                 Html.Get(url, function(r){
                     eval(r);
-                    if (changeUrl) window.history.pushState(undefined, '', action);
+                    if (changeUrl) window.history.pushState(undefined, '', changeUrl);
                     return false;
                 });
             }

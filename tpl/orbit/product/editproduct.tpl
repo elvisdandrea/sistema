@@ -1,4 +1,4 @@
-<form id="addproduct" action="{$smarty.const.BASEDIR}product/editproduct?id={$id}" >
+<form id="addproduct" action="{$smarty.const.BASEDIR}product/editproduct?id={$id}"  changeurl="{$smarty.const.BASEDIR}product">
     <!-- Buttons (Options) -->
     <div class="box box-solid">
         <div class="box-body pad table-responsive">

@@ -102,6 +102,12 @@ class profileModel extends Model {
         return !$this->isEmpty();
     }
 
+    /**
+     * Query to update user profile
+     *
+     * @param   array       $data       - The profile data
+     * @param   string      $id         - The profile Id
+     */
     public function updateUser($data, $id) {
         foreach ($data as $field => $value)
             $this->addUpdateSet($field, $value);

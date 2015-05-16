@@ -1,5 +1,5 @@
 <div class="col-md-12">
-<form action="{$smarty.const.BASEDIR}client/addNewClient">
+<form action="{$smarty.const.BASEDIR}client/addNewClient" changeurl="{$smarty.const.BASEDIR}client">
     <!-- Buttons (Options) -->
     <div class="box box-solid">
         <div class="box-body pad table-responsive">

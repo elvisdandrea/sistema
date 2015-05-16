@@ -1,5 +1,5 @@
 <div>
-<form action="{$smarty.const.BASEDIR}profile/editUser?id={$profile['id']}" changeurl>
+<form action="{$smarty.const.BASEDIR}profile/editUser?id={$profile['id']}" changeurl="{$smarty.const.BASEDIR}profile">
 
     <!-- Buttons (Options) -->
     <div class="box box-solid">
