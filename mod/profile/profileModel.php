@@ -102,5 +102,15 @@ class profileModel extends Model {
         return !$this->isEmpty();
     }
 
+    public function updateUser($data, $id) {
+        foreach ($data as $field => $value)
+            $this->addUpdateSet($field, $value);
+
+        $this->setUpdateTable('profile');
+        $this->addUpdateWhere('id = "' . $id . '"');
+
+        $this->runUpdate();
+    }
+
 
 }

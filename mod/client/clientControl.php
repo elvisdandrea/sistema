@@ -260,8 +260,7 @@ class clientControl extends Control {
         $client = $this->updateClient();
 
         if ($client['status'] != 200) {
-            $this->commitReplace($client['message'], '#message');
-            $this->commitShow('#message');
+            $this->commitAdd($this->view()->showAlert('error', '', 'Ocorreu um problema ao editar este cliente, contate nosso suporte.'), 'body');
             $this->terminate();
         }
         $this->clientPage();

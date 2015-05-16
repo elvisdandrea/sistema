@@ -187,8 +187,10 @@ Main.prototype = {
     interactions : function() {
 
         window.onpopstate = function(e){
-            window.location.href = e.target.window.location.href;
-            return false;
+            Html.Get(e.target.window.location.href, function(r) {
+                eval(r);
+                return false;
+            });
         }
 
     },

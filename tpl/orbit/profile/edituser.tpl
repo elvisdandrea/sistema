@@ -1,5 +1,5 @@
 <div>
-<form action="{$smarty.const.BASEDIR}profile/editUser?id={$client['id']}">
+<form action="{$smarty.const.BASEDIR}profile/editUser?id={$profile['id']}" changeurl>
 
     <!-- Buttons (Options) -->
     <div class="box box-solid">
@@ -18,7 +18,7 @@
                 </div><!-- /.box-header -->
 
                 <div class="box-body">
-                    <img src="{$client['image']}" name="image64" id="client-img" type="upload" class="image-user" alt="user image" style="display:block; margin:0 auto;" />
+                    <img src="{$profile['image']}" name="image64" id="profile-img" type="upload" class="image-user" alt="user image" style="display:block; margin:0 auto;" />
 
                     <div class="form-group" style="display: block; margin: 20px auto 0px; width: 150px; text-align: center;" >
                         <div class="btn btn-success btn-file">
