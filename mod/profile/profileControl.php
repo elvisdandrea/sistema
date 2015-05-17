@@ -79,7 +79,8 @@ class profileControl extends Control {
             $this->terminate();
         }
 
-        $profile = $this->model()->getProfile($id);
+        $this->model()->getProfile($id);
+        $profile = $this->model()->getRow(0);
 
         if (intval($profile['uid']) > 0) {
             $auth = new authControl();
