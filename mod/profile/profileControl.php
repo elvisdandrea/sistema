@@ -89,6 +89,11 @@ class profileControl extends Control {
                 'email'     => $profile['email'],
                 'image'     => $profile['image']
             ), $profile['uid']);
+
+            UID::set('image', $profile['image']);
+            $this->view()->loadTemplate('profileimg');
+            $this->view()->setVariable('profile', $profile);
+            $this->commitReplace($this->view()->render(), '#profileimg');
         }
 
         $this->profilePage();

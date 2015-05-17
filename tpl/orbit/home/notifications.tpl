@@ -30,7 +30,7 @@
         </a>
         <ul class="dropdown-menu">
             <!-- User image -->
-            <li class="user-header bg-orange">
+            <li id="profileimg" class="user-header bg-orange">
                 <img src="{UID::get('image')}" class="img-circle" alt="User Image" />
                 <p>
                     {UID::get('name')}
