@@ -52,7 +52,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{$smarty.const.BASEDIR}profile" changeurl ><i class="fa fa-angle-double-right"></i>Todos os Usuarios</a></li>
-                    <li><a href="{$smarty.const.BASEDIR}profile/myprofile" changeurl ><i class="fa fa-angle-double-right"></i>Meu Perfil</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}profile/viewuser?id={UID::get('id')}" changeurl ><i class="fa fa-angle-double-right"></i>Meu Perfil</a></li>
                     <li><a href="{$smarty.const.BASEDIR}profile/newuser" changeurl ><i class="fa fa-angle-double-right"></i>Novo Usuário</a></li>
                 </ul>
             </li>
