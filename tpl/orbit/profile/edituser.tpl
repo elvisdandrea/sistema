@@ -9,6 +9,22 @@
         </div><!-- /.box -->
     </div><!-- /.col -->
     <!-- /.Buttons (Options) -->
+
+    <div class="box box-solid">
+        <div class="box-body pad table-responsive">
+            <blockquote>
+                {if (intval($profile['uid']) == 0)}
+                    <p data-id="totalprice">Este usuário ainda não acessa o sistema: </p>
+                    <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;" data-toggle="modal" data-target="#compose-modal">Ativar este usuário</button>
+                {else}
+                    <p data-id="totalprice">Este usuário está ativo no sistema: </p>
+                    <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;" data-toggle="modal" data-target="#compose-modal">Alterar senha</button>
+                    <button type="submit" class="btn btn-danger" title="Salvar" style="width:150px;">Desativar este usuário</button>
+                {/if}
+            </blockquote>
+        </div><!-- /.box -->
+    </div>
+
     <div class="row">
 
         <div class="col-md-3">
@@ -84,3 +100,5 @@
         </div><!-- /.col -->
 </form>
 </div>
+
+{include "profile/usercredentials.tpl"}
