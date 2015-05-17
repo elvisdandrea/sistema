@@ -118,5 +118,19 @@ class profileModel extends Model {
         $this->runUpdate();
     }
 
+    /**
+     * Insert Query to add a user profile
+     *
+     * @param $data
+     */
+    public function addUser($data) {
+        array_walk($data, function($item, $key) {
+            $this->addInsertSet($key, $item);
+        });
+
+        $this->setInsertTable('profile');
+        $this->runInsert();
+    }
+
 
 }

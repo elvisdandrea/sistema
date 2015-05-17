@@ -66,10 +66,7 @@
 
                         <!--    Image Type Cell  -->
                         {elseif ($fieldparams['type'] == 'Image')}
-                            {if ($row[$fieldparams['field']] != '')}
-                                <img width="70px" height="70px" src="{$row[$fieldparams['field']]}" />
-                            {/if}
-
+                            <img width="70px" height="70px" src="{if ($row[$fieldparams['field']] != '')}{$row[$fieldparams['field']]}{else}{$smarty.const.T_IMGURL}/no-image.jpg{/if}" />
                         <!--    Input Type Cell  -->
                         {elseif ($fieldparams['type'] == 'Input')}
                             <input type="text" name="{$id}_{$index}_{$field}" value="{$row[$fieldparams['field']]}">

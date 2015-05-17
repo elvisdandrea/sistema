@@ -153,5 +153,77 @@ class profileControl extends Control {
         ), 200);
     }
 
+    /**
+     * View for adding new user
+     */
+    public function newUser() {
+        $this->view()->loadTemplate('newuser');
+        $this->commitReplace($this->view()->render(), '#content');
+        echo Html::addImageUploadAction('read64', 'profile-img');
+    }
+
+
+    public function postAddUser() {
+
+        $post = $this->getPost();
+
+        $userData = array(
+            'name'              => $post['name'],
+            'email'             => $post['email'],
+            'phone_1'           => $post['phone_1'],
+            'phone_2'           => $post['phone_2'],
+            'street_address'    => $post['street_address'],
+            'street_number'     => $post['street_number'],
+            'street_additional' => $post['street_additional'],
+            'hood'              => $post['hood'],
+            'city'              => $post['city']
+        );
+
+        $image      = $post['image64'];
+        $imageFile  = $image;
+
+        if (!Html::isUrl($image)) {
+            $base64 = explode(',', $image);
+            $imageFile = $this->uploadBase64File($base64[1]);
+
+            if (!$imageFile) {
+                $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
+            } else {
+                $clientData['image'] = $imageFile;
+            }
+        }
+
+        $this->model()->addUser($userData);
+
+        if (!$this->model()->queryOk()) {
+            if (in_array($this->model()->getErrorCode(), array(23000, 1062)))
+                return RestServer::throwError(Language::USER_ALREADY_TAKEN(), 400);
+            else
+                return RestServer::throwError(Language::QUERY_ERROR(), 500);
+        }
+
+        $newId = $this->model()->getLastInsertId();
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'id'       => $newId,
+            'message'   => 'Cadastro realizado!',
+            'image'     => $imageFile
+        ), 200);
+    }
+
+    public function addNewUser() {
+        $result = $this->postAddUser();
+        if ($result['status'] != 200) {
+            $this->commitAdd(
+                $this->view()->showAlert('error', 'Ops! Verifique seu cadastro', $result['message'])
+                , '#content');
+            $this->terminate();
+        }
+        $id = $result['id'];
+        $this->editUser($id);
+
+    }
+
 
 }
