@@ -26,24 +26,24 @@
     <li class="dropdown user user-menu">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <i class="glyphicon glyphicon-user"></i>
-            <span>Bruno Farias um Favor</span> <i class="caret"></i>
+            <span>{UID::get('name')}</span> <i class="caret"></i>
         </a>
         <ul class="dropdown-menu">
             <!-- User image -->
             <li class="user-header bg-orange">
-                <img src="img/avatar3.png" class="img-circle" alt="User Image" />
+                <img src="{UID::get('image')}" class="img-circle" alt="User Image" />
                 <p>
-                    Bruno Farias mal Feito
-                    <small>Grand Cheff Le Mond</small>
+                    {UID::get('name')}
+                    <small>{UID::get('email')}</small>
                 </p>
             </li>
             <!-- Menu Footer-->
             <li class="user-footer">
                 <div class="pull-left">
-                    <a href="profile.html" class="btn btn-default btn-flat">Editar perfil</a>
+                    <a href="{$smarty.const.BASEDIR}profile/viewuser?id={UID::get('id')}" changeurl class="btn btn-default btn-flat">Editar perfil</a>
                 </div>
                 <div class="pull-right">
-                    <a href="login.html" class="btn btn-default btn-flat">Sair</a>
+                    <a href="{$smarty.const.BASEDIR}home/logout" class="btn btn-default btn-flat">Sair</a>
                 </div>
             </li>
         </ul>

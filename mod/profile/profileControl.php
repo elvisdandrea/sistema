@@ -78,6 +78,18 @@ class profileControl extends Control {
             $this->commitAdd($this->view()->showAlert('error', '', 'Ocorreu um problema ao editar este perfil, contate nosso suporte.'), 'body');
             $this->terminate();
         }
+
+        $profile = $this->model()->getProfile($id);
+
+        if (intval($profile['uid']) > 0) {
+            $auth = new authControl();
+            $auth->updateUser(array(
+                'name'      => $profile['name'],
+                'email'     => $profile['email'],
+                'image'     => $profile['image']
+            ), $profile['uid']);
+        }
+
         $this->profilePage();
     }
 
@@ -130,6 +142,7 @@ class profileControl extends Control {
         return RestServer::response(array(
             'status'    => 200,
             'message'   => 'Cadastro atualizado!',
+            'id'        => $this->getId(),
             'image'     => $imageFile
         ), 200);
     }

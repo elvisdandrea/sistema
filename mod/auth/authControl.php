@@ -223,6 +223,32 @@ class authControl extends Control {
 
     }
 
+    public function updateUser(array $userData = array(), $uid = false) {
+
+        $uid || $uid = $this->getPost('uid');
+        if (count($userData) == 0) {
+            $userData = array(
+                'name'  => $this->getPost('name'),
+                'email' => $this->getPost('email'),
+                'image' => $this->getPost('image')
+            );
+        }
+
+        $this->model('auth')->updateUser($userData, $uid);
+
+        if (!$this->model('auth')->queryOk()) {
+            return RestServer::throwError(Language::QUERY_ERROR(), 500);
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'uid'       => $uid,
+            'message'   => 'User updated!'
+        ), 200);
+
+
+    }
+
 
 
 }

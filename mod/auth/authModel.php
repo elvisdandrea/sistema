@@ -70,5 +70,23 @@ class authModel extends Model {
         $this->runInsert();
     }
 
+    /**
+     * Query to update an user
+     *
+     * @param   array       $fields     - The field values
+     * @param   string      $uid        - The user Id
+     */
+    public function updateUser($fields, $uid) {
+
+        array_walk($fields, function($item, $key) {
+            $this->addUpdateSet($key, $item);
+        });
+
+        $this->setUpdateTable('users');
+        $this->addUpdateWhere('uid = "' . $uid . '"');
+        $this->runUpdate();
+    }
+
+
 
 }
