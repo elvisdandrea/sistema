@@ -117,7 +117,7 @@ class profileControl extends Control {
             if (!$imageFile) {
                 $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
             } else {
-                $clientData['image'] = $imageFile;
+                $userData['image'] = $imageFile;
             }
         }
 
