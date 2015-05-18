@@ -27,10 +27,8 @@ class clientControl extends Control {
      * Renders the client main page
      */
     public function clientPage() {
-
         $this->view()->loadTemplate('clientpage');
 
-        $search = $this->getQueryString('search');
         $page   = $this->getQueryString('page');
         $rp     = $this->getQueryString('rp');
         $search = $this->getQueryString('search');
@@ -551,5 +549,69 @@ class clientControl extends Control {
             $this->commitAdd($this->view()->showAlert('error', '', 'Email inválido'), '#content');
             $this->terminate();
         }
+    }
+
+    public function fbSearch(){
+        $postData = $this->getPost();
+        if(!empty($postData['access_token']))
+            UID::set('fb_access_token', $postData['access_token']);
+
+        if(!empty($postData['fb-search'])) {
+            $httpHandler = HttpHandler::Create('https://graph.facebook.com/search', 'GET');
+            $httpHandler->setSSL(true);
+            $httpHandler->addParam('q', $postData['fb-search']);
+            $httpHandler->addParam('type', 'user');
+            $httpHandler->addParam('access_token', UID::get('fb_access_token'));
+            $httpHandler->execute();
+            $response = $httpHandler->getContent();
+
+            $data = json_decode($response, true);
+
+            $usersData = array();
+            foreach($data['data'] as $value){
+                $usersData[] = array(
+                    'name' => $value['name'],
+                    'uid' => $value['id'],
+                    'picture' => 'https://graph.facebook.com/'.$value['id'].'/picture'
+                );
+            }
+
+            $this->view()->setVariable('data', $usersData);
+            $this->view()->loadTemplate('fbsearchtable');
+            $this->commitReplace($this->view()->render(), '#fb-matches');
+        } else {
+            $this->view()->appendJs('facebook');
+            $this->view()->loadTemplate('fbsearch');
+            $this->commitAdd($this->view()->render(), '#content');
+        }
+    }
+
+    public function fbGetUserData(){
+        $user = $this->getQueryString('user');
+        $httpHandler = HttpHandler::Create('https://graph.facebook.com/'.$user, 'GET');
+
+        $httpHandler->setSSL(true);
+        $httpHandler->addParam('access_token', UID::get('fb_access_token'));
+        $httpHandler->addParam('redirect', false);
+        $httpHandler->execute();
+        $response = $httpHandler->getContent();
+
+        $userData = json_decode($response, true);
+
+        $httpHandler->setURL('https://graph.facebook.com/v2.3/'.$user.'/picture');
+        $httpHandler->addParam('redirect', false);
+        $httpHandler->addParam('width', 640);
+        $httpHandler->execute();
+        $fileInfo = $httpHandler->getContent();
+
+        $file = file_get_contents($fileInfo['data']['url']);
+        $file = base64_encode($file);
+
+        $returnData = array(
+            'name' => $userData['name'],
+            'image' => $file
+        );
+
+        echo json_encode($returnData);
     }
 }

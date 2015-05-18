@@ -122,6 +122,39 @@ function cepSearch(cep){
     });
 }
 
+window.fbAsyncInit = function() {
+    FB.init({
+        appId      : '480497202107723',
+        xfbml      : true,
+        version    : 'v2.3'
+    });
+};
+
+(function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+
+function openFBSearch() {
+    FB.getLoginStatus(function (response) {
+        if (response.status === 'connected') {
+            $.ajax({
+                type: "POST",
+                url: "fbSearch",
+                data: {access_token: response.authResponse.accessToken},
+                success: function (data) {
+                    eval(data);
+                }
+            });
+        }
+        else {
+            FB.login();
+        }
+    });
+}
 /*Validações de telefone*/
 function mascara(o,f){
     v_obj=o
