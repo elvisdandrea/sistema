@@ -124,7 +124,8 @@ function cepSearch(cep){
 
 window.fbAsyncInit = function() {
     FB.init({
-        appId      : '480497202107723',
+        //appId      : '480497202107723',
+        appId      : '1443197789328925',
         xfbml      : true,
         version    : 'v2.3'
     });
@@ -155,27 +156,3 @@ function openFBSearch() {
         }
     });
 }
-/*Validações de telefone*/
-function mascara(o,f){
-    v_obj=o
-    v_fun=f
-    setTimeout("execmascara()",1)
-}
-function execmascara(){
-    v_obj.value=v_fun(v_obj.value)
-}
-function mtel(v){
-    v=v.replace(/\D/g,"");
-    v=v.replace(/^(\d{2})(\d)/g,"($1) $2");
-    v=v.replace(/(\d)(\d{4})$/,"$1-$2");
-    return v;
-}
-function id( el ){
-    return document.getElementById( el );
-}
-
-$(document).ready(function() {
-    id("new_client_phone").onkeypress = function(){
-        mascara( this, mtel );
-    }
-});
