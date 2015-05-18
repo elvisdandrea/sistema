@@ -40,7 +40,7 @@
             <!-- Menu Footer-->
             <li class="user-footer">
                 <div class="pull-left">
-                    <a href="{$smarty.const.BASEDIR}profile/viewuser?id={UID::get('id')}" changeurl class="btn btn-default btn-flat">Editar perfil</a>
+                    <a href="{$smarty.const.BASEDIR}profile/viewuser?id={UID::get('profile','id')}" changeurl class="btn btn-default btn-flat">Editar perfil</a>
                 </div>
                 <div class="pull-right">
                     <a href="{$smarty.const.BASEDIR}home/logout" class="btn btn-default btn-flat">Sair</a>

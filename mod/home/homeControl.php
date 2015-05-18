@@ -65,6 +65,8 @@ class homeControl extends Control {
         $this->view()->loadTemplate('home');
         $this->view()->appendJs('sidebar');
 
+
+
         if (count($uri) == 0)
             $uri = array(MAIN);
 

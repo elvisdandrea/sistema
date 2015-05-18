@@ -215,14 +215,27 @@ class authControl extends Control {
             return;
         }
 
-
-        UID::set($this->model('auth')->getRow(0));
+        $auth = $this->model('auth')->getRow(0);
+        UID::set($auth);
         UID::set('remote_address', Core::getRemoteAddress());
+
+        $profile = new profileControl();
+        $profile->model()->getProfileByUid($auth['uid']);
+        $user = $profile->model()->getRow(0);
+
+        UID::set('profile', $user);
         Html::refresh();
         $this->terminate();
 
     }
 
+    /**
+     * Rest Handler for updating user data
+     *
+     * @param   array               $userData       - The user data
+     * @param   bool                $uid            - The user UID
+     * @return  array|string
+     */
     public function updateUser(array $userData = array(), $uid = false) {
 
         $uid || $uid = $this->getPost('uid');
@@ -246,9 +259,7 @@ class authControl extends Control {
             'message'   => 'User updated!'
         ), 200);
 
-
     }
-
 
 
 }

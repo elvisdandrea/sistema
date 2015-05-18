@@ -1,15 +1,6 @@
 <div>
 <form action="{$smarty.const.BASEDIR}profile/editUser?id={$profile['id']}" changeurl="{$smarty.const.BASEDIR}profile">
 
-    <!-- Buttons (Options) -->
-    <div class="box box-solid">
-        <div class="box-body pad table-responsive">
-            <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;">Salvar alterações</button>
-            <a type="button" class="btn btn-danger" title="Excluir o usuário" href="{$smarty.const.BASEDIR}profile/removeuser"><i class="fa fa-times"></i></a>
-        </div><!-- /.box -->
-    </div><!-- /.col -->
-    <!-- /.Buttons (Options) -->
-
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
             <blockquote>
@@ -24,6 +15,15 @@
             </blockquote>
         </div><!-- /.box -->
     </div>
+
+    <!-- Buttons (Options) -->
+    <div class="box box-solid">
+        <div class="box-body pad table-responsive">
+            <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;">Salvar alterações</button>
+            <a type="button" class="btn btn-danger" title="Excluir o usuário" href="{$smarty.const.BASEDIR}profile/removeuser"><i class="fa fa-times"></i></a>
+        </div><!-- /.box -->
+    </div><!-- /.col -->
+    <!-- /.Buttons (Options) -->
 
     <div class="row">
 

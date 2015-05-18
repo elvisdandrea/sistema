@@ -59,8 +59,17 @@ class profileControl extends Control {
         $id || $id = $this->getQueryString('id');
         $this->model()->getProfile($id);
 
+        $profile = $this->model()->getRow(0);
+
+        if (intval($profile['uid']) > 0) {
+            $auth = new authControl();
+            $auth->model('auth')->getUserData($profile['uid']);
+            $user = $auth->model('auth')->getRow(0);
+            $this->view()->setVariable('user', $user);
+        }
+
         $this->view()->loadTemplate('edituser');
-        $this->view()->setVariable('profile', $this->model()->getRow(0));
+        $this->view()->setVariable('profile', $profile);
         $this->commitReplace($this->view()->render(), '#content');
         echo Html::addImageUploadAction('read64', 'profile-img');
     }
@@ -222,6 +231,56 @@ class profileControl extends Control {
         }
         $id = $result['id'];
         $this->editUser($id);
+
+    }
+
+    public function authUser() {
+
+        $username   = $this->getPost('username');
+        $email      = $this->getPost('email');
+        $passwd     = CR::encodeText($this->getPost('passwd'));
+        $name       = $this->getPost('name');
+        $uid        = $this->getQueryString('uid');
+        $id         = $this->getQueryString('id');
+
+        $auth = new authControl();
+
+        if (intval($uid) > 0) {
+            $userData = array(
+                'passwd'    => $passwd
+            );
+            $auth->model('auth')->updateUser($userData);
+            if (!$this->model()->queryOk()) {
+                if (in_array($this->model()->getErrorCode(), array(23000, 1062))) {
+                    $this->commitAdd($this->view()->showAlert('danger', 'Oh não!', 'Estes dados já estão em uso'), 'body');
+                } else {
+                    $this->commitAdd($this->view()->showAlert('danger', 'Oh não!', 'Não foi possível alterar este usuário, contate nosso suporte.'), 'body');
+                }
+            }
+        } else {
+            $userData = array(
+                'username'   => $username,
+                'email'      => $email,
+                'company_id' => UID::get('company_id'),
+                'passwd'     => $passwd,
+                'name'       => $name
+            );
+            $auth->model('auth')->insertUser($userData);
+            if (!$auth->model()->queryOk()) {
+                if (in_array($this->model()->getErrorCode(), array(23000, 1062))) {
+                    $this->commitReplace($this->view()->showAlert('danger', 'Oh não!', 'Estes dados já estão em uso'), 'body');
+                } else {
+                    $this->commitReplace($this->view()->showAlert('danger', 'Oh não!', 'Não foi possível alterar este usuário, contate nosso suporte.'), 'body');
+                }
+            } else {
+                $this->model()->updateUser(array(
+                    'uid'   => $auth->model('auth')->getLastInsertId()
+                ), $id);
+            }
+        }
+
+        $this->viewUser($id);
+        $this->commitAdd($this->view()->showAlert('success', '', 'Usuário alterado com sucesso'), 'body');
 
     }
 

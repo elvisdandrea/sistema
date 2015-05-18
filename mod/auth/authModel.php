@@ -45,7 +45,19 @@ class authModel extends Model {
      */
     public function checkLogin($user, $pass) {
 
-        $this->addField('*');
+        $this->addField('u.*');
+        $this->addField('c.company_name');
+        $this->addField('c.street_address');
+        $this->addField('c.street_number');
+        $this->addField('c.street_additional');
+        $this->addField('c.hood');
+        $this->addField('c.city');
+        $this->addField('c.phone_1');
+        $this->addField('c.phone_2');
+        $this->addField('c.cnpj');
+        $this->addField('c.logo');
+        $this->addField('c.db_connection');
+
         $this->addFrom('users u');
         $this->addFrom('inner join companies c on c.id = u.company_id');
         $this->addWhere('u.username = "' . $user . '"');
@@ -85,6 +97,20 @@ class authModel extends Model {
         $this->setUpdateTable('users');
         $this->addUpdateWhere('uid = "' . $uid . '"');
         $this->runUpdate();
+    }
+
+    /**
+     * Query to get an user data
+     *
+     * @param   $uid        - The user UID
+     */
+    public function getUserData($uid) {
+
+        $this->addField('*');
+        $this->addFrom('users');
+        $this->addWhere('uid = "' . $uid . '"');
+
+        $this->runQuery();
     }
 
 

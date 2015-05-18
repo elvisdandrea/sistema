@@ -103,6 +103,24 @@ class profileModel extends Model {
     }
 
     /**
+     * Query to return a profile
+     * by its uid
+     *
+     * @param   string      $uid        - The user UID
+     * @return  bool
+     */
+    public function getProfileByUid($uid) {
+
+        $this->addField('*');
+        $this->addFrom('profile');
+        $this->addWhere('uid = "' . $uid . '"');
+
+        $this->runQuery();
+
+        return !$this->isEmpty();
+    }
+
+    /**
      * Query to update user profile
      *
      * @param   array       $data       - The profile data
