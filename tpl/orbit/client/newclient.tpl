@@ -26,7 +26,9 @@
                             <i class="fa fa-upload"></i> Enviar uma imagem
                             <input id="read64" type="file" />
                         </div>
-                        <a class="btn btn-info" onclick="openFBSearch()">Facebook</a>
+                    </div>
+                    <div class="form-group" style="display: block; margin: 20px auto 0px; width: 150px; text-align: center;">
+                        <a class="btn btn-info" onclick="openFBSearch()">Localizar no Facebook</a>
                     </div>
                     <p class="help-block">Max. 1 MB</p>
                 </div>
