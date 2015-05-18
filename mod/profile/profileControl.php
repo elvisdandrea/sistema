@@ -174,6 +174,11 @@ class profileControl extends Control {
     }
 
 
+    /**
+     * Rest handler for adding a user profile
+     *
+     * @return array|string
+     */
     public function postAddUser() {
 
         $post = $this->getPost();
@@ -223,6 +228,9 @@ class profileControl extends Control {
         ), 200);
     }
 
+    /**
+     * Handler for adding a user profile
+     */
     public function addNewUser() {
         $result = $this->postAddUser();
         if ($result['status'] != 200) {
@@ -236,6 +244,9 @@ class profileControl extends Control {
 
     }
 
+    /**
+     * Handler for defining user authentication
+     */
     public function authUser() {
 
         $username   = $this->getPost('username');
