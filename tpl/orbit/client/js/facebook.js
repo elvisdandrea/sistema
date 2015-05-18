@@ -4,6 +4,10 @@
 
 $('#fb-search-modal').modal('show');
 
+$('#fb-search-modal').on('hidden.bs.modal', function () {
+    $('#fb-search-modal').remove();
+})
+
 function populateData(uid){
     $.ajax({
         type: "GET",
