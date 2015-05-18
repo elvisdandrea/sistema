@@ -99,10 +99,12 @@ class profileControl extends Control {
                 'image'     => $profile['image']
             ), $profile['uid']);
 
-            UID::set('image', $profile['image']);
-            $this->view()->loadTemplate('profileimg');
-            $this->view()->setVariable('profile', $profile);
-            $this->commitReplace($this->view()->render(), '#profileimg');
+            if ($profile['uid'] == UID::get('uid')) {
+                UID::set('image', $profile['image']);
+                $this->view()->loadTemplate('profileimg');
+                $this->view()->setVariable('profile', $profile);
+                $this->commitReplace($this->view()->render(), '#profileimg');
+            }
         }
 
         $this->profilePage();
@@ -249,7 +251,7 @@ class profileControl extends Control {
             $userData = array(
                 'passwd'    => $passwd
             );
-            $auth->model('auth')->updateUser($userData);
+            $auth->model('auth')->updateUser($userData, $uid);
             if (!$this->model()->queryOk()) {
                 if (in_array($this->model()->getErrorCode(), array(23000, 1062))) {
                     $this->commitAdd($this->view()->showAlert('danger', 'Oh não!', 'Estes dados já estão em uso'), 'body');
