@@ -1,66 +1,59 @@
-<!DOCTYPE HTML>
-<!--
-	Gravi Systems
-
-	Author: Elvis D'Andrea
-	E-mail: elvis@gravi.com.br
--->
+<!DOCTYPE html>
 <html>
 <head>
-    <title>Gravi - O céu não é o limite</title>
-    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-    <meta name="description" content="" />
-    <meta name="keywords" content="" />
-    <!--[if lte IE 8]><script src="{$smarty.const.T_CSSURL}/ie/html5shiv.js"></script><![endif]-->
-    <script src="{$smarty.const.JSURL}/jquery.js"></script>
-    <script src="{$smarty.const.T_JSURL}/skel.min.js"></script>
-    <script src="{$smarty.const.T_JSURL}/skel-layers.min.js"></script>
-    <script src="{$smarty.const.T_JSURL}/init.js"></script>
-    <noscript>
-        <link rel="stylesheet" href="{$smarty.const.T_CSSURL}/skel.css" />
-        <link rel="stylesheet" href="{$smarty.const.T_CSSURL}/style.css" />
-        <link rel="stylesheet" href="{$smarty.const.T_CSSURL}/style-desktop.css" />
-        <link rel="stylesheet" href="{$smarty.const.T_CSSURL}/style-wide.css" />
-    </noscript>
-    <!--[if lte IE 8]><link rel="stylesheet" href="{$smarty.const.T_CSSURL}/ie/v8.css" /><![endif]-->
+    <meta charset="UTF-8">
+    <title>Orbit | Gravi</title>
+    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+    <link href="{$smarty.const.T_CSSURL}/bootstrap.css" rel="stylesheet" type="text/css" />
+    <link href="{$smarty.const.T_CSSURL}/font-awesome.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$smarty.const.T_CSSURL}/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$smarty.const.T_CSSURL}/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
+    <link href="{$smarty.const.T_CSSURL}/Main.css" rel="stylesheet" type="text/css" />
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
 </head>
-<body class="left-sidebar">
+<body class="skin-login">
 
-<!-- Wrapper -->
-<div id="wrapper">
-
-    <!-- Content -->
-    <div id="content">
-        <div class="inner">
-
-            <article class="box post post-excerpt">
-                <header>
-                    <h2>Login</h2>
-
-                    <form method="post" action="{$smarty.const.BASEDIR}auth/login">
-                        <p><label for="user">Login:</label><input type="text" id="user" name="user" /></p>
-                        <p><label for="pass">Senha:</label><input type="password" id="pass" name="pass" /></p>
-                        <p><input type="submit" id="login" value="Login" /></p>
-                    </form>
-                    <div id="msgbox"></div>
-                </header>
-            </article>
-
-        </div>
+<div class="form-box" id="login-box">
+    <div class="header">
+        <img src="{$smarty.const.T_IMGURL}/logo2.png" alt="Orbit | Gravi" />
     </div>
+    <form action="{$smarty.const.BASEDIR}auth/login" method="post">
+        <div class="body bg-gray">
+            <h4 class="text-center">Bem-vindo ao Orbit. Acesse sua conta.</h4>
+            <div class="form-group">
+                <input type="text" name="user" class="form-control" placeholder="Usuário"/>
+            </div>
+            <div class="form-group">
+                <input type="password" name="pass" class="form-control" placeholder="Senha"/>
+            </div>
+            <p><a href="#">Esqueci minha senha</a></p>
+        </div>
+        <div class="footer">
+            <div class="form-group" style="margin-top:0">
+                <input type="checkbox" name="remember_me"/> Mantenha-me conectado
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Acessar</button>
 
+            <hr />
 
-        <!-- Copyright -->
-        <ul id="copyright">
-            <li>&copy; GRAVI Systems.</li><li><a href="http://gravi.com.br">GRAVI</a></li>
-        </ul>
-
-
-
+            Se ainda não é cadastrado, <a href="register.html" class="text-center">clique aqui</a>.
+            <br /><br />
+        </div>
+    </form>
 </div>
+
+<!-- jQuery 2.0.2 -->
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+<!-- Bootstrap -->
 <script src="{$smarty.const.JSURL}/md5.js"></script>
 <script src="{$smarty.const.JSURL}/html.js"></script>
 <script src="{$smarty.const.JSURL}/main.js"></script>
+<script src="{$smarty.const.T_JSURL}/bootstrap.min.js" type="text/javascript"></script>
+
 
 </body>
 </html>
