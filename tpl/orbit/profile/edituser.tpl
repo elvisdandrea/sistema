@@ -10,7 +10,7 @@
                 {else}
                     <p data-id="totalprice">Este usuário está ativo no sistema: </p>
                     <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;" data-toggle="modal" data-target="#compose-modal">Alterar senha</button>
-                    <button type="submit" class="btn btn-danger" title="Salvar" style="width:150px;">Desativar este usuário</button>
+                    <a href="{$smarty.const.BASEDIR}profile/deactivate?uid={$profile['uid']}" class="btn btn-danger" title="Eliminar o login" style="width:150px;">Desativar este usuário</a>
                 {/if}
             </blockquote>
         </div><!-- /.box -->

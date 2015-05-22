@@ -806,11 +806,12 @@ class requestControl extends Control {
             $weight   = UID::get( 'requests', $this->request_id, 'plates', $plate_id, $id, 'weight');
             $curprice = UID::get( 'requests', $this->request_id, 'plates', $plate_id, $id, 'price');
             $newValue = $weight - $amount;
+            if ($newValue <= 0) return;
             $this->model()->selectProductForRequest($id);
             $item          = $this->model()->getRow(0);
             $curTotalprice = UID::get( 'requests', $this->request_id, 'price');
             $newTotalPrice = $curTotalprice - $item['price'];
-            $newPrice      = $curprice + $item['price'];
+            $newPrice      = $curprice - $item['price'];
             UID::set('requests', $this->request_id, 'price', $newTotalPrice);
             UID::set('requests', $this->request_id, 'plates', $plate_id, $id, 'weight', $newValue);
             UID::set('requests', $this->request_id, 'plates', $plate_id, $id, 'price',  $newPrice);
