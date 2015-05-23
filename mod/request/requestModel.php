@@ -468,6 +468,48 @@ class requestModel extends Model {
     }
 
     /**
+     * Query that returns a request status
+     *
+     * @param   string          $id     - The request Id
+     * @return  bool|string
+     */
+    public function getReqestStatus($id) {
+
+        $this->addField('r.deliver_status');
+        $this->addFrom('requests r');
+        $this->addWhere('r.id = "' . $id . '"');
+
+        $this->runQuery();
+
+        if ($this->isEmpty()) return false;
+        $result = $this->getRow(0);
+
+        return $result['deliver_status'];
+
+    }
+
+    /**
+     * Saves the request status change time
+     *
+     * @param   string      $id             - The request Id
+     * @param   array       $changeData     - An array: from_status, to_status
+     */
+    public function saveStatusChangeTime($id, $changeData) {
+
+        array_walk($changeData, function($value, $field) {
+            $this->addInsertSet($field, $value);
+        });
+
+        $this->addInsertSet('request_id', $id);
+        $this->addInsertSet('change_time', 'now()', false);
+
+        $this->setInsertTable('request_status_change');
+
+        $this->runInsert();
+
+    }
+
+    /**
      * Query that returns a specific client address
      *
      * @param   $id

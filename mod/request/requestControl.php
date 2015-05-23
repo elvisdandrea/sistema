@@ -595,12 +595,23 @@ class requestControl extends Control {
         if (!isset($requestData['id']))
             return RestServer::throwError('Você deve informar o Id', 400);
 
+        if (!isset($requestData['deliver_status']))
+            return RestServer::throwError('Você deve informar o novo status', 400);
+
         $id = $requestData['id'];
         unset($requestData['id']);
 
+        $from_status = $this->model()->getReqestStatus($id);
+        $to_status   = $requestData['deliver_status'];
+
+        if (!$from_status)
+            return RestServer::throwError('O pedido #' . $id . 'não foi encontrado', 400);
 
         $this->model()->updateRequest($id, $requestData);
-        $this->model()->setStatusChange();
+        $this->model()->saveStatusChangeTime($id, array(
+            'from_status'   => $from_status,
+            'to_status'     => $to_status
+        ));
 
         return RestServer::response(array('status' => 200));
 
