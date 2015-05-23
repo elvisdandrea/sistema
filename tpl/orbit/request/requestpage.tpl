@@ -24,16 +24,16 @@
                     <div class="small-box bg-aqua">
                         <div class="inner">
                             <h3>
-                                {$totalRequest}
+                                {$onRoadRequests}
                             </h3>
                             <p>
-                                Pedidos realizados
+                                Pedidos Em Andamento
                             </p>
                         </div>
                         <div class="icon">
                             <i class="fa fa-bullhorn"></i>
                         </div>
-                        <a href="{$smarty.const.BASEDIR}request" class="small-box-footer"  changeurl >
+                        <a href="{$smarty.const.BASEDIR}request?status=2" class="small-box-footer"  changeurl >
                             Veja todos os pedidos <i class="fa fa-arrow-circle-down"></i>
                         </a>
                     </div>

@@ -77,11 +77,14 @@ class requestControl extends Control {
         intval($rp) > 0 || $rp = 10;
 
         $countRequests   = $this->model()->countRequests($dateFrom, $dateTo, $status, $client_id, $search);
-        $onRoadRequests  = $this->model()->countRequests($dateFrom, $dateTo, '2', $client_id, $search);
-        $pendingRequests = $this->model()->getTotalPendingRequests($dateFrom, $dateTo, $client_id, $search);
+
+        $onRoadRequests  = $this->model()->countRequests($dateFrom, $dateTo, '2', $client_id, null);        // Caso deva considerar a pesquisa, incluir $search
+        $pendingRequests = $this->model()->getTotalPendingRequests($dateFrom, $dateTo, $client_id, null);
+
         $totalPrice      = $this->model()->getTotalPriceRequests($dateFrom, $dateTo, $status, $client_id, $search);
 
         $this->view()->setVariable('totalRequest',    $countRequests);
+        $this->view()->setVariable('onRoadRequests',  $onRoadRequests);
         $this->view()->setVariable('pendingRequests', $pendingRequests);
         $this->view()->setVariable('totalPrice',      String::convertTextFormat($totalPrice, 'currency'));
         $this->view()->setVariable('search',          $search);
@@ -597,6 +600,7 @@ class requestControl extends Control {
 
 
         $this->model()->updateRequest($id, $requestData);
+        $this->model()->setStatusChange();
 
         return RestServer::response(array('status' => 200));
 

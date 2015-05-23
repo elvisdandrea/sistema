@@ -2,6 +2,8 @@
     {if ($row['status_name']) == 'Novo pedido'}
         label-warning
     {elseif ($row['status_name']) == 'Em andamento'}
+        label-info
+    {elseif ($row['status_name']) == 'Finalizado'}
         label-primary
     {elseif ($row['status_name']) == 'Entregue'}
         label-success
@@ -14,6 +16,8 @@
         <i class="fa fa-star"></i>
     {elseif ($row['status_name']) == 'Em andamento'}
         <i class="fa fa-magic"></i>
+    {elseif ($row['status_name']) == 'Finalizado'}
+        <i class="fa fa-check-square-o"></i>
     {elseif ($row['status_name']) == 'Entregue'}
         <i class="fa fa-thumbs-o-up"></i>
     {elseif ($row['status_name']) == 'Cancelado'}
@@ -25,11 +29,9 @@
     <li>
         <a href="{$smarty.const.BASEDIR}request/setstatus?id={$row['id']}&status=2&table={$id}&index={$index}&field={str_replace(array('/','.'),'_',$field)}" class="text-aqua"><i class="fa fa-magic"></i>Em andamento</a>
     </li>
-    <!--
     <li>
-        <a href="#" class="text-blue"><i class="fa fa-check-square-o"></i> Finalizado</a>
+        <a href="{$smarty.const.BASEDIR}request/setstatus?id={$row['id']}&status=5&table={$id}&index={$index}&field={str_replace(array('/','.'),'_',$field)}" class="text-blue"><i class="fa fa-check-square-o"></i> Finalizado</a>
     </li>
-    -->
     <li>
         <a href="{$smarty.const.BASEDIR}request/setstatus?id={$row['id']}&status=3&table={$id}&index={$index}&field={str_replace(array('/','.'),'_',$field)}" class="text-green"><i class="fa fa-thumbs-o-up"></i>Entregue</a>
     </li>

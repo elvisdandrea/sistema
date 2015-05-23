@@ -110,8 +110,11 @@ class requestModel extends Model {
         if ($client_id)
             $this->addWhere('r.client_id = "' . $client_id . '"');
 
-        if ($search)
+        if ($search) {
+            $this->addFrom('left join clients c on c.id = r.client_id');
+            $this->addFrom('left join delivery_status s on s.id = r.deliver_status');
             $this->addWhere($this->mountSearchString($search));
+        }
 
 
         $this->runQuery();
@@ -144,8 +147,11 @@ class requestModel extends Model {
         if ($client_id)
             $this->addWhere('r.client_id = "' . $client_id . '"');
 
-        if ($search)
+        if ($search) {
+            $this->addFrom('left join clients c on c.id = r.client_id');
+            $this->addFrom('left join delivery_status s on s.id = r.deliver_status');
             $this->addWhere($this->mountSearchString($search));
+        }
 
         $this->runQuery();
 
@@ -170,8 +176,11 @@ class requestModel extends Model {
         if ($client_id)
             $this->addWhere('r.client_id = "' . $client_id . '"');
 
-        if ($search)
+        if ($search) {
+            $this->addFrom('left join clients c on c.id = r.client_id');
+            $this->addFrom('left join delivery_status s on s.id = r.deliver_status');
             $this->addWhere($this->mountSearchString($search));
+        }
 
         $this->runQuery();
 
@@ -568,7 +577,7 @@ class requestModel extends Model {
     public function getStatusName($id) {
         //TODO: fazer por query
         $status = array(
-            '', 'Novo pedido', 'Em andamento', 'Entregue', 'Cancelado'
+            '', 'Novo pedido', 'Em andamento', 'Entregue', 'Cancelado', 'Finalizado'
         );
 
         if (isset($status[$id])) return $status[$id];

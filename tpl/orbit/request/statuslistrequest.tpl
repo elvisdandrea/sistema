@@ -3,6 +3,8 @@
         btn-warning
     {elseif ($request['status_name']) == 'Em andamento'}
         btn-primary
+    {elseif ($request['status_name']) == 'Finalizado'}
+        btn-facebook
     {elseif ($request['status_name']) == 'Entregue'}
         btn-success
     {elseif ($request['status_name']) == 'Cancelado'}
@@ -14,6 +16,8 @@
         <i class="fa fa-star"></i>
     {elseif ($request['status_name']) == 'Em andamento'}
         <i class="fa fa-magic"></i>
+    {elseif ($request['status_name']) == 'Finalizado'}
+        <i class="fa fa-check-square-o"></i>
     {elseif ($request['status_name']) == 'Entregue'}
         <i class="fa fa-thumbs-o-up"></i>
     {elseif ($request['status_name']) == 'Cancelado'}
@@ -25,11 +29,9 @@
     <li>
         <a href="{$smarty.const.BASEDIR}request/setstatus?id={$request['id']}&status=2" class="text-aqua"><i class="fa fa-magic"></i>Em andamento</a>
     </li>
-    <!--
     <li>
-        <a href="#" class="text-blue"><i class="fa fa-check-square-o"></i> Finalizado</a>
+        <a href="{$smarty.const.BASEDIR}request/setstatus?id={$request['id']}&status=5" class="text-blue"><i class="fa fa-check-square-o"></i> Finalizado</a>
     </li>
-    -->
     <li>
         <a href="{$smarty.const.BASEDIR}request/setstatus?id={$request['id']}&status=3" class="text-green"><i class="fa fa-thumbs-o-up"></i>Entregue</a>
     </li>
