@@ -77,6 +77,7 @@ class requestControl extends Control {
         intval($rp) > 0 || $rp = 10;
 
         $countRequests   = $this->model()->countRequests($dateFrom, $dateTo, $status, $client_id, $search);
+        $onRoadRequests  = $this->model()->countRequests($dateFrom, $dateTo, '2', $client_id, $search);
         $pendingRequests = $this->model()->getTotalPendingRequests($dateFrom, $dateTo, $client_id, $search);
         $totalPrice      = $this->model()->getTotalPriceRequests($dateFrom, $dateTo, $status, $client_id, $search);
 

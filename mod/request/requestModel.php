@@ -93,7 +93,8 @@ class requestModel extends Model {
      * @param   bool|string     $dateFrom       - Which date from
      * @param   bool|string     $dateTo         - Which date to
      * @param   bool|string     $status         - Which status
-     * @param   bool|string     $client_id
+     * @param   bool|string     $client_id      - If it's request of a client
+     * @param   bool|string     $search         - String Search based
      */
     public function countRequests($dateFrom, $dateTo, $status = false, $client_id = false, $search = false) {
 

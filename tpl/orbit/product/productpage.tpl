@@ -6,8 +6,6 @@
         </div><!-- /.box -->
     </div><!-- /.col -->
 
-    {include "product/productinfo.tpl"}
-
 </div><!-- ./row -->
 
 <div class="col-md-12">
