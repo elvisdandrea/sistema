@@ -6,11 +6,12 @@ $("#zip_code").blur(function() {
 });
 
 $('#new_client_phone').blur(function(){
-    var phoneNumber = $('#new_client_phone').val();
+    var phoneNumber = $(this).val();
+    var url = $(this).attr('data-url');
     if(phoneNumber != '') {
         $.ajax({
             type: "POST",
-            url: "checkPhoneExists",
+            url: url,
             data: {phone_number: phoneNumber},
             success: function (data) {
                 eval(data);
@@ -22,11 +23,12 @@ $('#new_client_phone').blur(function(){
 $('[name="cpf_cnpj"]').blur(function() {
     var entityType = $('[name="client_type"]:checked').val();
     var cpfCnpj = $(this).val();
+    var url = $(this).attr('data-url');
 
     if(entityType != 'J')
-        var url = "validateCpf";
+        url += "validateCpf";
     else
-        var url = "validateCnpj";
+        url += "validateCnpj";
 
     if(cpfCnpj != '') {
         $.ajax({
@@ -54,7 +56,12 @@ $('[name="email"]').blur(function() {
     }
 });
 
-$('[name="client_type"]').change(function(){
+$("input[type='checkbox'], input[type='radio']").iCheck({
+    checkboxClass: 'icheckbox_minimal',
+    radioClass: 'iradio_minimal',
+});
+
+$('[name="client_type"]').on('ifChecked', function(event){
     var data = $(this).val();
     if(data == 'F'){
         removeLegalEntityInputs();
@@ -109,11 +116,8 @@ function cepSearch(cep){
             else{
                 $('#zip_code').val(data.cep);
                 $('#street_addr').val(data.logradouro);
-                $('#street_addr_label').val(data.logradouro);
                 $('#hood').val(data.bairro);
-                $('#hood_label').val(data.bairro);
                 $('#city').val(data.localidade);
-                $('#city_label').val(data.localidade);
             }
         },
         error: function(){

@@ -70,7 +70,7 @@
                             </div>
                             <div class="form-group col-xs-6">
                                 <label id="cpf_cnpj">{if $isPessoaFisica}CPF:{else}CNPJ:{/if}</label>
-                                <input type="text" class="form-control" name="cpf_cnpj" value="{$client['cpf_cnpj']}" />
+                                <input type="text" class="form-control" name="cpf_cnpj" value="{$client['cpf_cnpj']}" data-url="{$smarty.const.BASEDIR}client/" />
                             </div>
                             <div class="form-group col-xs-6">
                                 <label>E-mail:</label>
@@ -147,11 +147,18 @@
                         <div class="half-width">
                             <div class="form-group col-xs-12">
                                 <label>Tipo: </label>
-                                <input type="text" name="phone_type">
+                                <select class="form-control" name="phone_type">
+                                    <option value="Residencial">Residencial</option>
+                                    <option value="Comercial">Comercial</option>
+                                    <option value="Celular">Celular</option>
+                                    <option value="Recado">Recado</option>
+                                    <option value="Whatsapp">Whatsapp</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
                             </div>
                             <div class="form-group col-xs-12">
                                 <label>Numero: </label>
-                                <input type="text" name="phone_number">
+                                <input type="text" name="phone_number" data-url="{$smarty.const.BASEDIR}client/checkPhoneExists">
                             </div>
                             <div class="form-group col-xs-6">
                                 <input class="btn btn-success" type="submit" value="Salvar" />
@@ -213,7 +220,11 @@
                         <form action="{$smarty.const.BASEDIR}client/addClientAddr?id={$client['id']}">
                             <div class="form-group col-xs-6">
                                 <label>Tipo: </label>
-                                <input type="text" name="address_type">
+                                <select name="address_type">
+                                    <option value="Residencial">Residencial</option>
+                                    <option value="Comercial">Comercial</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
                             </div>
                             <div class="form-group col-xs-6">
                                 <label>CEP: </label>
@@ -221,18 +232,15 @@
                             </div>
                             <div class="form-group col-xs-6">
                                 <label>Rua: </label>
-                                <input type="hidden" name="street_addr" id="street_addr">
-                                <input type="text" disabled id="street_addr_label">
+                                <input type="text" name="street_addr" id="street_addr">
                             </div>
                             <div class="form-group col-xs-6">
                                 <label>Bairro: </label>
-                                <input type="hidden" name="hood" id="hood">
-                                <input type="text" disabled id="hood_label">
+                                <input type="text" name="hood" id="hood">
                             </div>
                             <div class="form-group col-xs-6">
                                 <label>Cidade: </label>
-                                <input type="hidden" name="city" id="city">
-                                <input type="text" disabled id="city_label">
+                                <input type="text" name="city" id="city">
                             </div>
                             <div class="form-group col-xs-6">
                                 <label>Numero: </label>

@@ -45,11 +45,18 @@
                     <div class="half-width col-xs-9">
                         <div class="form-group col-xs-6">
                             <label>Tipo: </label>
-                            <input type="text" class="form-control" name="phone_type">
+                            <select class="form-control" name="phone_type">
+                                <option value="Residencial">Residencial</option>
+                                <option value="Comercial">Comercial</option>
+                                <option value="Celular">Celular</option>
+                                <option value="Recado">Recado</option>
+                                <option value="Whatsapp">Whatsapp</option>
+                                <option value="Outro">Outro</option>
+                            </select>
                         </div>
                         <div class="form-group col-xs-6">
                             <label id="label_phone">Numero: </label>
-                            <input id="new_client_phone" type="text" class="form-control" name="phone_number">
+                            <input id="new_client_phone" type="text" class="form-control" name="phone_number" data-url="{$smarty.const.BASEDIR}client/checkPhoneExists">
                         </div>
                     </div>
                 </div>
@@ -90,7 +97,7 @@
                         </div>
                         <div class="form-group col-xs-6">
                             <label id="cpf_cnpj">CPF:</label>
-                            <input type="text" class="form-control" name="cpf_cnpj" />
+                            <input type="text" class="form-control" name="cpf_cnpj" data-url="{$smarty.const.BASEDIR}client/" />
                         </div>
                         <div class="form-group col-xs-6">
                             <label>E-mail:</label>
@@ -138,7 +145,11 @@
                         <form action="{$smarty.const.BASEDIR}client/addClientAddr?id={$client['id']}">
                             <div class="form-group col-xs-6">
                                 <label>Tipo: </label>
-                                <input type="text" class="form-control" name="address_type">
+                                <select class="form-control" name="address_type">
+                                    <option value="Residencial">Residencial</option>
+                                    <option value="Comercial">Comercial</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
                             </div>
                             <div class="form-group col-xs-6">
                                 <label>CEP: </label>
@@ -146,18 +157,15 @@
                             </div>
                             <div class="form-group col-xs-6">
                                 <label>Rua: </label>
-                                <input type="hidden" name="street_addr" id="street_addr">
-                                <input type="text" class="form-control" disabled id="street_addr_label">
+                                <input type="text" class="form-control" name="street_addr" id="street_addr">
                             </div>
                             <div class="form-group col-xs-6">
                                 <label>Bairro: </label>
-                                <input type="hidden" name="hood" id="hood">
-                                <input type="text" class="form-control" disabled id="hood_label">
+                                <input type="text" class="form-control" name="hood" id="hood">
                             </div>
                             <div class="form-group col-xs-6">
                                 <label>Cidade: </label>
-                                <input type="hidden" name="city" id="city">
-                                <input type="text" class="form-control" disabled id="city_label">
+                                <input type="text" class="form-control" name="city" id="city">
                             </div>
                             <div class="form-group col-xs-6">
                                 <label>Numero: </label>

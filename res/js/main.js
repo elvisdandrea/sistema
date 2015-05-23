@@ -70,7 +70,7 @@ Main.prototype = {
             if ($(this).attr('action') == undefined) return false;
 
             data = [];
-            $(this).find('input[type="hidden"][name],input[type][name]:not("[type=password]"),select[name],textarea[name]').each(function(e){
+            $(this).find('input[type="hidden"][name],input[type][name]:not("[type=password]"):not("[type=radio]"),select[name],textarea[name]').each(function(e){
                 var value = $(this).val();
                 if ($(this).attr('data-id') != undefined) value = $(this).attr('data-id');
                 if ($(this).attr('format') == 'currency') value = $(this).maskMoney('unmasked')[0];
@@ -78,6 +78,10 @@ Main.prototype = {
             });
             $(this).find('input[type="password"]').each(function(){
                 data.push($(this).attr('name')+'='+md5($(this).val()));
+            });
+
+            $(this).find('input[type="radio"]:checked').each(function(){
+                data.push($(this).attr('name')+'='+$(this).val());
             });
 
             $(this).find('img[type="upload"]').each(function(){
