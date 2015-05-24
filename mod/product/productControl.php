@@ -80,8 +80,6 @@ class productControl extends Control {
         $this->view()->appendJs('category');
         $this->view()->appendJs('product');
         $this->commitReplace($this->view()->render(), '#content');
-
-        echo Html::addImageUploadAction('read64', 'product-img');
     }
 
     /**
@@ -95,7 +93,7 @@ class productControl extends Control {
         $selected = $this->getQueryString('selected');
         if ($selected) $this->view()->setVariable('selected', $selected);
         $this->view()->setVariable('facts', $this->model('auth')->getRows());
-        $this->commitPrint($this->view()->render());
+        #$this->commitPrint($this->view()->render());
     }
 
     /**
@@ -265,10 +263,6 @@ class productControl extends Control {
         $this->view()->appendJs('product');
 
         $this->commitReplace($this->view()->render(), '#content');
-
-        echo Html::addImageUploadAction('read64', 'product-img');
-        if (intval($product['product_fact']) > 0)
-            $this->loadNutrictionFacts($product['product_fact']);
     }
 
     /**

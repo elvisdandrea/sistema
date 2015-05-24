@@ -82,6 +82,8 @@ class homeControl extends Control {
         $this->view()->loadTemplate('keepalive');
         echo $this->view()->render(true, false);
 
+        echo Core::getController()->view()->injectJSFiles();
+
         $this->terminate();
     }
 

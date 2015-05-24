@@ -103,7 +103,7 @@ class View {
      *
      * @return string
      */
-    private function injectJSFiles() {
+    public function injectJSFiles() {
         if (count($this->jsFiles) == 0) return '';
 
         $result = array();
@@ -129,6 +129,7 @@ class View {
     public function appendJs($jsFile) {
 
         $this->jsFiles[] = $jsFile;
+
     }
 
     /**
@@ -280,7 +281,7 @@ class View {
                 if    (Core::isAjax()) echo $setTitle;
             }
 
-            return $this->smarty->$method($this->template) . (count($this->jsFiles) > 0 ? $this->injectJSFiles() : '');
+            return $this->smarty->$method($this->template) . (Core::isAjax() && count($this->jsFiles) > 0 ? $this->injectJSFiles() : '');
         } catch (Exception $e) {
             echo Html::ReplaceHtml(ExceptionHandler::throwException(array(
                 'message'  => $e->getMessage(),

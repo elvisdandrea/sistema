@@ -87,6 +87,13 @@ class core {
     private static $remote_address;
 
     /**
+     * A module container
+     *
+     * @var
+     */
+    private static $container;
+
+    /**
      * The constructor
      *
      * It loads the core requirements
@@ -120,6 +127,39 @@ class core {
     public function __get($name) {
 
         return self::getServerInfo(strtoupper($name));
+    }
+
+    /**
+     * Retrives from object container
+     *
+     * @param   string      $object     - The object name
+     * @return  object
+     */
+    public static function Container($object) {
+        if (!isset(self::$container[$object])) return (object) array();
+
+        return self::$container[$object];
+    }
+
+    /**
+     * Stores an object into container
+     *
+     * @param   string        $name       - The object name
+     * @param   stdClass      $object     - The object itself
+     */
+    public static function setContainer($name, stdClass $object) {
+
+        self::$container[$name] =& $object;
+    }
+
+    /**
+     * Returns the current working controller
+     *
+     * @return mixed
+     */
+    public static function getController() {
+
+        return self::$static_controller;
     }
 
     /**

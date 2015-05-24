@@ -70,8 +70,8 @@ class profileControl extends Control {
 
         $this->view()->loadTemplate('edituser');
         $this->view()->setVariable('profile', $profile);
+        $this->view()->appendJs('profile');
         $this->commitReplace($this->view()->render(), '#content');
-        echo Html::addImageUploadAction('read64', 'profile-img');
     }
 
     /**
