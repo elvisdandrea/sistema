@@ -105,11 +105,6 @@ $(function() {
 
     //Fix the fixed layout sidebar scroll bug
     fix_sidebar();
-
-    $("input[type='checkbox'], input[type='radio']").iCheck({
-        checkboxClass: 'icheckbox_minimal',
-        radioClass: 'iradio_minimal'
-    });
 });
 function fix_sidebar() {
     //Make sure the body tag has the .fixed class
