@@ -70,6 +70,17 @@ $('[name="client_type"]').on('ifChecked', function(event){
     }
 });
 
+$('[name="main_addr"]').on('ifChecked', function(event){
+    url = $(this).attr('data-url');
+    $.ajax({
+        type: "GET",
+        url: url,
+        success: function (data) {
+            eval(data);
+        }
+    });
+});
+
 function removeLegalEntityInputs(){
     $("#legal_entity").hide();
     $(".legal_entity_field").prop('disabled', true);
@@ -101,7 +112,7 @@ $('#new_phone').click(function(){
 
 $('#cancel_phone').click(function(){
     $('#phone_list').show();
-        $('#new_phone_form').hide();
+    $('#new_phone_form').hide();
 });
 
 function cepSearch(cep){
@@ -160,3 +171,5 @@ function openFBSearch() {
         }
     });
 }
+
+Main.imageAction('read64', 'client-img');

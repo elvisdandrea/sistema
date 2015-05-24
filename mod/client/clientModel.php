@@ -123,6 +123,7 @@ class clientModel extends Model {
         $this->addField('cdr.hood');
         $this->addField('cdr.city');
         $this->addField('cdr.zip_code');
+        $this->addField('cdr.addr_main');
 
         $this->addFrom('client_addr cdr');
         $this->addWhere('cdr.client_id = "' . $id .'"');
@@ -181,5 +182,21 @@ class clientModel extends Model {
         $this->addFrom('client_phone cph');
         $this->addWhere('cph.phone_number = "' . $phoneNumber .'"');
         $this->runQuery();
+    }
+
+    public function changeClientMainAddr($id, $clientId){
+        $this->addUpdateSet('addr_main', '0');
+
+        $this->setUpdateTable('client_addr');
+        $this->addUpdateWhere('id != "' . $id . '"');
+        $this->addUpdateWhere('client_id = "' . $clientId . '"');
+
+        $this->runUpdate();
+
+        $this->addUpdateSet('addr_main', '1');
+        $this->setUpdateTable('client_addr');
+        $this->addUpdateWhere('id = "' . $id . '"');
+
+        $this->runUpdate();
     }
 }
