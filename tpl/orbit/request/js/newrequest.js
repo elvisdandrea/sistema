@@ -11,3 +11,8 @@ $('#datetimepicker').datetimepicker({
 
 var date = new Date();
 $('#delivery-date').val(date.toLocaleString());
+
+$(document).on('mouseup', 'a[data-focus]', function(){
+    $('#' + $(this).attr('data-focus')).val('');
+    $('#' + $(this).attr('data-focus')).focus();
+});
