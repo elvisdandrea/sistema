@@ -191,6 +191,7 @@
                 <th>Bairro</th>
                 <th>Cidade</th>
                 <th>Cep</th>
+                <th>Endereço principal</th>
                 <th></th>
                 </thead>
                 <tbody>
@@ -205,6 +206,9 @@
                         <td>{$value['hood']}</td>
                         <td>{$value['city']}</td>
                         <td>{$value['zip_code']}</td>
+                        <td>
+                            <input type="radio" name="main_addr" data-url="{$smarty.const.BASEDIR}client/changeClientMainAddr?id={$client['id']}&addr_id={$value['id']}" {if ($value['addr_main'])}checked{/if}>
+                        </td>
                         <td>
                             <a href="{$smarty.const.BASEDIR}client/removeAddr?id={$client['id']}&addr_id={$value['id']}" class="btn btn-danger"><i class="fa fa-times"></i></a>
                         </td>

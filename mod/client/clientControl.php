@@ -64,7 +64,6 @@ class clientControl extends Control {
         $this->view()->appendJs('client');
         $this->view()->appendJs('/client');
         $this->commitReplace($this->view()->render(), '#content');
-        echo Html::addImageUploadAction('read64', 'client-img');
     }
 
     /**
@@ -79,7 +78,7 @@ class clientControl extends Control {
             $this->terminate();
         }
         $clientId = $status['uid'];
-        $this->viewClient($clientId);
+        echo Html::redirect(BASEDIR . 'request/newrequest/client_id=' . $clientId);
     }
 
     /**
@@ -123,6 +122,7 @@ class clientControl extends Control {
             'city'              => $post['city'],
             'street_number'     => $post['street_number'],
             'street_additional' => $post['street_additional'],
+            'addr_main'           => 1
         );
 
         $validation = $this->validatePhone($phoneData);
@@ -237,7 +237,6 @@ class clientControl extends Control {
         $this->view()->setVariable('phoneList', $phoneList);
 
         $this->commitReplace($this->view()->render(), '#content');
-        echo Html::addImageUploadAction('read64', 'client-img');
     }
 
     /**
@@ -337,6 +336,7 @@ class clientControl extends Control {
             'city'              => $post['city'],
             'street_number'     => $post['street_number'],
             'street_additional' => $post['street_additional'],
+            'addr_main'         => '0'
         );
 
         $this->model()->addClientAddress($userData, $this->getId());
@@ -604,5 +604,13 @@ class clientControl extends Control {
         );
 
         echo json_encode($returnData);
+    }
+
+    public function changeClientMainAddr(){
+        $addr_id = $this->getQueryString('addr_id');
+        $client_id = $this->getQueryString('id');
+        $this->model()->changeClientMainAddr($addr_id, $client_id);
+
+        $this->viewClient();
     }
 }
