@@ -55,8 +55,26 @@ class Html {
      * @return  string
      */
     public static function ReplaceHtml($html, $block) {
+        if (Core::isAjax())
+            return 'Html.Replace(\'' . String::BuildStringNewLines(String::AddSQSlashes($html)) . '\',\'' . $block . '\');';
+    }
 
-        return 'Html.Replace(\'' . String::BuildStringNewLines(String::AddSQSlashes($html)) . '\',\'' . $block . '\');';
+    /**
+     * Returns the function to dynamically
+     * replace some HTML on screen
+     *
+     * This one will wrap the function in script tag
+     * in case we're not in ajax request
+     *
+     * @param   string      $html       - The inner HTML to be rendered
+     * @param   string      $block      - The element to contain the HTML
+     * @return  string
+     */
+    public static function renderHtml($html, $block) {
+        if (Core::isAjax())
+            return 'Html.Replace(\'' . String::BuildStringNewLines(String::AddSQSlashes($html)) . '\',\'' . $block . '\');';
+
+        return '<script>Html.Replace(\'' . String::BuildStringNewLines(String::AddSQSlashes($html)) . '\',\'' . $block . '\');</script>';
     }
 
     /**

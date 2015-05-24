@@ -312,15 +312,20 @@ class Control {
     }
 
     /**
-     * Renders a HTML onto screen
+     * Renders an HTML replacing
+     * the content of an element
      *
-     * Still to be implemented
+     * this funtion will wrap the result
+     * in script tag in case we're not in ajax request
      *
-     * @param $html
+     * @param   string      $html       - The HTML
+     * @param   string      $block      - The element to render
+     * @param   bool        $stay       - If it should not finish execution after rendering
      */
-    protected function commitPrint($html) {
-        echo $html;
-        $this->terminate();
+    protected function commitPrint($html, $block, $stay = true) {
+
+        echo Html::renderHtml($html, $block);
+        $stay || $this->terminate();
     }
 
     /**

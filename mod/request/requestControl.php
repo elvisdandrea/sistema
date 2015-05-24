@@ -141,6 +141,20 @@ class requestControl extends Control {
      */
     public function newRequest() {
 
+        $client_id = $this->getQueryString('client_id');
+        if ($client_id) {
+            $this->newView('client');
+            UID::set('requests', $this->request_id, 'client_id', $client_id);
+            $this->model()->selClientForRequest($client_id);
+            $this->commitReplace('', '#client-results');
+            $this->view('client')->loadTemplate('clientprofile');
+            $this->view('client')->setVariable('client', $this->model()->getRow(0));
+            $this->model()->getAddress($client_id);
+            $this->view('client')->setVariable('request_id', $this->request_id);
+            $this->view('client')->setVariable('addressList', $this->model()->getRows());
+            $this->view()->setVariable('client', $this->view('client')->render());
+        }
+
         $this->createId();
         $this->view()->setVariable('request_id', $this->request_id);
 
@@ -148,9 +162,6 @@ class requestControl extends Control {
         $this->view()->appendJs('events');
         $this->view()->appendJs('newrequest');
         $this->commitReplace($this->view()->render(), '#content');
-        $client_id = $this->getQueryString('client_id');
-        if ($client_id)
-            $this->selClient($client_id);
 
     }
 

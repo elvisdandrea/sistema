@@ -10,20 +10,24 @@
         <div class="box-body">
 
             <!-- Cliente -->
-            <div id="searchclient" class="form-group">
+            <div class="form-group" >
                 <label>Para qual cliente:</label>
-                <div class="input-group col-md-6">
-                    <div class="input-group-addon">
-                        <i class="fa fa-user"></i>
-                    </div>
-                    <input type="text" class="form-control" placeholder="Localizar um cliente" onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchclient?search=' + this.value + '&request_id={$request_id}')" data-toggle="dropdown" />
-                    <div id="client-results">
+                <div id="searchclient" {if (isset($client))}style="display: none;" {/if}>
+                    <div class="input-group col-md-6">
+                        <div class="input-group-addon">
+                            <i class="fa fa-user"></i>
+                        </div>
+                        <input type="text" class="form-control" placeholder="Localizar um cliente" onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchclient?search=' + this.value + '&request_id={$request_id}')" data-toggle="dropdown" />
+                        <div id="client-results">
 
-                    </div>
-                </div><!-- /.input group -->
+                        </div>
+                    </div><!-- /.input group -->
+                </div>
             </div><!-- /.form group -->
             <div id="client" class="form-group">
-
+                {if (isset($client))}
+                    {$client}
+                {/if}
             </div>
             <!-- /.Cliente -->
             <div id="client-results">
