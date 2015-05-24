@@ -152,8 +152,6 @@ class requestControl extends Control {
         if ($client_id)
             $this->selClient($client_id);
 
-        if (Core::isAjax())
-            echo Html::AddClass('content-aligned', '#content');
     }
 
     /**

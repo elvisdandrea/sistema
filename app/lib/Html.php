@@ -159,7 +159,7 @@ class Html {
      * @param   bool        $changeUrl      - If it must change the browser URL
      * @return  string
      */
-    public function redirect($url, $changeUrl = true) {
+    public static function redirect($url, $changeUrl = true) {
         if (Core::isAjax())
             return 'Html.Redirect(\'' . $url . '\',\'' . $changeUrl . '\');';
 
