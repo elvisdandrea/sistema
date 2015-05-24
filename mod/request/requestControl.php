@@ -88,6 +88,7 @@ class requestControl extends Control {
         $this->view()->setVariable('pendingRequests', $pendingRequests);
         $this->view()->setVariable('totalPrice',      String::convertTextFormat($totalPrice, 'currency'));
         $this->view()->setVariable('search',          $search);
+        $this->view()->setVariable('client_id',       $client_id);
 
         $pagination = $this->getPagination($page, $countRequests, $rp, 'request/requestpage');
         $this->view()->setVariable('pagination', $pagination);

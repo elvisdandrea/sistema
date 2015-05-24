@@ -1,7 +1,7 @@
 <div class="col-md-12">
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
-            <a href="{$smarty.const.BASEDIR}request/newrequest"  changeurl class="btn btn-success">Clique aqui e adicione um novo pedido</a>
+            <a href="{$smarty.const.BASEDIR}request/newrequest{if ($client_id)}?client_id={$client_id}{/if}"  changeurl class="btn btn-success">Clique aqui e adicione um novo pedido</a>
             <button id="daterange-btn" data-url="{$smarty.const.BASEDIR}request" class="btn btn-default pull-right">
                 <i class="fa fa-calendar"></i> Escolha o período: Hoje
                 <i class="fa fa-caret-down"></i>
