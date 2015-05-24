@@ -113,6 +113,18 @@ Html.prototype = {
     },
 
     /**
+     * Ajax Redirection
+     *
+     * @param   url             - The destination URL
+     * @param   changeUrl       - Change the URL on browser
+     * @constructor
+     */
+    Redirect: function(url, changeUrl) {
+
+        Main.quickLink(url, changeUrl);
+    },
+
+    /**
      * Scrolls page to an element
      *
      * @param       element     - The element

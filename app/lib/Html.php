@@ -153,6 +153,20 @@ class Html {
     }
 
     /**
+     * Redirects to a destination URL
+     *
+     * @param   string      $url            - The destination URL
+     * @param   bool        $changeUrl      - If it must change the browser URL
+     * @return  string
+     */
+    public function redirect($url, $changeUrl = true) {
+        if (Core::isAjax())
+            return 'Html.Redirect(\'' . $url . '\',\'' . $changeUrl . '\');';
+
+        return '<script>Html.Redirect(\'' . $url . '\',\'' . $changeUrl . '\');</script>';
+    }
+
+    /**
      * Function to Asynchronously load
      * a select input content
      *
