@@ -58,7 +58,7 @@ $('[name="email"]').blur(function() {
 
 $("input[type='checkbox'], input[type='radio']").iCheck({
     checkboxClass: 'icheckbox_minimal',
-    radioClass: 'iradio_minimal',
+    radioClass: 'iradio_minimal'
 });
 
 $('[name="client_type"]').on('ifChecked', function(event){

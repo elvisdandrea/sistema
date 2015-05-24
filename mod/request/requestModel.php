@@ -658,6 +658,12 @@ class requestModel extends Model {
         $this->runDelete();
     }
 
+    /**
+     * Query to update an item data
+     *
+     * @param   string      $id             - The item id
+     * @param   array       $itemData       - The Item data
+     */
     public function updateItem($id, array $itemData) {
 
         foreach ($itemData as $field => $value)
@@ -670,6 +676,19 @@ class requestModel extends Model {
 
     }
 
+    /**
+     * Query to get all plate types
+     */
+    public function getPlateTypes() {
+
+        $this->addField('id');
+        $this->addField('plate_name');
+        $this->addField('plate_size');
+
+        $this->addFrom('plates');
+        $this->runQuery();
+
+    }
 
 
 }

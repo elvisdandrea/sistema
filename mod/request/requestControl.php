@@ -244,15 +244,20 @@ class requestControl extends Control {
 
         $this->setId();
         $this->view()->loadTemplate('plate');
-        $action = $this->getQueryString('action');
+        $action   = $this->getQueryString('action');
         $plate_id = uniqid();
+
+        $this->model()->getPlateTypes();
+        $plate_types = $this->model()->getRows();
+
         if ($action == 'addplatenew') {
             UID::set('requests', $this->request_id, 'plates', $plate_id, array());
         } else {
 
         }
-        $this->view()->setVariable('request_id', $this->request_id);
-        $this->view()->setVariable('plate_id', $plate_id);
+        $this->view()->setVariable('request_id',  $this->request_id);
+        $this->view()->setVariable('plate_id',    $plate_id);
+        $this->view()->setVariable('plate_types', $plate_types);
         $this->commitAdd($this->view()->render(), '#plates');
 
     }
