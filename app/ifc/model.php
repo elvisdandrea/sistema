@@ -938,7 +938,8 @@ class Model {
      *
      * @return  bool
      */
-    protected function isEmpty() {
+    public function isEmpty() {
+
         return count($this->dataset) == 0;
     }
 

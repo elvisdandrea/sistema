@@ -66,7 +66,7 @@
         <div class="box-body">
             <!-- Prato -->
             <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/addPlate?request_id={$request_id}')" >Adicionar um prato</button>
+                <button type="button" class="btn btn-primary" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/addPlate?request_id={$request_id}&action=addplatenew')" >Adicionar um prato</button>
             </div><!-- /.form group -->
             <!-- /.Prato -->
 

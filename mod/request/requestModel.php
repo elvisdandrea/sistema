@@ -679,13 +679,17 @@ class requestModel extends Model {
     /**
      * Query to get all plate types
      */
-    public function getPlateTypes() {
+    public function getPlateTypes($id = false) {
 
         $this->addField('id');
         $this->addField('plate_name');
         $this->addField('plate_size');
 
         $this->addFrom('plates');
+
+        if ($id)
+            $this->addWhere('id = "' . $id . '"');
+
         $this->runQuery();
 
     }

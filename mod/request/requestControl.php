@@ -249,11 +249,15 @@ class requestControl extends Control {
 
         $this->model()->getPlateTypes();
         $plate_types = $this->model()->getRows();
+        $first_type = current($plate_types);
 
         if ($action == 'addplatenew') {
-            UID::set('requests', $this->request_id, 'plates', $plate_id, array());
+            UID::set('requests', $this->request_id, 'plates',     $plate_id, array());
+            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_size', $first_type['plate_size']);
+            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_name', $first_type['plate_name']);
+            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill', 0);
         } else {
-
+            // well...
         }
         $this->view()->setVariable('request_id',  $this->request_id);
         $this->view()->setVariable('plate_id',    $plate_id);
@@ -313,10 +317,19 @@ class requestControl extends Control {
         );
 
         if ($action == 'selproductnew') {
+            $plate_size = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_size');
+            $plate_fill = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill');
+
+            if ($item['weight'] + $plate_fill > $plate_size) {
+                $this->commitAdd($this->view()->showAlert('danger','','Este prato já está cheio'),'body');
+                $this->terminate();
+            }
+
             UID::set('requests', $this->request_id, 'plates', $plate_id, $product_id, array('weight' => $item['weight'], 'price' => $item['price'], 'unit' => $item['unit']));
             $curTotalPrice = intval(UID::get( 'requests', $this->request_id, 'price'));
             $newTotalPrice = $curTotalPrice + $item['price'];
             UID::set('requests', $this->request_id, 'price', $newTotalPrice);
+            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill', $item['weight'] + $plate_fill);
         } else {
             $result = $this->postAddItem($data);
             $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
@@ -325,12 +338,15 @@ class requestControl extends Control {
             }
         }
 
+        $rowId = uniqid();
         $this->view()->loadTemplate('plateitem');
         $this->view()->setVariable('item',       $item);
         $this->view()->setVariable('plate_id',   $plate_id);
         $this->view()->setVariable('id',         $product_id);
         $this->view()->setVariable('request_id', $this->request_id);
-        $this->view()->setVariable('action', $action);
+        $this->view()->setVariable('action',     $action);
+        $this->view()->setVariable('rowId',      $rowId);
+
         $this->commitAddToTable($this->view()->render(), '#plate_' . $plate_id);
         $this->commitReplace('', 'result-' . $plate_id);
         $this->commitShow('#change-' . $plate_id);
@@ -737,6 +753,8 @@ class requestControl extends Control {
 
             UID::set('requests', $this->request_id, 'price', $newTotalPrice);
             UID::del('requests', $this->request_id, 'plates', $plate_id, $this->getQueryString('id'));
+            $plate_fill = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill');
+            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill', $plate_fill - $item['weight']);
         } else {
             $this->deleteRemoveItem(array(
                 'id'    => $this->getQueryString('id')
@@ -868,6 +886,31 @@ class requestControl extends Control {
         $this->commitReplace($newValue . $item['unit'], '#amount_' . $plate_id . '_' . $id);
         $this->commitReplace(String::convertTextFormat($newPrice, 'currency'), '#price_'  . $plate_id . '_' . $id);
         $this->commitReplace('Total do pedido: ' . String::convertTextFormat($newTotalPrice, 'currency'), '[data-id="totalprice"]');
+    }
+
+    public function setPlateSize() {
+
+        $this->setId();
+        $plate_id = $this->getQueryString('plate_id');
+        $type_id  = $this->getQueryString('id');
+
+        $this->model()->getPlateTypes($type_id);
+        if ($this->model()->isEmpty()) {
+            $this->commitReplace($this->view()->showAlert('danger','','Ocorreu um erro ao localizar o tipo de prato selecionado'), 'body');
+            $this->terminate();
+        }
+
+        $result = $this->model()->getRow(0);
+
+        $plate_fill = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill');
+
+        if ($result['plate_size'] < $plate_fill) {
+            $this->commitAdd($this->view()->showAlert('danger','','O tamanho selecionado é menor que sua quantidade. Remova alguns itens para diminuir este prato.'), 'body');
+            $this->terminate();
+        }
+
+        UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_size', $result['plate_size']);
+        UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_name', $result['plate_name']);
     }
 
 }

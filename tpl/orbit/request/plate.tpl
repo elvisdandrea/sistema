@@ -3,7 +3,7 @@
     </div>
     <div class="box-body">
         <label>Tamanho/tipo do prato:</label>
-        <select name="plate_name" onchange="Main.quickLink('{$smarty.const.BASEDIR}request/setPlateSize?id=' + this.value + '&request_id={$request_id}&plate_id={$plate_id}&action=selproductnew')">
+        <select name="plate_name" onchange="Main.quickLink('{$smarty.const.BASEDIR}request/setplatesize?id=' + this.value + '&request_id={$request_id}&plate_id={$plate_id}&action=selproductnew')">
             {foreach from=$plate_types item="row"}
                 <option value="{$row['id']}">{$row['plate_name']} ({$row['plate_size']}g)</option>
             {/foreach}
