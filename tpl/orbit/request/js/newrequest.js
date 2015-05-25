@@ -1,4 +1,4 @@
-$('#datetimepicker').datetimepicker({
+$('input#datetimepicker').datetimepicker({
     locale: 'pt-br',
     showTodayButton: false,
     //format: 'DD/MM/YYYY HH:mm',
