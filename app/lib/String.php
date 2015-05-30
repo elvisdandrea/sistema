@@ -218,7 +218,7 @@ class String {
                 $string = preg_replace('/[^a-z0-9\-]/i','',$string);
                 break;
             case 'l': //Letras
-                $string = preg_replace('/[^a-z\-]/i','',$string);
+                $string = preg_replace('/convertTe[^a-z\-]/i','',$string);
                 break;
             case 'n': //Números
                 $string = preg_replace('/[^0-9\-]/i','',$string);

@@ -94,21 +94,23 @@ class requestControl extends Control {
         $this->view()->setVariable('pagination', $pagination);
 
         $this->model()->listRequests($dateFrom, $dateTo, $status, $client_id, $search, $page, $rp);
-        $this->model()->setGridRowLink('request/viewrequest', 'id');
-        $this->model()->addGridColumn('Pedido #', 'id');
-        $this->model()->addGridColumn('', 'image', 'Image');
-        $this->model()->addGridColumn('Cliente', 'client_name');
-        $this->model()->addGridColumn('Telefones', 'phones');
-        $this->model()->addGridColumn('Entrega', 'delivery_date', 'DateTime');
-        $this->model()->addGridColumn('Status', 'request/statuslist.tpl', 'Tpl');
-        $this->model()->setGridClass('table-bordered');
-
+//        $this->model()->setGridRowLink('request/viewrequest', 'id');
+//        $this->model()->addGridColumn('Pedido #', 'id');
+//        $this->model()->addGridColumn('', 'image', 'Image');
+//        $this->model()->addGridColumn('Cliente', 'client_name');
+//        $this->model()->addGridColumn('Telefones', 'phones');
+//        $this->model()->addGridColumn('Entrega', 'delivery_date', 'DateTime');
+//        $this->model()->addGridColumn('Status', 'request/statuslist.tpl', 'Tpl');
+//        $this->model()->setGridClass('table-bordered');
+        $this->newView('table');
+        $this->view('table')->loadTemplate('requesttable');
+        $this->view('table')->setVariable('list', $this->model()->getRows(0));
 
         if (!empty($dateFrom)) $this->view()->setVariable('dateFrom', $dateFrom);
         if (!empty($dateTo))   $this->view()->setVariable('dateTo', $dateTo);
 
         $this->view()->setVariable('rows', $this->model()->getRow(0));
-        $this->view()->setVariable('request_table', $this->model()->dbGrid());
+        $this->view()->setVariable('request_table', $this->view('table')->render());
         $this->view()->appendJs('requestpage');
 
         $this->commitReplace($this->view()->render(), '#content');
@@ -691,7 +693,7 @@ class requestControl extends Control {
         } else {
             $this->view()->setVariable('request', $row);
             $this->view()->loadTemplate('statuslistrequest');
-            $this->commitReplace($this->view()->render(), '#request-status');
+            $this->commitReplace($this->view()->render(), '#request-status' . $request_id);
         }
 
     }

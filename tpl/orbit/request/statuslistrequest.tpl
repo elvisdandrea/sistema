@@ -1,4 +1,4 @@
-<button id="item-chooser-btn{$row['id']}" data-chooser="item-chooser-btn" class="btn
+<button id="item-chooser-btn{$request['id']}" data-chooser="item-chooser-btn" class="btn
     {if ($request['status_name']) == 'Novo pedido'}
         btn-warning
     {elseif ($request['status_name']) == 'Em andamento'}

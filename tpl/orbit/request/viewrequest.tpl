@@ -9,7 +9,7 @@
                 <small>{$count_plates} pratos selecionados</small>
             </blockquote>
             <!--<button  class="btn btn-success" title="Salvar" onclick="Salvar.html" style="width:150px;"></button>-->
-            <div id="request-status">
+            <div id="request-status{$request['id']}">
                 {include "request/statuslistrequest.tpl"}
             </div>
             <!--<button type="button" class="btn btn-danger" title="Cancelar o pedido" onclick="{$smarty.const.BASEDIR}request/cancelrequest?id={$request['id']}"><i class="fa fa-times"></i></button>-->

@@ -34,11 +34,12 @@ class requestModel extends Model {
         $this->addField('r.id');
         $this->addField('r.request_date');
         $this->addField('r.delivery_date');
+        $this->addField('sum(i.price) as price');
         $this->addField('month(r.delivery_date) as request_month');
         $this->addField('day(r.delivery_date) as request_day');
         $this->addField('c.client_name');
         $this->addField('c.image');
-        $this->addField('group_concat(f.phone_number separator "<br>") as phones');
+        $this->addField('group_concat(distinct f.phone_number separator " -- ") as phones');
         $this->addField('s.status_name');
         $this->addField('s.color');
 
@@ -46,6 +47,9 @@ class requestModel extends Model {
         $this->addFrom('left join clients c on c.id = r.client_id');
         $this->addFrom('left join client_phone f on f.client_id = c.id');
         $this->addFrom('left join delivery_status s on s.id = r.deliver_status');
+
+        $this->addFrom('left join request_plates p on p.request_id = r.id');
+        $this->addFrom('left join request_plate_items i ON i.plate_id = p.id');
 
         if (!empty($dateFrom) && !empty($dateTo))
             $this->addWhere('r.delivery_date BETWEEN "' . $dateFrom . '" AND "' . $dateTo . '"');
@@ -62,8 +66,8 @@ class requestModel extends Model {
         $offset = intval(($page - 1) * $rp);
 
         $this->addLimit($offset . ',' . $rp);
-
         $this->addGroup('r.id');
+
 
         $this->runQuery();
     }
