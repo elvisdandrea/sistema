@@ -262,6 +262,7 @@ class requestControl extends Control {
         $this->view()->setVariable('request_id',  $this->request_id);
         $this->view()->setVariable('plate_id',    $plate_id);
         $this->view()->setVariable('plate_types', $plate_types);
+        $this->view()->setVariable('action',      $action);
         $this->commitAdd($this->view()->render(), '#plates');
 
     }
@@ -505,6 +506,7 @@ class requestControl extends Control {
         $this->view()->setVariable('request_id', $id);
         $this->view()->setVariable('finalPrice', String::convertTextFormat($this->model()->getRequestFinalPrice($id), 'currency'));
 
+        $this->view()->appendJs('events');
         $this->view()->appendJs('viewrequest');
 
         $this->commitReplace($this->view()->render(), '#content');
