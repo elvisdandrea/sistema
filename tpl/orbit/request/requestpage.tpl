@@ -1,26 +1,15 @@
 <div class="col-md-12">
     <div class="box box-solid">
-        <div class="box-body pad table-responsive">
-            <a href="{$smarty.const.BASEDIR}request/newrequest{if ($client_id)}?client_id={$client_id}{/if}"  changeurl class="btn btn-success">Clique aqui e adicione um novo pedido</a>
-            <button id="daterange-btn" data-url="{$smarty.const.BASEDIR}request" class="btn btn-default pull-right">
-                <i class="fa fa-calendar"></i> Escolha o período: Hoje
-                <i class="fa fa-caret-down"></i>
-            </button>
-        </div>
-    </div>
-
-    <div class="box box-solid">
 
         <div class="box-header">
-            <h3 class="box-title">Dados e informações:</h3>
-            <div class="box-tools pull-right">
-                <button class="btn btn-default btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+            <div class="box-tools">
+                <a class="btn btn-default btn-sm" data-widget="collapse" style="width:100%"><spam class="pull-left"><i class="fa fa-plus"></i>&nbsp;&nbsp; Visualizar os dados e informações:</spam></a>
             </div>
         </div>
 
         <div class="box-body">
             <div class="row">
-                <div class="col-xs-4">
+                <div class="col-md-4 col-sm-6">
                     <div class="small-box bg-aqua">
                         <div class="inner">
                             <h3>
@@ -39,7 +28,7 @@
                     </div>
                 </div>
                 <!-- ** -->
-                <div class="col-xs-4">
+                <div class="col-md-4 col-sm-6">
                     <div class="small-box bg-yellow">
                         <div class="inner">
                             <h3>
@@ -58,7 +47,7 @@
                     </div>
                 </div>
                 <!-- ** -->
-                <div class="col-xs-4">
+                <div class="col-md-4 col-sm-12">
                     <div class="small-box bg-olive">
                         <div class="inner">
                             <h3>
@@ -71,35 +60,51 @@
                         <div class="icon">
                             <i class="fa fa-usd"></i>
                         </div>
-                        <a href="#" class="small-box-footer">
-                            Confira as finanças <i class="fa fa-arrow-circle-right"></i>
-                        </a>
+                        <div class="small-box-footer">
+                            &nbsp
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div><!-- /.box -->
+    <div class="box box-solid">
+        <div class="box-body pad table-responsive">
+            <a href="{$smarty.const.BASEDIR}request/newrequest{if ($client_id)}?client_id={$client_id}{/if}"  changeurl class="btn btn-success">Clique aqui e adicione um novo pedido</a>
+        </div>
+    </div>
 
 </div>
 
 <div class="col-md-12">
     <div class="box">
-        <form action="{$smarty.const.BASEDIR}request" method="get" class="sidebar-form">
-            <div class="input-group">
-                <input type="text" name="search" class="form-control" placeholder="Localizar dentro da lista" value="{$search}"/>
-                    <span class="input-group-btn">
-                        <button type='submit' name='seach' id='search-btn' class="btn btn-flat">
-                            <i class="fa fa-search"></i>
+    
+        <div class="box-body">
+            <form action="{$smarty.const.BASEDIR}request" method="get">
+                <div class="row">
+                    <div class="col-md-8 col-sm-7">
+                        <div class="input-group input-group-sm" style="margin-bottom:5px;">
+                            <input type="text" name="search" class="form-control" placeholder="Localizar dentro da lista" value="{$search}"/>
+                            <span class="input-group-btn">
+                                <button type='submit' name='seach' id='search-btn' class="btn btn-info">Pesquisar</button>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="col-md-4 col-sm-5">
+                        <button id="daterange-btn" data-url="{$smarty.const.BASEDIR}request" class="btn btn-info pull-right" style="width:100%">
+                                Período:&nbsp&nbsp Últimos 30 dias &nbsp&nbsp
+                                <i class="fa fa-caret-down"></i>
                         </button>
-                    </span>
-                {if isset($dateFrom)}
-                    <input type="hidden" name="date_from" value="{$dateFrom}">
-                {/if}
-                {if isset($dateTo)}
-                    <input type="hidden" name="date_from" value="{$dateTo}">
-                {/if}
-            </div>
-        </form>
+                    {if isset($dateFrom)}
+                        <input type="hidden" name="date_from" value="{$dateFrom}"/>
+                    {/if}
+                    {if isset($dateTo)}
+                        <input type="hidden" name="date_from" value="{$dateTo}"/>
+                    {/if}
+                    </div>
+                </div>
+            </form>
+        </div>
 
         {$request_table}
 

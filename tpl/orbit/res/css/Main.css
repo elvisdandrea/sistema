@@ -102,7 +102,7 @@ body.fixed .wrapper {
 }
 /* Content */
 .content {
-  padding: 20px 15px;
+  padding: 20px 0;
   background: #f9f9f9;
 }
 /* Utility */
@@ -123,7 +123,7 @@ h6,
 }
 /* Page Header */
 .page-header {
-  margin: 10px 0 20px 0;
+  margin: 20px 0;
   font-size: 22px;
 }
 .page-header > small {
@@ -905,10 +905,6 @@ body > .header .logo .icon {
   border-radius: 0px !important;
   box-shadow: none;
 }
-.form-control:focus {
-  border-color: #3c8dbc !important;
-  box-shadow: none;
-}
 .form-group.has-success label {
   color: #00a65a;
 }
@@ -1044,7 +1040,7 @@ body > .header .logo .icon {
   -webkit-border-radius: 2px;
   -moz-border-radius: 2px;
   border-radius: 2px;
-  margin-bottom: 15px;
+    margin-bottom: 15px;
 }
 .small-box > .inner {
   padding: 10px;
@@ -1209,7 +1205,6 @@ body > .header .logo .icon {
   display: inline-block;
   padding: 10px 0px 10px 10px;
   margin: 0;
-  font-size: 20px;
   font-weight: 400;
   float: left;
   cursor: default;
@@ -1218,7 +1213,7 @@ body > .header .logo .icon {
   color: #444;
 }
 .box .box-header > .box-tools {
-  padding: 5px 10px 5px 5px;
+  padding: 10px;
 }
 .box .box-body {
   padding: 10px;
@@ -1591,97 +1586,138 @@ body > .header .logo .icon {
   background: transparent url('../img/ajax-loader1.gif') 50% 50% no-repeat;
 }
 /*
-Component: timeline
+Component: List-itens
 --------------------
 */
-.timeline {
-  margin: 0 0 30px 0;
-  padding: 0;
-  list-style: none;
+.list-itens {
+    position: relative;
+    display: table;
+    border: 1px solid #dfdfdf;
+    background: #fff;
+    color: #555;
+    padding: 5px;
+    width: 100%;
 }
-.timeline:before {
-  content: '';
-  position: absolute;
-  top: 0px;
-  bottom: 0;
-  width: 5px;
-  background: #ddd;
-  left: 45px;
-  border: 1px solid #eee;
-  margin: 0;
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
+.list-itens:hover {
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
 }
-.timeline > li {
-  position: relative;
-  margin-right: 10px;
-  margin-bottom: 15px;
+.list-itens button {
+    position: absolute;
+    left: -15px;
+    top: 50%;
+    margin-top:-15px;
 }
-.timeline > li:before,
-.timeline > li:after {
-  display: table;
-  content: " ";
+.list-itens ul#item-chooser {
+    margin-top: -105px;
+    text-align: left;
+    left: 10px;
 }
-.timeline > li:after {
-  clear: both;
+.list-itens > [style^="width:"] {
+    float: left;
 }
-.timeline > li > .timeline-item {
-  margin-top: 10px;
-  border: 0px solid #dfdfdf;
-  background: #fff;
-  color: #555;
-  margin-left: 60px;
-  margin-right: 15px;
-  padding: 5px;
-  position: relative;
-  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+.list-itens > [style^="width:"] > a,
+#list-clients #client-choose {
+    margin-left: 110px !important;
+    display: block;
+    color: #555;
 }
-.timeline > li > .timeline-item > .time {
-  color: #999;
-  float: right;
-  margin: 2px 0 0 0;
+.list-itens > [style^="width:"] a .row,
+#list-clients #client-choose {
+    padding: 10px 0px 0px;
+    margin:0;
 }
-.timeline > li > .timeline-item > .timeline-header {
-  margin: 0;
-  color: #555;
-  border-bottom: 1px solid #f4f4f4;
-  padding: 5px;
-  font-size: 16px;
-  line-height: 1.1;
+.list-itens > [style^="width:"] a .row:first-child,
+#list-clients #client-choose .row:first-child {
+    border-bottom: 1px solid #DFDFDF;
 }
-.timeline > li > .timeline-item > .timeline-header > a {
-  font-weight: 600;
+#list-clients #client-choose .row:first-child {
+    margin: 0 !important;
 }
-.timeline > li > .timeline-item > .timeline-body,
-.timeline > li > .timeline-item > .timeline-footer {
-  padding: 10px;
+.list-itens > [style^="width:"] a .row div[class^="col-"],
+#list-clients #client-choose .row div[class^="col-"] {
+    margin-bottom: 10px;
 }
-.timeline > li.time-label > span {
-  font-weight: 600;
-  padding: 5px;
-  display: inline-block;
-  background-color: #fff;
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
+.list-itens a .row div i.circle,
+#list-clients #client-choose .row div i.circle {
+    float: left;
+    width: 18px;
+    height: 18px;
+    text-align: center;
+    line-height: 1.6;
+    border-radius: 100%;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    margin-right: 6px;
+    font-size: 85%;
 }
-.timeline > li > .fa,
-.timeline > li > .glyphicon,
-.timeline > li > .ion {
-  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
-  width: 30px;
-  height: 30px;
-  font-size: 15px;
-  line-height: 30px;
-  position: absolute;
-  color: #666;
-  background: #eee;
-  border-radius: 50%;
-  text-align: center;
-  left: 18px;
-  top: 0;
+.list-itens h5 {
+    margin: 0;
+    color: #3C8DBC;
+}
+.list-itens h5 span,
+.list-itens h5 strong {
+    white-space: nowrap;
+}
+.list-itens h5 span {
+    font-size: 12px;
+    color: #555;
+    font-family: "Ubuntu Regular";
+}
+.list-itens .list-imgs {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    top: -5px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+.list-itens:hover > .list-imgs {
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+}
+.list-itens a.btn-print {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+a#place-chooser-btn {
+    width: 100%;
+    margin-top:10px;
+    text-align: left;
+    color: #FFF;
+}
+ul#item-chooser li {
+        border-bottom: 1px solid #DFDFDF;
+}
+@media screen and (max-width: 520px) {
+    #list-requests button {
+        top: 5px;
+        left: 5%;
+        width: 78%;
+    }
+    #list-requests a.btn-print {
+        top: -10px;
+    }
+    #list-requests ul#item-chooser {
+        margin-top: -180px;
+        width: 80%;
+        left: 10%;
+    }
+    #list-requests > [style^="width:"] a {
+        margin: 20px 0 0 0 !important;
+    }
+    #list-clients > [style^="width:"] a {
+        margin: 20px;
+    }
+    #list-clients .list-imgs {
+        width: 50px;
+        height: 50px;
+    }
+    #list-clients > [style^="width:"] a .row:first-child div[class^="col-"]:first-child,
+    #list-clients #client-choose .row:first-child div[class^="col-"]:first-child {
+        margin: 40px 0px 20px 0px;
+    }
+    #list-clients #client-choose {
+        margin-left: 0 !important;
+    }
 }
 /*
     Component: Buttons
@@ -2459,7 +2495,6 @@ img.image-user {
 .skin-blue .sidebar-form input[type="text"],
 .skin-blue .sidebar-form .btn {
   box-shadow: none;
-  background-color: #fafafa;
   border: 1px solid #fafafa;
   height: 35px;
 }
@@ -2480,26 +2515,10 @@ img.image-user {
 }
 .skin-blue .sidebar-form input[type="text"]:focus,
 .skin-blue .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
-  background-color: #fff;
-  color: #666;
+  border-color: #3c8dbc !important;
 }
 .skin-blue .sidebar-form input[type="text"]:focus + .input-group-btn .btn {
-  border-left-color: #fff;
-}
-.skin-blue .sidebar-form .btn {
-  color: #999;
-  -webkit-border-top-left-radius: 0 !important;
-  -webkit-border-top-right-radius: 2px !important;
-  -webkit-border-bottom-right-radius: 2px !important;
-  -webkit-border-bottom-left-radius: 0 !important;
-  -moz-border-radius-topleft: 0 !important;
-  -moz-border-radius-topright: 2px !important;
-  -moz-border-radius-bottomright: 2px !important;
-  -moz-border-radius-bottomleft: 0 !important;
-  border-top-left-radius: 0 !important;
-  border-top-right-radius: 2px !important;
-  border-bottom-right-radius: 2px !important;
-  border-bottom-left-radius: 0 !important;
+  border-left: none !important;
 }
 /* ----------------------------------- */
 .icheckbox_minimal,
