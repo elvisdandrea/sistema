@@ -8,8 +8,122 @@
         </div>
 
         <div class="box-body">
+            
+            <div class="form-group">
+                <label>Para qual cliente:</label>
+                <br /><br />
 
-            <!-- Cliente -->
+                <!-- Lista de clientes -->
+                <div id="list-clients" class="list-itens">
+                    <div class="list-imgs">
+                        <img src="http://localhost/orbit/tpl/orbit/res/img/avatar.png" alt="ALTERAR O ALT PARA O NOME DO USUÁRIO" />
+                    </div>
+                    <!-- /.Itens -->
+                    <div id="client-choose" style="">
+                        <div class="row">
+                            <div class="col-md-5 col-sm-12">
+                                <i class="fa circle fa-user"></i>
+                                <h5>
+                                    <strong>Anndré Luiz Geron Vaz</strong><small> - <a href=""><i>Alterar</i></a></small>
+                                </h5>
+                            </div>
+                            <div class="col-md-7 col-sm-12">
+                                <i class="fa circle fa-phone"></i>
+                                <h5>
+                                    <span>(XX) 0000 . 0000</span> -- 
+                                    <span>(XX) 0000 . 0000</span> -- 
+                                    <span>(XX) 0000 . 0000</span> -- 
+                                    <span>(XX) 0000 . 0000</span>
+                                </h5>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-8 col-sm-9">
+                                <a id="place-chooser-btn" class="btn btn-info dropdown-toggle no-space" data-toggle="dropdown">
+                                    <i class="fa fa-map-marker"></i>&nbsp;&nbsp;Escolha o endereço de entrega
+                                </a>
+                                <!-- Itens -->
+                                <ul class="dropdown-menu list-clients" id="item-chooser">
+                                    <li>
+                                        <a href="#" class="no-space">
+                                            <i class="fa fa-check-circle-o"></i>&nbsp;&nbsp;
+                                            Rua das Acácias Negras e Lindas, 234, Centro, Florianópolis, SC
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="no-space">
+                                            <i class="fa fa-check-circle-o"></i>&nbsp;&nbsp;
+                                            Avenida Beira-mar, 2341, Centro, Florianópolis, SC
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" class="no-space">
+                                            <i class="fa fa-check-circle-o"></i>&nbsp;&nbsp;
+                                            Rua Goianases, 831, Centro, São José, Santa Catarina
+                                        </a>
+                                    </li>
+                                    <li class="footer"><a href="#" class="btn" data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i>&nbsp;Cadastre um novo endereço</a></li>
+                                </ul>
+                                <!-- /.Itens -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="input-group col-md-6" style="display:none;">
+                    <div class="input-group-addon">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <input type="text" class="form-control" placeholder="Localizar um cliente" data-toggle="dropdown" />
+
+                    <!-- Lista de clientes -->
+                    <ul class="dropdown-menu list-clients">
+                        <li class="header">Encontrados 2 resultados para Ann</li>
+                        <li>
+                            <!-- inner menu: contains the actual data -->
+                            <ul class="menu">
+                                <li>
+                                    <a href="pedido-view.html" title="Pendente">
+                                        <img src="img/avatar5.png" alt="Anndré"/>Anndré Luiz Geron Vaz | (33) 2222 - 1111 | anndre@gravi.com.br
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="pedido-view.html" title="Em andamento">
+                                        <img src="img/avatar04.png" alt="Anndré"/>Anndré Júnior | (33) 2222 - 1111 | jose@gravi.com.br
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="pedido-view.html" title="Em andamento">
+                                        <img src="img/avatar2.png" alt="Anndré"/>Anngela Marques | (33) 2222 - 1111 | email@gravi.com.br
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="pedido-view.html" title="Em andamento">
+                                        <img src="img/avatar3.png" alt="Anndré"/>Luis Anngelo | (33) 2222 - 1111 | ivo@gravi.com.br
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="pedido-view.html" title="Em andamento">
+                                        <img src="img/avatar.png" alt="Anndré"/>Marcondes de Anndrade | (33) 2222 - 1111 | malucodagravi@gravi.com.br
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="pedido-view.html" title="Em andamento">
+                                        <img src="img/avatar3.png" alt="Anndré"/>(quem botaria essa droga de nome em alguém?) | (33) 2222 - 1111 | anndre@gravi.com.br
+                                    </a>
+                                </li>
+                                <li class="footer"><a href="#" class="btn" data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i>&nbsp;&nbsp;Cadastre um novo cliente</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- /.Lista de clientes -->
+
+                </div><!-- /.input group -->
+            </div><!-- /.form group -->
+            <!-- /.Cliente -->
+
+            <!-- Cliente
             <div class="form-group" >
                 <label>Para qual cliente:</label>
                 <div id="searchclient" {if (isset($client))}style="display: none;" {/if}>
@@ -21,18 +135,18 @@
                         <div id="client-results">
 
                         </div>
-                    </div><!-- /.input group -->
+                    </div>
                 </div>
-            </div><!-- /.form group -->
+            </div>
             <div id="client" class="form-group">
                 {if (isset($client))}
                     {$client}
                 {/if}
             </div>
-            <!-- /.Cliente -->
+            
             <div id="client-results">
 
-            </div>
+            </div> -->
 
             <!-- Data de entrega -->
             <div class="form-group">

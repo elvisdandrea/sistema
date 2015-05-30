@@ -7,7 +7,7 @@
             {foreach from=$clients key="client_id" item="client"}
                 <li>
                     <a href="{$smarty.const.BASEDIR}request/selclient?id={$client['id']}&request_id={$request_id}" title="{$client['client_name']}">
-                        <img src="{$client['image']}" alt="Anndré"/>{$client['client_name']} | {$client['phones']} | {$client['email']}
+                        <img src="{$client['image']}" alt=""/>{$client['client_name']} | {$client['phones']} | {$client['email']}
                     </a>
                 </li>
             {/foreach}
