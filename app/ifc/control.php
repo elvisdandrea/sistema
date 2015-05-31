@@ -329,6 +329,18 @@ class Control {
     }
 
     /**
+     * Unfinished
+     *
+     * @param   string      $html
+     * @param   bool        $stay
+     */
+    protected function commit($html, $stay = true) {
+
+        echo $html;
+        $stay || $this->terminate();
+    }
+
+    /**
      * Renders a HTML replacing
      * the content of a element
      *

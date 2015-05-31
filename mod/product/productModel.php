@@ -114,6 +114,7 @@ class productModel extends Model {
             'p.product_name',
             'p.weight',
             'p.price',
+            'p.unit',
             'p.description'
         );
 

@@ -46,15 +46,19 @@ class productControl extends Control {
         $pagination = $this->getPagination($page, $total['total'], $rp, 'product/productpage');
         $this->view()->setVariable('pagination', $pagination);
 
-        $this->model()->setGridRowLink('product/viewproduct', 'id');
-        $this->model()->addGridColumn('','image','Image');
-        $this->model()->addGridColumn('Categoria','category_name');
-        $this->model()->addGridColumn('Produto','product_name');
-        $this->model()->addGridColumn('Peso','weight');
-        $this->model()->addGridColumn('Valor','price', 'Currency');
-        $this->model()->addGridColumn('Peso','weight', 'Unit', array('unit' => 'g'));
+        $this->newView('table');
+        $this->view('table')->loadTemplate('producttable');
+        $this->view('table')->setVariable('list', $this->model()->getRows(0));
 
-        $this->view()->setVariable('productList', $this->model()->dbGrid());
+//        $this->model()->setGridRowLink('product/viewproduct', 'id');
+//        $this->model()->addGridColumn('','image','Image');
+//        $this->model()->addGridColumn('Categoria','category_name');
+//        $this->model()->addGridColumn('Produto','product_name');
+//        $this->model()->addGridColumn('Peso','weight');
+//        $this->model()->addGridColumn('Valor','price', 'Currency');
+//        $this->model()->addGridColumn('Peso','weight', 'Unit', array('unit' => 'g'));
+
+        $this->view()->setVariable('productList', $this->view('table')->render());
         $this->commitReplace($this->view()->render(), '#content');
 
     }
@@ -123,7 +127,7 @@ class productControl extends Control {
         $selected = $this->getQueryString('selected');
         if ($selected) $this->view()->setVariable('selected', $selected);
         $this->view()->setVariable('categories', $this->model()->getRows());
-        $this->commitPrint($this->view()->render());
+        $this->commit($this->view()->render());
     }
 
     /**

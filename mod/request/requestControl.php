@@ -94,14 +94,7 @@ class requestControl extends Control {
         $this->view()->setVariable('pagination', $pagination);
 
         $this->model()->listRequests($dateFrom, $dateTo, $status, $client_id, $search, $page, $rp);
-//        $this->model()->setGridRowLink('request/viewrequest', 'id');
-//        $this->model()->addGridColumn('Pedido #', 'id');
-//        $this->model()->addGridColumn('', 'image', 'Image');
-//        $this->model()->addGridColumn('Cliente', 'client_name');
-//        $this->model()->addGridColumn('Telefones', 'phones');
-//        $this->model()->addGridColumn('Entrega', 'delivery_date', 'DateTime');
-//        $this->model()->addGridColumn('Status', 'request/statuslist.tpl', 'Tpl');
-//        $this->model()->setGridClass('table-bordered');
+
         $this->newView('table');
         $this->view('table')->loadTemplate('requesttable');
         $this->view('table')->setVariable('list', $this->model()->getRows(0));
