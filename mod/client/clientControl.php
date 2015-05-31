@@ -44,14 +44,11 @@ class clientControl extends Control {
         $pagination = $this->getPagination($page, $total, $rp, 'client/clientpage');
         $this->view()->setVariable('pagination', $pagination);
 
-        $this->model()->setGridRowLink('client/viewclient', 'id');
-        $this->model()->addGridColumn('','image','Image');
-        $this->model()->addGridColumn('Nome','client_name');
-        $this->model()->addGridColumn('Email','email');
-        $this->model()->addGridColumn('Telefones','phones');
-        $this->model()->addGridColumn('CPF / CNPJ','cpf_cnpj');
+        $this->newView('table');
+        $this->view('table')->loadTemplate('clienttable');
+        $this->view('table')->setVariable('list', $this->model()->getRows(0));
 
-        $this->view()->setVariable('clientlist', $this->model()->dbGrid());
+        $this->view()->setVariable('clientlist', $this->view('table')->render());
         $this->commitReplace($this->view()->render(), '#content');
 
     }

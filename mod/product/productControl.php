@@ -50,14 +50,6 @@ class productControl extends Control {
         $this->view('table')->loadTemplate('producttable');
         $this->view('table')->setVariable('list', $this->model()->getRows(0));
 
-//        $this->model()->setGridRowLink('product/viewproduct', 'id');
-//        $this->model()->addGridColumn('','image','Image');
-//        $this->model()->addGridColumn('Categoria','category_name');
-//        $this->model()->addGridColumn('Produto','product_name');
-//        $this->model()->addGridColumn('Peso','weight');
-//        $this->model()->addGridColumn('Valor','price', 'Currency');
-//        $this->model()->addGridColumn('Peso','weight', 'Unit', array('unit' => 'g'));
-
         $this->view()->setVariable('productList', $this->view('table')->render());
         $this->commitReplace($this->view()->render(), '#content');
 
@@ -79,7 +71,6 @@ class productControl extends Control {
         $this->view()->setVariable('categories', $categories);
         $this->view()->setVariable('pagination', $pagination);
         $this->view()->loadTemplate('newproduct');
-
 
         $this->view()->appendJs('category');
         $this->view()->appendJs('product');

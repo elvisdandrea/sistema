@@ -86,7 +86,7 @@ class clientModel extends Model {
         $this->addField('cli.description');
         $this->addField('cli.image');
         $this->addField('cli.email');
-        $this->addField('group_concat(fon.phone_number) as phones');
+        $this->addField('group_concat(fon.phone_number separator " -- ") as phones');
 
         $this->addFrom('clients cli');
         $this->addFrom('left join client_phone fon on fon.client_id = cli.id');
