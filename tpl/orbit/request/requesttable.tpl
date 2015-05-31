@@ -7,7 +7,7 @@
             </div>
             <!-- /.Itens -->
             <div style="width:100%">
-                    <a href="{$smarty.const.BASEDIR}request/viewrequest?id={$request['id']}">
+                    <a href="{$smarty.const.BASEDIR}request/viewrequest?id={$request['id']}" changeurl>
                         <div class="row">
                             <div class="col-md-5 col-sm-12">
                                 <i class="fa circle fa-user"></i>

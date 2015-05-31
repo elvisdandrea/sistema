@@ -34,7 +34,9 @@ class requestModel extends Model {
         $this->addField('r.id');
         $this->addField('r.request_date');
         $this->addField('r.delivery_date');
-        $this->addField('sum(i.price) as price');
+        //TODO: fix de double sum
+        $this->addField('sum(i.price) / if(count(distinct f.id) > 0, count(distinct f.id) ,1) AS price');
+        //----------------
         $this->addField('month(r.delivery_date) as request_month');
         $this->addField('day(r.delivery_date) as request_day');
         $this->addField('c.client_name');
