@@ -59,6 +59,18 @@
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-cog"></i>
+                    <span>Lojas</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                    <!--<span class="label label-danger">Requer atenção</span>-->
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{$smarty.const.BASEDIR}stations" changeurl ><i class="fa fa-angle-double-right"></i>Todas as Lojas</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}stations/newstation" changeurl ><i class="fa fa-angle-double-right"></i>Nova Loja</a></li>
+                </ul>
+            </li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-cog"></i>
                     <span>Configurações</span>
                     <i class="fa fa-angle-left pull-right"></i>
                     <!--<span class="label label-danger">Requer atenção</span>-->

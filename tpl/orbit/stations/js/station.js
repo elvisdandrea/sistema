@@ -1,0 +1,1 @@
+Main.imageAction('read64', 'station-img');
