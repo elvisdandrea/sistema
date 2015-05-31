@@ -337,11 +337,23 @@ class productControl extends Control {
      */
     public function insertIngredients($product_id, $ingredients) {
 
+        $this->model()->getIngredients($product_id);
+        $ingredientList = array();
+        foreach ($this->model()->getRows() as $row) {
+            $ingredientList[$row['id']] = $row['ingredient_name'];
+        }
+
+
         $result_ingredients = array();
         if (isset($ingredients) && !empty($ingredients)) {
             $ingredients = explode(',', $ingredients);
             foreach ($ingredients as $ingredient) {
-                $result_ingredients[] = $this->model()->insertIngredient($product_id, $ingredient);
+                if (!in_array($ingredient, $ingredientList))
+                    $result_ingredients[] = $this->model()->insertIngredient($product_id, $ingredient);
+            }
+            foreach ($ingredientList as $id => $ingredient) {
+                if (!in_array($ingredient, $ingredients))
+                    $this->model()->deleteIngredient($id);
             }
         }
         return $result_ingredients;
@@ -419,10 +431,10 @@ class productControl extends Control {
     }
 
     /**
+     * View for Category Edition Window
      *
-     *
-     * @param bool $page
-     * @param bool $rp
+     * @param   string|bool     $page       - Current page
+     * @param   string|bool     $rp         - Results per page
      */
     public function viewEditCategories($page = false, $rp = false) {
 
@@ -444,6 +456,11 @@ class productControl extends Control {
 
     }
 
+    /**
+     * Rest Handler for adding a category
+     *
+     * @return array|string
+     */
     public function postCategory() {
 
         $name = $this->getPost('category_name');
@@ -465,6 +482,9 @@ class productControl extends Control {
 
     }
 
+    /**
+     * Handler for adding a category
+     */
     public function addCategory() {
 
         $result = $this->postCategory();
@@ -477,6 +497,12 @@ class productControl extends Control {
 
     }
 
+    /**
+     * Rest Handler for removing a category
+     *
+     * @param   string|bool     $id     - The category id
+     * @return  array|string
+     */
     public function deleteCategory($id = false) {
 
         $id || $id = $this->getQueryString('id');
@@ -494,6 +520,9 @@ class productControl extends Control {
 
     }
 
+    /**
+     * Handler for removing a category
+     */
     public function removeCategory() {
 
         $id     = $this->getQueryString('id');

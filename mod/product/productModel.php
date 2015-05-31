@@ -260,6 +260,34 @@ class productModel extends Model {
     }
 
     /**
+     * Returns ingredients of a product
+     *
+     * @param   string      $product_id     - The product Id
+     */
+    public function getIngredients($product_id) {
+
+        $this->addField('id');
+        $this->addField('ingredient_name');
+        $this->addFrom('product_ingredients');
+        $this->addWhere('product_id = "' . $product_id . '"');
+
+        $this->runQuery();
+    }
+
+    /**
+     * Query to delete an ingredient
+     *
+     * @param   string      $id     - The ingredient Id
+     */
+    public function deleteIngredient($id) {
+
+        $this->setDeleteFrom('product_ingredients');
+        $this->addDeleteWhere('id = "' . $id . '"');
+
+        $this->runDelete();
+    }
+
+    /**
      * Query to update products
      *
      * @param   array   $data   - The product data (field => value)
