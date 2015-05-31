@@ -328,6 +328,13 @@ class productControl extends Control {
         ), 200);
     }
 
+    /**
+     * Handler for inserting product ingredients
+     *
+     * @param   string      $product_id     - The product id
+     * @param   string      $ingredients    - Comma separated string
+     * @return  array
+     */
     public function insertIngredients($product_id, $ingredients) {
 
         $result_ingredients = array();
@@ -358,6 +365,12 @@ class productControl extends Control {
         $this->productPage();
     }
 
+    /**
+     * Rest Handler for inserting a category
+     *
+     * @param   array             $data     - The category data (field => value)
+     * @return  array|string
+     */
     public function putCategory(array $data = array()) {
 
         $id     = $data['id'];
@@ -405,6 +418,12 @@ class productControl extends Control {
 
     }
 
+    /**
+     *
+     *
+     * @param bool $page
+     * @param bool $rp
+     */
     public function viewEditCategories($page = false, $rp = false) {
 
         $page || $page = $this->getQueryString('page');

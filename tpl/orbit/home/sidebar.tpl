@@ -79,11 +79,11 @@
                     <li><a href="{$smarty.const.BASEDIR}settings" changeurl ><i class="fa fa-angle-double-right"></i>Ajustes</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="{$smarty.const.BASEDIR}home/logout">
-                    <i class="fa fa-sign-out"></i> <span>Sair</span>
-                </a>
-            </li>
+            {*<li>*}
+                {*<a href="{$smarty.const.BASEDIR}home/logout">*}
+                    {*<i class="fa fa-sign-out"></i> <span>Sair</span>*}
+                {*</a>*}
+            {*</li>*}
         </ul>
         <!-- search form -->
         <form action="#" method="get" class="sidebar-form">
