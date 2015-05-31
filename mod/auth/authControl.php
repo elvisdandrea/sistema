@@ -190,6 +190,7 @@ class authControl extends Control {
     public function loginPage() {
 
         $this->view()->loadTemplate('login');
+        $this->view()->appendJs('login');
         return $this->view()->render();
     }
 

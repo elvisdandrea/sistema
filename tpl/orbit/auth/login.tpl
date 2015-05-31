@@ -25,7 +25,7 @@
         <div class="body bg-gray">
             <h4 class="text-center">Bem-vindo ao Orbit. Acesse sua conta.</h4>
             <div class="form-group">
-                <input type="text" name="user" class="form-control" placeholder="Usuário"/>
+                <input id="user" type="text" name="user" class="form-control" placeholder="Usuário"/>
             </div>
             <div class="form-group">
                 <input type="password" name="pass" class="form-control" placeholder="Senha"/>
