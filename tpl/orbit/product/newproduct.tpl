@@ -97,6 +97,14 @@
                                 <input name="cost" type="text" class="form-control" format="currency" data-affixes-stay="true" data-prefix="R$ " data-thousands="." data-decimal=","/>
                             </div>
                             <div class="form-group col-xs-12">
+                                <label>Ingredientes:</label>
+                                <select id="ingredients" name="ingredients" style="width: 100%" multiple data-placeholder="Digite os ingredientes">
+                                    {foreach from=$ingredientList item="row"}
+                                        <option value="{$row['ingredient_name']}">{$row['ingredient_name']}</option>
+                                    {/foreach}
+                                </select>
+                            </div>
+                            <div class="form-group col-xs-12">
                                 <label>Descrição:</label>
                                 <input name="description" type="text" class="form-control" />
                             </div>

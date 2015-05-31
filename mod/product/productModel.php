@@ -174,6 +174,24 @@ class productModel extends Model {
 
     }
 
+    public function insertIngredient($product_id, $ingredient_name) {
+
+        $this->addInsertSet('product_id', $product_id);
+        $this->addInsertSet('ingredient_name', $ingredient_name);
+        $this->setInsertTable('product_ingredients');
+
+        $this->runInsert();
+    }
+
+    public function getIngredientList() {
+
+        $this->addField('distinct ingredient_name');
+        $this->addFrom('product_ingredients');
+        $this->addLimit('300');
+
+        $this->runQuery();
+    }
+
     public function updateProduct($data, $id) {
 
         foreach ($data as $field => $value)

@@ -10,6 +10,7 @@
 	<link href="{$smarty.const.T_CSSURL}/ionicons.min.css" rel="stylesheet" type="text/css" />
 	<link href="{$smarty.const.T_CSSURL}/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
 	<link href="{$smarty.const.T_CSSURL}/Main.css" rel="stylesheet" type="text/css" />
+    <link href="{$smarty.const.CSSURL}/select2.css" rel="stylesheet" type="text/css" />
 
 	<!--[if lt IE 9]>
 	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -72,6 +73,8 @@
 <script src="{$smarty.const.T_JSURL}/plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
 <script src="{$smarty.const.T_JSURL}/plugins/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
 <script src="{$smarty.const.T_JSURL}/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
+<!-- Select2 Plugin -->
+<script src="{$smarty.const.JSURL}/select2.js"></script>
 <!-- App -->
 <script src="{$smarty.const.JSURL}/md5.js"></script>
 <script src="{$smarty.const.JSURL}/html.js"></script>

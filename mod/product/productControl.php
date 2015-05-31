@@ -72,6 +72,10 @@ class productControl extends Control {
         $this->view()->setVariable('pagination', $pagination);
         $this->view()->loadTemplate('newproduct');
 
+        $this->model()->getIngredientList();
+        $ingredientList = $this->model()->getRows();
+        $this->view()->setVariable('ingredientList', $ingredientList);
+
         $this->view()->appendJs('category');
         $this->view()->appendJs('product');
         $this->commitReplace($this->view()->render(), '#content');
@@ -198,11 +202,22 @@ class productControl extends Control {
                 return RestServer::throwError(Language::QUERY_ERROR(), 500);
         }
 
+        $product_id = $this->model()->getLastInsertId();
+
+        $result_ingredients = array();
+        if (isset($post['ingredients']) && !empty($post['ingredients'])) {
+            $ingredients = explode(',', $post['ingredients']);
+            foreach ($ingredients as $ingredient) {
+                $result_ingredients[] = $this->model()->insertIngredient($product_id, $ingredient);
+            }
+        }
+
         return RestServer::response(array(
-            'status'    => 200,
-            'id'        => $this->model()->getLastInsertId(),
-            'message'   => 'Cadastro realizado!',
-            'image'     => $imageFile
+            'status'        => 200,
+            'id'            => $product_id,
+            'message'       => 'Cadastro realizado!',
+            'image'         => $imageFile,
+            'ingredients'   => $result_ingredients
         ), 200);
 
     }

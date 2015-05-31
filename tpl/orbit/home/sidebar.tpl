@@ -40,7 +40,7 @@
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{$smarty.const.BASEDIR}product" changeurl ><i class="fa fa-angle-double-right"></i>Todos os produtos</a></li>
-                    <li><a href="{$smarty.const.BASEDIR}product/newproduct" changeurl ><i class="fa fa-angle-double-right"></i>Novo produtos</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}product/newproduct" changeurl ><i class="fa fa-angle-double-right"></i>Novo produto</a></li>
                 </ul>
             </li>
             <li class="treeview">
