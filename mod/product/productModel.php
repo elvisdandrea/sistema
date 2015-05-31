@@ -18,6 +18,13 @@ class productModel extends Model {
         parent::__construct($connection);
     }
 
+    /**
+     * Query to return category list
+     *
+     * @param   string|bool     $page       - Current page
+     * @param   string|bool     $rp         - Results per page
+     * @return  bool
+     */
     public function getCategoryList($page = false, $rp = false) {
 
         $this->addField('c.id');
@@ -38,6 +45,11 @@ class productModel extends Model {
         return !$this->isEmpty();
     }
 
+    /**
+     * Return the number of existent categories
+     *
+     * @return string
+     */
     public function getCountCategories() {
 
         $this->addField('count(c.id) as total');
@@ -49,6 +61,9 @@ class productModel extends Model {
     }
 
 
+    /**
+     * unfinished!
+     */
     public function getNutrictionProductList() {
 
         $this->addField('*');
@@ -56,6 +71,11 @@ class productModel extends Model {
         $this->runQuery();
     }
 
+    /**
+     * Unfinished
+     *
+     * @param $product_id
+     */
     public function getNutrictionFacts($product_id) {
 
         $this->addField('f.id');
@@ -78,6 +98,13 @@ class productModel extends Model {
 
     }
 
+    /**
+     * Returns the total number of products
+     * for a specific search ("false" for all)
+     *
+     * @param   bool            $search
+     * @return  array|bool
+     */
     public function getCountProducts($search = false) {
 
         $fields = array(
@@ -104,6 +131,14 @@ class productModel extends Model {
         return $result;
     }
 
+    /**
+     * Returns a list of products
+     *
+     * @param   int             $page       - The current page
+     * @param   int             $rp         - Results per page
+     * @param   bool|string     $search     - Search string ("false" for all)
+     * @return  array|bool
+     */
     public function getProductList($page = 1, $rp = 10, $search = false) {
 
         $total = $this->getCountProducts($search);
@@ -141,6 +176,12 @@ class productModel extends Model {
         return $total;
     }
 
+    /**
+     * Returns a product
+     *
+     * @param   string  $id     - The product Id
+     * @return  bool
+     */
     public function getProduct($id) {
 
         $this->addField('p.id');
@@ -168,6 +209,11 @@ class productModel extends Model {
         return !$this->isEmpty();
     }
 
+    /**
+     * Insert product query
+     *
+     * @param   array   $data       - The data array (field => value)
+     */
     public function insertProduct($data) {
 
         foreach ($data as $field => $value)
@@ -178,6 +224,17 @@ class productModel extends Model {
 
     }
 
+    /**
+     * Inserts a product ingredient
+     *
+     * This function uses non-strict insert
+     * In other words, in case of a duplicate entry,
+     * this will not be inserted but will not return
+     * an error as well, nothing will be done
+     *
+     * @param   string      $product_id         - The product id
+     * @param   string      $ingredient_name    - The ingredient name
+     */
     public function insertIngredient($product_id, $ingredient_name) {
 
         $this->addInsertSet('product_id', $product_id);
@@ -187,15 +244,27 @@ class productModel extends Model {
         $this->runInsert(false);
     }
 
-    public function getIngredientList() {
+    /**
+     * Returns ingredient list
+     *
+     * @param   int     $limit      - The item limit (false for no limit)
+     */
+    public function getIngredientList($limit = 300) {
 
         $this->addField('distinct ingredient_name');
         $this->addFrom('product_ingredients');
-        $this->addLimit('300');
+        if ($limit)
+            $this->addLimit($limit);
 
         $this->runQuery();
     }
 
+    /**
+     * Query to update products
+     *
+     * @param   array   $data   - The product data (field => value)
+     * @param   string  $id     - The product Id
+     */
     public function updateProduct($data, $id) {
 
         foreach ($data as $field => $value)

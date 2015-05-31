@@ -204,13 +204,7 @@ class productControl extends Control {
 
         $product_id = $this->model()->getLastInsertId();
 
-        $result_ingredients = array();
-        if (isset($post['ingredients']) && !empty($post['ingredients'])) {
-            $ingredients = explode(',', $post['ingredients']);
-            foreach ($ingredients as $ingredient) {
-                $result_ingredients[] = $this->model()->insertIngredient($product_id, $ingredient);
-            }
-        }
+        $result_ingredients = $this->insertIngredients($product_id, $post['ingredients']);
 
         return RestServer::response(array(
             'status'        => 200,
@@ -324,13 +318,7 @@ class productControl extends Control {
             return RestServer::throwError(Language::QUERY_ERROR(), 500);
         }
 
-        $result_ingredients = array();
-        if (isset($post['ingredients']) && !empty($post['ingredients'])) {
-            $ingredients = explode(',', $post['ingredients']);
-            foreach ($ingredients as $ingredient) {
-                $result_ingredients[] = $this->model()->insertIngredient($this->getId(), $ingredient);
-            }
-        }
+        $result_ingredients = $this->insertIngredients($this->getId(), $post['ingredients']);
 
         return RestServer::response(array(
             'status'        => 200,
@@ -338,6 +326,18 @@ class productControl extends Control {
             'image'         => $imageFile,
             'ingredients'   => $result_ingredients
         ), 200);
+    }
+
+    public function insertIngredients($product_id, $ingredients) {
+
+        $result_ingredients = array();
+        if (isset($ingredients) && !empty($ingredients)) {
+            $ingredients = explode(',', $ingredients);
+            foreach ($ingredients as $ingredient) {
+                $result_ingredients[] = $this->model()->insertIngredient($product_id, $ingredient);
+            }
+        }
+        return $result_ingredients;
     }
 
     /**

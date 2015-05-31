@@ -190,12 +190,15 @@ Main.prototype = {
      */
     interactions : function() {
 
-        window.onpopstate = function(e){
-            Html.Get(e.target.window.location.href, function(r) {
-                eval(r);
-                return false;
-            });
-        }
+        var iOS = ( navigator.userAgent.match(/(iPad|iPhone|iPod)/g) ? true : false );
+
+        if (!iOS)
+            window.onpopstate = function(e) {
+                Html.Get(e.target.window.location.href, function(r) {
+                    eval(r);
+                    return false;
+                });
+            }
 
     },
 
