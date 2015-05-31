@@ -39,7 +39,7 @@
                             <div class="col-md-2 col-sm-12">
                                 <i class="fa circle fa-angle-right"></i>
                                 <h5>
-                                    <span>ID #{$request['id']}</span>
+                                    <span>ID <strong>#{$request['id']}</strong></span>
                                 </h5>
                             </div>
                         </div>

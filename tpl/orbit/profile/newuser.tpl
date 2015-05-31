@@ -21,7 +21,7 @@
                     </div><!-- /.box-header -->
 
                     <div class="box-body">
-                        <img type="upload" id="profile-img" name="image64" src="{$smarty.const.T_IMGURL}/no-image.jpg" class="image-user" alt="product image" style="display:block; margin:0 auto;" />
+                        <img type="upload" id="profile-img" name="image64" src="{$smarty.const.T_IMGURL}/no-profile.jpg" class="image-user" alt="product image" style="display:block; margin:0 auto;" />
 
                         <div class="form-group" style="display: block; margin: 20px auto 0px; width: 150px; text-align: center;">
                             <div class="btn btn-success btn-file">
@@ -52,6 +52,10 @@
                                 <div class="form-group col-xs-6">
                                     <label>E-mail:</label>
                                     <input type="text" class="form-control"  name="email" />
+                                </div>
+                                <div class="form-group col-xs-6">
+                                    <label>CPF:</label>
+                                    <input type="text" class="form-control"  name="cpf" />
                                 </div>
                                 <div class="form-group col-xs-6">
                                     <label>Celular:</label>

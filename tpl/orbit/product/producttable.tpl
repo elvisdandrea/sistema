@@ -2,7 +2,7 @@
     <!-- Lista de clientes -->
     <div id="list-clients" class="list-itens">
         <div class="list-imgs">
-            <img src="{$row['image']}" alt="{$row['product_name']}" />
+            <img src="{if (!empty($row['image']))}{$row['image']}{else}{$smarty.const.T_IMGURL}/no-imgfood.png{/if}" alt="{$row['product_name']}" />
         </div>
         <!-- /.Itens -->
         <div style="width:100%">

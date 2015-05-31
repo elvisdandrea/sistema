@@ -3,11 +3,11 @@
 
         <div class="box-header">
             <div class="box-tools">
-                <a class="btn btn-default btn-sm" data-widget="collapse" style="width:100%"><spam class="pull-left"><i class="fa fa-plus"></i>&nbsp;&nbsp; Visualizar os dados e informações:</spam></a>
+                <a onclick="$('#box-info').toggle()" class="btn btn-default btn-sm" data-widget="collapse" data-target="#box-info" style="width:100%"><spam class="pull-left"><i class="fa fa-plus"></i>&nbsp;&nbsp; Visualizar os dados e informações:</spam></a>
             </div>
         </div>
 
-        <div class="box-body">
+        <div id="box-info" class="box-body" style="display: none">
             <div class="row">
                 <div class="col-md-4 col-sm-6">
                     <div class="small-box bg-aqua">

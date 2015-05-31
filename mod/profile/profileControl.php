@@ -42,14 +42,11 @@ class profileControl extends Control {
         $pagination = $this->getPagination($page, $total, $rp, 'profile');
         $this->view()->setVariable('pagination', $pagination);
 
-        $this->model()->setGridRowLink('profile/viewuser', 'id');
-        $this->model()->addGridColumn('Imagem','image','Image');
-        $this->model()->addGridColumn('Nome','name');
-        $this->model()->addGridColumn('Email','email');
-        $this->model()->addGridColumn('Telefone','phone_1');
-        $this->model()->addGridColumn('Telefone 2','phone_2');
+        $this->newView('table');
+        $this->view('table')->loadTemplate('profiletable');
+        $this->view('table')->setVariable('list', $this->model()->getRows(0));
 
-        $this->view()->setVariable('profilelist', $this->model()->dbGrid());
+        $this->view()->setVariable('profilelist', $this->view('table')->render());
         $this->commitReplace($this->view()->render(), '#content');
 
     }
@@ -122,6 +119,7 @@ class profileControl extends Control {
         $userData = array(
             'name'              => $post['name'],
             'email'             => $post['email'],
+            'cpf'               => $post['cpf'],
             'phone_1'           => $post['phone_1'],
             'phone_2'           => $post['phone_2'],
             'street_address'    => $post['street_address'],
@@ -186,6 +184,7 @@ class profileControl extends Control {
         $userData = array(
             'name'              => $post['name'],
             'email'             => $post['email'],
+            'cpf'               => $post['cpf'],
             'phone_1'           => $post['phone_1'],
             'phone_2'           => $post['phone_2'],
             'street_address'    => $post['street_address'],
