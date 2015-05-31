@@ -265,6 +265,10 @@ class productControl extends Control {
             'lt'    => 'Litros'
         );
 
+        $this->model()->getIngredientList();
+        $ingredientList = $this->model()->getRows();
+        $this->view()->setVariable('ingredientList', $ingredientList);
+
         $unit = isset($units[$product['unit']]) ? $units[$product['unit']] : '';
 
         $this->view()->setVariable('unit', $unit);
@@ -320,10 +324,19 @@ class productControl extends Control {
             return RestServer::throwError(Language::QUERY_ERROR(), 500);
         }
 
+        $result_ingredients = array();
+        if (isset($post['ingredients']) && !empty($post['ingredients'])) {
+            $ingredients = explode(',', $post['ingredients']);
+            foreach ($ingredients as $ingredient) {
+                $result_ingredients[] = $this->model()->insertIngredient($this->getId(), $ingredient);
+            }
+        }
+
         return RestServer::response(array(
-            'status'    => 200,
-            'message'   => 'Cadastro atualizado!',
-            'image'     => $imageFile
+            'status'        => 200,
+            'message'       => 'Cadastro atualizado!',
+            'image'         => $imageFile,
+            'ingredients'   => $result_ingredients
         ), 200);
     }
 

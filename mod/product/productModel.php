@@ -151,14 +151,18 @@ class productModel extends Model {
         $this->addField('p.price');
         $this->addField('p.cost');
         $this->addField('p.unit');
+        $this->addField('group_concat(i.ingredient_name) as ingredients');
         $this->addField('p.description');
         $this->addField('p.image');
         $this->addField('p.product_fact');
 
         $this->addFrom('products p');
         $this->addFrom('left join categories c on c.id = p.category_id');
+        $this->addFrom('left join product_ingredients i on i.product_id = p.id');
 
         $this->addWhere('p.id = "' . $id . '"');
+        $this->addGroup('p.id');
+
         $this->runQuery();
 
         return !$this->isEmpty();
@@ -180,7 +184,7 @@ class productModel extends Model {
         $this->addInsertSet('ingredient_name', $ingredient_name);
         $this->setInsertTable('product_ingredients');
 
-        $this->runInsert();
+        $this->runInsert(false);
     }
 
     public function getIngredientList() {

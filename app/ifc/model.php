@@ -603,10 +603,11 @@ class Model {
      * Executes a Query
      *
      * @param   string  $query          - Query string
+     * @param   bool    $strict         - When false, it ignores query errors
      * @return  array
      * @throws  Exception               - Only when on Dev Environment
      */
-    private function Exec($query) {
+    private function Exec($query, $strict = true) {
 
         $this->connect($this->connection);
         $result = $this->connections[$this->connection]['conn']->prepare($query);
@@ -618,7 +619,7 @@ class Model {
             'message'   => $info[2]
         );
 
-        if (ENVDEV == '1' && $info[2] != '') debug($this->errorInfo);
+        if (ENVDEV == '1' && $info[2] != '' && $strict) debug($this->errorInfo);
 
         $this->lastId = $this->connections[$this->connection]['conn']->lastInsertId();
 
@@ -652,10 +653,10 @@ class Model {
      * The query execution caller
      * for INSERT queries
      *
-     * @param   bool    $safe       - Safe Insert: will not run if there's no WHERE clause
+     * @param   bool        $strict     - When false, ignore query errors
      */
-    protected function runInsert() {
-        $this->dataset = $this->Exec($this->GetInsert());
+    protected function runInsert($strict = true) {
+        $this->dataset = $this->Exec($this->GetInsert(), $strict);
         $this->clearInsert();
     }
 
