@@ -24,6 +24,14 @@
         </div>
 
         <div class="box-body">
+
+            <!-- Cliente -->
+            <div class="form-group">
+                <label>Para qual cliente:</label>
+                <br /><br />
+                {include "request/clientprofile.tpl"}
+            </div>
+
             <!-- Data de entrega -->
             <div class="form-group">
                 <label>Data da entrega:</label>
@@ -41,28 +49,6 @@
                 </div><!-- /.input group -->
             </div><!-- /.form group -->
             <!-- /.Data de entrega -->
-
-            <!-- Cliente -->
-            <div class="form-group">
-                <label>Para qual cliente:</label>
-            </div><!-- /.form group -->
-            <!-- /.Cliente -->
-
-            <!-- Client profile -->
-            <div class="box-body client-profile">
-                <!-- chat item -->
-                <div class="item">
-                    <img src="{$client['image']}" alt="user image" />
-                    <div class="client-dados">
-                        <h5>
-                            {$client['client_name']} <small>Telefones: {$client['phones']}</small>
-                        </h5>
-                        <div id="addresslist">
-                            {include "request/addresslist.tpl"}
-                        </div>
-                    </div>
-                </div><!-- /.chat item -->
-            </div><!-- /. Client profile -->
 
         </div><!-- /.box-body -->
     </div><!-- /.box -->
