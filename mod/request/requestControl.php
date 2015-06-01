@@ -227,8 +227,9 @@ class requestControl extends Control {
         $this->view()->loadTemplate('seladdress');
         $this->view()->setVariable('address', $this->model()->getRow(0));
 
-
         $this->commitReplace($this->view()->render(), '#seladdress');
+        $this->commitAddClass('btn-success', '#addressbtn');
+        $this->commitRemoveClass('btn-info', '#addressbtn');
 
     }
 
