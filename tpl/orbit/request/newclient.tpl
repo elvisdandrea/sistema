@@ -23,30 +23,40 @@
                     </div>
                     <hr/>
                     <h4>Endereço</h4>
-                    <div class="form-group">
-                        <div class="input-group col-md-4">
-                            <label>Cep:</label>
-                            <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="XXXXX-XX">
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label>Cep:</label>
+                                <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="XXXXX-XX">
+                            </div>
+                            <div class="col-md-8">
+                                <label>Rua:</label>
+                                <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Endereço do cliente">
+                            </div>
                         </div>
-                        <div class="input-group col-md-8">
-                            <label>Rua:</label>
-                            <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Endereço do cliente">
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-4">
+                                <label>Número:</label>
+                                <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Número">
+                            </div>
+                            <div class="col-md-8">
+                                <label>Complemento:</label>
+                                <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Complemento">
+                            </div>
                         </div>
-                        <div class="input-group col-md-4">
-                            <label>Número:</label>
-                            <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Número">
-                        </div>
-                        <div class="input-group col-md-8">
-                            <label>Complemento:</label>
-                            <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Complemento">
-                        </div>
-                        <div class="input-group col-md-6">
-                            <label>Bairro:</label>
-                            <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Bairro">
-                        </div>
-                        <div class="input-group col-md-6">
-                            <label>Cidade:</label>
-                            <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Cidade">
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Bairro:</label>
+                                <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Bairro">
+                            </div>
+                            <div class="col-md-6">
+                                <label>Cidade:</label>
+                                <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Cidade">
+                            </div>
                         </div>
                     </div>
                 </div>
