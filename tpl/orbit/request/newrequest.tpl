@@ -19,6 +19,10 @@
                     </div>
                     <input type="text" class="form-control" placeholder="Localizar um cliente" onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchclient?search=' + this.value + '&request_id={$request_id}')" data-toggle="dropdown" />
 
+                        <span style="cursor: pointer;" class="input-group-addon" data-toggle="modal" data-target="#compose-modal" data-dismiss="#clientresult">
+                            <span class="glyphicon glyphicon-plus-sign"></span>
+                        </span>
+
                     <div id="client-results">
 
                     </div>
@@ -92,3 +96,5 @@
     <!-- /.Buttons (Options) -->
 </form>
 </div><!-- ./col-md-12 -->
+
+{include "request/newclient.tpl"}

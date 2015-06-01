@@ -21,9 +21,7 @@
             </div>
         </div>
         <div class="modal-footer clearfix">
-
-            <button type="button" class="btn btn-danger" data-dismiss="modal"><i class="fa fa-times"></i></button>
-
+            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
             <!--<button type="submit" class="btn btn-success pull-left">Salvar alterações</button>-->
         </div>
     </div><!-- /.modal-content -->

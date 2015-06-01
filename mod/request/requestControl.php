@@ -769,27 +769,34 @@ class requestControl extends Control {
      */
     public function setAddress() {
 
-        $request_id = $this->getQueryString('id');
+        $id         = $this->getQueryString('id');
+        $request_id = $this->getQueryString('request_id');
         $client_id  = $this->getQueryString('client_id');
-        $address_id = $this->getQueryString('address_id');
 
         $requestData = array(
-            'address_id'    => $address_id
+            'address_id'    => $id
         );
 
         $this->model()->updateRequest($request_id, $requestData);
-        $this->model()->getRequestData($request_id);
-        $request = $this->model()->getRow(0);
+//        $this->model()->getRequestData($request_id);
+//        $request = $this->model()->getRow(0);
+//
+//        $this->model()->getAddress($client_id);
+//        $address_list = $this->model()->getRows();
+//
+//        $this->view()->loadTemplate('addresslist');
+//        $this->view()->setVariable('client',      array('id' => $client_id));
+//        $this->view()->setVariable('addressList', $address_list);
+//        $this->view()->setVariable('request',     $request);
+//        $this->commitReplace($this->view()->render(), '#addresslist');
+        $this->model()->getClistAddressForRequest($id);
 
-        $this->model()->getAddress($client_id);
-        $address_list = $this->model()->getRows();
+        $this->view()->loadTemplate('seladdress');
+        $this->view()->setVariable('address', $this->model()->getRow(0));
 
-        $this->view()->loadTemplate('addresslist');
-        $this->view()->setVariable('client',      array('id' => $client_id));
-        $this->view()->setVariable('addressList', $address_list);
-        $this->view()->setVariable('request',     $request);
-
-        $this->commitReplace($this->view()->render(), '#addresslist');
+        $this->commitReplace($this->view()->render(), '#seladdress');
+        $this->commitAddClass('btn-success', '#addressbtn');
+        $this->commitRemoveClass('btn-info', '#addressbtn');
 
     }
 
