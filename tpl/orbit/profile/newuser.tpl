@@ -85,6 +85,14 @@
                                     <label id="street_address">Cidade:</label>
                                     <input type="text" class="form-control" name="city" />
                                 </div>
+                                <div class="form-group col-xs-12">
+                                    <label>Lojas:</label>
+                                    <select multiple id="stations" class="form-control" name="stations" data-placeholder="Lojas">
+                                        {foreach from=$stations key="index" item="row"}
+                                            <option value="{$row['id']}">{$row['station_name']}</option>
+                                        {/foreach}
+                                    </select>
+                                </div>
                             </div>
                         </div>
 
