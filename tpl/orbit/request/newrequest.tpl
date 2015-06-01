@@ -98,3 +98,4 @@
 </div><!-- ./col-md-12 -->
 
 {include "request/newclient.tpl"}
+{include "request/newaddress.tpl"}

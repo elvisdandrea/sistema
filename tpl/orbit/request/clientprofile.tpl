@@ -42,7 +42,7 @@
                             </a>
                         </li>
                     {/foreach}
-                    <li class="footer"><a href="#" class="btn" data-toggle="modal" data-target="#compose-modal"><i class="fa fa-plus"></i>&nbsp;Cadastre um novo endereço</a></li>
+                    <li class="footer"><a href="#" class="btn" data-toggle="modal" data-target="#compose-modal-address"><i class="fa fa-plus"></i>&nbsp;Cadastre um novo endereço</a></li>
                 </ul>
                 <!-- /.Itens -->
             </div>
