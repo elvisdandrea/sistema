@@ -12,14 +12,14 @@
                 <ul class="menu">
                 {foreach from=$newRequests item="row"}
                     <li>
-                        <a href="{$smarty.const.BASEDIR}request/viewrequest?id={$row['id']}" title="{$row['status_name']}">
+                        <a href="{$smarty.const.BASEDIR}request/viewrequest?id={$row['id']}" title="{$row['status_name']}" changeurl>
                             <i class="fa fa-minus warning"></i>{$row['client_name']}
                         </a>
                     </li>
                 {/foreach}
                 </ul>
             </li>
-            <li class="footer"><a href="{$smarty.const.BASEDIR}request?status=1">Veja todos os novos pedidos</a></li>
+            <li class="footer"><a href="{$smarty.const.BASEDIR}request?status=1" changeurl>Veja todos os novos pedidos</a></li>
         </ul>
     </li>
     <!-- User Account: style can be found in dropdown.less -->
@@ -40,7 +40,7 @@
             <!-- Menu Footer-->
             <li class="user-footer">
                 <div class="pull-left">
-                    <a href="{$smarty.const.BASEDIR}profile/viewuser?id={UID::get('profile','id')}" changeurl class="btn btn-default btn-flat">Editar perfil</a>
+                    <a href="{$smarty.const.BASEDIR}profile/viewuser?id={UID::get('profile','id')}" changeurl class="btn btn-default btn-flat" changeurl>Editar perfil</a>
                 </div>
                 <div class="pull-right">
                     <a href="{$smarty.const.BASEDIR}home/logout" class="btn btn-default btn-flat">Sair</a>

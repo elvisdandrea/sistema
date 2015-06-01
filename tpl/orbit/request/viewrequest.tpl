@@ -79,3 +79,4 @@
     <!-- /.Buttons (Options) -->
 
 </div><!-- ./col-md-12 -->
+{include "request/newaddress.tpl"}
