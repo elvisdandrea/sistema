@@ -44,7 +44,7 @@ class profileModel extends Model {
             'u.country',
             'u.phone_1',
             'u.phone_2',
-            'u.email'
+            'u.email',
         );
 
         foreach ($fields as $field)
@@ -93,9 +93,15 @@ class profileModel extends Model {
      */
     public function getProfile($id) {
 
-        $this->addField('*');
-        $this->addFrom('profile');
-        $this->addWhere('id = "' . $id . '"');
+        $this->addField('p.*');
+        $this->addField('group_concat(s.station_name) as stations');
+
+        $this->addFrom('profile p');
+        $this->addFrom('LEFT JOIN station_members m ON m.profile_id = p.id');
+        $this->addFrom('LEFT JOIN stations s ON s.id = m.station_id');
+
+        $this->addWhere('p.id = "' . $id . '"');
+        $this->addGroup('p.id');
 
         $this->runQuery();
 
@@ -150,5 +156,58 @@ class profileModel extends Model {
         $this->runInsert();
     }
 
+    public function getStationsList(){
+        $this->addField('*');
+        $this->addFrom('stations');
 
+        $this->runQuery();
+
+        return !$this->isEmpty();
+    }
+
+    public function getUserStations($uid){
+        $this->addField('*');
+        $this->addFrom('station_members');
+        $this->addWhere("profile_id = {$uid}");
+
+        $this->runQuery();
+
+        return !$this->isEmpty();
+    }
+
+    public function updateUserStations($uid, $stations){
+        $this->getUserStations($uid);
+
+        $currentStations = $this->getRows(0);
+
+        $formattedCurrentStations = array();
+        foreach($currentStations as $value){
+            $formattedCurrentStations[] = $value['station_id'];
+            if(!in_array($value['station_id'], $stations)){
+                $this->deleteUserStation($uid, $value['station_id']);
+            }
+        }
+        foreach($stations as $value){
+            if(!in_array($value, $formattedCurrentStations)){
+                $this->insertUserStation($uid, $value);
+            }
+        }
+    }
+
+    public function insertUserStation($uid, $stationId){
+        $this->addInsertSet('profile_id', $uid);
+        $this->addInsertSet('station_id', $stationId);
+
+        $this->setInsertTable('station_members');
+        $this->runInsert();
+    }
+
+    public function deleteUserStation($uid, $stationId){
+        $this->setDeleteFrom('station_members');
+
+        $this->addDeleteWhere('profile_id = "' . $uid . '"');
+        $this->addDeleteWhere('station_id = "' . $stationId . '"');
+
+        $this->runDelete();
+    }
 }

@@ -58,6 +58,9 @@ class profileControl extends Control {
 
         $profile = $this->model()->getRow(0);
 
+        $this->model()->getStationsList();
+        $stations = $this->model()->getRows(0);
+
         if (intval($profile['uid']) > 0) {
             $auth = new authControl();
             $auth->model('auth')->getUserData($profile['uid']);
@@ -65,8 +68,12 @@ class profileControl extends Control {
             $this->view()->setVariable('user', $user);
         }
 
+        $userStations = explode(',', $profile['stations']);
+
         $this->view()->loadTemplate('edituser');
         $this->view()->setVariable('profile', $profile);
+        $this->view()->setVariable('stations', $stations);
+        $this->view()->setVariable('userStations', $userStations);
         $this->view()->appendJs('profile');
         $this->commitReplace($this->view()->render(), '#content');
     }
@@ -150,6 +157,9 @@ class profileControl extends Control {
 
         $this->model()->updateUser($userData, $this->getId());
 
+        $stations = explode(',', $post['stations']);
+        $this->model()->updateUserStations($this->getId(), $stations);
+
         if (!$this->model()->queryOk()) {
             return RestServer::throwError(Language::QUERY_ERROR(), 500);
         }
@@ -167,7 +177,14 @@ class profileControl extends Control {
      */
     public function newUser() {
         $this->view()->loadTemplate('newuser');
+
+        $this->model()->getStationsList();
+        $stations = $this->model()->getRows(0);
+
+        $this->view()->setVariable('stations', $stations);
+
         $this->commitReplace($this->view()->render(), '#content');
+        $this->view()->appendJs('profile');
         echo Html::addImageUploadAction('read64', 'profile-img');
     }
 
@@ -210,14 +227,20 @@ class profileControl extends Control {
 
         $this->model()->addUser($userData);
 
+        $newId = $this->model()->getLastInsertId();
+
+        $stations = explode(',', $post['stations']);
+
+        foreach($stations as $key => $value){
+            $this->model()->insertUserStation($newId, $value);
+        }
+
         if (!$this->model()->queryOk()) {
             if (in_array($this->model()->getErrorCode(), array(23000, 1062)))
                 return RestServer::throwError(Language::USER_ALREADY_TAKEN(), 400);
             else
                 return RestServer::throwError(Language::QUERY_ERROR(), 500);
         }
-
-        $newId = $this->model()->getLastInsertId();
 
         return RestServer::response(array(
             'status'    => 200,
@@ -239,7 +262,7 @@ class profileControl extends Control {
             $this->terminate();
         }
         $id = $result['id'];
-        $this->editUser($id);
+        $this->viewUser($id);
 
     }
 

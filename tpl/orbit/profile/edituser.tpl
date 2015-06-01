@@ -1,4 +1,4 @@
-<div>
+<div xmlns="http://www.w3.org/1999/html">
 <form action="{$smarty.const.BASEDIR}profile/editUser?id={$profile['id']}" changeurl="{$smarty.const.BASEDIR}profile">
 
     <div class="box box-solid">
@@ -95,6 +95,14 @@
                             <div class="form-group col-xs-6">
                                 <label id="street_address">Cidade:</label>
                                 <input type="text" class="form-control" name="city" value="{$profile['city']}" />
+                            </div>
+                            <div class="form-group col-xs-12">
+                                <label>Lojas:</label>
+                                <select multiple id="stations" class="form-control" name="stations" data-placeholder="Lojas">
+                                    {foreach from=$stations key="index" item="row"}
+                                        <option value="{$row['id']}"{if (in_array($row['station_name'], $userStations))} selected{/if}>{$row['station_name']}</option>
+                                    {/foreach}
+                                </select>
                             </div>
                         </div>
                     </div>
