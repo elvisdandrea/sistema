@@ -119,7 +119,7 @@ class clientControl extends Control {
             'city'              => $post['city'],
             'street_number'     => $post['street_number'],
             'street_additional' => $post['street_additional'],
-            'addr_main'           => 1
+            'addr_main'         => 1
         );
 
         $validation = $this->validatePhone($phoneData);
@@ -129,10 +129,10 @@ class clientControl extends Control {
             return RestServer::throwError($message, 400);
         }
 
-        $image      = $post['image64'];
+        $image      = $this->getPost('image64');
         $imageFile  = $image;
 
-        if (!Html::isUrl($image)) {
+        if ($image && !Html::isUrl($image)) {
             $base64 = explode(',', $image);
             $imageFile = $this->uploadBase64File($base64[1]);
 
@@ -160,15 +160,17 @@ class clientControl extends Control {
             return RestServer::throwError(Language::QUERY_ERROR(), 500);
 
         $this->model()->addClientAddress($addrData, $newUserId);
+        $address_id = $this->model()->getLastInsertId();
 
         if (!$this->model()->queryOk())
             return RestServer::throwError(Language::QUERY_ERROR(), 500);
 
         return RestServer::response(array(
-            'status'    => 200,
-            'uid'       => $newUserId,
-            'message'   => 'Cadastro realizado!',
-            'image'     => $imageFile
+            'status'     => 200,
+            'uid'        => $newUserId,
+            'address_id' => $address_id,
+            'message'    => 'Cadastro realizado!',
+            'image'      => $imageFile
         ), 200);
 
     }

@@ -23,3 +23,6 @@ $(document).on('click', '#newclientbtn', function() {
     $('#clientresult').remove();
     return false;
 });
+
+//$('#phone_type').select2();
+//$('#address_type').select2();

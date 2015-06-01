@@ -1,0 +1,1 @@
+$('#compose-modal').modal('hide');

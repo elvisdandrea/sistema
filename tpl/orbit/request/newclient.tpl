@@ -14,10 +14,24 @@
                     </div>
                     <div id="fones">
                         <label>telefone:</label>
-                        <div class="input-group col-md-12">
-                            <input type="text" name="phone_number" class="form-control" style="height:31px" placeholder="XX XXXX-XXXX">
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-info" ><i class="fa fa-plus-circle"></i></button>
+                        <div class="row">
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <select style="width: 100%" id="phone_type" class="form-control" name="phone_type">
+                                        <option value="Residencial">Residencial</option>
+                                        <option value="Comercial">Comercial</option>
+                                        <option value="Celular">Celular</option>
+                                        <option value="Recado">Recado</option>
+                                        <option value="Whatsapp">Whatsapp</option>
+                                        <option value="Outro">Outro</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6">
+                                    <input type="text" name="phone_number" class="form-control" style="height:31px" placeholder="XX XXXX-XXXX">
+                                    {*<div class="input-group-btn">*}
+                                        {*<button type="button" class="btn btn-info" ><i class="fa fa-plus-circle"></i></button>*}
+                                    {*</div>*}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -25,25 +39,35 @@
                     <h4>Endereço</h4>
                     <div class="row">
                         <div class="form-group">
+                            <div class="col-md-6">
+                                <label>Tipo:</label>
+                                <select id="address_type" class="form-control" name="address_type">
+                                    <option value="Residencial">Residencial</option>
+                                    <option value="Comercial">Comercial</option>
+                                    <option value="Outro">Outro</option>
+                                </select>
+                            </div>
                             <div class="col-md-4">
                                 <label>Cep:</label>
-                                <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="XXXXX-XX">
+                                <input type="text" name="zip_code" class="form-control" style="height:31px" placeholder="XXXXX-XX">
                             </div>
-                            <div class="col-md-8">
-                                <label>Rua:</label>
-                                <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Endereço do cliente">
-                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label>Rua:</label>
+                            <input type="text" name="street_addr" class="form-control" style="height:31px" placeholder="Endereço do cliente">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-4">
                                 <label>Número:</label>
-                                <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Número">
+                                <input type="text" name="street_number" class="form-control" style="height:31px" placeholder="Número">
                             </div>
                             <div class="col-md-8">
                                 <label>Complemento:</label>
-                                <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Complemento">
+                                <input type="text" name="street_additional" class="form-control" style="height:31px" placeholder="Complemento">
                             </div>
                         </div>
                     </div>
@@ -51,11 +75,11 @@
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label>Bairro:</label>
-                                <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Bairro">
+                                <input type="text" name="hood" class="form-control" style="height:31px" placeholder="Bairro">
                             </div>
                             <div class="col-md-6">
                                 <label>Cidade:</label>
-                                <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Cidade">
+                                <input type="text" name="city" class="form-control" style="height:31px" placeholder="Cidade">
                             </div>
                         </div>
                     </div>

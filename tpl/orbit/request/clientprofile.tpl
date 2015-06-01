@@ -2,7 +2,7 @@
 <div id="list-clients" class="list-itens">
     <input type="hidden" name="client_id" value="{$client['id']}"/>
     <div class="list-imgs">
-        <img src="{if (!empty($client['image']))}{$client['image']}{else}{$smarty.const.BASEDIR}/no-profile.jpg{/if}" alt="{$client['client_name']}" />
+        <img src="{if (!empty($client['image']))}{$client['image']}{else}{$smarty.const.T_IMGURL}/no-profile.jpg{/if}" alt="{$client['client_name']}" />
     </div>
     <!-- /.Itens -->
     <div id="client-choose" style="">

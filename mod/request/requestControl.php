@@ -186,9 +186,10 @@ class requestControl extends Control {
     /**
      * Sets a client to the current request
      *
-     * @param   bool    $id     - The client Id ( false to get from querystring )
+     * @param   string|bool     $id             - The client Id ( false to get from querystring )
+     * @param   string|bool     $address_id     - The pre-selected address_id
      */
-    public function selClient($id = false) {
+    public function selClient($id = false, $address_id = false) {
         $this->setId();
         $id || $id = $this->getQueryString('id');
         UID::set('requests', $this->request_id, 'client_id', $id);
@@ -198,7 +199,16 @@ class requestControl extends Control {
         $this->view()->setVariable('client', $this->model()->getRow(0));
         $this->model()->getAddress($id);
         $this->view()->setVariable('request_id', $this->request_id);
-        $this->view()->setVariable('addressList', $this->model()->getRows());
+        $addressList = $this->model()->getRows();
+        $this->view()->setVariable('addressList', $addressList);
+
+        if ($address_id) foreach ($addressList as $row) {
+            if ($address_id == $row['id']) {
+                $this->view()->setVariable('request', $row);
+                break;
+            }
+        }
+
         $this->commitReplace($this->view()->render(),'#client');
         $this->commitShow('#client');
         $this->commitSetValue('#searchclient', '');
@@ -778,17 +788,6 @@ class requestControl extends Control {
         );
 
         $this->model()->updateRequest($request_id, $requestData);
-//        $this->model()->getRequestData($request_id);
-//        $request = $this->model()->getRow(0);
-//
-//        $this->model()->getAddress($client_id);
-//        $address_list = $this->model()->getRows();
-//
-//        $this->view()->loadTemplate('addresslist');
-//        $this->view()->setVariable('client',      array('id' => $client_id));
-//        $this->view()->setVariable('addressList', $address_list);
-//        $this->view()->setVariable('request',     $request);
-//        $this->commitReplace($this->view()->render(), '#addresslist');
         $this->model()->getClistAddressForRequest($id);
 
         $this->view()->loadTemplate('seladdress');
@@ -893,6 +892,9 @@ class requestControl extends Control {
         $this->commitReplace('Total do pedido: ' . String::convertTextFormat($newTotalPrice, 'currency'), '[data-id="totalprice"]');
     }
 
+    /**
+     * Handler to set a plate size
+     */
     public function setPlateSize() {
 
         $this->setId();
@@ -916,6 +918,21 @@ class requestControl extends Control {
 
         UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_size', $result['plate_size']);
         UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_name', $result['plate_name']);
+    }
+
+    public function addclient() {
+
+        $client = new clientControl();
+        $result = $client->postAddClient();
+        if ($result['status'] != 200) {
+            $this->commitAdd($this->view()->showAlert('danger', '', $result['message']) ,'body');
+            $this->terminate();
+        }
+
+        $this->commitAdd($this->view()->showAlert('success', '', 'Cliente cadastrado com sucesso') ,'body');
+        $this->view()->appendJs('saveclient');
+        $this->selClient($result['uid'], $result['address_id']);
+
     }
 
 }
