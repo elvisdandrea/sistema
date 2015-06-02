@@ -17,7 +17,7 @@
                     <div class="input-group-addon">
                         <i class="fa fa-user"></i>
                     </div>
-                    <input type="text" class="form-control" placeholder="Localizar um cliente" onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchclient?search=' + this.value + '&request_id={$request_id}')" data-toggle="dropdown" />
+                    <input type="text" class="form-control" placeholder="Localizar um cliente" onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchclient?search=' + this.value + '&request_id={$request_id}',this.value)" data-toggle="dropdown" />
 
                         <span style="cursor: pointer;" class="input-group-addon" data-toggle="modal" data-target="#compose-modal" data-dismiss="#clientresult">
                             <span class="glyphicon glyphicon-plus-sign"></span>

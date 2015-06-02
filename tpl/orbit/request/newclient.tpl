@@ -10,7 +10,7 @@
                     <h4>Dados do Cliente</h4>
                     <label>Nome do cliente:</label>
                     <div class="input-group col-md-12">
-                        <input type="text" name="client_name" class="form-control" style="height:31px" placeholder="Nome do cliente">
+                        <input id="client_name" type="text" name="client_name" class="form-control" style="height:31px" placeholder="Nome do cliente">
                     </div>
                     <div id="fones">
                         <label>telefone:</label>
