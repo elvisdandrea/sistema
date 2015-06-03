@@ -389,6 +389,7 @@ class requestControl extends Control {
         UID::del('requests', $this->request_id);
 
         if ($result['status'] == 200) {
+            $this->commitAdd($this->view()->showAlert('success','','Pedido salvo!'),'body');
             $this->requestPage();
             $this->terminate();
         }
@@ -903,7 +904,7 @@ class requestControl extends Control {
 
         $this->model()->getPlateTypes($type_id);
         if ($this->model()->isEmpty()) {
-            $this->commitReplace($this->view()->showAlert('danger','','Ocorreu um erro ao localizar o tipo de prato selecionado'), 'body');
+            $this->commitAdd($this->view()->showAlert('danger','','Ocorreu um erro ao localizar o tipo de prato selecionado'), 'body');
             $this->terminate();
         }
 
