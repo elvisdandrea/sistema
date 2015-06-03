@@ -20,6 +20,17 @@ $('#new_client_phone').blur(function(){
     }
 });
 
+/*Formatação telefone*/
+var maskBehavior = function (val) {
+        return val.replace(/\D/g, '').length === 11 ? '(00) 00000-0000' : '(00) 0000-00009';
+    },
+    options = {onKeyPress: function(val, e, field, options) {
+        field.mask(maskBehavior.apply({}, arguments), options);
+    }};
+
+$("input[name='phone_number']").mask(maskBehavior, options);
+
+
 $('[name="cpf_cnpj"]').blur(function() {
     var entityType = $('[name="client_type"]:checked').val();
     var cpfCnpj = $(this).val();
@@ -42,6 +53,7 @@ $('[name="cpf_cnpj"]').blur(function() {
     }
 });
 
+/*Email*/
 $('[name="email"]').blur(function() {
     var email = $(this).val();
     if(email != '') {
@@ -55,6 +67,14 @@ $('[name="email"]').blur(function() {
         });
     }
 });
+
+//Realiza a formatação para letras minísculas ao perder o foco
+$('[name="email"]').on('blur', function(evt) {
+    $(this).val(function (_, val) {
+        return val.toLowerCase();
+    });
+});
+
 
 $("input[type='checkbox'], input[type='radio']").iCheck({
     checkboxClass: 'icheckbox_minimal',
@@ -136,6 +156,9 @@ function cepSearch(cep){
         }
     });
 }
+
+/*Mascara CEP*/
+$("#zip_code").mask('99999-999');
 
 window.fbAsyncInit = function() {
     FB.init({
