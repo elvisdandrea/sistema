@@ -14,6 +14,6 @@
             </a>
         </li>
     {/foreach}
-    <li class="footer"><a href="#" class="btn" data-toggle="modal" data-target="#compose-modal">Cadastre um novo endereço</a></li>
+    <li class="footer"><a href="#" class="btn" id="add-new-address" data-toggle="modal" data-target="#compose-modal">Cadastre um novo endereço</a></li>
 </ul>
 <!-- /.Itens -->

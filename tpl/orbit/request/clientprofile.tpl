@@ -5,7 +5,13 @@
         <img src="{if (!empty($client['image']))}{$client['image']}{else}{$smarty.const.T_IMGURL}/no-profile.jpg{/if}" alt="{$client['client_name']}" />
     </div>
     <!-- /.Itens -->
-    <div id="client-choose" style="">
+    <!-- TODO: me diga em qual arquivo JS devo salvar isso! Fecha o dropdown de selecionar/cadastrar endereço ao optar cadastrar novo-->
+    <script>
+        $("#add-new-address").on("click",function(){
+            $(this).closest(".dropdown-menu").prev().dropdown("toggle");
+        });
+    </script>
+    <div id="client-choose">
         <div class="row">
             <div class="col-md-5 col-sm-12">
                 <i class="fa circle fa-user"></i>
@@ -42,7 +48,7 @@
                             </a>
                         </li>
                     {/foreach}
-                    <li class="footer"><a href="#" class="btn" data-toggle="modal" data-target="#compose-modal-address"><i class="fa fa-plus"></i>&nbsp;Cadastre um novo endereço</a></li>
+                    <li class="footer"><a href="#" class="btn" id="add-new-address" data-toggle="modal" data-target="#compose-modal-address"><i class="fa fa-plus"></i>&nbsp;Cadastre um novo endereço</a></li>
                 </ul>
                 <!-- /.Itens -->
             </div>

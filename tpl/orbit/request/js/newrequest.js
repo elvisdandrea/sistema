@@ -24,5 +24,37 @@ $(document).on('click', '#newclientbtn', function() {
     return false;
 });
 
+$('[name="zip_code"]').mask('99999-999');
+
+$('[name="zip_code"]').blur(function() {
+    var cep = $('#zip_code').val();
+    if(cep != '') {
+        cepSearch(cep);
+    }
+});
+
+function cepSearch(cep){
+    $.ajax({
+        type: "GET",
+        url: "http://viacep.com.br/ws/"+cep+"/json",
+        dataType: "json",
+        success: function(data){
+            if(data.erro == true){
+                alert('Cep não encontrado');
+            }
+            else{
+                alert(data);
+                $('#zipcode').val(data.cep);
+                $('#street_addr').val(data.logradouro);
+                $('#hood').val(data.bairro);
+                $('#city').val(data.localidade);
+            }
+        },
+        error: function(){
+            alert('Cep não encontrado');
+        }
+    });
+}
+
 //$('#phone_type').select2();
 //$('#address_type').select2();

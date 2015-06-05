@@ -3,19 +3,14 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><i class="fa map-marker"></i>Adicionar um cliente</h4>
+                <h4 class="modal-title"><i class="fa map-marker"></i>Cadastrar um novo endereço</h4>
             </div>
             <form action="{$smarty.const.BASEDIR}request/addclientaddress" method="post">
                 <div class="modal-body">
-                    <h4>Cliente</h4>
-                    <input id="clientnewaddress" name="client_id" type="hidden" value=""/>
-                    <label id="clientnamenewaddress"></label>
-                    <hr/>
-                    <h4>Endereço</h4>
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-6">
-                                <label>Tipo:</label>
+                                <label for="address_type">Tipo:</label>
                                 <select id="address_type" class="form-control" name="address_type">
                                     <option value="Residencial">Residencial</option>
                                     <option value="Comercial">Comercial</option>
@@ -23,26 +18,26 @@
                                 </select>
                             </div>
                             <div class="col-md-4">
-                                <label>Cep:</label>
-                                <input type="text" name="zip_code" class="form-control" style="height:31px" placeholder="XXXXX-XX">
+                                <label for="zip_code">Cep:</label>
+                                <input type="text" name="zip_code" id="zip_code" class="form-control" style="height:31px">
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-md-12">
-                            <label>Rua:</label>
-                            <input type="text" name="street_addr" class="form-control" style="height:31px" placeholder="Endereço do cliente">
+                            <label for="street_addr">Rua:</label>
+                            <input type="text" name="street_addr" id="street_addr" class="form-control" style="height:31px">
                         </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-4">
-                                <label>Número:</label>
-                                <input type="text" name="street_number" class="form-control" style="height:31px" placeholder="Número">
+                                <label for="street_number">Número:</label>
+                                <input type="text" name="street_number" id="street_number" class="form-control" style="height:31px">
                             </div>
                             <div class="col-md-8">
-                                <label>Complemento:</label>
-                                <input type="text" name="street_additional" class="form-control" style="height:31px" placeholder="Complemento">
+                                <label for="street_additional">Complemento:</label>
+                                <input type="text" name="street_additional" id="street_additional" class="form-control" style="height:31px">
                             </div>
                         </div>
                     </div>
@@ -50,11 +45,11 @@
                         <div class="form-group">
                             <div class="col-md-6">
                                 <label>Bairro:</label>
-                                <input type="text" name="hood" class="form-control" style="height:31px" placeholder="Bairro">
+                                <input type="text" name="hood" id="hood" class="form-control" style="height:31px">
                             </div>
                             <div class="col-md-6">
                                 <label>Cidade:</label>
-                                <input type="text" name="city" class="form-control" style="height:31px" placeholder="Cidade">
+                                <input type="text" name="city" id="city" class="form-control" style="height:31px">
                             </div>
                         </div>
                     </div>
