@@ -354,7 +354,7 @@ class requestControl extends Control {
         $this->view()->setVariable('action',     $action);
         $this->view()->setVariable('rowId',      $rowId);
 
-        $this->commitAddToTable($this->view()->render(), '#plate_' . $plate_id);
+        $this->commitAdd($this->view()->render(), '#plate_' . $plate_id);
         $this->commitReplace('', 'result-' . $plate_id);
         $this->commitShow('#change-' . $plate_id);
         $this->commitReplace('', '#search-' . $plate_id);
@@ -771,7 +771,8 @@ class requestControl extends Control {
             $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
         }
 
-        $this->commitReplace('', '#' . $this->getQueryString('row_id'));
+        $this->commitHide('#' . $this->getQueryString('row_id'));
+        $this->commitHide('#ingredients_' . $this->getQueryString('row_id'));
         $this->commitReplace('Total do pedido: ' . String::convertTextFormat($newTotalPrice, 'currency'), '[data-id="totalprice"]');
     }
 
