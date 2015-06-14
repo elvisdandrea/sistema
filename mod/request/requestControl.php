@@ -153,6 +153,7 @@ class requestControl extends Control {
 
         $this->createId();
         $this->view()->setVariable('request_id', $this->request_id);
+        $this->view()->setVariable('newrequest', true);
 
         $this->view()->loadTemplate('newrequest');
         $this->view()->appendJs('events');
@@ -262,6 +263,7 @@ class requestControl extends Control {
             UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_size', $first_type['plate_size']);
             UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_name', $first_type['plate_name']);
             UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill', 0);
+            $action = 'selproductnew';
         } else {
             // well...
         }
@@ -324,6 +326,7 @@ class requestControl extends Control {
         );
 
         if ($action == 'selproductnew') {
+            $this->view()->setVariable('newrequest', true);
             $plate_size = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_size');
             $plate_fill = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill');
 
@@ -771,8 +774,8 @@ class requestControl extends Control {
             $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
         }
 
-        $this->commitHide('#' . $this->getQueryString('row_id'));
-        $this->commitHide('#ingredients_' . $this->getQueryString('row_id'));
+        $this->commitRemove('#' . $this->getQueryString('row_id'));
+        $this->commitRemove('#ingredients_' . $this->getQueryString('row_id'));
         $this->commitReplace('Total do pedido: ' . String::convertTextFormat($newTotalPrice, 'currency'), '[data-id="totalprice"]');
     }
 
