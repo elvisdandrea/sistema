@@ -49,7 +49,7 @@
                                 <button type="button" class="btn btn-primary btn-sm" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/additemportion?id={$item['id']}&amount={$item['product_weight']}&plate_id={$plate_id}&request_id={$request_id}')"><i class="fa fa-plus-circle"></i></button>
                             </li>
                             <li>
-                                <i class="btn btn-danger btn-sm fa fa-times" data-toggle="tooltip" title="Remover"></i>
+                                <a href="{$smarty.const.BASEDIR}request/removeitem?id={$item['id']}&plate_id={$plate_id}&request_id={$request_id}"><i class="btn btn-danger btn-sm fa fa-times" data-toggle="tooltip" title="Remover"></i></a>
                             </li>
                         </ul>
                         <!-- Ingredientes -->
