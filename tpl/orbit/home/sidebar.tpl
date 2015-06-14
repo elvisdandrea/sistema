@@ -4,11 +4,11 @@
     <section class="sidebar">
         <!-- sidebar menu -->
         <ul class="sidebar-menu">
-            <li>
-                <a href="{$smarty.const.BASEDIR}home">
-                    <i class="fa fa-dashboard"></i> <span>Página inicial</span>
-                </a>
-            </li>
+            {*<li>*}
+                {*<a href="{$smarty.const.BASEDIR}home">*}
+                    {*<i class="fa fa-dashboard"></i> <span>Página inicial</span>*}
+                {*</a>*}
+            {*</li>*}
             <li class="treeview active">
                 <a href="#">
                     <i class="fa fa-bullhorn"></i>

@@ -55,15 +55,22 @@
     <!-- /.Conteúdo ENTREGA -->
 
     <!-- Conteúdo PEDIDO -->
-    <div class="box">
-        <div class="box-header">
-            <h3 class="box-title">Monte o pedido:</h3>
+    <div class="row">
+        <div class="col-md-12 col-sm12">
+            <ul class="request-itens">
+                <li><a href="{$smarty.const.BASEDIR}request/addplate?id={$request['id']}" class="btn btn-primary" onclick="">Clique aqui para adicionar um prato</a></li>
+
+                {if (count($plates) > 0)}
+                    {include "request/platelist.tpl"}
+                {else}
+                    <!-- (! IMPORTANTE ) QUANDO NÃO HÁ ITENS -->
+                    <li class="no-itens alert-info"> Clique no botão acima para adicionar algum prato e finalizar seu pedido.</li>
+                {/if}
+
+            </ul>
         </div>
-        <div class="box-body">
-            <a href="{$smarty.const.BASEDIR}request/addplate?id={$request['id']}" class="btn btn-primary">Adicionar Prato</a>
-        </div><!-- /.form group -->
-    </div><!-- /.box -->
-        {include "request/platelist.tpl"}
+    </div>
+
 
     <!-- /.Conteúdo PEDIDO -->
 
