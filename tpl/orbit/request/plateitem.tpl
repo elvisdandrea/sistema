@@ -15,7 +15,7 @@
         <button type="button" class="btn btn-primary btn-sm" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/dropitemportion?id={$item['id']}&amount={$item['product_weight']}&plate_id={$plate_id}&request_id={$request_id}{if ($newrequest)}&action=selproductnew{/if}')">
             <i class="fa fa-minus-circle"></i>
         </button>
-        <label id="amount_{$plate_id}_{$item['id']}" style="width: 50%; text-align: center;">{$item['weight']}{$item['unit']}</label>
+        <label id="amount_{$plate_id}_{$item['id']}" style="width: 50%; text-align: center;">{$item['product_weight']}{$item['unit']}</label>
         <button type="button" class="btn btn-primary btn-sm" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/additemportion?id={$item['id']}&amount={$item['product_weight']}&plate_id={$plate_id}&request_id={$request_id}{if ($newrequest)}&action=selproductnew{/if}')"><i class="fa fa-plus-circle"></i></button>
     </li>
     <li>

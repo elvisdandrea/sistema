@@ -351,7 +351,7 @@ class requestModel extends Model {
         $this->addField('p.id');
         $this->addField('c.category_name');
         $this->addField('p.product_name');
-        $this->addField('p.weight');
+        $this->addField('p.weight as product_weight');
         $this->addField('p.unit');
         $this->addField('p.price');
         $this->addField('p.image');
