@@ -499,6 +499,9 @@ class requestControl extends Control {
         foreach ($clientFields as $clientField)
             $client[$clientField] = $request[$clientField];
 
+        $this->model()->getPlateTypes();
+        $plate_types = $this->model()->getRows();
+        $first_type = current($plate_types);
 
         $this->model()->getRequestItems($id);
         $requestItems = $this->model()->getRows();
@@ -514,6 +517,8 @@ class requestControl extends Control {
         $this->view()->setVariable('client', $client);
         $this->view()->setVariable('plates', $plates);
         $this->view()->setVariable('request_id', $id);
+        $this->view()->setVariable('plate_types', $plate_types);
+        $this->view()->setVariable('first_type', $first_type);
         $this->view()->setVariable('finalPrice', String::convertTextFormat($this->model()->getRequestFinalPrice($id), 'currency'));
 
         $this->view()->appendJs('events');

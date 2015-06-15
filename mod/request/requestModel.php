@@ -551,6 +551,8 @@ class requestModel extends Model {
         $this->addField('i.plate_id');
         $this->addField('i.weight');
         $this->addField('i.unit');
+        $this->addField('p.plate_name');
+        $this->addField('p.plate_size');
         $this->addField('pr.product_name');
         $this->addField('pr.image');
         $this->addField('i.price');

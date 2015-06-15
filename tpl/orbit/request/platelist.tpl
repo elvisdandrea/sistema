@@ -10,7 +10,7 @@
                         Tamanho ou tipo do prato:
                         <select class="form-control">
                             {foreach from=$plate_types item="row"}
-                                <option value="{$row['id']}">{$row['plate_name']} ({$row['plate_size']}g)</option>
+                                <option {if ($row['plate_name'] == $plate['plate_name'])}selected{/if} value="{$row['id']}">{$row['plate_name']}({$row['plate_size']}g)</option>
                             {/foreach}
                         </select>
                     </h5>
@@ -50,11 +50,11 @@
                                 <button type="button" class="btn btn-primary btn-sm" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/additemportion?id={$item['id']}&amount={$item['product_weight']}&plate_id={$plate_id}&request_id={$request_id}{if ($newrequest)}&action=selproductnew{/if}')"><i class="fa fa-plus-circle"></i></button>
                             </li>
                             <li>
-                                <a href="{$smarty.const.BASEDIR}request/removeitem?id={$item['id']}&plate_id={$plate_id}&request_id={$request_id}"><i class="btn btn-danger btn-sm fa fa-times" data-toggle="tooltip" title="Remover"></i></a>
+                                <a href="{$smarty.const.BASEDIR}request/removeitem?id={$item['id']}&plate_id={$plate_id}&request_id={$request_id}&row_id={$plate_id}_{$item['id']}"><i class="btn btn-danger btn-sm fa fa-times" data-toggle="tooltip" title="Remover"></i></a>
                             </li>
                         </ul>
                         <!-- Ingredientes -->
-                        <div class="ingredients form-group check-item">
+                        <div id="ingredients_{$plate_id}_{$item['id']}" class="ingredients form-group check-item">
                             <h6 style="display: inline;">Ingredientes <i class="fa fa-angle-double-right"></i>&nbsp;</h6>
                             <label class="checkbox-inline">
                                 <input type="checkbox" name="01" class="select-itens" /> <span>Batata</span>
