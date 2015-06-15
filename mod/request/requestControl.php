@@ -838,6 +838,7 @@ class requestControl extends Control {
             UID::set('requests', $this->request_id, 'price', $newTotalPrice);
             UID::set('requests', $this->request_id, 'plates', $plate_id, $id, 'weight', $newValue);
             UID::set('requests', $this->request_id, 'plates', $plate_id, $id, 'price',  $newPrice);
+            $id = $this->getQueryString('item_id');
         } else {
             $this->model()->getRequestItem($id);
             $item     = $this->model()->getRow(0);
@@ -883,6 +884,7 @@ class requestControl extends Control {
             UID::set('requests', $this->request_id, 'price', $newTotalPrice);
             UID::set('requests', $this->request_id, 'plates', $plate_id, $id, 'weight', $newValue);
             UID::set('requests', $this->request_id, 'plates', $plate_id, $id, 'price',  $newPrice);
+            $id = $this->getQueryString('item_id');
         } else {
             $this->model()->getRequestItem($id);
             $item     = $this->model()->getRow(0);
