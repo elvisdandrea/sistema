@@ -66,7 +66,7 @@ class homeControl extends Control {
         $this->view()->appendJs('sidebar');
 
         if (count($uri) == 0)
-            $uri = array(MAIN);
+            $uri = array('request','requestpage');
 
         $request = new requestControl();
         $this->view()->setVariable('countNewRequests', $request->countNewRequests());

@@ -209,6 +209,7 @@ class requestControl extends Control {
             }
         }
 
+        $this->commitSetValue('#client_id', $id);
         $this->commitReplace($this->view()->render(),'#client');
         $this->commitShow('#client');
         $this->commitSetValue('#searchclient', '');
@@ -934,6 +935,47 @@ class requestControl extends Control {
         $this->view()->appendJs('saveclient');
         $this->selClient($result['uid'], $result['address_id']);
 
+    }
+
+    /*
+     * TODO: rever isto, o ideal seria centralizar tudo de cliente no controller de clientes
+     * */
+    public function addclientaddress(){
+        $address = new clientControl();
+        $address->addClientAddr();
+
+    }
+
+    /*
+     * TODO: Está duplicando código, melhor rever isto. É "quase" um Ctrl C + Ctrl V de clientControl->validateDataForClient
+     * */
+    private function validateDataForClientAddress($postData){
+        $return = array(
+            'valid'     => true,
+            'message'   => '',
+        );
+
+        if(empty($postData['street_addr'])){
+            $return['valid']     = false;
+            $return['message'][] = "Favor informar o endereço do cliente";
+        }
+
+        if(empty($postData['hood'])){
+            $return['valid']     = false;
+            $return['message'][] = "Favor informar o bairro do cliente";
+        }
+
+        if(empty($postData['city'])){
+            $return['valid']     = false;
+            $return['message'][] = "Favor informar a cidade do cliente";
+        }
+
+        if(empty($postData['street_number'])){
+            $return['valid']     = false;
+            $return['message'][] = "Favor verificar o numero do endereço do cliente";
+        }
+
+        return $return;
     }
 
 }

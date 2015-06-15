@@ -9,6 +9,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <div class="form-group">
+                            <input type="hidden" name="client_id" id="client_id" value=""/>
                             <div class="col-md-6">
                                 <label for="address_type">Tipo:</label>
                                 <select id="address_type" class="form-control" name="address_type">

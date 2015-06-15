@@ -331,6 +331,8 @@ class clientControl extends Control {
      */
     public function addClientAddr(){
         $id = $this->getQueryString('id');
+        if(empty($id))
+            $id = $this->getPost('client_id');
         $this->setId($id);
         $status = $this->postAddClientAddr();
         if($status['status'] == 200){

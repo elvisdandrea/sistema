@@ -41,9 +41,9 @@ function cepSearch(cep){
         success: function(data){
             if(data.erro == true){
                 alert('Cep não encontrado');
+                $('[name="zip_code"]').focus();
             }
             else{
-                alert(data);
                 $('#zipcode').val(data.cep);
                 $('#street_addr').val(data.logradouro);
                 $('#hood').val(data.bairro);
