@@ -153,6 +153,7 @@ class requestControl extends Control {
 
         $this->createId();
         $this->view()->setVariable('request_id', $this->request_id);
+        $this->view()->setVariable('newrequest', true);
 
         $this->view()->loadTemplate('newrequest');
         $this->view()->appendJs('events');
@@ -263,6 +264,7 @@ class requestControl extends Control {
             UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_size', $first_type['plate_size']);
             UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_name', $first_type['plate_name']);
             UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill', 0);
+            $action = 'selproductnew';
         } else {
             // well...
         }
@@ -320,24 +322,25 @@ class requestControl extends Control {
             'product_id'    => $item['id'],
             'price'         => $item['price'],
             'plate_id'      => $plate_id,
-            'weight'        => $item['weight'],
+            'weight'        => $item['product_weight'],
             'unit'          => $item['unit']
         );
 
         if ($action == 'selproductnew') {
+            $this->view()->setVariable('newrequest', true);
             $plate_size = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_size');
             $plate_fill = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill');
 
-            if ($item['weight'] + $plate_fill > $plate_size) {
+            if ($item['product_weight'] + $plate_fill > $plate_size) {
                 $this->commitAdd($this->view()->showAlert('danger','','Este prato já está cheio'),'body');
                 $this->terminate();
             }
 
-            UID::set('requests', $this->request_id, 'plates', $plate_id, $product_id, array('weight' => $item['weight'], 'price' => $item['price'], 'unit' => $item['unit']));
+            UID::set('requests', $this->request_id, 'plates', $plate_id, $product_id, array('weight' => $item['product_weight'], 'price' => $item['price'], 'unit' => $item['unit']));
             $curTotalPrice = intval(UID::get( 'requests', $this->request_id, 'price'));
             $newTotalPrice = $curTotalPrice + $item['price'];
             UID::set('requests', $this->request_id, 'price', $newTotalPrice);
-            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill', $item['weight'] + $plate_fill);
+            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill', $item['product_weight'] + $plate_fill);
         } else {
             $result = $this->postAddItem($data);
             $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
@@ -355,7 +358,7 @@ class requestControl extends Control {
         $this->view()->setVariable('action',     $action);
         $this->view()->setVariable('rowId',      $rowId);
 
-        $this->commitAddToTable($this->view()->render(), '#plate_' . $plate_id);
+        $this->commitAdd($this->view()->render(), '#plate_' . $plate_id);
         $this->commitReplace('', 'result-' . $plate_id);
         $this->commitShow('#change-' . $plate_id);
         $this->commitReplace('', '#search-' . $plate_id);
@@ -497,21 +500,31 @@ class requestControl extends Control {
         foreach ($clientFields as $clientField)
             $client[$clientField] = $request[$clientField];
 
+        $this->model()->getPlateTypes();
+        $plate_types = $this->model()->getRows();
+        $first_type = current($plate_types);
 
         $this->model()->getRequestItems($id);
         $requestItems = $this->model()->getRows();
 
-        $plates = array(); $count_plates = 0;
+        $plates      = array(); $count_plates = 0;
+        $plate_names = array();
         foreach($requestItems as $item) {
             in_array($item['plate_id'], array_keys($plates)) || $count_plates++;
-            isset($plates[$item['plate_id']][$item['id']])   || $plates[$item['plate_id']][$item['id']] = $item;
+            if (!isset($plates[$item['plate_id']][$item['id']]) ){
+                $plates[$item['plate_id']][$item['id']] = $item;
+                $plate_names[$item['plate_id']] = $item['plate_name'];
+            }
         }
 
         $this->view()->setVariable('count_plates', $count_plates);
         $this->view()->setVariable('noChangeCustomer', false);
         $this->view()->setVariable('client', $client);
         $this->view()->setVariable('plates', $plates);
+        $this->view()->setVariable('plate_names', $plate_names);
         $this->view()->setVariable('request_id', $id);
+        $this->view()->setVariable('plate_types', $plate_types);
+        $this->view()->setVariable('first_type', $first_type);
         $this->view()->setVariable('finalPrice', String::convertTextFormat($this->model()->getRequestFinalPrice($id), 'currency'));
 
         $this->view()->appendJs('events');
@@ -772,7 +785,8 @@ class requestControl extends Control {
             $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
         }
 
-        $this->commitReplace('', '#' . $this->getQueryString('row_id'));
+        $this->commitRemove('#' . $this->getQueryString('row_id'));
+        $this->commitRemove('#ingredients_' . $this->getQueryString('row_id'));
         $this->commitReplace('Total do pedido: ' . String::convertTextFormat($newTotalPrice, 'currency'), '[data-id="totalprice"]');
     }
 
@@ -816,15 +830,27 @@ class requestControl extends Control {
             $this->setId();
             $weight   = UID::get( 'requests', $this->request_id, 'plates', $plate_id, $id, 'weight');
             $curprice = UID::get( 'requests', $this->request_id, 'plates', $plate_id, $id, 'price');
+
             $newValue = $weight + $amount;
             $this->model()->selectProductForRequest($id);
             $item          = $this->model()->getRow(0);
+
+            $plate_size = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_size');
+            $plate_fill = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill');
+
+            if ($item['product_weight'] + $plate_fill > $plate_size) {
+                $this->commitAdd($this->view()->showAlert('danger','','Este prato já está cheio'),'body');
+                $this->terminate();
+            }
+
             $curTotalprice = UID::get( 'requests', $this->request_id, 'price');
             $newTotalPrice = $curTotalprice + $item['price'];
             $newPrice      = $curprice + $item['price'];
             UID::set('requests', $this->request_id, 'price', $newTotalPrice);
             UID::set('requests', $this->request_id, 'plates', $plate_id, $id, 'weight', $newValue);
             UID::set('requests', $this->request_id, 'plates', $plate_id, $id, 'price',  $newPrice);
+            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill', $item['product_weight'] + $plate_fill);
+            $id = $this->getQueryString('item_id');
         } else {
             $this->model()->getRequestItem($id);
             $item     = $this->model()->getRow(0);
@@ -867,9 +893,14 @@ class requestControl extends Control {
             $curTotalprice = UID::get( 'requests', $this->request_id, 'price');
             $newTotalPrice = $curTotalprice - $item['price'];
             $newPrice      = $curprice - $item['price'];
+
+            $plate_fill = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill');
+
             UID::set('requests', $this->request_id, 'price', $newTotalPrice);
             UID::set('requests', $this->request_id, 'plates', $plate_id, $id, 'weight', $newValue);
             UID::set('requests', $this->request_id, 'plates', $plate_id, $id, 'price',  $newPrice);
+            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill', $plate_fill - $item['product_weight']);
+            $id = $this->getQueryString('item_id');
         } else {
             $this->model()->getRequestItem($id);
             $item     = $this->model()->getRow(0);

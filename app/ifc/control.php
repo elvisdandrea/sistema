@@ -355,6 +355,17 @@ class Control {
     }
 
     /**
+     * Renders the event to remove a HTML element
+     *
+     * @param   string      $block      - The element
+     * @param   bool        $stay       - If it should not finish execution after rendering
+     */
+    protected function commitRemove($block, $stay = true) {
+        echo (!Core::isAjax() ?  '<script>' . Html::RemoveHtml($block) . '</script>' : Html::RemoveHtml($block));
+        $stay || $this->terminate();
+    }
+
+    /**
      * Renders a HTML appending
      * the content into a element
      *

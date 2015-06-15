@@ -351,7 +351,7 @@ class requestModel extends Model {
         $this->addField('p.id');
         $this->addField('c.category_name');
         $this->addField('p.product_name');
-        $this->addField('p.weight');
+        $this->addField('p.weight as product_weight');
         $this->addField('p.unit');
         $this->addField('p.price');
         $this->addField('p.image');
@@ -551,6 +551,8 @@ class requestModel extends Model {
         $this->addField('i.plate_id');
         $this->addField('i.weight');
         $this->addField('i.unit');
+        $this->addField('p.plate_name');
+        $this->addField('p.plate_size');
         $this->addField('pr.product_name');
         $this->addField('pr.image');
         $this->addField('i.price');

@@ -62,26 +62,16 @@
     <!-- /.Conteúdo ENTREGA -->
 
     <!-- Conteúdo PEDIDO -->
-    <div class="box">
-        <div class="box-header">
-            <h3 class="box-title">Monte o pedido:</h3>
+    <div class="row">
+        <div class="col-md-12 col-sm12">
+            <ul class="request-itens" id="plates">
+                <li>
+                    <button type="button" class="btn btn-primary" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/addPlate?request_id={$request_id}&action=addplatenew')" >Clique aqui para adicionar um prato</button>
+                </li>
+                <li class="no-itens alert-info"> Clique no botão acima para adicionar algum prato e finalizar seu pedido.</li>
+            </ul>
         </div>
-
-        <div class="box-body">
-            <!-- Prato -->
-            <div class="form-group">
-                <button type="button" class="btn btn-primary" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/addPlate?request_id={$request_id}&action=addplatenew')" >Adicionar um prato</button>
-            </div><!-- /.form group -->
-            <!-- /.Prato -->
-
-        </div><!-- /.box-body -->
-
-    </div><!-- /.box -->
-    <!-- /.Conteúdo PEDIDO -->
-        <div id="plates">
-
-        </div>
-
+    </div>
     <!-- Buttons (Options) -->
     <div class="box box-solid">
         <div class="box-body pad table-responsive">

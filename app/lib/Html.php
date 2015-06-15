@@ -61,6 +61,18 @@ class Html {
 
     /**
      * Returns the function to dynamically
+     * remove some HTML element from screen
+     *
+     * @param   string      $block     - The element to remove
+     * @return  string
+     */
+    public static function RemoveHtml($block) {
+        if (Core::isAjax())
+            return 'Html.Remove(\'' . $block . '\');';
+    }
+
+    /**
+     * Returns the function to dynamically
      * replace some HTML on screen
      *
      * This one will wrap the function in script tag

@@ -43,6 +43,16 @@ Html.prototype = {
     },
 
     /**
+     * Removes an element
+     *
+     * @param           block       - The element
+     * @constructor
+     */
+    Remove : function(block) {
+        $(block).remove();
+    },
+
+    /**
      * Displays a Hidden Element
      *
      * @param           block       - The element
