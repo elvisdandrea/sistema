@@ -10,7 +10,7 @@
                         Tamanho ou tipo do prato:
                         <select class="form-control">
                             {foreach from=$plate_types item="row"}
-                                <option {if ($row['plate_name'] == $plate['plate_name'])}selected{/if} value="{$row['id']}">{$row['plate_name']}({$row['plate_size']}g)</option>
+                                <option {if ($row['plate_name'] == $plate_names[$plate_id])}selected="selected"{/if} value="{$row['id']}">{$row['plate_name']}({$row['plate_size']}g)</option>
                             {/foreach}
                         </select>
                     </h5>

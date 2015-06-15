@@ -506,16 +506,21 @@ class requestControl extends Control {
         $this->model()->getRequestItems($id);
         $requestItems = $this->model()->getRows();
 
-        $plates = array(); $count_plates = 0;
+        $plates      = array(); $count_plates = 0;
+        $plate_names = array();
         foreach($requestItems as $item) {
             in_array($item['plate_id'], array_keys($plates)) || $count_plates++;
-            isset($plates[$item['plate_id']][$item['id']])   || $plates[$item['plate_id']][$item['id']] = $item;
+            if (!isset($plates[$item['plate_id']][$item['id']]) ){
+                $plates[$item['plate_id']][$item['id']] = $item;
+                $plate_names[$item['plate_id']] = $item['plate_name'];
+            }
         }
 
         $this->view()->setVariable('count_plates', $count_plates);
         $this->view()->setVariable('noChangeCustomer', false);
         $this->view()->setVariable('client', $client);
         $this->view()->setVariable('plates', $plates);
+        $this->view()->setVariable('plate_names', $plate_names);
         $this->view()->setVariable('request_id', $id);
         $this->view()->setVariable('plate_types', $plate_types);
         $this->view()->setVariable('first_type', $first_type);
