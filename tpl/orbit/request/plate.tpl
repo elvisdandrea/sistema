@@ -24,9 +24,9 @@
                         <i class="fa fa-cutlery"></i>
                     </span>
                     <input class="form-control" id="searchproduct-{$plate_id}" type="text" value="" placeholder="Pesquise um item..." onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchproduct?search=' + this.value + '&request_id={$request_id}&plate_id={$plate_id}{if (isset($action))}&action={$action}{/if}')"/>
-                    <div id="product-results_{$plate_id}"></div>
                 </div>
                 <hr>
+                <div id="product-results_{$plate_id}"></div>
             </div>
         </div>
     </div>
