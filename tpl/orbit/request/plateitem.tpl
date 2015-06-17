@@ -2,16 +2,16 @@
     <li>
         <img src="{$item['image']}" alt="{$item['product_name']}">
     </li>
-    <li class="col-md-3 col-sm-4">
+    <li class="col-md-4 col-sm-4 col-xs-4">
         Prato: <strong>{$item['product_name']}</strong>
     </li>
-    <li class="col-md-3 col-sm-4">
+    <li class="col-md-5 col-sm-5 col-xs-5">
         Categoria: <strong>{$item['category_name']}</strong>
     </li>
-    <li class="col-md-2 col-sm-4">
+    <li class="col-md-3 col-sm-3 col-xs-3">
         Total: <strong id="price_{$plate_id}_{$rowId}" class="text-green">{String::convertTextFormat($item['price'], 'currency')}</strong>
     </li>
-    <li class="col-md-4 col-sm-12 qnt">
+    <li class="col-md-12 col-sm-12 col-xs-12 qnt">
         <button type="button" class="btn btn-primary btn-sm" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/dropitemportion?id={$item['id']}&amount={$item['product_weight']}&plate_id={$plate_id}&request_id={$request_id}{if ($newrequest)}&action=selproductnew&item_id={$rowId}{/if}')">
             <i class="fa fa-minus-circle"></i>
         </button>
@@ -37,4 +37,7 @@
     <label class="checkbox-inline">
         <input type="checkbox" name="04" class="select-itens" /> <span>Queijo</span>
     </label>
+</div>
+<div class="box-footer text-green">
+    Total desse prato: <strong>R$ 980,00</strong>
 </div>

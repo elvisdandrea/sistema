@@ -1,6 +1,6 @@
 <div id="box-info" class="box-body" style="display: none">
     <div class="row">
-        <div class="col-md-4 col-sm-6">
+        <div class="col-md-4 col-sm-6 col-xs-6">
             <div class="small-box bg-aqua">
                 <div class="inner">
                     <h3>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <!-- ** -->
-        <div class="col-md-4 col-sm-6">
+        <div class="col-md-4 col-sm-6 col-xs-6">
             <div class="small-box bg-yellow">
                 <div class="inner">
                     <h3>
@@ -38,7 +38,7 @@
             </div>
         </div>
         <!-- ** -->
-        <div class="col-md-4 col-sm-12">
+        <div class="col-md-4 col-sm-12 col-xs-12">
             <div class="small-box bg-olive">
                 <div class="inner">
                     <h3>

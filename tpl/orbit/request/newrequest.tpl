@@ -13,15 +13,15 @@
                 <label>Para qual cliente:</label>
                 <br /><br />
 
-                <div class="input-group col-md-6" id="searchclient" {if (isset($client))}style="display: none;" {/if} >
+                <div class="input-group col-md-6 col-sm-6 col-xs-12" id="searchclient" {if (isset($client))}style="display: none;" {/if} >
                     <div class="input-group-addon">
                         <i class="fa fa-user"></i>
                     </div>
                     <input type="text" class="form-control" placeholder="Localizar um cliente" onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchclient?search=' + this.value + '&request_id={$request_id}',this.value)" data-toggle="dropdown" />
 
-                        <span style="cursor: pointer;" class="input-group-addon" data-toggle="modal" data-target="#compose-modal" data-dismiss="#clientresult">
-                            <span class="glyphicon glyphicon-plus-sign"></span>
-                        </span>
+                    <a class="input-group-addon btn btn-success" data-toggle="modal" data-target="#compose-modal" data-dismiss="#clientresult">
+                        <i class="glyphicon glyphicon-plus-sign text-white"></i>
+                    </a>
 
                     <div id="client-results">
 
@@ -41,7 +41,7 @@
             <!-- Data de entrega -->
             <div class="form-group">
                 <label>Data da entrega:</label>
-                <div class="input-group col-md-6">
+                <div class="input-group col-md-6 col-sm-6 col-xs-12">
                     <!--
                     <span class="input-group-addon">
                         <span class="glyphicon glyphicon-calendar"></span>

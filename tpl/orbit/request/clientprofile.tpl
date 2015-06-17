@@ -32,7 +32,7 @@
 
         <div class="row">
             <div class="col-md-8 col-sm-9">
-                <a id="addressbtn" id="place-chooser-btn" class="btn {if (isset($request['street_addr']) && !empty($request['street_addr']))}btn-success{else}btn-info{/if} dropdown-toggle no-space" data-toggle="dropdown" style="width: 60%; margin-top: 7px; margin-bottom: -7px;">
+                <a id="addressbtn" id="place-chooser-btn" class="btn {if (isset($request['street_addr']) && !empty($request['street_addr']))}btn-success{else}btn-primary{/if} dropdown-toggle no-space" data-toggle="dropdown" style="margin-top: 7px; margin-bottom: -7px;">
                     <i class="fa fa-map-marker"></i>&nbsp;&nbsp;
                     <span id="seladdress">{if (isset($request['street_addr']) && !empty($request['street_addr']))}
                     {$request['address_type']}: {$request['street_addr']}, {$request['street_number']}, {$request['street_additional']}, {$request['hood']}, {$request['city']}

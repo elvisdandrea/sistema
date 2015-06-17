@@ -25,7 +25,7 @@
     {/if} {$request['status_name']} <span class="caret"></span>
 </button><br />
 <!-- Itens -->
-<ul class="dropdown-menu" id="item-chooser" style="margin-top: -15px; text-align: left;">
+<ul class="dropdown-menu" id="item-chooser">
     <li>
         <a href="{$smarty.const.BASEDIR}request/setstatus?id={$request['id']}&status=2" class="text-aqua"><i class="fa fa-magic"></i>Em andamento</a>
     </li>
