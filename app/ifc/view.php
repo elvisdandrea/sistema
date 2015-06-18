@@ -104,7 +104,7 @@ class View {
      * @return string
      */
     public function injectJSFiles() {
-        if (count($this->jsFiles) == 0) return '';
+        if (count($this->jsFiles) == 0 && count($this->templateJsFiles) == 0) return '';
 
         $result = array();
 
@@ -138,7 +138,6 @@ class View {
      * @param   string      $jsFile     - The JS file name in the module template folder
      */
     public function appendTemplateJs($jsFile) {
-
         $this->templateJsFiles[] = $jsFile;
     }
 
@@ -281,7 +280,8 @@ class View {
                 if    (Core::isAjax()) echo $setTitle;
             }
 
-            return $this->smarty->$method($this->template) . (Core::isAjax() && count($this->jsFiles) > 0 ? $this->injectJSFiles() : '');
+            $hasJs = (count($this->jsFiles) > 0 || count($this->templateJsFiles) > 0);
+            return $this->smarty->$method($this->template) . (Core::isAjax() && $hasJs ? $this->injectJSFiles() : '');
         } catch (Exception $e) {
             echo Html::ReplaceHtml(ExceptionHandler::throwException(array(
                 'message'  => $e->getMessage(),
