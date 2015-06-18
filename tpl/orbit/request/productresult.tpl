@@ -1,4 +1,4 @@
-<ul id="result-{$plate_id}" class="dropdown-menu list-clients" style="top:-30px">
+<ul id="result-{$plate_id}" class="dropdown-menu itens-any" style="top:-30px">
     <li class="header">Encontrados {$count} resultados para {$search}</li>
     <li>
         <!-- inner menu: contains the actual data -->

@@ -51,7 +51,7 @@ $(function() {
      * ADD SLIMSCROLL TO THE TOP NAV DROPDOWNS
      * ---------------------------------------
      */
-    $(".navbar .menu, .list-clients .menu").slimscroll({
+    $(".navbar .menu, .list-clients .menu, .itens-any .menu").slimscroll({
         height: "130px",
         alwaysVisible: false,
         size: "3px"
