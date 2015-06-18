@@ -158,6 +158,7 @@ class requestControl extends Control {
         $this->view()->loadTemplate('newrequest');
         $this->view()->appendJs('events');
         $this->view()->appendJs('newrequest');
+        $this->view()->appendTemplateJs('AdminLTE/app');
         $this->commitReplace($this->view()->render(), '#content');
 
     }
