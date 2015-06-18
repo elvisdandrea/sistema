@@ -1,9 +1,7 @@
 <!-- Client profile -->
 <div id="list-clients" class="list-itens">
     <input type="hidden" name="client_id" value="{$client['id']}"/>
-    <div class="list-imgs">
-        <img src="{if (!empty($client['image']))}{$client['image']}{else}{$smarty.const.T_IMGURL}/no-profile.jpg{/if}" alt="{$client['client_name']}" />
-    </div>
+    <div class="list-imgs" style="background:url({if (!empty($client['image']))}{$client['image']}{else}{$smarty.const.T_IMGURL}/no-profile.jpg{/if})" title="{$client['client_name']}"></div>
     <!-- /.Itens -->
     <!-- TODO: me diga em qual arquivo JS devo salvar isso! Fecha o dropdown de selecionar/cadastrar endereço ao optar cadastrar novo-->
     <script>

@@ -1808,12 +1808,14 @@ Component: List-itens
     font-family: "Ubuntu Regular";
 }
 .list-itens .list-imgs {
+    background-position: 50% 25% !important;
+    background-size: cover !important;
+    background-repeat: no-repeat !important;
     position: absolute;
     width: 100px;
     height: 100px;
     top: -5px;
     border: 1px solid rgba(0, 0, 0, 0.2);
-    overflow: hidden;
 }
 .list-itens:hover > .list-imgs {
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
