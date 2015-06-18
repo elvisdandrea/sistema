@@ -1,4 +1,4 @@
-<ul id="plate{$plate_id}_{$rowId}">
+<ul id="plate{$plate_id}_{$rowId}" class="item-plate">
     <li>
         <img src="{$item['image']}" alt="{$item['product_name']}">
     </li>
@@ -37,7 +37,4 @@
     <label class="checkbox-inline">
         <input type="checkbox" name="04" class="select-itens" /> <span>Queijo</span>
     </label>
-</div>
-<div class="box-footer text-green">
-    Total desse prato: <strong>R$ 980,00</strong>
 </div>
