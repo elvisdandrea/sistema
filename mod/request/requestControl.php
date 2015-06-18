@@ -180,6 +180,7 @@ class requestControl extends Control {
         $this->view()->setVariable('clients', $clients);
         $this->view()->setVariable('search', $search);
         $this->view()->setVariable('request_id', $this->request_id);
+        $this->view()->appendTemplateJs('AdminLTE/app');
         $this->commitReplace($this->view()->render(),'#client-results');
         $this->commitShow('#clientresult');
     }
@@ -299,6 +300,7 @@ class requestControl extends Control {
         $this->view()->setVariable('search', $search);
         $this->view()->setVariable('request_id', $this->request_id);
         $this->view()->setVariable('plate_id', $plate_id);
+        $this->view()->appendTemplateJs('AdminLTE/app');
         $this->commitReplace($this->view()->render(),'#product-results_'. $plate_id);
         $this->commitShow('#result-' . $plate_id);
     }
