@@ -26,8 +26,11 @@
                     <input class="form-control" id="searchproduct-{$plate_id}" type="text" value="" placeholder="Pesquise um item..." onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchproduct?search=' + this.value + '&request_id={$request_id}&plate_id={$plate_id}{if (isset($action))}&action={$action}{/if}')"/>
                 </div>
                 <hr>
-                <div id="product-results_{$plate_id}"></div>
+                <div id="product-results_{$plate_id}" style="position:relative"></div>
             </div>
+                <div class="box-footer text-green">
+                    Total desse prato: <strong>R$ 980,00</strong>
+                </div>
         </div>
     </div>
 </li>

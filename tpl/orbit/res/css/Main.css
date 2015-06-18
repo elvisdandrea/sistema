@@ -353,7 +353,6 @@ body > .header {
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#993f43, endColorstr=#50324f, GradientType=1);
   position: fixed;
   height: 50px;
-    overflow: hidden;
   z-index: 1000;
     min-width: 320px;
 }
@@ -1879,19 +1878,20 @@ ul.request-itens:before {
     margin: 0px;
     border-radius: 2px;
 }
-ul.request-itens li {
+ul.request-itens > li,
+ul.request-itens > li ul.item-plate li {
     list-style: none;
     position: relative;
     margin-right: 10px;
     margin-bottom: 15px;
 }
-ul.request-itens li:first-child {
+ul.request-itens > li:first-child {
     margin-bottom: 25px;
 }
-ul.request-itens li.alert-info {
+ul.request-itens > li.alert-info {
     padding: 10px;
 }
-ul.request-itens li span.request-item-number {
+ul.request-itens > li span.request-item-number {
     box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.2);
     width: 40px;
     height: 40px;
@@ -1906,15 +1906,15 @@ ul.request-itens li span.request-item-number {
     top: 0px;
     z-index: 2;
 }
-ul.request-itens li .request-item {
+ul.request-itens > li .request-item {
     margin: 10px -15px 0 60px;
     padding: 5px;
     position: relative;
 }
-ul.request-itens li .request-item div.box-header {
+ul.request-itens > li .request-item div.box-header {
     border-bottom: 1px solid #F4F4F4;
 }
-ul.request-itens li .request-item div.box-header h5 {
+ul.request-itens > li .request-item div.box-header h5 {
     display: inline-block;
     font-family: "Ubuntu Regular", sans-serif;
     margin: 5px 0px 3px 20px;
@@ -1923,22 +1923,22 @@ ul.request-itens li .request-item div.box-header h5 {
     float: left;
     cursor: default;
 }
-ul.request-itens li .request-item div.box-header .controller-tools {
+ul.request-itens > li .request-item div.box-header .controller-tools {
     position: absolute;
     right: 5px;
     top: 5px;
 }
-ul.request-itens li .request-item div.box-header select {
+ul.request-itens > li .request-item div.box-header select {
     display: inline-block;
     width: 120px;
     font-size: 12px;
     padding: 0px;
     margin: -2px 0px 0px 7px;
 }
-ul.request-itens li .request-item div.box-body hr {
+ul.request-itens > li .request-item div.box-body hr {
     margin: 10px 0 20px 0;
 }
-ul.request-itens li .request-item div.box-body ul {
+ul.request-itens > li .request-item div.box-body ul.item-plate {
     position: relative;
     display: table;
     border: 1px solid #DFDFDF;
@@ -1946,35 +1946,35 @@ ul.request-itens li .request-item div.box-body ul {
     width: 100%;
     padding-left: 77px;
 }
-ul.request-itens li .request-item div.box-body ul:hover {
+ul.request-itens > li .request-item div.box-body ul.item-plate:hover {
     box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
 }
-ul.request-itens li .request-item div.box-body ul:hover > li:last-child {
+ul.request-itens > li .request-item div.box-body ul.item-plate:hover > li:last-child {
     display: block;
 }
-ul.request-itens li .request-item div.box-body ul li {
+ul.request-itens > li .request-item div.box-body ul.item-plate li {
     margin: 0px;
     line-height: 29px;
     padding-top: 2px;
     white-space: nowrap;
 }
-ul.request-itens li .request-item div.box-body ul li:first-child {
+ul.request-itens > li .request-item div.box-body ul.item-plate li:first-child {
     position: absolute;
     left: 5px;
     top: -5px;
     width: 70px;
     height: 70px;
 }
-ul.request-itens li .request-item div.box-body ul li:first-child img {
+ul.request-itens > li .request-item div.box-body ul.item-plate li:first-child img {
     width: 100%;
     height: 100%;
     border: 1px solid #DFDFDF;
 }
-ul.request-itens li .request-item div.box-body ul li.qnt {
+ul.request-itens > li .request-item div.box-body ul.item-plate li.qnt {
     background: #F1F1F1;
     text-align: center;
 }
-ul.request-itens li .request-item div.box-body ul li:last-child {
+ul.request-itens > li .request-item div.box-body ul.item-plate li:last-child {
     display: none;
     position: absolute;
     right: -5px;
@@ -1982,80 +1982,80 @@ ul.request-itens li .request-item div.box-body ul li:last-child {
     margin-top: -12px;
     line-height: 0px;
 }
-ul.request-itens li .request-item div.box-body .ingredients {
+ul.request-itens > li .request-item div.box-body .ingredients {
     font-family: "Menlo";
     font-size: 10px;
     background: #F1F1F1;
     padding: 5px;
     border-radius: 0px 0px 5px 5px;
 }
-ul.request-itens li .request-item div.box-body .ingredients .checkbox-inline {
+ul.request-itens > li .request-item div.box-body .ingredients .checkbox-inline {
     padding: 0 !important;
 }
-ul.request-itens li .request-item div.box-body .ingredients .checkbox-inline .item-removed {
+ul.request-itens > li .request-item div.box-body .ingredients .checkbox-inline .item-removed {
     text-decoration: line-through;
     color: #AAA;
 }
 @media screen and (max-width: 992px) {
-    ul.request-itens li .request-item div.box-body ul {
+    ul.request-itens > li .request-item div.box-body ul.item-plate {
         padding-left: 85px;
     }
-    ul.request-itens li .request-item div.box-body ul li {
+    ul.request-itens > li .request-item div.box-body ul.item-plate li {
         line-height: 30px;
     }
-    ul.request-itens li .request-item div.box-body ul li:first-child {
+    ul.request-itens > li .request-item div.box-body ul.item-plate li:first-child {
         height: 77px;
         width: 77px;
         z-index: 2;
     }
-    ul.request-itens li .request-item div.box-body ul li:last-child {
+    ul.request-itens > li .request-item div.box-body ul.item-plate li:last-child {
         display: block;
     }
 }
 @media screen and (max-width: 767px) {
-    ul.request-itens li .request-item {
+    ul.request-itens > li .request-item {
         margin: 10px -15px 0px -5px;
     }
-    ul.request-itens li span.request-item-number {
+    ul.request-itens > li span.request-item-number {
         top: 5px;
     }
-    ul.request-itens li .request-item div.box-header h5 {
+    ul.request-itens > li .request-item div.box-header h5 {
         margin-left: 60px;
     }
-    ul.request-itens li .request-item div.box-body ul li {
+    ul.request-itens > li .request-item div.box-body ul.item-plate li {
         text-align: center;
     }
-    ul.request-itens li .request-item div.box-body ul li:first-child {
+    ul.request-itens > li .request-item div.box-body ul.item-plate li:first-child {
         position: absolute;
         right: 5px;
         z-index: 2;
     }
-    ul.request-itens li .request-item div.box-body ul li:last-child {
+    ul.request-itens > li .request-item div.box-body ul.item-plate li:last-child {
         top: 5px;
     }
 }
 @media screen and (max-width: 520px) {
-    ul.request-itens li .request-item div.box-body ul {
+    ul.request-itens > li .request-item div.box-body ul.item-plate {
         padding-left: 0px;
     }
-    ul.request-itens li .request-item div.box-body ul li {
+    ul.request-itens > li .request-item div.box-body ul.item-plate li {
         line-height: 23px;
     }
-    ul.request-itens li span.request-item-number {
+    ul.request-itens > li span.request-item-number {
         top: -20px;
         width: 30px;
         height: 30px;
         line-height: 30px;
         left: 17px;
     }
-    ul.request-itens li .request-item div.box-header h5 {
+    ul.request-itens > li .request-item div.box-header h5 {
         font-size: 12px;
         margin-left: 10px;
     }
-    ul.request-itens li .request-item div.box-header select {
+    ul.request-itens > li .request-item div.box-header select {
         width: 100px;
     }
-    ul.request-itens li .request-item div.box-header .controller-tools {
+    ul.request-itens > li .request-item div.box-header .controller-tools {
         margin-top: -25px;
     }
 }
@@ -2933,12 +2933,12 @@ body.skin-login {
   }
 }
 .pace .pace-progress {
-  background: rgba(60, 141, 188, 0.2);
+  background: rgba(60, 141, 188, 0.6);
   position: fixed;
   z-index: 2000;
   top: 50px;
   left: 0;
-  height: 100%;
+  height: 10px;
   -webkit-transition: width 1s;
   -moz-transition: width 1s;
   -o-transition: width 1s;
