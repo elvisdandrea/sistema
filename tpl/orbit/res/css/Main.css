@@ -1761,29 +1761,29 @@ Component: List-itens
     float: left;
 }
 .list-itens > [style^="width:"] > a,
-#list-clients #client-choose {
+.list-clients .client-choose {
     margin-left: 110px !important;
     display: block;
     color: #555;
 }
 .list-itens > [style^="width:"] a .row,
-#list-clients #client-choose {
+.list-clients .client-choose {
     padding: 10px 0px 0px;
     margin:0;
 }
 .list-itens > [style^="width:"] a .row:first-child,
-#list-clients #client-choose .row:first-child {
+.list-clients .client-choose .row:first-child {
     border-bottom: 1px solid #DFDFDF;
 }
-#list-clients #client-choose .row:first-child {
+.list-clients .client-choose .row:first-child {
     margin: 0 !important;
 }
 .list-itens > [style^="width:"] a .row div[class^="col-"],
-#list-clients #client-choose .row div[class^="col-"] {
+.list-clients .client-choose .row div[class^="col-"] {
     margin-bottom: 10px;
 }
 .list-itens a .row div i.circle,
-#list-clients #client-choose .row div i.circle {
+.list-clients .client-choose .row div i.circle {
     float: left;
     width: 18px;
     height: 18px;
@@ -1818,7 +1818,7 @@ Component: List-itens
     border: 1px solid rgba(0, 0, 0, 0.2);
 }
 .list-itens:hover > .list-imgs {
-    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.9);
 }
 .list-itens a.btn-print {
     position: absolute;
@@ -1851,18 +1851,18 @@ ul#item-chooser li {
         margin-top: 20px;
         margin-left: 0 !important;
     }
-    #list-clients > [style^="width:"] a {
+    .list-clients > [style^="width:"] a {
         margin: 20px;
     }
-    #list-clients .list-imgs {
+    .list-clients .list-imgs {
         width: 50px;
         height: 50px;
     }
-    #list-clients > [style^="width:"] a .row:first-child div[class^="col-"]:first-child,
-    #list-clients #client-choose .row:first-child div[class^="col-"]:first-child {
+    .list-clients > [style^="width:"] a .row:first-child div[class^="col-"]:first-child,
+    .list-clients .client-choose .row:first-child div[class^="col-"]:first-child {
         margin: 40px 0px 20px 0px;
     }
-    #list-clients #client-choose {
+    .list-clients .client-choose {
         margin-left: 0 !important;
     }
 }

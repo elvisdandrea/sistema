@@ -1,5 +1,5 @@
 <!-- Client profile -->
-<div id="list-clients" class="list-itens">
+<div class="list-clients list-itens">
     <input type="hidden" name="client_id" value="{$client['id']}"/>
     <div class="list-imgs" style="background:url({if (!empty($client['image']))}{$client['image']}{else}{$smarty.const.T_IMGURL}/no-profile.jpg{/if})" title="{$client['client_name']}"></div>
     <!-- /.Itens -->
@@ -9,7 +9,7 @@
             $(this).closest(".dropdown-menu").prev().dropdown("toggle");
         });
     </script>
-    <div id="client-choose">
+    <div class="client-choose">
         <div class="row">
             <div class="col-md-5 col-sm-12">
                 <i class="fa circle fa-user"></i>
