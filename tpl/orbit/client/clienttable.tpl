@@ -1,3 +1,48 @@
-<div class="box-body">
-    <div id="client" class="form-group"><!-- Client profile --><div class="list-clients list-itens">    <input name="client_id" value="8" type="hidden">    <div class="list-imgs" style="background:url(http://public.gravi.com.br/orbit/1/client/55395e8bd0ede20150423090515.jpg)" title="Novo cliente teste"></div>    <!-- /.Itens -->    <!-- TODO: me diga em qual arquivo JS devo salvar isso! Fecha o dropdown de selecionar/cadastrar endereço ao optar cadastrar novo-->    <script>        $("#add-new-address").on("click",function(){            $(this).closest(".dropdown-menu").prev().dropdown("toggle");        });    </script>    <div class="client-choose">        <div class="row">            <div class="col-md-5 col-sm-12">                <i class="fa circle fa-user"></i>                <h5>                    <strong>Novo cliente teste</strong>                                            <small> - <a href="/orbit/request/changeclient"><i>Alterar</i></a></small>                                    </h5>            </div>            <div class="col-md-7 col-sm-12">                <i class="fa circle fa-phone"></i>                <h5>                    <span>23 43442-3498</span>                </h5>            </div>        </div>        <div class="row">            <div class="col-md-8 col-sm-9">                <a id="addressbtn" class="btn btn-primary dropdown-toggle no-space" data-toggle="dropdown" style="margin-top: 7px; margin-bottom: -7px;">                    <i class="fa fa-map-marker"></i>&nbsp;&nbsp;                    <span id="seladdress">Escolha o endereço de entrega</span>                </a>                <!-- Itens -->                <ul class="dropdown-menu list-clients" id="item-chooser">                                            <li>                            <a class="no-space" href="/orbit/request/seladdress?id=18&amp;request_id=558330797f5f9client_id=8">                                <i></i>&nbsp;&nbsp;                                Casa: Rua Victor Meirelles, 12, 15, Campinas, São José                            </a>                        </li>                                        <li class="footer"><a href="#" class="btn" id="add-new-address" data-toggle="modal" data-target="#compose-modal-address"><i class="fa fa-plus"></i>&nbsp;Cadastre um novo endereço</a></li>                </ul>                <!-- /.Itens -->            </div>        </div>    </div></div></div>
+<div id="clienttable" class="box-body">
+    {foreach from=$list key="index" item="row"}
+    <div class="form-group">
+        <!-- Client profile -->
+        <div class="list-itens">
+            <input name="client_id" value="8" type="hidden">
+            <div class="list-imgs" style="background:url({if (!empty($row['image']))}{$row['image']}{else}{$smarty.const.T_IMGURL}/no-profile.jpg{/if})" title="{$row['client_name']}"></div>
+            
+            <!-- /.Itens -->
+            <div style="width:100%">
+                <a href="{$smarty.const.BASEDIR}client/viewclient?id={$row['id']}" changeurl>
+                    <div class="row">
+                        <div class="col-md-5 col-sm-12">
+                            <i class="fa circle fa-user"></i>
+                            <h5>
+                                <span>Cliente:</span>&nbsp;
+                                <strong>{$row['client_name']}</strong>
+                            </h5>
+                        </div>
+                        <div class="col-md-7 col-sm-12">
+                            <i class="fa circle fa-phone"></i>
+                            <h5>
+                                <span>{$row['phones']}</span>
+                            </h5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-5 col-sm-5">
+                            <i class="fa circle fa-angle-right"></i>
+                            <h5>
+                                <span>CPF ou CNPJ:&nbsp;&nbsp;<strong>{if ($row['client_type'] == 'f')}{$row['cpf']}{else}{$row['cnpj']}{/if}</strong></span>
+                            </h5>
+                        </div>
+                        <div class="col-md-7 col-sm-7">
+                            <i class="fa circle fa-envelope-o"></i>
+                            <h5>
+                                <span>{$row['email']}</span>
+                            </h5>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            
+        </div>
+    </div>
+    <hr />
+    {/foreach}
 </div>

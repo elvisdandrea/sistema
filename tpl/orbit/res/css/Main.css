@@ -1780,7 +1780,7 @@ Component: List-itens
 }
 .list-itens > [style^="width:"] a .row div[class^="col-"],
 .list-clients .client-choose .row div[class^="col-"] {
-    margin-bottom: 10px;
+    margin: 0 0 20px 10px;
 }
 .list-itens a .row div i.circle,
 .list-clients .client-choose .row div i.circle {
@@ -1812,8 +1812,8 @@ Component: List-itens
     background-size: cover !important;
     background-repeat: no-repeat !important;
     position: absolute;
-    width: 100px;
-    height: 100px;
+    width: 110px;
+    height: 150px;
     top: -5px;
     border: 1px solid rgba(0, 0, 0, 0.2);
 }
@@ -1855,12 +1855,13 @@ ul#item-chooser li {
         margin: 20px;
     }
     .list-clients .list-imgs {
-        width: 50px;
-        height: 50px;
+        width: 70px;
+        height: 90px;
+        top: 5px;
+        left: 10px;
     }
-    .list-clients > [style^="width:"] a .row:first-child div[class^="col-"]:first-child,
-    .list-clients .client-choose .row:first-child div[class^="col-"]:first-child {
-        margin: 40px 0px 20px 0px;
+    .list-clients .client-choose .row:first-child {
+        margin: 10px 0px 10px 70px !important;
     }
     .list-clients .client-choose {
         margin-left: 0 !important;

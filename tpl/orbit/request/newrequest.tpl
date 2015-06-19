@@ -11,8 +11,6 @@
             
             <div class="form-group">
                 <label>Para qual cliente:</label>
-                <br /><br />
-
                 <div class="input-group col-md-6 col-sm-6 col-xs-12" id="searchclient" {if (isset($client))}style="display: none;" {/if} >
                     <div class="input-group-addon">
                         <i class="fa fa-user"></i>

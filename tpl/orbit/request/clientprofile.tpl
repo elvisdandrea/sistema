@@ -1,4 +1,5 @@
 <!-- Client profile -->
+<br />
 <div class="list-clients list-itens">
     <input type="hidden" name="client_id" value="{$client['id']}"/>
     <div class="list-imgs" style="background:url({if (!empty($client['image']))}{$client['image']}{else}{$smarty.const.T_IMGURL}/no-profile.jpg{/if})" title="{$client['client_name']}"></div>
