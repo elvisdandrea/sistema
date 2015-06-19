@@ -17,7 +17,7 @@
                                 <strong>{$row['client_name']}</strong>
                             </h5>
                         </div>
-                        <div class="col-md-7 col-sm-12">
+                        <div class="col-md-5 col-sm-12">
                             <i class="fa circle fa-phone"></i>
                             <h5>
                                 <span>{$row['phones']}</span>
@@ -25,13 +25,13 @@
                         </div>
                     </div>
                     <div class="row">
-                        <div class="col-md-5 col-sm-5">
+                        <div class="col-md-5 col-sm-5 col-xs-5">
                             <i class="fa circle fa-angle-right"></i>
                             <h5>
                                 <span>CPF ou CNPJ:&nbsp;&nbsp;<strong>{if ($row['client_type'] == 'f')}{$row['cpf']}{else}{$row['cnpj']}{/if}</strong></span>
                             </h5>
                         </div>
-                        <div class="col-md-7 col-sm-7">
+                        <div class="col-md-5 col-sm-5 col-xs-5">
                             <i class="fa circle fa-envelope-o"></i>
                             <h5>
                                 <span>{$row['email']}</span>

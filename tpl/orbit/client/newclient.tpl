@@ -8,14 +8,17 @@
                 <div class="box-header">
                     <h3 class="box-title">Dados do cliente</h3>
                 </div><!-- /.box-header -->
-                    <hr />
-                        <label class="radio-inline">
-                            <input type="radio" class="select-itens" name="client_type" id="client_type_f" value="F" checked /> <span>Cadastro de pessoa física</span>
-                        </label>
-                        <label class="radio-inline">
-                            <input type="radio" class="select-itens" name="client_type" id="client_type_j" value="J" /> <span>Cadastro de pessoa jurídica</span>
-                        </label>
-                    <hr />
+                
+                <hr />
+                <div style="white-space: nowrap">
+                    <label class="radio-inline">
+                        <input type="radio" class="select-itens" name="client_type" id="client_type_f" value="F" checked /> <span>Pessoa física</span>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" class="select-itens" name="client_type" id="client_type_j" value="J" /> <span>Pessoa jurídica</span>
+                    </label>
+                </div>
+                <hr />
 
                 <div class="box-body">
                     <div class="row">
@@ -110,7 +113,7 @@
                                             <form action="{$smarty.const.BASEDIR}client/addClientAddr?id={$client['id']}">
                                                 <div class="form-group col-md-6 col-sm-12 col-xs-6">
                                                     <label>Tipo: </label>
-                                                    <select class="form-control" name="address_type">
+                                                    <select class="form-control input-sm" name="address_type">
                                                         <option value="Residencial">Residencial</option>
                                                         <option value="Comercial">Comercial</option>
                                                         <option value="Outro">Outro</option>
@@ -118,27 +121,27 @@
                                                 </div>
                                                 <div class="form-group col-md-6 col-sm-12 col-xs-6">
                                                     <label>CEP: </label>
-                                                    <input type="text" class="form-control" name="zip_code" id="zip_code">
+                                                    <input type="text" class="form-control input-sm" name="zip_code" id="zip_code">
                                                 </div>
                                                 <div class="form-group col-md-6 col-sm-12 col-xs-6">
                                                     <label>Rua: </label>
-                                                    <input type="text" class="form-control" name="street_addr" id="street_addr">
+                                                    <input type="text" class="form-control input-sm" name="street_addr" id="street_addr">
                                                 </div>
                                                 <div class="form-group col-md-6 col-sm-12 col-xs-6">
                                                     <label>Bairro: </label>
-                                                    <input type="text" class="form-control" name="hood" id="hood">
+                                                    <input type="text" class="form-control input-sm" name="hood" id="hood">
                                                 </div>
                                                 <div class="form-group col-md-6 col-sm-12 col-xs-6">
                                                     <label>Cidade: </label>
-                                                    <input type="text" class="form-control" name="city" id="city">
+                                                    <input type="text" class="form-control input-sm" name="city" id="city">
                                                 </div>
                                                 <div class="form-group col-md-3 col-sm-6 col-xs-3">
                                                     <label>Numero: </label>
-                                                    <input type="text" class="form-control" name="street_number">
+                                                    <input type="text" class="form-control input-sm" name="street_number">
                                                 </div>
                                                 <div class="form-group col-md-3 col-sm-6 col-xs-3">
                                                     <label>Complemento: </label>
-                                                    <input type="text" class="form-control" name="street_additional">
+                                                    <input type="text" class="form-control input-sm" name="street_additional">
                                                 </div>
                                             </form>
                                         </div>
@@ -149,7 +152,7 @@
                         </div>
 
                         <div class="col-md-12">
-                            <a class="btn btn-primary" id="new_addr" href="#">Adicionar outro endereço</a>
+                            <a class="btn btn-primary" id="new_phone" href="#">Adicionar outro telefone</a>
                         </div>
 
                     </div>
@@ -180,6 +183,7 @@
                                 <div class="box-body">
                                     <div class="row">
                                         <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                            <label>Tipo: </label>
                                             <select class="form-control input-sm" name="phone_type">
                                                 <option value="Residencial">Residencial</option>
                                                 <option value="Comercial">Comercial</option>
@@ -190,6 +194,7 @@
                                             </select>
                                         </div>
                                         <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                            <label>Número: </label>
                                             <input id="new_client_phone" type="text" class="form-control input-sm" name="phone_number" data-url="{$smarty.const.BASEDIR}client/checkPhoneExists">
                                         </div>
                                     </div>
@@ -214,9 +219,8 @@
         <div class="box-body pad table-responsive">
             <button type="submit" class="btn btn-success" title="Cadastrar o cliente" style="width:150px;">Cadastrar cliente</button>
             <a type="button" class="btn btn-danger" title="Cancelar" href="{$smarty.const.BASEDIR}client"><i class="fa fa-times"></i></a>
-        </div><!-- /.box -->
-    </div><!-- /.col -->
-    <!-- /.Buttons (Options) -->
+        </div>
+    </div>
     
 </form>
 </div><!-- ./col-md-12 -->

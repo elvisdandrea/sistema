@@ -21,7 +21,7 @@
                     {/if}
                 </h5>
             </div>
-            <div class="col-md-7 col-sm-12">
+            <div class="col-md-5 col-sm-12">
                 <i class="fa circle fa-phone"></i>
                 <h5>
                     <span>{$client['phones']}</span>
