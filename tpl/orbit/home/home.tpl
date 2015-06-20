@@ -8,6 +8,7 @@
 	<link href="{$smarty.const.T_CSSURL}/bootstrap-datetimepicker.min.css" rel="stylesheet" type="text/css" />
 	<link href="{$smarty.const.T_CSSURL}/font-awesome.min.css" rel="stylesheet" type="text/css" />
 	<link href="{$smarty.const.T_CSSURL}/ionicons.min.css" rel="stylesheet" type="text/css" />
+    <link href="{$smarty.const.T_CSSURL}/iCheck/all.css" rel="stylesheet" type="text/css" />
 	<link href="{$smarty.const.T_CSSURL}/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
 	<link href="{$smarty.const.T_CSSURL}/Main.css" rel="stylesheet" type="text/css" />
     <link href="{$smarty.const.CSSURL}/select2.css" rel="stylesheet" type="text/css" />
@@ -76,6 +77,8 @@
 <script src="{$smarty.const.T_JSURL}/plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
 <!-- Select2 Plugin -->
 <script src="{$smarty.const.JSURL}/select2.js"></script>
+<!-- iCheck Plugin -->
+<script src="{$smarty.const.JSURL}/iCheck/icheck.min.js" type="text/javascript"></script>
 <!-- App -->
 <script src="{$smarty.const.JSURL}/md5.js"></script>
 <script src="{$smarty.const.JSURL}/html.js"></script>

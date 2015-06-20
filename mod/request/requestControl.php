@@ -317,6 +317,14 @@ class requestControl extends Control {
         $this->model()->selectProductForRequest($product_id);
         $item = $this->model()->getRow(0);
 
+        $this->model()->getProductIngredients($product_id);
+        $ingredientList = $this->model()->getRows();
+        $ingredients    = array();
+
+        foreach ($ingredientList as $row) {
+            $ingredients[$row['ingredient_name']] = true;
+        }
+
         $data = array(
             'request_id'    => $this->request_id,
             'product_id'    => $item['id'],
@@ -337,6 +345,7 @@ class requestControl extends Control {
             }
 
             UID::set('requests', $this->request_id, 'plates', $plate_id, $product_id, array('weight' => $item['product_weight'], 'price' => $item['price'], 'unit' => $item['unit']));
+            UID::set('requests', $this->request_id, 'plates', $plate_id, $product_id, 'ingredients', $ingredients);
             $curTotalPrice = intval(UID::get( 'requests', $this->request_id, 'price'));
             $newTotalPrice = $curTotalPrice + $item['price'];
             UID::set('requests', $this->request_id, 'price', $newTotalPrice);
@@ -349,6 +358,8 @@ class requestControl extends Control {
             }
         }
 
+        $this->view()->appendJs('checkbox');
+
         $rowId = uniqid();
         $this->view()->loadTemplate('plateitem');
         $this->view()->setVariable('item',       $item);
@@ -357,6 +368,7 @@ class requestControl extends Control {
         $this->view()->setVariable('request_id', $this->request_id);
         $this->view()->setVariable('action',     $action);
         $this->view()->setVariable('rowId',      $rowId);
+        $this->view()->setVariable('ingredients',$ingredients);
 
         $this->commitAdd($this->view()->render(), '#plate_' . $plate_id);
         $this->commitReplace('', 'result-' . $plate_id);
@@ -373,7 +385,7 @@ class requestControl extends Control {
 
         $this->setId();
         $post  = $this->getPost();
-        $items = UID::get( 'requests', $this->request_id);
+        $items = UID::get('requests', $this->request_id);
 
         $requestData = array(
             'client_id'     => $post['client_id'],

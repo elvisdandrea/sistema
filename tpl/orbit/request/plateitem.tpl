@@ -25,16 +25,9 @@
 <!-- Ingredientes -->
 <div class="ingredients form-group check-item" id="ingredients_plate{$plate_id}_{$rowId}">
     <h6 style="display: inline;">Ingredientes <i class="fa fa-angle-double-right"></i>&nbsp;</h6>
-    <label class="checkbox-inline">
-        <input type="checkbox" name="01" class="select-itens" /> <span>Batata</span>
-    </label>
-    <label class="checkbox-inline">
-        <input type="checkbox" name="02" class="select-itens" /> <span class="item-removed">Polenta</span>
-    </label>
-    <label class="checkbox-inline">
-        <input type="checkbox" name="03" class="select-itens" /> <span>Cebola</span>
-    </label>
-    <label class="checkbox-inline">
-        <input type="checkbox" name="04" class="select-itens" /> <span>Queijo</span>
-    </label>
+    {foreach from=$ingredients item="row"}
+        <label class="checkbox-inline">
+            <input type="checkbox" name="item_ingredients[{$row['ingredient_name']}]" class="select-itens" checked/> <span>{$row['ingredient_name']}</span>
+        </label>
+    {/foreach}
 </div>

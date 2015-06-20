@@ -606,6 +606,22 @@ class requestModel extends Model {
     }
 
     /**
+     * Returns the product ingredient list
+     *
+     * @param   string      $id     - The product Id
+     */
+    public function getProductIngredients($id) {
+
+        $this->addField('id');
+        $this->addField('product_id');
+        $this->addField('ingredient_name');
+        $this->addFrom('product_ingredients');
+        $this->addWhere('product_id = "' . $id . '"');
+
+        $this->runQuery();
+    }
+
+    /**
      * Query that counts the number
      * of plates of a request
      *
