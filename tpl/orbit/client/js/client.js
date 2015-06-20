@@ -102,37 +102,37 @@ $('[name="main_addr"]').on('ifChecked', function(event){
 });
 
 function removeLegalEntityInputs(){
-    $("#legal_entity").hide();
+    $("#legal_entity").addClass('hide');
     $(".legal_entity_field").prop('disabled', true);
     $("#cpf_cnpj").text('CPF:');
     $('#tipo_pessoa_label').text('Cliente pessoa física');
 }
 
 function addLegalEntityInputs(){
-    $("#legal_entity").show();
+    $("#legal_entity").removeClass('hide');
     $(".legal_entity_field").prop('disabled', false);
     $("#cpf_cnpj").text('CNPJ:');
     $('#tipo_pessoa_label').text('Cliente pessoa jurídica');
 }
 
 $('#new_addr').click(function(){
-    $('#addr_list').hide();
-    $('#new_addr_form').show();
+    $('#new_addr').addClass('hide');
+    $('#new_addr_form').removeClass('hide');
 });
 
 $('#cancel_addr').click(function(){
-    $('#addr_list').show();
-    $('#new_addr_form').hide();
+    $('#new_addr').removeClass('hide');
+    $('#new_addr_form').addClass('hide');
 });
 
 $('#new_phone').click(function(){
-    $('#phone_list').hide();
-    $('#new_phone_form').show();
+    $('#new_phone').addClass('hide');
+    $('#new_phone_form').removeClass('hide');
 });
 
 $('#cancel_phone').click(function(){
-    $('#phone_list').show();
-    $('#new_phone_form').hide();
+    $('#new_phone').removeClass('hide');
+    $('#new_phone_form').addClass('hide');
 });
 
 function cepSearch(cep){

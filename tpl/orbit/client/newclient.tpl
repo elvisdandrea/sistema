@@ -12,10 +12,10 @@
                 <hr />
                 <div style="white-space: nowrap">
                     <label class="radio-inline">
-                        <input type="radio" class="select-itens" name="client_type" id="client_type_f" value="F" checked /> <span>Pessoa física</span>
+                        <input type="radio" class="select-itens" name="client_type" id="client_type_f" value="F" checked /><span> Pessoa física</span>
                     </label>
                     <label class="radio-inline">
-                        <input type="radio" class="select-itens" name="client_type" id="client_type_j" value="J" /> <span>Pessoa jurídica</span>
+                        <input type="radio" class="select-itens" name="client_type" id="client_type_j" value="J" /><span> Pessoa jurídica</span>
                     </label>
                 </div>
                 <hr />
@@ -37,7 +37,7 @@
                                 <input type="text" class="form-control"  name="email" />
                             </div>
                         </div>
-                        <div id="legal_entity" class="no-display form-group col-md-12">
+                        <div id="legal_entity" class="hide form-group col-md-12">
                             <div class="form-group col-xs-6">
                                 <label>Razão social:</label>
                                 <input class="legal_entity_field form-control" type="text" name="corporate_name" disabled>
@@ -99,13 +99,13 @@
 
                         <div class="col-md-12">
                             <div class="box box-solid">
-                                <div class="box-header">
+                                <!--<div class="box-header">
                                     <h5 class="box-title" style="font-size:12px; line-height:4; padding:0 0 0 10px;">Endereço residencial - 88107-455</h5>
                                     <div class="box-tools pull-right">
                                         <button data-original-title="Mostrar/Ocultar" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title=""><i class="fa fa-minus"></i></button>
                                         <button data-original-title="Deletar" class="btn btn-default btn-sm text-red" data-widget="remove" data-toggle="tooltip" title=""><i class="fa fa-times"></i></button>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="box-body">
                                     <div class="row">
                                         
@@ -151,9 +151,9 @@
                             </div>
                         </div>
 
-                        <div class="col-md-12">
+                        <!--<div class="col-md-12">
                             <a class="btn btn-primary" id="new_phone" href="#">Adicionar outro telefone</a>
-                        </div>
+                        </div>-->
 
                     </div>
                 </div>
@@ -170,16 +170,16 @@
                 </div>
                 <div class="box-body">
                     <div class="row">
-                        
+
                         <div class="col-md-12">
                             <div class="box box-solid">
-                                <div class="box-header">
+                                <!--<div class="box-header">
                                     <h5 class="box-title" style="font-size:12px; line-height:4; padding:0 0 0 10px;">Telefone residencial - (48) 9988 - 0099</h5>
                                     <div class="box-tools pull-right">
                                         <button data-original-title="Mostrar/Ocultar" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title=""><i class="fa fa-minus"></i></button>
                                         <button data-original-title="Deletar" class="btn btn-default btn-sm text-red" data-widget="remove" data-toggle="tooltip" title=""><i class="fa fa-times"></i></button>
                                     </div>
-                                </div>
+                                </div>-->
                                 <div class="box-body">
                                     <div class="row">
                                         <div class="form-group col-md-6 col-sm-6 col-xs-6">
@@ -201,11 +201,11 @@
                                 </div>
                             </div>
                         </div>
-                        
-                        <div class="col-md-12">
+
+                        <!--<div class="col-md-12">
                             <a class="btn btn-primary" id="new_phone" href="#">Adicionar outro telefone</a>
-                        </div>
-                        
+                        </div>-->
+
                     </div>
                 </div>
             </div>
