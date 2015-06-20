@@ -1,4 +1,4 @@
-<div id="plates">
+<!--<div id="plates"> -->
 {foreach from=$plates key="plate_id" item="plate" name="plate_loop"}
     <li>
         <span class="request-item-number bg-orange">{$smarty.foreach.plate_loop.iteration}</span>
@@ -29,20 +29,20 @@
                     </div>
                     <hr />
                     {foreach from=$plate key="item_id" item="item"}
-                        <ul id="{$plate_id}_{$item['id']}">
+                        <ul id="{$plate_id}_{$item['id']}" class="item-plate">
                             <li>
                                 <img src="{$item['image']}" alt="{$item['product_name']}">
                             </li>
-                            <li class="col-md-3 col-sm-4">
+                            <li class="col-md-3 col-sm-4 col-xs-4">
                                 Prato: <strong>{$item['product_name']}</strong>
                             </li>
-                            <li class="col-md-3 col-sm-4">
+                            <li class="col-md-5 col-sm-5 col-xs-5">
                                 Categoria: <strong>{$item['category_name']}</strong>
                             </li>
-                            <li class="col-md-2 col-sm-4">
+                            <li class="col-md-3 col-sm-3 col-xs-3">
                                 Total: <strong id="price_{$plate_id}_{$item['id']}" class="text-green">{String::convertTextFormat($item['price'], 'currency')}</strong>
                             </li>
-                            <li class="col-md-4 col-sm-12 qnt">
+                            <li class="col-md-12 col-sm-12 col-xs-12 qnt">
                                 <button type="button" class="btn btn-primary btn-sm" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/dropitemportion?id={$item['id']}&amount={$item['product_weight']}&plate_id={$plate_id}&request_id={$request_id}{if ($newrequest)}&action=selproductnew{/if}')">
                                     <i class="fa fa-minus-circle"></i>
                                 </button>
@@ -78,4 +78,4 @@
         </div>
     </li>
 {/foreach}
-</div>
+<!--</div> -->

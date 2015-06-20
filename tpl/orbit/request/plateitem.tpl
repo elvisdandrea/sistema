@@ -2,7 +2,7 @@
     <li>
         <img src="{$item['image']}" alt="{$item['product_name']}">
     </li>
-    <li class="col-md-4 col-sm-4 col-xs-4">
+    <li class="col-md-3 col-sm-4 col-xs-4">
         Prato: <strong>{$item['product_name']}</strong>
     </li>
     <li class="col-md-5 col-sm-5 col-xs-5">
