@@ -207,26 +207,6 @@ class clientControl extends Control {
             $return['message'][] = "CNPJ inválido";
         }
 
-        if(empty($postData['street_addr'])){
-            $return['valid']     = false;
-            $return['message'][] = "Favor informar o endereço do cliente";
-        }
-
-        if(empty($postData['hood'])){
-            $return['valid']     = false;
-            $return['message'][] = "Favor informar o bairro do cliente";
-        }
-
-        if(empty($postData['city'])){
-            $return['valid']     = false;
-            $return['message'][] = "Favor informar a cidade do cliente";
-        }
-
-        if(empty($postData['street_number'])){
-            $return['valid']     = false;
-            $return['message'][] = "Favor verificar o numero do endereço do cliente";
-        }
-
         return $return;
     }
 

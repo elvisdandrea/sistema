@@ -1,5 +1,5 @@
 <div class="col-md-12">
-<form action="{$smarty.const.BASEDIR}client/addNewClient" changeurl="{$smarty.const.BASEDIR}client">
+<form id="client-form" action="{$smarty.const.BASEDIR}client/addNewClient" changeurl="{$smarty.const.BASEDIR}client">
 
     <!-- Conteúdo principal -->
     <div class="row">
@@ -217,7 +217,7 @@
     <!-- Buttons (Options) -->
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
-            <button type="submit" class="btn btn-success" title="Cadastrar o cliente" style="width:150px;">Cadastrar cliente</button>
+            <button type="submit" class="btn btn-success" onclick="$('#client-form').submit()" title="Cadastrar o cliente" style="width:150px;">Cadastrar cliente</button>
             <a type="button" class="btn btn-danger" title="Cancelar" href="{$smarty.const.BASEDIR}client"><i class="fa fa-times"></i></a>
         </div>
     </div>

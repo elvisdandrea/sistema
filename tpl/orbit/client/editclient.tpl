@@ -1,7 +1,7 @@
 {$isPessoaFisica = $client['client_type'] == 'F'}
 <div class="col-md-12">
     <div class="row">
-        <form action="{$smarty.const.BASEDIR}client/editClient?id={$client['id']}" changeurl="{$smarty.const.BASEDIR}client">
+        <form id="client-form" action="{$smarty.const.BASEDIR}client/editClient?id={$client['id']}" changeurl="{$smarty.const.BASEDIR}client">
             <div class="col-md-8 col-sm-12">
 
                 <div class="box">
@@ -260,7 +260,7 @@
 
     <div class="box box-solid">
         <div class="box-body pad table-responsive">
-            <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;">Salvar alterações</button>
+            <button type="submit" class="btn btn-success" title="Salvar" onclick="$('#client-form').submit()" style="width:150px;">Salvar alterações</button>
             <a type="button" class="btn btn-primary" title="Pedidos deste cliente" href="{$smarty.const.BASEDIR}request?client_id={$client['id']}">Pedidos deste cliente</a>
             <a type="button" class="btn btn-danger" title="Excluir o cliente" href="{$smarty.const.BASEDIR}client/removeclient"><i class="fa fa-times"></i></a>
         </div><!-- /.box -->
