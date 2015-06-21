@@ -9,14 +9,14 @@
             <div style="width:100%">
                     <a href="{$smarty.const.BASEDIR}request/viewrequest?id={$request['id']}" changeurl>
                         <div class="row">
-                            <div class="col-md-5 col-sm-12">
+                            <div class="col-md-4 col-sm-12">
                                 <i class="fa circle fa-user"></i>
                                 <h5>
                                     <span>Cliente:</span>&nbsp;
                                     <strong>{$request['client_name']}</strong>
                                 </h5>
                             </div>
-                            <div class="col-md-7 col-sm-12">
+                            <div class="col-md-5 col-sm-12">
                                 <i class="fa circle fa-phone"></i>
                                 <h5>
                                     <span>{$request['phones']}</span>
@@ -24,13 +24,13 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-5 col-sm-5">
+                            <div class="col-md-4 col-sm-5">
                                 <i class="fa circle fa-clock-o"></i>
                                 <h5>
                                     <span>Entrega:&nbsp;&nbsp;<strong>{String::formatDateTimeToLoad($request['delivery_date'])}</strong></span>
                                 </h5>
                             </div>
-                            <div class="col-md-5 col-sm-5">
+                            <div class="col-md-4 col-sm-5">
                                 <i class="fa circle fa-usd"></i>
                                 <h5>
                                     <span>Valor:&nbsp;&nbsp;<strong>{String::convertTextFormat($request['price'], 'currency')}</strong></span>
