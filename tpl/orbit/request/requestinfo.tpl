@@ -1,4 +1,4 @@
-<div id="box-info" class="box-body" style="display: none">
+<div id="box-info" class="box-body collapse">
     <div class="row">
         <div class="col-md-4 col-sm-6 col-xs-6">
             <div class="small-box bg-aqua">
