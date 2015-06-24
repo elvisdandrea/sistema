@@ -18,49 +18,51 @@
                                     <label>Nome:</label>
                                     <input type="text" class="form-control" name="name" value="{$profile['name']}"/>
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6">
+                                <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                     <label>E-mail:</label>
                                     <input type="text" class="form-control"  name="email" value="{$profile['email']}" />
                                 </div>
-                                <div class="form-group col-md-6 col-sm-6">
+                                <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                     <label>CPF:</label>
                                     <input type="text" class="form-control"  name="cpf" value="{$profile['cpf']}" />
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                     <label>Celular:</label>
                                     <input type="text" class="form-control"  name="phone_1" value="{$profile['phone_1']}" />
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                     <label>Telefone Residencial:</label>
                                     <input type="text" class="form-control"  name="phone_2" value="{$profile['phone_2']}" />
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-9 col-sm-9 colxs-12">
                                     <label id="street_address">Endereço:</label>
                                     <input type="text" class="form-control" name="street_address" value="{$profile['street_address']}" />
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-3 col-sm-3 col-xs-6">
                                     <label id="street_address">Numero:</label>
                                     <input type="text" class="form-control" name="street_number" value="{$profile['street_number']}" />
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-4 col-sm-4 col-xs-6">
                                     <label id="street_address">Complemento:</label>
                                     <input type="text" class="form-control" name="street_additional" value="{$profile['street_additional']}" />
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-4 col-sm-4 col-xs-6">
                                     <label id="street_address">Bairro:</label>
                                     <input type="text" class="form-control" name="hood" value="{$profile['hood']}" />
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-4 col-sm-4 col-xs-6">
                                     <label id="street_address">Cidade:</label>
                                     <input type="text" class="form-control" name="city" value="{$profile['city']}" />
                                 </div>
-                                <div class="form-group col-xs-12">
-                                    <label>Lojas:</label>
-                                    <select multiple id="stations" class="form-control" name="stations" data-placeholder="Lojas">
-                                        {foreach from=$stations key="index" item="row"}
-                                            <option value="{$row['id']}"{if (in_array($row['station_name'], $userStations))} selected{/if}>{$row['station_name']}</option>
-                                        {/foreach}
-                                    </select>
+                                <div class="form-group col-md-12 col-sm-12 col-xs-12">
+                                    <blockquote style="padding:10px 0px 10px 20px">
+                                        <label>Em quais lojas esse usuário trabalha:</label>
+                                        <select multiple id="stations" class="form-control" name="stations" data-placeholder="Lojas">
+                                            {foreach from=$stations key="index" item="row"}
+                                                <option value="{$row['id']}"{if (in_array($row['station_name'], $userStations))} selected{/if}>{$row['station_name']}</option>
+                                            {/foreach}
+                                        </select>
+                                    </blockquote>
                                 </div>
                                 
                             </div>
