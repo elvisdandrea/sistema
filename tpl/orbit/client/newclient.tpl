@@ -99,13 +99,13 @@
 
                         <div class="col-md-12">
                             <div class="box box-solid">
-                                <!--<div class="box-header">
+                                <div class="box-header">
                                     <h5 class="box-title" style="font-size:12px; line-height:4; padding:0 0 0 10px;">Endereço residencial - 88107-455</h5>
                                     <div class="box-tools pull-right">
                                         <button data-original-title="Mostrar/Ocultar" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip" title=""><i class="fa fa-minus"></i></button>
                                         <button data-original-title="Deletar" class="btn btn-default btn-sm text-red" data-widget="remove" data-toggle="tooltip" title=""><i class="fa fa-times"></i></button>
                                     </div>
-                                </div>-->
+                                </div>
                                 <div class="box-body">
                                     <div class="row">
                                         
@@ -151,9 +151,9 @@
                             </div>
                         </div>
 
-                        <!--<div class="col-md-12">
+                        <div class="col-md-12">
                             <a class="btn btn-primary" id="new_phone" href="#">Adicionar outro telefone</a>
-                        </div>-->
+                        </div>
 
                     </div>
                 </div>

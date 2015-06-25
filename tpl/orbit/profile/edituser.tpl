@@ -128,3 +128,4 @@
         
     </div>
 </form>
+{include "profile/usercredentials.tpl"}

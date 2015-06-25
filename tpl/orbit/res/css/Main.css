@@ -592,6 +592,12 @@ body > .header .logo .icon {
     Navbar custom dropdown menu
 ------------------------------------
 */
+.navbar .menu,
+.list-clients .menu,
+.itens-any .menu {
+    height: auto;
+    max-height: 160px;
+}
 .navbar-nav > .notifications-menu > .dropdown-menu,
 .navbar-nav > .messages-menu > .dropdown-menu,
 .navbar-nav > .tasks-menu > .dropdown-menu,
@@ -609,6 +615,8 @@ body > .header .logo .icon {
 .list-clients,
 .itens-any {
     width: 100%;
+    height: auto;
+    max-height: 160px;
 }
 .list-clients ul.menu li a img,
 .itens-any ul.menu li a img {
@@ -2289,11 +2297,11 @@ ul.request-itens > li .request-item div.box-body .ingredients .checkbox-inline .
     Component: alert
 ------------------------
 */
-.alert {
+/* .alert {
   padding-left: 30px;
   margin-left: 15px;
   position: relative;
-}
+} */
 .alert > .fa,
 .alert > .glyphicon {
   position: absolute;
@@ -3736,4 +3744,85 @@ fieldset[disabled] .btn-vk.active {
 .check-img label img {
     position: absolute;
     height: 100%;
+}
+/* -- */
+.alert-resolution {
+    display: none;
+}
+@media screen and (max-width: 640px) {
+    .alert-resolution {
+        display: block;
+    }
+    
+}
+table.drag {
+    background: #FFF;
+    min-width: 570px;
+}
+table.drag tr td {
+    vertical-align: top !important;
+}
+table.drag table.drag {
+    min-height: 150px;
+    height: 100%;
+    min-width: 260px;
+}
+table.drag table.drag tr td {
+    height: 50%;
+    padding: 2px;
+}
+table.drag table.drag span {
+    text-align: center;
+    display: block;
+    white-space: nowrap;
+    background: #F4F4F4;
+    color: #666;
+    font-size: 10px;
+    text-transform: uppercase;
+    padding: 5px;
+    margin-bottom: 2px;
+}
+table.drag tr td .redips-drag {
+    border-style: none !important;
+    background: #85144B;
+    height: 30px;
+    width: 100%;
+    max-width: 210px;
+    margin-bottom: 2px;
+    padding:0;
+    overflow: hidden;
+    line-height: 2.5;
+    color: #FFF;
+    white-space: nowrap;
+    -moz-border-radius: 0.25em;
+    -ms-border-radius: 0.25em;
+    -o-border-radius: 0.25em;
+    border-radius: 0.25em;
+}
+table.drag tr td .redips-drag:before {
+    position: relative;
+    right: -90%;
+    content: "x";
+    font-size: 9px;
+    color: rgba(255, 255, 255, 0.4);
+    top: -2px;
+}
+table.drag table.drag .redips-drag:before {
+    content: " ";
+}
+table.drag table.drag .redips-drag {
+    padding:0 8px;
+}
+table.drag tr td .redips-drag:hover {
+    margin: -1px 2px 3px -2px;
+    -moz-box-shadow: 2px 2px 2px #999;
+    -ms-box-shadow: 2px 2px 2px #999;
+    -o-box-shadow: 2px 2px 2px #999;
+    box-shadow: 2px 2px 2px #999;
+}
+table.drag tr td .redips-drag > input[type='checkbox'] {
+    margin-right: 10px;
+}
+table.drag table.drag .redips-drag {
+    background: #00A65A;
 }

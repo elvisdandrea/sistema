@@ -3,7 +3,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title"><i class="fa map-marker"></i>Adicionar um cliente</h4>
+                <h4 class="modal-title"><i class="fa fa-user"></i>Adicionar um cliente</h4>
             </div>
             <form action="{$smarty.const.BASEDIR}request/addclient" method="post">
                 <div class="modal-body">
