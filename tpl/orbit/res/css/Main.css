@@ -3759,36 +3759,15 @@ table.drag {
     background: #FFF;
     min-width: 570px;
 }
-table.drag tr td {
-    vertical-align: top !important;
-}
-table.drag table.drag {
-    min-height: 150px;
-    height: 100%;
-    min-width: 260px;
-}
-table.drag table.drag tr td {
-    height: 50%;
-    padding: 2px;
-}
-table.drag table.drag span {
-    text-align: center;
-    display: block;
-    white-space: nowrap;
-    background: #F4F4F4;
-    color: #666;
-    font-size: 10px;
-    text-transform: uppercase;
-    padding: 5px;
-    margin-bottom: 2px;
-}
 table.drag tr td .redips-drag {
     border-style: none !important;
+    padding: 0;
+}
+table.drag tr td .redips-drag span {
+    display: block;
     background: #85144B;
     height: 30px;
-    width: 100%;
-    max-width: 210px;
-    margin-bottom: 2px;
+    margin: 1px;
     padding:0;
     overflow: hidden;
     line-height: 2.5;
@@ -3799,7 +3778,14 @@ table.drag tr td .redips-drag {
     -o-border-radius: 0.25em;
     border-radius: 0.25em;
 }
-table.drag tr td .redips-drag:before {
+table.drag tr td .redips-drag span:hover {
+    margin: -1px 2px 3px -2px;
+    -moz-box-shadow: 2px 2px 2px #999;
+    -ms-box-shadow: 2px 2px 2px #999;
+    -o-box-shadow: 2px 2px 2px #999;
+    box-shadow: 2px 2px 2px #999;
+}
+table.drag tr td .redips-drag span:before {
     position: relative;
     right: -90%;
     content: "x";
@@ -3807,22 +3793,23 @@ table.drag tr td .redips-drag:before {
     color: rgba(255, 255, 255, 0.4);
     top: -2px;
 }
-table.drag table.drag .redips-drag:before {
+table.drag table.drag tr td .redips-drag span:before {
     content: " ";
 }
-table.drag table.drag .redips-drag {
-    padding:0 8px;
+.redips-drag span > input[type='checkbox'] {
+    margin: 0 10px 0 5px;
 }
-table.drag tr td .redips-drag:hover {
-    margin: -1px 2px 3px -2px;
-    -moz-box-shadow: 2px 2px 2px #999;
-    -ms-box-shadow: 2px 2px 2px #999;
-    -o-box-shadow: 2px 2px 2px #999;
-    box-shadow: 2px 2px 2px #999;
+table.drag table.drag tr td:first-child {
+    background: #F4F4F4;
 }
-table.drag tr td .redips-drag > input[type='checkbox'] {
-    margin-right: 10px;
+table.drag table.drag span.title {
+    text-align: center;
+    display: block;
+    white-space: nowrap;
+    color: #666;
+    font-size: 11px;
+    text-transform: uppercase;
 }
-table.drag table.drag .redips-drag {
+table.drag table.drag .redips-drag span {
     background: #00A65A;
 }

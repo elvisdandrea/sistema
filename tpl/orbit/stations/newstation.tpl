@@ -133,73 +133,74 @@
                                             
                                             <div id="redips-drag">
                                                 <table class="table table-bordered drag">
-                                                    <colgroup>
-                                                        <col class="col-lg-2 col-md-3 col-sm-3 col-xs-4"/>
-                                                        <col class="col-lg-10 col-md-9 col-sm-9 col-xs-8"/>
-                                                    </colgroup>
                                                     <thead>
                                                         <tr>
-                                                            <td class="drag-block-cell">Bairros (Não entrega)</td>
-                                                            <td class="drag-block-cell">Arraste para cá os bairros que se faz entrega</td>
+                                                            <td class="drag-block-cell"><b>Bairros:</b> (<i>Deixe aqui os bairros que não se faz entrega por essa loja</i>)</td>
                                                         </tr>
                                                     </thead>
                                                     <tbody>
                                                         <tr>
-                                                            <td style="max-width:160px">
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Cacupé</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Canasvieiras</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Daniela</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Jurerê</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Jurerê Internacional</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Ingleses do Rio Vermelho</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Rio Vermelho</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Moçambique</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Alambique</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Centro</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Pantanal</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Lagoa</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Trindade</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Canasvieiras</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Daniela</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Jurerê</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Jurerê Internacional</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Ingleses do Rio Vermelho</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Rio Vermelho</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Moçambique</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Alambique</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Centro</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Pantanal</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Lagoa</div>
-                                                                <div id="" class="redips-drag"><input type="checkbox"/>Trindade</div>
+                                                            <td>
+                                                                <div class="row">
+                                                                    <div class="col-md-12">
+                                                                        <div id="" class="redips-drag col-md-2 col-sm-3 col-xs-4"><span><input type="checkbox"/>Cacupé</span></div>
+                                                                        <div id="" class="redips-drag col-md-2 col-sm-3 col-xs-4"><span><input type="checkbox"/>Canasvieiras</span></div>
+                                                                        <div id="" class="redips-drag col-md-2 col-sm-3 col-xs-4"><span><input type="checkbox"/>Daniela</span></div>
+                                                                        <div id="" class="redips-drag col-md-2 col-sm-3 col-xs-4"><span><input type="checkbox"/>Jurerê</span></div>
+                                                                        <div id="" class="redips-drag col-md-2 col-sm-3 col-xs-4"><span><input type="checkbox"/>Jurerê Internacional</span></div>
+                                                                        <div id="" class="redips-drag col-md-2 col-sm-3 col-xs-4"><span><input type="checkbox"/>Ingleses do Rio Vermelho</span></div>
+                                                                        <div id="" class="redips-drag col-md-2 col-sm-3 col-xs-4"><span><input type="checkbox"/>Rio Vermelho</span></div>
+                                                                        <div id="" class="redips-drag col-md-2 col-sm-3 col-xs-4"><span><input type="checkbox"/>Moçambique</span></div>
+                                                                        <div id="" class="redips-drag col-md-2 col-sm-3 col-xs-4"><span><input type="checkbox"/>Alambique</span></div>
+                                                                        <div id="" class="redips-drag col-md-2 col-sm-3 col-xs-4"><span><input type="checkbox"/>Centro</span></div>
+                                                                        <div id="" class="redips-drag col-md-2 col-sm-3 col-xs-4"><span><input type="checkbox"/>Pantanal</span></div>
+                                                                        <div id="" class="redips-drag col-md-2 col-sm-3 col-xs-4"><span><input type="checkbox"/>Lagoa</span></div>
+                                                                        <div id="" class="redips-drag col-md-2 col-sm-3 col-xs-4"><span><input type="checkbox"/>Trindade</span></div>
+                                                                    </div>
+                                                                </div>
                                                             </td>
-                                                            <td style="height:100%" class="drag-block-cell">
+                                                        </tr>
+                                                    </tbody>
+                                                    <thead>
+                                                        <tr>
+                                                            <td class="drag-block-cell"><b>Valores para entrega:</b> (<i>Arraste os bairros para a linha com o valor para entrega</i>)</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td class="drag-block-cell">
                                                                 <table class="table table-bordered drag">
                                                                     <colgroup>
-                                                                        <col style="width:20%"/>
-                                                                        <col style="width:20%"/>
-                                                                        <col style="width:20%"/>
-                                                                        <col style="width:20%"/>
-                                                                        <col style="width:20%"/>
+                                                                        <col class="col-lg-2 col-md-3 col-sm-3 col-xs-4"/>
+                                                                        <col class="col-lg-10 col-md-9 col-sm-9 col-xs-8"/>
                                                                     </colgroup>
                                                                     <tbody>
+                                                                        <!-- Faixa de preço -->
+                                                                        <tr><td class="drag-block-cell"><span class="title">Entrega grátis</span></td><td></td></tr>
+                                                                        <!-- Faixa de preço -->
+                                                                        <tr><td class="drag-block-cell"><span class="title">R$ 1,00</span></td><td></td></tr>
+                                                                        <!-- Faixa de preço -->
+                                                                        <tr><td class="drag-block-cell"><span class="title">R$ 2,00</span></td><td></td></tr>
+                                                                        <!-- Faixa de preço -->
                                                                         <tr>
-                                                                            <td><span>Entrega grátis</span></td>
-                                                                            <td><span>R$ 2,00</span></td>
-                                                                            <td><span>R$ 4,00</span></td>
-                                                                            <td><span>R$ 6,00</span></td>
-                                                                            <td><span>R$ 8,00</span></td>
-                                                                        </tr>
-                                                                        <tr>
-                                                                            <td><span>R$ 10,00</span></td>
-                                                                            <td><span>R$ 12,00</span></td>
-                                                                            <td><span>R$ 14,00</span></td>
-                                                                            <td><span>R$ 16,00</span></td>
-                                                                            <td><span>R$ 18,00</span></td>
+                                                                            <td class="drag-block-cell">
+                                                                                <span class="title">
+                                                                                    <div class="input-group input-group-sm">
+                                                                                        <input class="form-control" type="text" placeholder="Ex. R$ 1,00">
+                                                                                        <span class="input-group-btn">
+                                                                                            <button class="btn btn-info btn-flat" type="button">Salvar</button>
+                                                                                        </span>
+                                                                                    </div>
+                                                                                </span>
+                                                                            </td>
+                                                                            <td>
+                                                                            </td>
                                                                         </tr>
                                                                     </tbody>
                                                                 </table>
                                                             </td>
                                                         </tr>
+                                                    <tr><td><a class="btn btn-default btn-sm" id="" href="#">Adicione outra faixa de preço</a></td></tr>
                                                     </tbody>
                                                 </table>
                                             </div>
@@ -211,7 +212,7 @@
                         </div>
 
                         <div class="col-md-12">
-                            <a class="btn btn-primary" id="new_phone" href="#">Adicionar outra cidade</a>
+                            <a class="btn btn-primary" id="" href="#">Adicione outra cidade</a>
                         </div>
 
                     </div>
