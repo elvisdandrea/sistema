@@ -159,6 +159,18 @@
                                                                 <div id="" class="redips-drag"><input type="checkbox"/>Pantanal</div>
                                                                 <div id="" class="redips-drag"><input type="checkbox"/>Lagoa</div>
                                                                 <div id="" class="redips-drag"><input type="checkbox"/>Trindade</div>
+                                                                <div id="" class="redips-drag"><input type="checkbox"/>Canasvieiras</div>
+                                                                <div id="" class="redips-drag"><input type="checkbox"/>Daniela</div>
+                                                                <div id="" class="redips-drag"><input type="checkbox"/>Jurerê</div>
+                                                                <div id="" class="redips-drag"><input type="checkbox"/>Jurerê Internacional</div>
+                                                                <div id="" class="redips-drag"><input type="checkbox"/>Ingleses do Rio Vermelho</div>
+                                                                <div id="" class="redips-drag"><input type="checkbox"/>Rio Vermelho</div>
+                                                                <div id="" class="redips-drag"><input type="checkbox"/>Moçambique</div>
+                                                                <div id="" class="redips-drag"><input type="checkbox"/>Alambique</div>
+                                                                <div id="" class="redips-drag"><input type="checkbox"/>Centro</div>
+                                                                <div id="" class="redips-drag"><input type="checkbox"/>Pantanal</div>
+                                                                <div id="" class="redips-drag"><input type="checkbox"/>Lagoa</div>
+                                                                <div id="" class="redips-drag"><input type="checkbox"/>Trindade</div>
                                                             </td>
                                                             <td style="height:100%" class="drag-block-cell">
                                                                 <table class="table table-bordered drag">
