@@ -52,7 +52,7 @@ $(function() {
      * ---------------------------------------
      */
     $(".navbar .menu, .list-clients .menu, .itens-any .menu").slimscroll({
-        height: "130px",
+        height: "160px",
         alwaysVisible: false,
         size: "3px"
     }).css("width", "100%");

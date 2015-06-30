@@ -22,9 +22,9 @@
                 <!-- -->
                 <div class="box-body">
                     <div class="input-group input-group-sm">
-                                                            <span class="input-group-addon">
-                                                                <i class="fa fa-cutlery"></i>
-                                                            </span>
+                        <span class="input-group-addon">
+                            <i class="fa fa-cutlery"></i>
+                        </span>
                         <input class="form-control" type="text" placeholder="Pesquise um item para adicionar ao prato">
                     </div>
                     <hr />

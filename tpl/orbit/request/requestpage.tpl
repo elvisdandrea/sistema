@@ -3,7 +3,9 @@
 
         <div class="box-header">
             <div class="box-tools">
-                <a onclick="$('#box-info').toggle()" class="btn btn-default btn-sm" data-widget="collapse" data-target="#box-info" style="width:100%"><spam class="pull-left"><i class="fa fa-plus"></i>&nbsp;&nbsp; Visualizar os dados e informações:</spam></a>
+                <a data-toggle="collapse" data-parent="#accordion" href="#box-info" class="btn btn-default btn-sm" style="width:100%">
+                    <spam class="pull-left"><i class="fa fa-plus"></i>&nbsp;&nbsp; Visualizar os dados e informações:</spam>
+                </a>
             </div>
         </div>
 
