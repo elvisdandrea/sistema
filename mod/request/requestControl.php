@@ -529,6 +529,8 @@ class requestControl extends Control {
             }
         }
 
+        $this->view()->appendJs('checkbox');
+
         $this->view()->setVariable('count_plates', $count_plates);
         $this->view()->setVariable('noChangeCustomer', false);
         $this->view()->setVariable('client', $client);
