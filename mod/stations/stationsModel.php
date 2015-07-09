@@ -128,5 +128,20 @@ class stationsModel extends Model {
         $this->runInsert();
     }
 
+    /**
+     * Gets UF list from Correios
+     */
+    public function getCorreiosUf() {
+
+        $this->addField('cd_uf');
+        $this->addField('ds_uf_sigla');
+        $this->addField('ds_uf_nome');
+
+        $this->addFrom('correios_uf');
+
+        $this->runQuery();
+
+    }
+
 
 }

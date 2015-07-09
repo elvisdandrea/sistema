@@ -175,6 +175,11 @@ class Control {
         $this->model[$name] = new $model($name);
     }
 
+    /**
+     * The Path for saving files
+     *
+     * @return string
+     */
     final protected function getModuleTransferPath() {
 
         return UID::get('company_id') . '/' . $this->moduleName;

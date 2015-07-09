@@ -56,6 +56,10 @@ class stationsControl extends Control {
      */
     public function newStation() {
         $this->view()->loadTemplate('newstation');
+        $this->newModel('auth');
+        $this->model('auth')->getCorreiosUf();
+        $ufList = $this->model('auth')->getRows();
+        $this->view()->setVariable('ufList', $ufList);
         $this->commitReplace($this->view()->render(), '#content');
         $this->view()->appendJs('station');
     }

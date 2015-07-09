@@ -19,8 +19,14 @@
                             </div>
                             <div class="box-body">
                                 <div class="row">
-
-                                    <div class="form-group input-group-sm col-md-12">
+                                    <div class="form-group input-group-sm col-md-1">
+                                        <select class="form-control">
+                                            {foreach from=$ufList item="row"}
+                                                <option value="{$row['cd_uf']}">{$row['ds_uf_sigla']}</option>
+                                            {/foreach}
+                                        </select>
+                                    </div>
+                                    <div class="form-group input-group-sm col-md-11">
                                         <input type="text" class="form-control input-group-sm" placeholder="Localize uma cidade" data-toggle="dropdown" />
 
                                         <!-- Lista de cidades -->
@@ -28,9 +34,7 @@
 
                                         </ul>
                                         <!-- /.Lista de cidades -->
-
                                     </div>
-
                                 </div>
 
                                 <div class="alert alert-success alert-dismissable">
