@@ -24,22 +24,8 @@
                                         <input type="text" class="form-control input-group-sm" placeholder="Localize uma cidade" data-toggle="dropdown" />
 
                                         <!-- Lista de cidades -->
-                                        <ul class="dropdown-menu itens-any">
-                                            <li class="header">Encontrados 3 resultados para São</li>
-                                            <li>
-                                                <!-- inner menu: contains the actual data -->
-                                                <ul class="menu">
-                                                    <li>
-                                                        <a href="" class="pad" title="NOME DA CIDADE">São Francisco</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="" class="pad" title="NOME DA CIDADE">São José</a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="" class="pad" title="NOME DA CIDADE">São Paulo</a>
-                                                    </li>
-                                                </ul>
-                                            </li>
+                                        <ul id="citiesresult" class="dropdown-menu itens-any">
+
                                         </ul>
                                         <!-- /.Lista de cidades -->
 
