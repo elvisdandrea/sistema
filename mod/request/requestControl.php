@@ -368,7 +368,7 @@ class requestControl extends Control {
         $this->view()->setVariable('request_id', $this->request_id);
         $this->view()->setVariable('action',     $action);
         $this->view()->setVariable('rowId',      $rowId);
-        $this->view()->setVariable('ingredients',$ingredients);
+        $this->view()->setVariable('ingredients',$ingredientList);
 
         $this->commitAdd($this->view()->render(), '#plate_' . $plate_id);
         $this->commitReplace('', 'result-' . $plate_id);
@@ -474,6 +474,13 @@ class requestControl extends Control {
                         'unit'          => $product['unit']
                     )
                 );
+                foreach($product['ingredients'] as $ingredient => $status){
+                    $ingredient_id = $this->model()->insertItemIngredient(array(
+                        'request_item_id' => $item_id,
+                        'ingredient_name' => $ingredient,
+                        'included' => $status
+                    ));
+                }
                 $result['plates'][$plate_id][] = $item_id;
             }
 
@@ -521,12 +528,14 @@ class requestControl extends Control {
 
         $plates      = array(); $count_plates = 0;
         $plate_names = array();
+
         foreach($requestItems as $item) {
             in_array($item['plate_id'], array_keys($plates)) || $count_plates++;
             if (!isset($plates[$item['plate_id']][$item['id']]) ){
                 $plates[$item['plate_id']][$item['id']] = $item;
                 $plate_names[$item['plate_id']] = $item['plate_name'];
             }
+            $plates[$item['plate_id']][$item['id']]['ingredients'][$item['ingredient_id']] = array('ingredient_name' => $item['ingredient_name'], 'status' => $item['included']);
         }
 
         $this->view()->appendJs('checkbox');
@@ -1023,4 +1032,26 @@ class requestControl extends Control {
         return $return;
     }
 
+    public function setIngredientStatusNewRequest(){
+        $itemId = $this->getQueryString('item_id');
+        $ingredient = explode('_', $itemId);
+
+        $requestId = $ingredient[0];
+        $plateId = $ingredient[1];
+        $itemId = $ingredient[2];
+        $ingredientName = $ingredient[3];
+        $statusIngredient = $ingredient[4];
+
+        UID::set('requests', $requestId, 'plates', $plateId, $itemId, 'ingredients', $ingredientName, $statusIngredient);
+    }
+
+    public function setIngredientStatus(){
+        $itemId = $this->getQueryString('item_id');
+        $ingredient = explode('_', $itemId);
+
+        $ingredientId = $ingredient[0];
+        $statusIngredient = $ingredient[1];
+
+        $this->model()->seItemIngredientStatus($ingredientId, $statusIngredient);
+    }
 }

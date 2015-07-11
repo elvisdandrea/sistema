@@ -27,7 +27,7 @@
     <h6 style="display: inline;">Ingredientes <i class="fa fa-angle-double-right"></i>&nbsp;</h6>
     {foreach from=$ingredients item="row"}
         <label class="checkbox-inline">
-            <input type="checkbox" name="item_ingredients[{$row['ingredient_name']}]" class="select-itens" checked/> <span>{$row['ingredient_name']}</span>
+            <input type="checkbox" name="item_ingredients[{$row['ingredient_name']}]" class="select-itens" data-url="{$smarty.const.BASEDIR}request/setIngredientStatusNewRequest" data-value="{$request_id}_{$plate_id}_{$item['id']}_{$row['ingredient_name']}" checked/> <span>{$row['ingredient_name']}</span>
         </label>
     {/foreach}
 </div>

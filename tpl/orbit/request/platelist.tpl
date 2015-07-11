@@ -25,9 +25,10 @@
                         <span class="input-group-addon">
                             <i class="fa fa-cutlery"></i>
                         </span>
-                        <input class="form-control" type="text" placeholder="Pesquise um item para adicionar ao prato">
+                        <input class="form-control" type="text" placeholder="Pesquise um item para adicionar ao prato" onkeyup="searchClient(event, '{$smarty.const.BASEDIR}request/searchproduct?search=' + this.value + '&request_id={$request_id}&plate_id={$plate_id}{if (isset($action))}&action={$action}{/if}')">
                     </div>
                     <hr />
+                    <div id="product-results_{$plate_id}" style="position:relative"></div>
                     {foreach from=$plate key="item_id" item="item"}
                         <ul id="{$plate_id}_{$item['id']}" class="item-plate">
                             <li>
@@ -56,18 +57,11 @@
                         <!-- Ingredientes -->
                         <div id="ingredients_{$plate_id}_{$item['id']}" class="ingredients form-group check-item">
                             <h6 style="display: inline;">Ingredientes <i class="fa fa-angle-double-right"></i>&nbsp;</h6>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="01" class="select-itens" /> <span>Batata</span>
-                            </label>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="02" class="select-itens" /> <span class="item-removed">Polenta</span>
-                            </label>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="03" class="select-itens" /> <span>Cebola</span>
-                            </label>
-                            <label class="checkbox-inline">
-                                <input type="checkbox" name="04" class="select-itens" /> <span>Queijo</span>
-                            </label>
+                            {foreach from=$item['ingredients'] key="ingredient_id" item="ingredient"}
+                                <label class="checkbox-inline">
+                                    <input type="checkbox" name="item_ingredients[{$ingredient_id}]" class="select-itens" data-url="{$smarty.const.BASEDIR}request/setIngredientStatus" data-value="{$ingredient_id}" {if ($ingredient['status'] == 1)}checked{/if}/> <span>{$ingredient['ingredient_name']}</span>
+                                </label>
+                            {/foreach}
                         </div>
                     {/foreach}
                 </div>

@@ -432,6 +432,27 @@ class requestModel extends Model {
     }
 
     /**
+     * Creates new plate item ingredient
+     *
+     * @param   array       $data       - The item data
+     * @return  bool|int
+     */
+    public function insertItemIngredient(array $data){
+        $this->addInsertSet('request_item_id', $data['request_item_id']);
+        $this->addInsertSet('ingredient_name', $data['ingredient_name']);
+        $this->addInsertSet('included', $data['included']);
+
+        $this->setInsertTable('request_plate_item_ingredients');
+
+        $this->runInsert();
+
+        if ($this->queryOk())
+            return $this->getLastInsertId();
+
+        return false;
+    }
+
+    /**
      * Recovers a request information
      *
      * @param   string      $id     - The request Id
@@ -559,12 +580,16 @@ class requestModel extends Model {
         $this->addField('pr.price as product_price');
         $this->addField('pr.weight as product_weight');
         $this->addField('c.category_name');
+        $this->addField('rii.ingredient_name');
+        $this->addField('rii.included');
+        $this->addField('rii.id AS ingredient_id');
 
         $this->addFrom('requests r');
         $this->addFrom('left join request_plates p on p.request_id = r.id');
         $this->addFrom('left join request_plate_items i on i.plate_id = p.id');
         $this->addFrom('left join products pr on pr.id = i.product_id');
         $this->addFrom('left join categories c on c.id = pr.category_id');
+        $this->addFrom('left join request_plate_item_ingredients rii on rii.request_item_id = i.id');
 
         $this->addWhere('r.id = "' . $id . '"');
 
@@ -718,5 +743,13 @@ class requestModel extends Model {
 
     }
 
+    public function seItemIngredientStatus($id, $status){
+        $this->addUpdateSet('included', $status);
+
+        $this->setUpdateTable('request_plate_item_ingredients');
+        $this->addUpdateWhere('id = "' . $id . '"');
+
+        $this->runUpdate();
+    }
 
 }
