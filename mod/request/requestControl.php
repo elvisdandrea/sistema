@@ -352,6 +352,14 @@ class requestControl extends Control {
             UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill', $item['product_weight'] + $plate_fill);
         } else {
             $result = $this->postAddItem($data);
+            foreach($ingredients as $key => $value){
+                $insetValues = array(
+                    'request_item_id' => $result['item_id'],
+                    'ingredient_name' => $key,
+                    'included' => 1
+                );
+                $this->model()->insertItemIngredient($insetValues);
+            }
             $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
             if ($result['status'] != 200) {
                 //TODO: something went wrong
