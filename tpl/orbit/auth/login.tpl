@@ -39,8 +39,9 @@
             <button type="submit" class="btn btn-primary btn-block">Acessar</button>
 
             <hr />
-
-            Se ainda não é cadastrado, <a href="register.html" class="text-center">clique aqui</a>.
+            <a href="http://gravi.com.br/" target="_blank">
+                <img src="{$smarty.const.T_IMGURL}/logo-single-dark.png" width="100" alt="GRAVI" style="float: right" />
+            </a>
             <br /><br />
         </div>
     </form>

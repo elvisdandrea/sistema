@@ -72,6 +72,7 @@ Class ExceptionHandler extends Exception {
     public static function FatalExceptionListener() {
 
         $error = error_get_last();
+
         if (in_array($error['type'],
             array(E_PARSE, E_COMPILE_ERROR, E_CORE_ERROR, E_ERROR, E_PARSE, E_COMPILE_ERROR))) {
             ENVDEV == '1' || $error['message'] = Language::FATAL_ERROR_MESSAGE();   // Preventing internal errors to be displayed on production server

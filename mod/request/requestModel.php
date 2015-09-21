@@ -50,8 +50,7 @@ class requestModel extends Model {
         $this->addFrom('left join client_phone f on f.client_id = c.id');
         $this->addFrom('left join delivery_status s on s.id = r.deliver_status');
 
-        $this->addFrom('left join request_plates p on p.request_id = r.id');
-        $this->addFrom('left join request_plate_items i ON i.plate_id = p.id');
+        $this->addFrom('left join request_items i ON i.request_id = r.id');
 
         if (!empty($dateFrom) && !empty($dateTo))
             $this->addWhere('r.delivery_date BETWEEN "' . $dateFrom . '" AND "' . $dateTo . '"');
@@ -169,9 +168,8 @@ class requestModel extends Model {
     public function getTotalPriceRequests($dateFrom = false, $dateTo = false, $status = false, $client_id = false, $search = false) {
 
         $this->addField('sum(i.price) as total');
-        $this->addFrom('request_plate_items i');
-        $this->addFrom('inner join request_plates p on p.id = i.plate_id');
-        $this->addFrom('inner join requests r on r.id = p.request_id');
+        $this->addFrom('request_items i');
+        $this->addFrom('inner join requests r on r.id = i.request_id');
 
         if (!empty($dateFrom) && !empty($dateTo))
             $this->addWhere('r.delivery_date BETWEEN "' . $dateFrom . '" AND "' . $dateTo . '"');
@@ -407,6 +405,20 @@ class requestModel extends Model {
         return false;
     }
 
+    public function insertItem(array $data) {
+
+        $this->addInsertSet('request_id', $data['request_id']);
+        $this->addInsertSet('product_id', $data['product_id']);
+        $this->addInsertSet('price', $data['price']);
+
+        $this->setInsertTable('request_items');
+        $this->runInsert();
+        if ($this->queryOk())
+            return $this->getLastInsertId();
+
+        return false;
+    }
+
     /**
      * Creates new plate item
      *
@@ -569,27 +581,17 @@ class requestModel extends Model {
     public function getRequestItems($id) {
 
         $this->addField('i.id');
-        $this->addField('i.plate_id');
-        $this->addField('i.weight');
-        $this->addField('i.unit');
-        $this->addField('p.plate_name');
-        $this->addField('p.plate_size');
         $this->addField('pr.product_name');
         $this->addField('pr.image');
         $this->addField('i.price');
         $this->addField('pr.price as product_price');
         $this->addField('pr.weight as product_weight');
         $this->addField('c.category_name');
-        $this->addField('rii.ingredient_name');
-        $this->addField('rii.included');
-        $this->addField('rii.id AS ingredient_id');
 
         $this->addFrom('requests r');
-        $this->addFrom('left join request_plates p on p.request_id = r.id');
-        $this->addFrom('left join request_plate_items i on i.plate_id = p.id');
+        $this->addFrom('left join request_items i on i.request_id = r.id');
         $this->addFrom('left join products pr on pr.id = i.product_id');
         $this->addFrom('left join categories c on c.id = pr.category_id');
-        $this->addFrom('left join request_plate_item_ingredients rii on rii.request_item_id = i.id');
 
         $this->addWhere('r.id = "' . $id . '"');
 
@@ -605,7 +607,7 @@ class requestModel extends Model {
         $this->addField('i.price');
         $this->addField('pr.price as product_price');
 
-        $this->addFrom('request_plate_items i');
+        $this->addFrom('request_items i');
         $this->addFrom('left join products pr on pr.id = i.product_id');
         $this->addWhere('i.id = "' . $id . '"');
 
@@ -622,9 +624,8 @@ class requestModel extends Model {
     public function getRequestFinalPrice($id) {
 
         $this->addField('sum(price) as total');
-        $this->addFrom('request_plate_items i');
-        $this->addFrom('inner join request_plates p on p.id = i.plate_id');
-        $this->addWhere('p.request_id = "' . $id . '"');
+        $this->addFrom('request_items i');
+        $this->addWhere('i.request_id = "' . $id . '"');
         $this->runQuery();
         $result = $this->getRow(0);
         return $result['total'];

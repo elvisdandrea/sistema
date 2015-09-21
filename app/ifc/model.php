@@ -574,11 +574,12 @@ class Model {
      */
     private function connect($name) {
 
-        $this->connections[$name]['conn'] =
-            new PDO(
-                'mysql:host=' . $this->connections[$name]['host'] . ';dbname=' . $this->connections[$name]['db'] . ';charset=utf8',
-                $this->connections[$name]['user'],
-                $this->connections[$name]['pass']);
+            $this->connections[$name]['conn'] =
+                new PDO(
+                    'mysql:host=' . $this->connections[$name]['host'] . ';dbname=' . $this->connections[$name]['db'] . ';charset=utf8',
+                    $this->connections[$name]['user'],
+                    $this->connections[$name]['pass']);
+
     }
 
     /**
@@ -611,6 +612,8 @@ class Model {
 
         $this->connect($this->connection);
         $result = $this->connections[$this->connection]['conn']->prepare($query);
+
+
 
         $result->execute();
         $info = $result->errorInfo();

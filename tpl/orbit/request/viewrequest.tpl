@@ -57,16 +57,8 @@
     <!-- Conteúdo PEDIDO -->
     <div class="row">
         <div class="col-md-12 col-sm12">
-            <ul class="request-itens">
-                <li><a href="{$smarty.const.BASEDIR}request/addplate?id={$request['id']}" class="btn btn-primary" onclick="">Clique aqui para adicionar um prato</a></li>
-
-                {if (count($plates) > 0)}
-                    {include "request/platelist.tpl"}
-                {else}
-                    <!-- (! IMPORTANTE ) QUANDO NÃO HÁ ITENS -->
-                    <li class="no-itens alert-info"> Clique no botão acima para adicionar algum prato e finalizar seu pedido.</li>
-                {/if}
-
+            <ul class="request-itens" id="request-items">
+                {include "request/itemlist.tpl"}
             </ul>
         </div>
     </div>

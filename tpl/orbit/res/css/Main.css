@@ -1884,18 +1884,7 @@ ul.request-itens {
     padding: 0px;
     list-style: none;
 }
-ul.request-itens:before {
-    content: "";
-    position: absolute;
-    top: 0px;
-    bottom: -60px;
-    width: 5px;
-    background: #DDD none repeat scroll 0% 0%;
-    left: 45px;
-    border: 1px solid #EEE;
-    margin: 0px;
-    border-radius: 2px;
-}
+
 ul.request-itens > li,
 ul.request-itens > li ul.item-plate li {
     list-style: none;

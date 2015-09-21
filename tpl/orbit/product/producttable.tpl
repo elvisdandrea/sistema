@@ -3,7 +3,7 @@
         <div class="form-group">
             <!-- Lista de clientes -->
             <div id="list-clients" class="list-itens">
-                <div class="list-imgs" style="background:url({if (!empty($row['image']))}{$row['image']}{else}{$smarty.const.T_IMGURL}/no-imgfood.png{/if})" alt="{$row['product_name']}"></div>
+                <div class="list-imgs" style="background:url({if (!empty($row['image']))}{$row['image']}{else}{$smarty.const.T_IMGURL}/no-image.jpg{/if})" alt="{$row['product_name']}"></div>
                 <!-- /.Itens -->
                 <div style="width:100%">
                     <a href="{$smarty.const.BASEDIR}product/viewproduct?id={$row['id']}" changeurl>

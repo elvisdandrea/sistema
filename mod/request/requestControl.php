@@ -154,6 +154,7 @@ class requestControl extends Control {
         $this->createId();
         $this->view()->setVariable('request_id', $this->request_id);
         $this->view()->setVariable('newrequest', true);
+        $this->view()->setVariable('action', 'selproductnew');
 
         $this->view()->loadTemplate('newrequest');
         $this->view()->appendJs('events');
@@ -248,33 +249,33 @@ class requestControl extends Control {
     /**
      * Action to add a plate to request
      */
-    public function addPlate() {
-
-        $this->setId();
-        $this->view()->loadTemplate('plate');
-        $action   = $this->getQueryString('action');
-        $plate_id = uniqid();
-
-        $this->model()->getPlateTypes();
-        $plate_types = $this->model()->getRows();
-        $first_type = current($plate_types);
-
-        if ($action == 'addplatenew') {
-            UID::set('requests', $this->request_id, 'plates',     $plate_id, array());
-            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_size', $first_type['plate_size']);
-            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_name', $first_type['plate_name']);
-            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill', 0);
-            $action = 'selproductnew';
-        } else {
-            // well...
-        }
-        $this->view()->setVariable('request_id',  $this->request_id);
-        $this->view()->setVariable('plate_id',    $plate_id);
-        $this->view()->setVariable('plate_types', $plate_types);
-        $this->view()->setVariable('action',      $action);
-        $this->commitAdd($this->view()->render(), '#plates');
-
-    }
+//    public function addPlate() {
+//
+//        $this->setId();
+//        $this->view()->loadTemplate('plate');
+//        $action   = $this->getQueryString('action');
+//        $plate_id = uniqid();
+//
+//        $this->model()->getPlateTypes();
+//        $plate_types = $this->model()->getRows();
+//        $first_type = current($plate_types);
+//
+//        if ($action == 'addplatenew') {
+//            UID::set('requests', $this->request_id, 'plates',     $plate_id, array());
+//            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_size', $first_type['plate_size']);
+//            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_name', $first_type['plate_name']);
+//            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill', 0);
+//            $action = 'selproductnew';
+//        } else {
+//            // well...
+//        }
+//        $this->view()->setVariable('request_id',  $this->request_id);
+//        $this->view()->setVariable('plate_id',    $plate_id);
+//        $this->view()->setVariable('plate_types', $plate_types);
+//        $this->view()->setVariable('action',      $action);
+//        $this->commitAdd($this->view()->render(), '#plates');
+//
+//    }
 
     /**
      * Searches a product for a plate
@@ -283,9 +284,9 @@ class requestControl extends Control {
 
         $this->setId();
         $search   = $this->getQueryString('search');
-        $plate_id = $this->getQueryString('plate_id');
+
         if (empty($search))
-            $this->commitReplace('','#product-results_' . $plate_id, false);
+            $this->commitReplace('','#product-results', false);
 
         $action = $this->getQueryString('action');
         $action || $action = 'selproduct';
@@ -293,98 +294,134 @@ class requestControl extends Control {
         $this->model()->searchProductForRequest($search);
         $this->view()->loadTemplate('productresult');
         $products = $this->model()->getRows();
-        $this->view()->setVariable('count', count($products));
         $this->view()->setVariable('products', $products);
         $this->view()->setVariable('action', $action);
         $this->view()->setVariable('search', $search);
         $this->view()->setVariable('request_id', $this->request_id);
-        $this->view()->setVariable('plate_id', $plate_id);
-        $this->commitReplace($this->view()->render(),'#product-results_'. $plate_id);
-        $this->commitShow('#result-' . $plate_id);
+
+        $this->commitReplace($this->view()->render(),'#product-results');
+        $this->commitShow('#result');
     }
 
     /**
      * Selects a product into a plate
+     *
+     * Old function
      */
+//    public function selProduct() {
+//
+//        $this->setId();
+//        $plate_id   = $this->getQueryString('plate_id');
+//        $product_id = $this->getQueryString('id');
+//        $request_id = $this->getQueryString('request_id');
+//        $action     = $this->getQueryString('action');
+//        $this->commitReplace('', '#product-results_' . $plate_id);
+//        $this->model()->selectProductForRequest($product_id);
+//        $item = $this->model()->getRow(0);
+//
+//        $this->model()->getProductIngredients($product_id);
+//        $ingredientList = $this->model()->getRows();
+//        $ingredients    = array();
+//
+//        foreach ($ingredientList as $row) {
+//            $ingredients[$row['ingredient_name']] = true;
+//        }
+//
+//        $data = array(
+//            'request_id'    => $this->request_id,
+//            'product_id'    => $item['id'],
+//            'price'         => $item['price'],
+//            'plate_id'      => $plate_id,
+//            'weight'        => $item['product_weight'],
+//            'unit'          => $item['unit']
+//        );
+//
+//        if ($action == 'selproductnew') {
+//            $this->view()->setVariable('newrequest', true);
+//            $plate_size = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_size');
+//            $plate_fill = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill');
+//
+//            if ($item['product_weight'] + $plate_fill > $plate_size) {
+//                $this->commitAdd($this->view()->showAlert('danger','','Este prato já está cheio'),'body');
+//                $this->terminate();
+//            }
+//
+//            UID::set('requests', $this->request_id, 'plates', $plate_id, $product_id, array('weight' => $item['product_weight'], 'price' => $item['price'], 'unit' => $item['unit']));
+//            UID::set('requests', $this->request_id, 'plates', $plate_id, $product_id, 'ingredients', $ingredients);
+//            $curTotalPrice = intval(UID::get( 'requests', $this->request_id, 'price'));
+//            $newTotalPrice = $curTotalPrice + $item['price'];
+//            UID::set('requests', $this->request_id, 'price', $newTotalPrice);
+//            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill', $item['product_weight'] + $plate_fill);
+//        } else {
+//            $result = $this->postAddItem($data);
+//            foreach($ingredients as $key => $value){
+//                $insetValues = array(
+//                    'request_item_id' => $result['item_id'],
+//                    'ingredient_name' => $key,
+//                    'included' => 1
+//                );
+//                $this->model()->insertItemIngredient($insetValues);
+//            }
+//            $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
+//            if ($result['status'] != 200) {
+//                //TODO: something went wrong
+//            }
+//        }
+//
+//        $this->view()->appendJs('checkbox');
+//
+//        $rowId = uniqid();
+//        $this->view()->loadTemplate('plateitem');
+//        $this->view()->setVariable('item',       $item);
+//        $this->view()->setVariable('plate_id',   $plate_id);
+//        $this->view()->setVariable('id',         $product_id);
+//        $this->view()->setVariable('request_id', $this->request_id);
+//        $this->view()->setVariable('action',     $action);
+//        $this->view()->setVariable('rowId',      $rowId);
+//        $this->view()->setVariable('ingredients',$ingredientList);
+//
+//        $this->commitAdd($this->view()->render(), '#plate_' . $plate_id);
+//        $this->commitReplace('', 'result-' . $plate_id);
+//        $this->commitShow('#change-' . $plate_id);
+//        $this->commitReplace('', '#search-' . $plate_id);
+//        $this->commitReplace('Total do pedido: ' . String::convertTextFormat($newTotalPrice, 'currency'), '[data-id="totalprice"]');
+//    }
+
+
     public function selProduct() {
 
         $this->setId();
-        $plate_id   = $this->getQueryString('plate_id');
         $product_id = $this->getQueryString('id');
         $request_id = $this->getQueryString('request_id');
         $action     = $this->getQueryString('action');
-        $this->commitReplace('', '#product-results_' . $plate_id);
+        $rowId      = uniqid();
+
+        $this->commitReplace('', '#product-results');
         $this->model()->selectProductForRequest($product_id);
         $item = $this->model()->getRow(0);
 
-        $this->model()->getProductIngredients($product_id);
-        $ingredientList = $this->model()->getRows();
-        $ingredients    = array();
-
-        foreach ($ingredientList as $row) {
-            $ingredients[$row['ingredient_name']] = true;
-        }
-
-        $data = array(
-            'request_id'    => $this->request_id,
-            'product_id'    => $item['id'],
-            'price'         => $item['price'],
-            'plate_id'      => $plate_id,
-            'weight'        => $item['product_weight'],
-            'unit'          => $item['unit']
-        );
-
         if ($action == 'selproductnew') {
             $this->view()->setVariable('newrequest', true);
-            $plate_size = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_size');
-            $plate_fill = UID::get('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill');
 
-            if ($item['product_weight'] + $plate_fill > $plate_size) {
-                $this->commitAdd($this->view()->showAlert('danger','','Este prato já está cheio'),'body');
-                $this->terminate();
-            }
-
-            UID::set('requests', $this->request_id, 'plates', $plate_id, $product_id, array('weight' => $item['product_weight'], 'price' => $item['price'], 'unit' => $item['unit']));
-            UID::set('requests', $this->request_id, 'plates', $plate_id, $product_id, 'ingredients', $ingredients);
             $curTotalPrice = intval(UID::get( 'requests', $this->request_id, 'price'));
             $newTotalPrice = $curTotalPrice + $item['price'];
             UID::set('requests', $this->request_id, 'price', $newTotalPrice);
-            UID::set('requests', $this->request_id, 'plate_data', $plate_id, 'plate_fill', $item['product_weight'] + $plate_fill);
+            UID::set('requests', $this->request_id, 'items', $rowId, $item);
         } else {
-            $result = $this->postAddItem($data);
-            foreach($ingredients as $key => $value){
-                $insetValues = array(
-                    'request_item_id' => $result['item_id'],
-                    'ingredient_name' => $key,
-                    'included' => 1
-                );
-                $this->model()->insertItemIngredient($insetValues);
-            }
-            $newTotalPrice = $this->model()->getRequestFinalPrice($request_id);
-            if ($result['status'] != 200) {
-                //TODO: something went wrong
-            }
+
         }
 
-        $this->view()->appendJs('checkbox');
-
-        $rowId = uniqid();
-        $this->view()->loadTemplate('plateitem');
+        $this->view()->loadTemplate('item');
         $this->view()->setVariable('item',       $item);
-        $this->view()->setVariable('plate_id',   $plate_id);
         $this->view()->setVariable('id',         $product_id);
         $this->view()->setVariable('request_id', $this->request_id);
         $this->view()->setVariable('action',     $action);
         $this->view()->setVariable('rowId',      $rowId);
-        $this->view()->setVariable('ingredients',$ingredientList);
 
-        $this->commitAdd($this->view()->render(), '#plate_' . $plate_id);
-        $this->commitReplace('', 'result-' . $plate_id);
-        $this->commitShow('#change-' . $plate_id);
-        $this->commitReplace('', '#search-' . $plate_id);
+        $this->commitAdd($this->view()->render(), '#itemlist');
         $this->commitReplace('Total do pedido: ' . String::convertTextFormat($newTotalPrice, 'currency'), '[data-id="totalprice"]');
-    }
 
+    }
 
     /**
      * Saves a request
@@ -399,7 +436,7 @@ class requestControl extends Control {
             'client_id'     => $post['client_id'],
             'address_id'    => $post['address_id'],
             'delivery_date' => String::formatDateTimeToSave($post['delivery_date']),
-            'plates'        => $items['plates']
+            'items'        =>  $items['items']
         );
 
         $result = $this->postAddRequest($requestData);
@@ -449,11 +486,11 @@ class requestControl extends Control {
             $requestData = $this->getPost();
 
         $result = array();
-        $plates = array();
+        $items  = array();
 
-        if (isset($requestData['plates'])) {
-            $plates = $requestData['plates'];
-            unset($requestData['plates']);
+        if (isset($requestData['items'])) {
+            $items = $requestData['items'];
+            unset($requestData['items']);
         }
 
         $errors = $this->validateNewRequest($requestData);
@@ -464,34 +501,16 @@ class requestControl extends Control {
         $request_id   = $this->model()->insertNewRequest($requestData);
         $result['id'] = $request_id;
 
-        foreach ($plates as $plate) {
+        foreach ($items as $product) {
 
-            $plate_id = $this->model()->insertNewPlate(
-                array('request_id' => $request_id)
+            $item_id = $this->model()->insertItem(
+                array(
+                    'product_id'    => $product['id'],
+                    'request_id'    => $request_id,
+                    'price'         => $product['price']
+                )
             );
-
-            $result['plates'][$plate_id] = array();
-
-            foreach ($plate as $product_id => $product) {
-                $item_id = $this->model()->insertPlateItem(
-                    array(
-                        'plate_id'      => $plate_id,
-                        'product_id'    => $product_id,
-                        'weight'        => $product['weight'],
-                        'price'         => $product['price'],
-                        'unit'          => $product['unit']
-                    )
-                );
-                foreach($product['ingredients'] as $ingredient => $status){
-                    $ingredient_id = $this->model()->insertItemIngredient(array(
-                        'request_item_id' => $item_id,
-                        'ingredient_name' => $ingredient,
-                        'included' => $status
-                    ));
-                }
-                $result['plates'][$plate_id][] = $item_id;
-            }
-
+            $result['items'][] = $item_id;
         }
 
         return RestServer::response(array(
@@ -528,23 +547,11 @@ class requestControl extends Control {
             $client[$clientField] = $request[$clientField];
 
         $this->model()->getPlateTypes();
-        $plate_types = $this->model()->getRows();
-        $first_type = current($plate_types);
 
         $this->model()->getRequestItems($id);
         $requestItems = $this->model()->getRows();
-
-        $plates      = array(); $count_plates = 0;
-        $plate_names = array();
-
-        foreach($requestItems as $item) {
-            in_array($item['plate_id'], array_keys($plates)) || $count_plates++;
-            if (!isset($plates[$item['plate_id']][$item['id']]) ){
-                $plates[$item['plate_id']][$item['id']] = $item;
-                $plate_names[$item['plate_id']] = $item['plate_name'];
-            }
-            $plates[$item['plate_id']][$item['id']]['ingredients'][$item['ingredient_id']] = array('ingredient_name' => $item['ingredient_name'], 'status' => $item['included']);
-        }
+        $plates       = array(); $count_plates = 0;
+        $plate_names  = array();
 
         $this->view()->appendJs('checkbox');
 
@@ -554,8 +561,7 @@ class requestControl extends Control {
         $this->view()->setVariable('plates', $plates);
         $this->view()->setVariable('plate_names', $plate_names);
         $this->view()->setVariable('request_id', $id);
-        $this->view()->setVariable('plate_types', $plate_types);
-        $this->view()->setVariable('first_type', $first_type);
+        $this->view()->setVariable('request_items', $requestItems);
         $this->view()->setVariable('finalPrice', String::convertTextFormat($this->model()->getRequestFinalPrice($id), 'currency'));
 
         $this->view()->appendJs('events');

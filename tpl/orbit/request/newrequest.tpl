@@ -62,11 +62,8 @@
     <!-- Conteúdo PEDIDO -->
     <div class="row">
         <div class="col-md-12 col-sm12">
-            <ul class="request-itens" id="plates">
-                <li>
-                    <button type="button" class="btn btn-primary" onclick="Main.quickLink('{$smarty.const.BASEDIR}request/addPlate?request_id={$request_id}&action=addplatenew')" >Clique aqui para adicionar um prato</button>
-                </li>
-                <li class="no-itens alert-info"> Clique no botão acima para adicionar algum prato e finalizar seu pedido.</li>
+            <ul class="request-itens" id="request-items">
+                {include "request/itemlist.tpl"}
             </ul>
         </div>
     </div>

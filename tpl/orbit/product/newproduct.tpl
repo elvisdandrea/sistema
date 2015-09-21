@@ -54,8 +54,8 @@
                                 <input name="cost" type="text" class="form-control" format="currency" data-affixes-stay="true" data-prefix="R$ " data-thousands="." data-decimal=","/>
                             </div>
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
-                                <label>Ingredientes:</label>
-                                <select id="ingredients" name="ingredients" class="form-control" multiple data-placeholder="Separe cada ingrediente usando vírgula (,)">
+                                <label>Características:</label>
+                                <select id="ingredients" name="ingredients" class="form-control" multiple data-placeholder="Separe cada característica usando vírgula (,)">
                                     {foreach from=$ingredientList item="row"}
                                         <option value="{$row['ingredient_name']}">{$row['ingredient_name']}</option>
                                     {/foreach}
