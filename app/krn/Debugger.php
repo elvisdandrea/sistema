@@ -16,9 +16,17 @@ class Debugger {
      */
     public static function debug($mixed, $element = '#content') {
 
-        //TODO: RESTful debug
-
         $trace = debug_backtrace();
+
+        if (RESTFUL == 1) {
+            return json_encode(array(
+                    'response' => $mixed,
+                    'trace'    => $trace
+                )
+            );
+        }
+
+
         $view = new View();
         $view->setModuleName('krn');
         $view->loadTemplate('debug');

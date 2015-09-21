@@ -169,7 +169,6 @@ class productModel extends Model {
         $offset = intval(($page - 1) * $rp);
 
         $this->addLimit($offset . ',' . $rp);
-        #debug($this->getQuery());
 
         $this->runQuery();
 

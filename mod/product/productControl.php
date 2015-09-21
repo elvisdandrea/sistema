@@ -55,6 +55,38 @@ class productControl extends Control {
 
     }
 
+    public function getProduct() {
+
+        if ($this->getId() == 0) {
+
+            $page   = $this->getQueryString('page');
+            $rp     = $this->getQueryString('rp');
+            $search = $this->getQueryString('search');
+
+            $page   = $page   ? $page   : 1;
+            $rp     = $rp     ? $rp     : 50;
+
+            $total = $this->model()->getProductList($page, $rp, $search);
+
+            $response = array(
+                'total' => $total,
+                'items' => $this->model()->getRows()
+            );
+        } else {
+            $total = 0;
+            $result = $this->model()->getProduct($this->getId());
+            if ($result) $total = 1;
+
+            $response = array(
+                'total' => $total,
+                'items' => $this->model()->getRows()
+            );
+
+        }
+
+        return RestServer::response($response);
+    }
+
     /**
      * View for adding a product
      */

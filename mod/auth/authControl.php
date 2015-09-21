@@ -94,9 +94,7 @@ class authControl extends Control {
         if (!file_put_contents($tokenFile, $tokenContent))
             return RestServer::throwError(Language::CANNOT_ACCESS_DIR(), 500);
 
-        unset($tokenData['db_connection']);
-        unset($tokenData['remote_addr']);
-        return RestServer::response($tokenData);
+        return $tokenData;
 
     }
 
@@ -133,7 +131,7 @@ class authControl extends Control {
         if ($currentDate > $tokenExpires)
             return RestServer::throwError(Language::EXPIRED(), 401);
 
-        return true;
+        return $content;
     }
 
     /**

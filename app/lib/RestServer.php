@@ -53,8 +53,12 @@ class RestServer {
             throw new ExceptionHandler(Language::REST_NO_METHOD(), 400);
 
         $auth = self::authenticate($uri);
-        if ($uri[0] == 'apilogin')
+        if ($uri[0] == 'apilogin') {
+
+            unset($auth['db_connection']);
+            unset($auth['remote_addr']);
             return RestServer::response($auth);
+        }
 
         $request_method = strtolower(filter_input(INPUT_SERVER, 'REQUEST_METHOD'));
 
@@ -67,6 +71,8 @@ class RestServer {
             throw new ExceptionHandler(Language::METHOD_NOT_FOUND(intval($uri[1]) > 0 ? $uri[0] : $uri[1], $request_method), 404);
 
         $control = new $module;
+        Session::set('uid', $auth);
+        $control->newModel('uid');
         !intval($uri[1]) > 0 || $control->setId($uri[1]);
 
         $result = $control->$action();
