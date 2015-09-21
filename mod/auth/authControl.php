@@ -43,10 +43,10 @@ class authControl extends Control {
 
         if ($uri[0] != 'apilogin') {
 
-            if (!$this->validateQueryString('id', 'token'))
+            if (!$this->validateQueryString('token'))
                 return RestServer::throwError(Language::UNAUTHORIZED(), 401);
 
-            return $this->tokenValidation($queryString['id'], $queryString['token']);
+            return $this->tokenValidation($queryString['token']);
         }
 
         if (!$this->validateQueryString('id', 'secret'))
@@ -76,8 +76,8 @@ class authControl extends Control {
 
 
         $token      = md5(CR::encrypt(uniqid()));
-        FileManager::rmkdir(TOKENDIR . '/' . $data['uid']);
-        $tokenFile  = TOKENDIR . '/' . $data['uid'] . '/' . $token;
+        FileManager::rmkdir(TOKENDIR);
+        $tokenFile  = TOKENDIR . '/' . $token;
         $tomorrow   = new DateTime('now');
         $tomorrow->modify('+1 day');
         $tokenData  = array(
@@ -103,14 +103,13 @@ class authControl extends Control {
     /**
      * Validates the authentication token
      *
-     * @param   string      $id         - The user uid
      * @param   string      $token      - The access token
      * @return  array
      * @throws  ExceptionHandler
      */
-    public function tokenValidation($id, $token) {
+    public function tokenValidation($token) {
 
-        $tokenFile = TOKENDIR . '/' . $id . '/' . $token;
+        $tokenFile = TOKENDIR . '/' . $token;
 
         if (!is_file($tokenFile))
             return RestServer::throwError(Language::UNAUTHORIZED(), 401);
