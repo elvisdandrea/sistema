@@ -164,7 +164,8 @@ class productModel extends Model {
             'p.unit',
             'p.description',
             'p.cost',
-            'p.stock'
+            'p.stock',
+            'p.onsale'
         );
 
         foreach ($fields as $field)
