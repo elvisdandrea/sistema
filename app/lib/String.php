@@ -446,15 +446,16 @@ class String {
         if (!is_string($order)) return false;
         $result = array();
         if ($order) {
-            $orderList = explode(',', $order);
+            $orderList = explode(';', $order);
             foreach ($orderList as $orderString) {
-                if (strpos($orderString, ':') === false) continue;
+                if (strpos($orderString, ',') === false) continue;
                 $orderElement = explode(':', $orderString, 2);
                 $result[$orderElement[0]] = $orderElement[1];
             }
         }
         return $result;
     }
+
 
 }
 

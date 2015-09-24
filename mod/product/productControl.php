@@ -85,6 +85,7 @@ class productControl extends Control {
             }
 
             $order = String::mountOrderFromString($this->getQueryString('order'));
+
             $filter = (count($filters) > 0 ? $filters : false);
             $total  = $this->model()->getProductList($page, $rp, $search, $filter, $order);
 
