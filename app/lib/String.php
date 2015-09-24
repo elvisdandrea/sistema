@@ -441,6 +441,21 @@ class String {
         return preg_replace('/(^|_)([a-z])/e', 'strtoupper("\\2")', $word);
     }
 
+    public static function mountOrderFromString($order) {
+
+        if (!is_string($order)) return false;
+        $result = array();
+        if ($order) {
+            $orderList = explode(',', $order);
+            foreach ($orderList as $orderString) {
+                if (strpos($orderString, ':') === false) continue;
+                $orderElement = explode(':', $orderString, 2);
+                $result[$orderElement[0]] = $orderElement[1];
+            }
+        }
+        return $result;
+    }
+
 }
 
 ?>

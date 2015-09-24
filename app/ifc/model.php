@@ -698,11 +698,35 @@ class Model {
      * Adds a condition in the WHERE
      * clause
      *
-     * @param   string      $where      - The WHERE condition
-     * @param   string      $operator   - AND | OR
+     * @param   string|array      $where      - The WHERE condition
+     * @param   string            $operator   - AND | OR
      */
     protected function addWhere($where, $operator = 'AND') {
-        $this->where[] = (count($this->where) > 0 ? $operator : '') . ' ' . $where;
+
+        if (is_array($where)) {
+
+            $operators = array(
+                '<', '>', '<=', '>='
+            );
+
+            foreach ($where as $field => $value) {
+
+                $whereOp = '=';
+
+                foreach ($operators as $op) {
+                    if (strpos($value, $op) === 0) {
+                        $value   = str_replace($op, '', $value);
+                        $whereOp = $op;
+                        break;
+                    }
+                }
+                $whereStr = $field . ' ' . $whereOp . ' "' . $value . '"';
+                $this->where[] = (count($this->where) > 0 ? $operator : '') . ' ' . $whereStr;
+            }
+
+        } elseif (is_string($where)) {
+            $this->where[] = (count($this->where) > 0 ? $operator : '') . ' ' . $where;
+        }
     }
 
     /**

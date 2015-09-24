@@ -66,7 +66,27 @@ class productControl extends Control {
             $page   = $page   ? $page   : 1;
             $rp     = $rp     ? $rp     : 50;
 
-            $total = $this->model()->getProductList($page, $rp, $search);
+            $filters = array();
+
+            foreach (array(
+                         'id',
+                         'sdate',
+                         'category_id',
+                         'product_name',
+                         'weight',
+                         'price',
+                         'cost',
+                         'description',
+                         'stock'
+                     ) as $queryFilter) {
+                if ($this->getQueryString($queryFilter)) {
+                    $filters[$queryFilter] = $this->getQueryString($queryFilter);
+                }
+            }
+
+            $order = String::mountOrderFromString($this->getQueryString('order'));
+            $filter = (count($filters) > 0 ? $filters : false);
+            $total  = $this->model()->getProductList($page, $rp, $search, $filter, $order);
 
             $response = array(
                 'total' => $total,
@@ -203,7 +223,6 @@ class productControl extends Control {
             'cost'          => $post['cost'],
             'unit'          => $post['unit'],
             'description'   => $post['description'],
-            'product_fact'  => $post['product_fact']
         );
 
         $validation = $this->validateData4Product($productData);
@@ -322,8 +341,7 @@ class productControl extends Control {
             'price'         => $post['price'],
             'cost'          => $post['cost'],
             'unit'          => $post['unit'],
-            'description'   => $post['description'],
-            'product_fact'  => $post['product_fact'],
+            'description'   => $post['description']
         );
 
         $validation = $this->validateData4Product($productData);

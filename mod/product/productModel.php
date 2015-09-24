@@ -103,9 +103,11 @@ class productModel extends Model {
      * for a specific search ("false" for all)
      *
      * @param   bool            $search
+     * @param   bool|array      $filters
+     * @param   bool|array      $order
      * @return  array|bool
      */
-    public function getCountProducts($search = false) {
+    public function getCountProducts($search = false, $filters = false, $order = false) {
 
         $fields = array(
             'p.id',
@@ -126,6 +128,14 @@ class productModel extends Model {
                 $this->addWhere($field . ' like "%' . str_replace(' ','%',$search) . '%"', 'OR');
         }
 
+        if ($filters) $this->addWhere($filters);
+
+        if ($order) {
+            foreach ($order as $field => $direction) {
+                $this->addOrder($field . ' ' . $direction);
+            }
+        }
+
         $this->runQuery();
         $result = $this->getRow(0);
         return $result;
@@ -137,11 +147,13 @@ class productModel extends Model {
      * @param   int             $page       - The current page
      * @param   int             $rp         - Results per page
      * @param   bool|string     $search     - Search string ("false" for all)
+     * @param   bool|array      $filters    - Filter for specific fields
+     * @param   bool|array      $order      - The result order
      * @return  array|bool
      */
-    public function getProductList($page = 1, $rp = 10, $search = false) {
+    public function getProductList($page = 1, $rp = 10, $search = false, $filters = false, $order = false) {
 
-        $total = $this->getCountProducts($search);
+        $total = $this->getCountProducts($search, $filters, $order);
 
         $fields = array(
             'p.id',
@@ -150,7 +162,9 @@ class productModel extends Model {
             'p.weight',
             'p.price',
             'p.unit',
-            'p.description'
+            'p.description',
+            'p.cost',
+            'p.stock'
         );
 
         foreach ($fields as $field)
@@ -164,6 +178,14 @@ class productModel extends Model {
         if ($search) {
             foreach ($fields as $field)
                 $this->addWhere($field . ' like "%' . str_replace(' ','%',$search) . '%"', 'OR');
+        }
+
+        if ($filters) $this->addWhere($filters);
+
+        if ($order) {
+            foreach ($order as $field => $direction) {
+                $this->addOrder($field . ' ' . $direction);
+            }
         }
 
         $offset = intval(($page - 1) * $rp);
@@ -194,7 +216,6 @@ class productModel extends Model {
         $this->addField('group_concat(i.ingredient_name) as ingredients');
         $this->addField('p.description');
         $this->addField('p.image');
-        $this->addField('p.product_fact');
 
         $this->addFrom('products p');
         $this->addFrom('left join categories c on c.id = p.category_id');
@@ -217,6 +238,8 @@ class productModel extends Model {
 
         foreach ($data as $field => $value)
             $this->addInsertSet($field, $value);
+
+        $this->addInsertSet('sdate', 'now()', false);
 
         $this->setInsertTable('products');
         $this->runInsert();
