@@ -7,7 +7,7 @@
             {foreach from=$categoryList item="category"}
                 <li>
                     <a href="#" data-type="selitem" data-target="category_id" data-id="{$category['id']}" data-value="{$category['category_name']}" title="select">
-                        <img src="{$smarty.const.T_IMGURL}/food-icon.png" alt="{$category['category_name']}"/>{$category['category_name']}
+                        <img src="{$smarty.const.T_IMGURL}/unchecked.png" alt="{$category['category_name']}"/>{$category['category_name']}
                     </a>
                 </li>
             {/foreach}

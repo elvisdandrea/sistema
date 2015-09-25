@@ -165,7 +165,9 @@ class productModel extends Model {
             'p.description',
             'p.cost',
             'p.stock',
-            'p.onsale'
+            'p.onsale',
+            'p.featured',
+            'p.cover_image'
         );
 
         foreach ($fields as $field)
@@ -217,6 +219,10 @@ class productModel extends Model {
         $this->addField('group_concat(i.ingredient_name) as ingredients');
         $this->addField('p.description');
         $this->addField('p.image');
+        $this->addField('p.cover_image');
+        $this->addField('p.featured');
+        $this->addField('p.stock');
+        $this->addField('p.onsale');
 
         $this->addFrom('products p');
         $this->addFrom('left join categories c on c.id = p.category_id');

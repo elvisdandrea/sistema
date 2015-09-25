@@ -53,7 +53,6 @@
             <!-- Cadastro do produto -->
             <div class="row">
                 <div class="form-group col-md-9">
-                    <hr /><h5>Dados complementares do produto</h5>
                     <div class="form-group col-xs-6">
                         <label>Nome:</label>
                         <input type="text" class="form-control" name="nome" value="{$product['product_name']}" />
@@ -66,21 +65,23 @@
                         <label>Medida:</label>
                         <input id="unit_id" name="unit" type="text" class="form-control" data-toggle="dropdown" data-id="{$product['unit']}" value="{$unit}" data-id="g"/>
                         <ul id="unit-list" class="dropdown-menu list-clients">
-                            <li class="menu">
                                 <ul class="menu">
                                     <li data-toggle="collapse" data-target="#unit-list">
                                         <a href="#" data-type="selitem" data-target="unit_id" data-id="g" data-value="Gramas" title="select">
-                                            <img src="{$smarty.const.T_IMGURL}/food-icon.png" alt="unit"/>Gramas
+                                            Gramas
                                         </a>
+                                    </li>
+                                    <li>
                                         <a href="#" data-type="selitem" data-target="unit_id" data-id="kg" data-value="Kilos" title="select">
-                                            <img src="{$smarty.const.T_IMGURL}/food-icon.png" alt="unit"/>Kilos
+                                            Kilos
                                         </a>
+                                    </li>
+                                    <li>
                                         <a href="#" data-type="selitem" data-target="unit_id" data-id="lt" data-value="Litros" title="select">
-                                            <img src="{$smarty.const.T_IMGURL}/food-icon.png" alt="unit"/>Litros
+                                            Litros
                                         </a>
                                     </li>
                                 </ul>
-                            </li>
                         </ul>
                     </div>
                     <div class="form-group col-xs-3">
@@ -91,8 +92,14 @@
                         <label>Valor de custo:</label>
                         <input name="cost" type="text" class="form-control"  value="{String::convertTextFormat($product['cost'], 'currency')}" format="currency" data-affixes-stay="true" data-prefix="R$ " data-thousands="." data-decimal=","/>
                     </div>
+                    <div class="form-group col-xs-3">
+                        <input name="featured" type="checkbox" {if ($product['featured'] == 1)}checked{/if} /><label>Destaque no Site</label>
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <input name="onsale" type="checkbox" /><label>Em Oferta</label>
+                    </div>
                     <div class="form-group col-xs-12">
-                        <label>Ingredientes:</label>
+                        <label>Características:</label>
                         <select id="ingredients" name="ingredients" style="width: 100%" multiple data-placeholder="Digite os ingredientes">
                             {foreach from=$ingredientList item="row"}
                                 <option value="{$row['ingredient_name']}" {if (in_array($row['ingredient_name'], explode(',', $product['ingredients'])))}selected{/if}>{$row['ingredient_name']}</option>

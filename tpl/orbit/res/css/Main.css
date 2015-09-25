@@ -616,7 +616,6 @@ body > .header .logo .icon {
 .itens-any {
     width: 100%;
     height: auto;
-    max-height: 160px;
 }
 .list-clients ul.menu li a img,
 .itens-any ul.menu li a img {

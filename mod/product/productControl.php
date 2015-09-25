@@ -342,7 +342,9 @@ class productControl extends Control {
             'price'         => $post['price'],
             'cost'          => $post['cost'],
             'unit'          => $post['unit'],
-            'description'   => $post['description']
+            'description'   => $post['description'],
+            'featured'      => $post['featured'],
+            'onsale'        => $post['onsale']
         );
 
         $validation = $this->validateData4Product($productData);

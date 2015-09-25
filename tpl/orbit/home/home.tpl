@@ -47,10 +47,10 @@
 			<h1 id="page_title">
 				Bem-vindo ao Orbit
 			</h1>
-			<ol class="breadcrumb">
-				<li><a href="#"><i class="fa fa-dashboard"></i>Página inicial</a></li>
-				<li class="active">Clientes</li>
-			</ol>
+			{*<ol class="breadcrumb">*}
+				{*<li><a href="#"><i class="fa fa-dashboard"></i>Página inicial</a></li>*}
+				{*<li class="active">Clientes</li>*}
+			{*</ol>*}
 		</section>
 
 		<!-- Main content -->
