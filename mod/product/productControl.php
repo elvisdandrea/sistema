@@ -72,6 +72,7 @@ class productControl extends Control {
                          'id',
                          'sdate',
                          'category_id',
+                         'category_name',
                          'product_name',
                          'weight',
                          'price',
