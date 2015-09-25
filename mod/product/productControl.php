@@ -94,6 +94,8 @@ class productControl extends Control {
 
             $response = array(
                 'total' => $total,
+                'page'  => $page,
+                'rp'    => $rp,
                 'items' => $this->model()->getRows()
             );
         } else {
