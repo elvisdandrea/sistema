@@ -11,7 +11,19 @@ class categoryControl extends Control {
     public function getCategory() {
 
         if ($this->getId() == 0) {
-            $categories = $this->model()->getCategories();
+
+            $filters = array();
+
+            foreach (array(
+                         'id',
+                         'category_name'
+                     ) as $queryFilter) {
+                if ($this->getQueryString($queryFilter)) {
+                    $filters[$queryFilter] = $this->getQueryString($queryFilter);
+                }
+            }
+
+            $categories = $this->model()->getCategories($filters);
             return array(
                 'total'     => count($categories),
                 'items'     => $categories
