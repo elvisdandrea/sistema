@@ -77,7 +77,10 @@ class productControl extends Control {
                          'price',
                          'cost',
                          'description',
-                         'stock'
+                         'stock',
+                         'featured',
+                         'onsale',
+                         'cover_image'
                      ) as $queryFilter) {
                 if ($this->getQueryString($queryFilter)) {
                     $filters[$queryFilter] = $this->getQueryString($queryFilter);
