@@ -23,7 +23,8 @@ class categoryControl extends Control {
                 }
             }
 
-            $categories = $this->model()->getCategories($filters);
+            $all = $this->getQueryString('all') == 1;
+            $categories = $this->model()->getCategories($filters, $all);
             return array(
                 'total'     => count($categories),
                 'items'     => $categories
