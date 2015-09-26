@@ -706,7 +706,7 @@ class Model {
         if (is_array($where)) {
 
             $operators = array(
-                '<', '>', '<=', '>='
+                '<', '>', '<=', '>=', '!='
             );
 
             foreach ($where as $field => $value) {
