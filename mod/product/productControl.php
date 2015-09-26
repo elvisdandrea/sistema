@@ -68,23 +68,32 @@ class productControl extends Control {
 
             $filters = array();
 
+            // Filter for products
             foreach (array(
-                         'p.id',
-                         'p.sdate',
-                         'p.category_id',
-                         'c.category_name',
-                         'p.product_name',
-                         'p.weight',
-                         'p.price',
-                         'p.cost',
-                         'p.description',
-                         'p.stock',
-                         'p.featured',
-                         'p.onsale',
-                         'p.cover_image'
+                         'id',
+                         'sdate',
+                         'category_id',
+                         'product_name',
+                         'weight',
+                         'price',
+                         'cost',
+                         'description',
+                         'stock',
+                         'featured',
+                         'onsale',
+                         'cover_image'
                      ) as $queryFilter) {
                 if ($this->getQueryString($queryFilter)) {
-                    $filters[$queryFilter] = $this->getQueryString($queryFilter);
+                    $filters['p.' . $queryFilter] = $this->getQueryString($queryFilter);
+                }
+            }
+
+            // Filter for categories
+            foreach (array(
+                         'category_name'
+                     ) as $queryFilter) {
+                if ($this->getQueryString($queryFilter)) {
+                    $filters['c.' . $queryFilter] = $this->getQueryString($queryFilter);
                 }
             }
 
