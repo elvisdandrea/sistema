@@ -106,7 +106,7 @@ class productControl extends Control {
 
             $response = array(
                 'total' => $total,
-                'items' => $this->model()->getRows()
+                'items' => $this->model()->getRow(0)
             );
 
         }
