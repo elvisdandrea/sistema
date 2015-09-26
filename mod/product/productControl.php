@@ -69,19 +69,19 @@ class productControl extends Control {
             $filters = array();
 
             foreach (array(
-                         'id',
-                         'sdate',
-                         'category_id',
-                         'category_name',
-                         'product_name',
-                         'weight',
-                         'price',
-                         'cost',
-                         'description',
-                         'stock',
-                         'featured',
-                         'onsale',
-                         'cover_image'
+                         'p.id',
+                         'p.sdate',
+                         'p.category_id',
+                         'c.category_name',
+                         'p.product_name',
+                         'p.weight',
+                         'p.price',
+                         'p.cost',
+                         'p.description',
+                         'p.stock',
+                         'p.featured',
+                         'p.onsale',
+                         'p.cover_image'
                      ) as $queryFilter) {
                 if ($this->getQueryString($queryFilter)) {
                     $filters[$queryFilter] = $this->getQueryString($queryFilter);
