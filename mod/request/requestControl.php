@@ -1089,9 +1089,7 @@ class requestControl extends Control {
 
         //TODO: validate if client exists
 
-        $cart_id = $this->model()->insertCart(array(
-            'client_id' => $this->getPost('client_id')
-        ));
+        $cart_id = $this->model()->insertCart($this->getPost('client_id'));
 
         if (!$cart_id) {
             return RestServer::response(array(
