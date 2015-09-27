@@ -90,7 +90,40 @@
                 </div>
             </div><!-- /.box-body -->
         </div><!-- /.box -->
-        
+
+        <div class="col-md-12">
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <h3 class="box-title">Imagens</h3>
+                    <button type="button" id="add-img" class="btn btn-default">Adicionar</button>
+                </div>
+
+                <div class="panel-body" id="images-holder">
+                    <div class="col-md-4 col-sm-4">
+                        <div class="box">
+
+                            <div class="box-header">
+                                <h3 class="box-title block">Imagem de exibição <small>Máximo: 1 MB</small></h3>
+                            </div>
+
+                            <div class="box-body">
+                                <img type="upload" id="product-img1" name="product_image[]" src="{$smarty.const.T_IMGURL}/no-image.jpg" class="image-user" alt="product image" style="display:block; margin:0 auto;" />
+                                <div class="form-group" style="display: block; margin: 20px auto 0px; width: 150px; text-align: center;">
+                                    <div class="btn btn-success btn-file">
+                                        <i class="fa fa-upload"></i> Enviar uma imagem
+                                        <input class="image-upload" id="img1" type="file" name="attachment"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
     </div><!-- /.col -->
 
     <!-- Buttons (Options) -->
@@ -107,3 +140,25 @@
 {include "product/editcategory.tpl"}
 
 </form>
+
+<div id="product-image-template" class="hide">
+    <div class="col-md-4 col-sm-4">
+        <div class="box">
+
+            <div class="box-header">
+                <h3 class="box-title block">Imagem de exibição <small>Máximo: 1 MB</small></h3>
+            </div>
+
+            <div class="box-body">
+                <img type="upload" id="img-tpl" name="product_image[]" src="{$smarty.const.T_IMGURL}/no-image.jpg" class="image-user" alt="product image" style="display:block; margin:0 auto;" />
+                <div class="form-group" style="display: block; margin: 20px auto 0px; width: 150px; text-align: center;">
+                    <div class="btn btn-success btn-file">
+                        <i class="fa fa-upload"></i> Enviar uma imagem
+                        <input class="image-upload" id="img-input-tpl" type="file" name="attachment"/>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

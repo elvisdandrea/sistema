@@ -237,6 +237,29 @@ class productModel extends Model {
     }
 
     /**
+     * Returns all product images
+     *
+     * @param   string  $id     - The product Id
+     * @return  bool
+     */
+    public function getProductImages($id) {
+
+        $this->addField('i.id');
+        $this->addField('i.product_id');
+        $this->addField('i.image');
+        $this->addField('i.image_order');
+
+        $this->addFrom('product_images i');
+
+        $this->addWhere('i.product_id = "' . $id . '"');
+        $this->addOrder('i.image_order asc');
+
+        $this->runQuery();
+
+        return !$this->isEmpty();
+    }
+
+    /**
      * Insert product query
      *
      * @param   array   $data       - The data array (field => value)
@@ -251,6 +274,41 @@ class productModel extends Model {
         $this->setInsertTable('products');
         $this->runInsert();
 
+    }
+
+    /**
+     * Insert product query
+     *
+     * @param   array   $data       - The data array (field => value)
+     */
+    public function insertProductImage($data) {
+
+        foreach ($data as $field => $value)
+            $this->addInsertSet($field, $value);
+
+        $this->setInsertTable('product_images');
+        $this->runInsert();
+
+    }
+
+    public function removeProductImage($id){
+        $this->setDeleteFrom('product_images');
+        $this->addDeleteWhere("id = {$id}");
+        $this->runDelete();
+    }
+
+    public function getLastImageOrderByProduct($id){
+        $this->addField('i.id');
+        $this->addField('i.image_order');
+
+        $this->addFrom('product_images i');
+
+        $this->addWhere('i.product_id = "' . $id . '"');
+        $this->addOrder('i.image_order desc');
+        $this->addLimit(1);
+        $this->runQuery();
+
+        return !$this->isEmpty();
     }
 
     /**
