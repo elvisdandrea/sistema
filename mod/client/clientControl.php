@@ -94,6 +94,7 @@ class clientControl extends Control {
             'cpf_cnpj'      => $post['cpf_cnpj'],
             'email'         => $post['email'],
             'contact'       => $post['contact'],
+            'passwd'        => $post['passwd'],
             'corporate_name'             => $post['corporate_name'],
             'state_registration'         => $post['state_registration'],
             'municipal_registration'     => $post['municipal_registration']
