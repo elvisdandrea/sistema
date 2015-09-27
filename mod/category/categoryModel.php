@@ -23,7 +23,10 @@ class categoryModel extends Model {
         $this->addField('c.icon');
         $this->addFrom('categories c');
 
-        if (!$all) $this->addFrom('inner join products p on p.category_id = c.id');
+        if (!$all) {
+            $this->addFrom('inner join products p on p.category_id = c.id');
+            $this->addGroup('c.id');
+        }
 
         if ($filters) {
             $this->addWhere($filters);

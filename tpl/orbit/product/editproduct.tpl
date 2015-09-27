@@ -48,66 +48,66 @@
                         </div>
                     </div>
                 </div>
-                <!-- Cadastro do produto -->
-                <div class="row">
-                    <div class="form-group col-md-9">
-                        <div class="form-group col-xs-6">
-                            <label>Nome:</label>
-                            <input type="text" class="form-control" name="nome" value="{$product['product_name']}" />
-                        </div>
-                        <div class="form-group col-xs-3">
-                            <label>Peso:</label>
-                            <input type="text" class="form-control" name="weight"  value="{String::convertTextFormat($product['weight'],'float')}" format="currency" data-affixes-stay="true" data-prefix="" data-thousands="." data-decimal=","/>
-                        </div>
-                        <div class="form-group col-xs-3">
-                            <label>Medida:</label>
-                            <input id="unit_id" name="unit" type="text" class="form-control" data-toggle="dropdown" data-id="{$product['unit']}" value="{$unit}" data-id="g"/>
-                            <ul id="unit-list" class="dropdown-menu list-clients">
-                                    <ul class="menu">
-                                        <li data-toggle="collapse" data-target="#unit-list">
-                                            <a href="#" data-type="selitem" data-target="unit_id" data-id="g" data-value="Gramas" title="select">
-                                                Gramas
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-type="selitem" data-target="unit_id" data-id="kg" data-value="Kilos" title="select">
-                                                Kilos
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" data-type="selitem" data-target="unit_id" data-id="lt" data-value="Litros" title="select">
-                                                Litros
-                                            </a>
-                                        </li>
-                                    </ul>
-                            </ul>
-                        </div>
-                        <div class="form-group col-xs-3">
-                            <label>Valor:</label>
-                            <input type="text" class="form-control" id="price" name="price"  value="{String::convertTextFormat($product['price'], 'currency')}" format="currency" data-affixes-stay="true" data-prefix="R$ " data-thousands="." data-decimal=","/>
-                        </div>
-                        <div class="form-group col-xs-3">
-                            <label>Valor de custo:</label>
-                            <input name="cost" type="text" class="form-control"  value="{String::convertTextFormat($product['cost'], 'currency')}" format="currency" data-affixes-stay="true" data-prefix="R$ " data-thousands="." data-decimal=","/>
-                        </div>
-                        <div class="form-group col-xs-3">
-                            <input name="featured" type="checkbox" {if ($product['featured'] == 1)}checked{/if} /><label>Destaque no Site</label>
-                        </div>
-                        <div class="form-group col-xs-3">
-                            <input name="onsale" type="checkbox" /><label>Em Oferta</label>
-                        </div>
-                        <div class="form-group col-xs-12">
-                            <label>Características:</label>
-                            <select id="ingredients" name="ingredients" style="width: 100%" multiple data-placeholder="Digite os ingredientes">
-                                {foreach from=$ingredientList item="row"}
-                                    <option value="{$row['ingredient_name']}" {if (in_array($row['ingredient_name'], explode(',', $product['ingredients'])))}selected{/if}>{$row['ingredient_name']}</option>
-                                {/foreach}
-                            </select>
-                        </div>
-                        <div class="form-group col-xs-12">
-                            <label>Descrição:</label>
-                            <textarea type="text" class="form-control" name="description" >{$product['description']}</textarea>
-                        </div>
+            </div>
+            <!-- Cadastro do produto -->
+            <div class="row">
+                <div class="form-group col-md-9">
+                    <div class="form-group col-xs-6">
+                        <label>Nome:</label>
+                        <input type="text" class="form-control" name="nome" value="{$product['product_name']}" />
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <label>Peso:</label>
+                        <input type="text" class="form-control" name="weight"  value="{String::convertTextFormat($product['weight'],'float')}" format="currency" data-affixes-stay="true" data-prefix="" data-thousands="." data-decimal=","/>
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <label>Medida:</label>
+                        <input id="unit_id" name="unit" type="text" class="form-control" data-toggle="dropdown" data-id="{$product['unit']}" value="{$unit}" data-id="g"/>
+                        <ul id="unit-list" class="dropdown-menu list-clients">
+                                <ul class="menu">
+                                    <li data-toggle="collapse" data-target="#unit-list">
+                                        <a href="#" data-type="selitem" data-target="unit_id" data-id="g" data-value="Gramas" title="select">
+                                            Gramas
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" data-type="selitem" data-target="unit_id" data-id="kg" data-value="Kilos" title="select">
+                                            Kilos
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#" data-type="selitem" data-target="unit_id" data-id="lt" data-value="Litros" title="select">
+                                            Litros
+                                        </a>
+                                    </li>
+                                </ul>
+                        </ul>
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <label>Valor:</label>
+                        <input type="text" class="form-control" id="price" name="price"  value="{String::convertTextFormat($product['price'], 'currency')}" format="currency" data-affixes-stay="true" data-prefix="R$ " data-thousands="." data-decimal=","/>
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <label>Valor de custo:</label>
+                        <input name="cost" type="text" class="form-control"  value="{String::convertTextFormat($product['cost'], 'currency')}" format="currency" data-affixes-stay="true" data-prefix="R$ " data-thousands="." data-decimal=","/>
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <input name="featured" type="checkbox" {if ($product['featured'] == 1)}checked{/if} /><label>Destaque no Site</label>
+                    </div>
+                    <div class="form-group col-xs-3">
+                        <input name="onsale" type="checkbox" /><label>Em Oferta</label>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label>Características:</label>
+                        <select id="charac" name="charac" style="width: 100%" multiple data-placeholder="Digite os ingredientes">
+                            {foreach from=$characList item="row"}
+                                <option value="{$row['charac']}" {if (in_array($row['charac'], explode(',', $product['charac'])))}selected{/if}>{$row['charac']}</option>
+                            {/foreach}
+                        </select>
+                    </div>
+                    <div class="form-group col-xs-12">
+                        <label>Descrição:</label>
+                        <textarea type="text" class="form-control" name="description" >{$product['description']}</textarea>
                     </div>
                 </div>
 
