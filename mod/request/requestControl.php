@@ -519,6 +519,15 @@ class requestControl extends Control {
         ));
     }
 
+    public function getCart() {
+
+        $result = $this->model()->getCart($this->getQueryString('client_id'));
+
+        if ($result) {
+
+        }
+    }
+
     /**
      * Request Handler for viewing a request
      *
@@ -595,30 +604,30 @@ class requestControl extends Control {
      * @param   array       $requestData    - The request data
      * @return  string
      */
-    public function postAddItems(array $requestData = array()) {
-
-        count($requestData) > 0 ||
-            $requestData = $this->getPost();
-
-        $result     = array();
-        $plate_id   = $requestData['plate_id'];
-        $plates     = $requestData['plates'];
-
-        foreach ($plates as $plate) {
-            foreach ($plate as $product_id => $weight) {
-                $item_id = $this->model()->insertPlateItem(
-                    array(
-                        'plate_id'      => $plate_id,
-                        'product_id'    => $product_id,
-                        'weight'        => $weight
-                    )
-                );
-                $result['plates'][$plate_id][] = $item_id;
-            }
-        }
-
-        return RestServer::response($result);
-    }
+//    public function postAddItems(array $requestData = array()) {
+//
+//        count($requestData) > 0 ||
+//            $requestData = $this->getPost();
+//
+//        $result     = array();
+//        $plate_id   = $requestData['plate_id'];
+//        $plates     = $requestData['plates'];
+//
+//        foreach ($plates as $plate) {
+//            foreach ($plate as $product_id => $weight) {
+//                $item_id = $this->model()->insertPlateItem(
+//                    array(
+//                        'plate_id'      => $plate_id,
+//                        'product_id'    => $product_id,
+//                        'weight'        => $weight
+//                    )
+//                );
+//                $result['plates'][$plate_id][] = $item_id;
+//            }
+//        }
+//
+//        return RestServer::response($result);
+//    }
 
     /**
      * Handler for adding a plate item
@@ -631,12 +640,11 @@ class requestControl extends Control {
         count($requestData) > 0 ||
             $requestData = $this->getPost();
 
-        $item_id = $this->model()->insertPlateItem(
+        $item_id = $this->model()->insertItem(
             array(
-                'plate_id'      => $requestData['plate_id'],
+                'request_id'    => $requestData['request_id'],
                 'product_id'    => $requestData['product_id'],
-                'weight'        => $requestData['weight'],
-                'unit'          => $requestData['unit']
+                'price'         => $requestData['price']
             )
         );
 
