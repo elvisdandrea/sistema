@@ -199,4 +199,26 @@ class clientModel extends Model {
 
         $this->runUpdate();
     }
+
+    public function checkLogin($email, $passwd) {
+
+        $this->addFrom('id');
+        $this->addFrom('client_name');
+        $this->addFrom('email');
+        $this->addFrom('description');
+        $this->addFrom('image');
+
+        $this->addFrom('clients');
+
+        $this->addWhere('email = "'  . $email  . '"');
+        $this->addWhere('passwd = "' . $passwd . '"');
+
+        $this->addLimit('1');
+
+        $this->runQuery();
+
+        return !$this->isEmpty();
+
+    }
+
 }

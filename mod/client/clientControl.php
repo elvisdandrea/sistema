@@ -176,6 +176,27 @@ class clientControl extends Control {
 
     }
 
+    public function getLogin() {
+
+        $client = $this->model()->checkLogin(
+            $this->getQueryString('email'),
+            $this->getQueryString('passwd')
+        );
+
+        if ($client) {
+            return RestServer::response(array(
+                'status'    => 200,
+                'uid'       => $client
+            ));
+        }
+
+        return RestServer::response(array(
+            'status'    => 400,
+            'message'   => 'Usuário ou senha invalidos'
+        ));
+
+    }
+
     /**
      * New client data validation
      *
