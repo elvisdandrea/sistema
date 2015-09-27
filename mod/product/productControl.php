@@ -233,13 +233,15 @@ class productControl extends Control {
         $this->model()->insertProduct($productData);
 
         if (!$this->model()->queryOk()) {
-            if (in_array($this->model('auth')->getErrorCode(), array(23000, 1062)))
+            if (in_array($this->model()->getErrorCode(), array(23000, 1062)))
                 return RestServer::throwError('Produto já cadastrado!');
             else
                 return RestServer::throwError(Language::QUERY_ERROR(), 500);
         }
 
         $product_id = $this->model()->getLastInsertId();
+
+        $this->uploadImagesProduct($post['product_image'], $product_id);
 
         $result_charac = $this->insertCharac($product_id, $post['charac']);
 
@@ -267,6 +269,30 @@ class productControl extends Control {
         $this->productPage();
     }
 
+    private function uploadImagesProduct(array $images, $productId){
+        $order = 1;
+
+        foreach($images as $base64Image){
+            if (!empty($base64Image) && !Html::isUrl($base64Image)) {
+                $base64 = explode(',', $base64Image);
+                $imageFile = $this->uploadBase64File($base64[1]);
+
+                if (!$imageFile) {
+                    $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
+                } else {
+                    $arrayDataInsert = array(
+                        'product_id' => $productId,
+                        'image' => $imageFile,
+                        'image_order' => $order
+                    );
+                    $this->model()->insertProductImage($arrayDataInsert);
+                    $productData['image'] = $imageFile;
+                    $order++;
+                }
+            }
+        }
+    }
+
     /**
      * View of a product
      */
@@ -289,6 +315,10 @@ class productControl extends Control {
 
         $this->view()->setVariable('categories', $categories);
         $this->view()->setVariable('pagination', $pagination);
+
+        $this->model()->getProductImages($id);
+        $images = $this->model()->getRows();
+        $this->view()->setVariable('images', $images);
 
         $units = array(
             'g'     => 'Gramas',
@@ -381,7 +411,6 @@ class productControl extends Control {
             $characList[$row['id']] = $row['charac'];
         }
 
-
         $result_charac = array();
         if (isset($charac) && !empty($charac)) {
             $characs = explode(',', $charac);
@@ -413,6 +442,83 @@ class productControl extends Control {
         }
 
         $this->productPage();
+    }
+
+    public function removeProductImage(){
+        $img_id = $this->getQueryString('img_id');
+        $this->setId($img_id);
+        $status = $this->deleteProductImage();
+        if($status['status'] == 200){
+            $this->viewProduct();
+        }
+    }
+
+    /**
+     * Rest Handler for removing a image
+     * @return array|string
+     * @throws ExceptionHandler
+     */
+    public function deleteProductImage(){
+        $id = $this->getId();
+        $this->model()->removeProductImage($id);
+
+        if (!$this->model()->queryOk()) {
+            return RestServer::throwError(Language::QUERY_ERROR(), 500);
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'message'   => 'Cadastro removido!'
+        ), 200);
+    }
+
+    public function addProductImage(){
+        $id = $this->getQueryString('id');
+        $this->setId($id);
+        $status = $this->postAddProductImage();
+        if($status['status'] == 200){
+            $this->viewProduct();
+        }
+    }
+
+    /**
+     * Rest Handler for removing a image
+     * @return array|string
+     * @throws ExceptionHandler
+     */
+    public function postAddProductImage(){
+        $post = $this->getPost();
+        $base64Image = $post['img_data'];
+        if (!empty($base64Image) && !Html::isUrl($base64Image)) {
+            $base64 = explode(',', $base64Image);
+            $imageFile = $this->uploadBase64File($base64[1]);
+
+            $this->model()->getLastImageOrderByProduct($this->getId());
+            $lastImage = $this->model()->getRow(0);
+
+            $order = isset($lastImage['image_order']) ? $lastImage['image_order'] + 1 : 1;
+
+            if (!$imageFile) {
+                $imageFile = 'Nao foi possivel efetuar o upload da imagem. Contate o Suporte.';
+            } else {
+                $arrayDataInsert = array(
+                    'product_id' => $this->getId(),
+                    'image' => $imageFile,
+                    'image_order' => $order
+                );
+                $this->model()->insertProductImage($arrayDataInsert);
+                $productData['image'] = $imageFile;
+            }
+        }
+
+        if (!$this->model()->queryOk()) {
+            return RestServer::throwError(Language::QUERY_ERROR(), 500);
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'message'   => 'Cadastro removido!'
+        ), 200);
     }
 
     /**
