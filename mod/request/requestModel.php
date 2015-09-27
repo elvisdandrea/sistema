@@ -770,4 +770,22 @@ class requestModel extends Model {
         return !$this->isEmpty();
     }
 
+    public function insertCart($client_id, $address_id = 0) {
+
+        $this->addInsertSet('request_date', 'now()', false);
+        $this->addInsertSet('deliver_status', '1');
+        $this->addInsertSet('client_id', $client_id);
+        $this->addInsertSet('address_id', $address_id);
+
+        $this->runInsert();
+
+        if ($this->queryOk()) {
+            return $this->getLastInsertId();
+        }
+
+        return false;
+
+    }
+
+
 }

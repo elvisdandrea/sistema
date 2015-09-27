@@ -1084,4 +1084,25 @@ class requestControl extends Control {
 
         $this->model()->seItemIngredientStatus($ingredientId, $statusIngredient);
     }
+
+    public function postAddCart() {
+
+        //TODO: validate if client exists
+
+        $cart_id = $this->model()->insertCart(array(
+            'client_id' => $this->getPost('client_id')
+        ));
+
+        if (!$cart_id) {
+            return RestServer::response(array(
+                'status'    => 500,
+                'message'   => $this->model()->getError()
+            ));
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'cart'      => array('id' => $cart_id)
+        ));
+    }
 }
