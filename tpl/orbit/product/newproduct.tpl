@@ -55,9 +55,9 @@
                             </div>
                             <div class="form-group col-md-12 col-sm-12 col-xs-12">
                                 <label>Características:</label>
-                                <select id="ingredients" name="ingredients" class="form-control" multiple data-placeholder="Separe cada característica usando vírgula (,)">
-                                    {foreach from=$ingredientList item="row"}
-                                        <option value="{$row['ingredient_name']}">{$row['ingredient_name']}</option>
+                                <select id="charac" name="charac" class="form-control" multiple data-placeholder="Separe cada característica usando vírgula (,)">
+                                    {foreach from=$characList item="row"}
+                                        <option value="{$row['charac']}">{$row['charac']}</option>
                                     {/foreach}
                                 </select>
                             </div>

@@ -216,7 +216,7 @@ class productModel extends Model {
         $this->addField('p.price');
         $this->addField('p.cost');
         $this->addField('p.unit');
-        $this->addField('group_concat(i.ingredient_name) as ingredients');
+        $this->addField('group_concat(i.charac) as charac');
         $this->addField('p.description');
         $this->addField('p.image');
         $this->addField('p.cover_image');
@@ -226,7 +226,7 @@ class productModel extends Model {
 
         $this->addFrom('products p');
         $this->addFrom('left join categories c on c.id = p.category_id');
-        $this->addFrom('left join product_ingredients i on i.product_id = p.id');
+        $this->addFrom('left join product_charac i on i.product_id = p.id');
 
         $this->addWhere('p.id = "' . $id . '"');
         $this->addGroup('p.id');
@@ -254,7 +254,7 @@ class productModel extends Model {
     }
 
     /**
-     * Inserts a product ingredient
+     * Inserts a product Characteristic
      *
      * This function uses non-strict insert
      * In other words, in case of a duplicate entry,
@@ -262,26 +262,26 @@ class productModel extends Model {
      * an error as well, nothing will be done
      *
      * @param   string      $product_id         - The product id
-     * @param   string      $ingredient_name    - The ingredient name
+     * @param   string      $charac    - The characteristic name
      */
-    public function insertIngredient($product_id, $ingredient_name) {
+    public function insertcharac($product_id, $charac) {
 
         $this->addInsertSet('product_id', $product_id);
-        $this->addInsertSet('ingredient_name', $ingredient_name);
-        $this->setInsertTable('product_ingredients');
+        $this->addInsertSet('charac', $charac);
+        $this->setInsertTable('product_charac');
 
         $this->runInsert(false);
     }
 
     /**
-     * Returns ingredient list
+     * Returns Characteristic list
      *
      * @param   int     $limit      - The item limit (false for no limit)
      */
-    public function getIngredientList($limit = 300) {
+    public function getCharacList($limit = 300) {
 
-        $this->addField('distinct ingredient_name');
-        $this->addFrom('product_ingredients');
+        $this->addField('distinct charac');
+        $this->addFrom('product_charac');
         if ($limit)
             $this->addLimit($limit);
 
@@ -289,28 +289,28 @@ class productModel extends Model {
     }
 
     /**
-     * Returns ingredients of a product
+     * Returns Characteristics of a product
      *
      * @param   string      $product_id     - The product Id
      */
-    public function getIngredients($product_id) {
+    public function getCharac($product_id) {
 
         $this->addField('id');
-        $this->addField('ingredient_name');
-        $this->addFrom('product_ingredients');
+        $this->addField('charac');
+        $this->addFrom('product_charac');
         $this->addWhere('product_id = "' . $product_id . '"');
 
         $this->runQuery();
     }
 
     /**
-     * Query to delete an ingredient
+     * Query to delete an characteristic
      *
-     * @param   string      $id     - The ingredient Id
+     * @param   string      $id     - The Characteristic Id
      */
-    public function deleteIngredient($id) {
+    public function deleteCharac($id) {
 
-        $this->setDeleteFrom('product_ingredients');
+        $this->setDeleteFrom('product_charac');
         $this->addDeleteWhere('id = "' . $id . '"');
 
         $this->runDelete();

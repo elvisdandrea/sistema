@@ -140,45 +140,15 @@ class productControl extends Control {
         $this->view()->setVariable('pagination', $pagination);
         $this->view()->loadTemplate('newproduct');
 
-        $this->model()->getIngredientList();
-        $ingredientList = $this->model()->getRows();
-        $this->view()->setVariable('ingredientList', $ingredientList);
+        $this->model()->getCharacList();
+        $characList = $this->model()->getRows();
+        $this->view()->setVariable('characList', $characList);
 
         $this->view()->appendJs('category');
         $this->view()->appendJs('product');
         $this->commitReplace($this->view()->render(), '#content');
     }
 
-    /**
-     * Handler that returns a list options of nutrition facts
-     */
-    public function factList() {
-
-        $this->newModel('auth');
-        $this->model('auth')->getNutrictionProductList();
-        $this->view()->loadTemplate('factlist');
-        $selected = $this->getQueryString('selected');
-        if ($selected) $this->view()->setVariable('selected', $selected);
-        $this->view()->setVariable('facts', $this->model('auth')->getRows());
-        #$this->commitPrint($this->view()->render());
-    }
-
-    /**
-     * Loads the nutrition facts of an item
-     *
-     * @param   bool    $product_id     - The product Id
-     */
-    public function loadNutrictionFacts($product_id = false) {
-
-        $product_id || $product_id = $this->getQueryString('id');
-        $this->newModel('auth');
-        $this->model('auth')->getNutrictionFacts($product_id);
-        $this->model('auth')->addGridColumn('','fact_type');
-        $this->model('auth')->addGridColumn('Quantidade por porção','fact_unit');
-        $this->model('auth')->addGridColumn('VD %','fact_vd');
-        $this->commitReplace($this->model('auth')->dbGrid(), '#nutriction-table');
-
-    }
 
     /**
      * Handler that returns the list options of categories
@@ -271,14 +241,14 @@ class productControl extends Control {
 
         $product_id = $this->model()->getLastInsertId();
 
-        $result_ingredients = $this->insertIngredients($product_id, $post['ingredients']);
+        $result_charac = $this->insertCharac($product_id, $post['charac']);
 
         return RestServer::response(array(
-            'status'        => 200,
-            'id'            => $product_id,
-            'message'       => 'Cadastro realizado!',
-            'image'         => $imageFile,
-            'ingredients'   => $result_ingredients
+            'status'            => 200,
+            'id'                => $product_id,
+            'message'           => 'Cadastro realizado!',
+            'image'             => $imageFile,
+            'characteristics'   => $result_charac
         ), 200);
 
     }
@@ -326,9 +296,9 @@ class productControl extends Control {
             'lt'    => 'Litros'
         );
 
-        $this->model()->getIngredientList();
-        $ingredientList = $this->model()->getRows();
-        $this->view()->setVariable('ingredientList', $ingredientList);
+        $this->model()->getCharacList();
+        $characList = $this->model()->getRows();
+        $this->view()->setVariable('characList', $characList);
 
         $unit = isset($units[$product['unit']]) ? $units[$product['unit']] : '';
 
@@ -386,45 +356,45 @@ class productControl extends Control {
             return RestServer::throwError(Language::QUERY_ERROR(), 500);
         }
 
-        $result_ingredients = $this->insertIngredients($this->getId(), $post['ingredients']);
+        $result_charac = $this->insertCharac($this->getId(), $post['charac']);
 
         return RestServer::response(array(
-            'status'        => 200,
-            'message'       => 'Cadastro atualizado!',
-            'image'         => $imageFile,
-            'ingredients'   => $result_ingredients
+            'status'            => 200,
+            'message'           => 'Cadastro atualizado!',
+            'image'             => $imageFile,
+            'characteristics'   => $result_charac
         ), 200);
     }
 
     /**
-     * Handler for inserting product ingredients
+     * Handler for inserting product characteristics
      *
      * @param   string      $product_id     - The product id
-     * @param   string      $ingredients    - Comma separated string
+     * @param   string      $charac         - Comma separated string
      * @return  array
      */
-    public function insertIngredients($product_id, $ingredients) {
+    public function insertCharac($product_id, $charac) {
 
-        $this->model()->getIngredients($product_id);
-        $ingredientList = array();
+        $this->model()->getCharac($product_id);
+        $characList = array();
         foreach ($this->model()->getRows() as $row) {
-            $ingredientList[$row['id']] = $row['ingredient_name'];
+            $characList[$row['id']] = $row['charac'];
         }
 
 
-        $result_ingredients = array();
-        if (isset($ingredients) && !empty($ingredients)) {
-            $ingredients = explode(',', $ingredients);
-            foreach ($ingredients as $ingredient) {
-                if (!in_array($ingredient, $ingredientList))
-                    $result_ingredients[] = $this->model()->insertIngredient($product_id, $ingredient);
+        $result_charac = array();
+        if (isset($charac) && !empty($charac)) {
+            $characs = explode(',', $charac);
+            foreach ($characs as $charac) {
+                if (!in_array($charac, $characList))
+                    $result_charac[] = $this->model()->insertCharac($product_id, $charac);
             }
-            foreach ($ingredientList as $id => $ingredient) {
-                if (!in_array($ingredient, $ingredients))
-                    $this->model()->deleteIngredient($id);
+            foreach ($characList as $id => $charac) {
+                if (!in_array($charac, $characs))
+                    $this->model()->deleteCharac($id);
             }
         }
-        return $result_ingredients;
+        return $result_charac;
     }
 
     /**
