@@ -524,8 +524,16 @@ class requestControl extends Control {
         $result = $this->model()->getCart($this->getQueryString('client_id'));
 
         if ($result) {
-
+            return RestServer::response(array(
+                'status'    => 200,
+                'cart'      => $this->model()->getRow(0)
+            ));
         }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'cart'      => 0
+        ));
     }
 
     /**

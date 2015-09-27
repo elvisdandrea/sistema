@@ -753,4 +753,21 @@ class requestModel extends Model {
         $this->runUpdate();
     }
 
+    public function getCart($client_id) {
+
+        $this->addField('id');
+        $this->addField('request_date');
+        $this->addField('client_id');
+        $this->addField('address_id');
+
+        $this->addFrom('requests');
+
+        $this->addWhere('client_id = "' . $client_id . '"');
+        $this->addWhere('deliver_status = "1"');
+
+        $this->runQuery();
+
+        return !$this->isEmpty();
+    }
+
 }
