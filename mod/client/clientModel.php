@@ -221,4 +221,31 @@ class clientModel extends Model {
 
     }
 
+    public function getCountFavourites($client_id) {
+
+        $this->addField('count(id) as fav');
+        $this->addFrom('client_favs');
+
+        $this->addWhere('client_id = "' . $client_id . '"');
+
+        $this->runQuery();
+        $result = $this->getRow(0);
+        return $result['fav'];
+
+    }
+
+    public function getCountCart($client_id) {
+
+        $this->addField('count(i.id) as cart');
+        $this->addFrom('request_items');
+        $this->addFrom('inner join requests r on r.id = i.request_id');
+
+        $this->addWhere('r.client_id = "' . $client_id . '"');
+        $this->addWhere('r.deliver_status = "1"');
+
+        $this->runQuery();
+        $result = $this->getRow(0);
+        return $result['cart'];
+    }
+
 }

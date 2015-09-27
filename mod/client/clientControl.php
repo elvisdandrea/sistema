@@ -197,6 +197,23 @@ class clientControl extends Control {
 
     }
 
+    public function getCountFav() {
+
+        $fav = $this->model()->getCountFavourites($this->getQueryString('id'));
+        return RestServer::response(array(
+            'status'    => 200,
+            'fav'       => $fav
+        ));
+    }
+
+    public function getCountCart() {
+        $cart = $this->model()->getCountCart($this->getQueryString('id'));
+        return RestServer::response(array(
+            'status'    => 200,
+            'cart'      => $cart
+        ));
+    }
+
     /**
      * New client data validation
      *
