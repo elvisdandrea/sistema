@@ -60,7 +60,8 @@ class productControl extends Control {
         $result = $this->model()->getProduct($product_id);
 
         if ($result)
-            $this->model()->getRow(0);
+            return $this->model()->getRow(0);
+
 
         return false;
     }
