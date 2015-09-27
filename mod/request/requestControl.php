@@ -648,6 +648,13 @@ class requestControl extends Control {
         count($requestData) > 0 ||
             $requestData = $this->getPost();
 
+        if (!isset($requestData['price']) || intval($requestData['price']) == 0) {
+            $product = new productControl();
+            $product->setId($requestData['product_id']);
+            $productData = $product->getProduct();
+            $requestData['price'] = $productData['price'];
+        }
+
         $item_id = $this->model()->insertItem(
             array(
                 'request_id'    => $requestData['request_id'],
