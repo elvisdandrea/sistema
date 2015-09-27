@@ -125,9 +125,9 @@
                 </div>
             </div>
 
-            <div class="panel-body" id="images-holder">
+            <div class="panel-body" id="images-holder-edit" data-url="{$smarty.const.BASEDIR}product/reorderImagesProduct?id={$product['id']}">
                 {foreach from=$images key="key" item="value"}
-                    <div class="col-md-4 col-sm-4">
+                    <div class="col-md-4 col-sm-4" id="{$value['id']}">
                         <div class="box">
 
                             <div class="box-header">
@@ -137,7 +137,6 @@
                             <div class="box-body">
                                 <img type="upload" id="{$value['id']}" name="product_image[]" src="{$value['image']}" class="image-user" alt="product image" style="display:block; margin:0 auto;" />
                                 <a type="button" class="btn btn-danger" title="Cancelar" href="{$smarty.const.BASEDIR}product/removeProductImage?id={$product['id']}&img_id={$value['id']}">Excluir</a>
-                                <input type="hidden" name="image_order" value="{$value['image_order']}">
                             </div>
 
                         </div>

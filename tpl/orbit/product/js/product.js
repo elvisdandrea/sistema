@@ -76,3 +76,18 @@ $('#add-img').click(function(){
     Main.imageAction('img'+imgCount, 'product-img'+imgCount);
     imgCount = imgCount + 1;
 });
+
+$('#images-holder').sortable();
+
+$('#images-holder-edit').sortable({
+    stop: function( event, ui ) {
+        var imageOrder = $('#images-holder-edit').sortable('toArray');
+        var url = $('#images-holder-edit').attr('data-url');
+
+        Html.Post(url, {images_order : imageOrder}, function(r) {
+            eval(r);
+            if (changeUrl) window.history.pushState(undefined, '', changeUrl);
+            return false;
+        });
+    }
+});

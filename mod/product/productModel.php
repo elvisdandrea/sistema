@@ -416,5 +416,13 @@ class productModel extends Model {
         $this->runDelete();
     }
 
+    public function updateProductImageOrder($order, $id) {
+
+        $this->addUpdateSet('image_order', $order);
+
+        $this->setUpdateTable('product_images');
+        $this->addUpdateWhere('id = "' . $id . '"');
+        $this->runUpdate();
+    }
 
 }
