@@ -777,6 +777,8 @@ class requestModel extends Model {
         $this->addInsertSet('client_id', $client_id);
         $this->addInsertSet('address_id', $address_id);
 
+        $this->setInsertTable('requests');
+
         $this->runInsert();
 
         if ($this->queryOk()) {
