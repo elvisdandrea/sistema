@@ -651,7 +651,10 @@ class requestControl extends Control {
         if (!isset($requestData['price']) || intval($requestData['price']) == 0) {
             $product = new productControl();
             $product->setId($requestData['product_id']);
-            $productData = $product->getProduct();
+            $productData = $product->findProduct();
+            if (!$productData) {
+                RestServer::throwError('Ocorreu um erro ao acessar as informações do produto. Por favor, entre em contato conosco');
+            }
             $requestData['price'] = $productData['price'];
         }
 

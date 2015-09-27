@@ -55,6 +55,16 @@ class productControl extends Control {
 
     }
 
+    public function findProduct() {
+
+        $result = $this->model()->getProduct($this->getId());
+
+        if ($result)
+            $this->model()->getRow(0);
+
+        return false;
+    }
+
     public function getProduct() {
 
         if ($this->getId() == 0) {
