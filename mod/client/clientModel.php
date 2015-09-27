@@ -237,7 +237,7 @@ class clientModel extends Model {
     public function getCountCart($client_id) {
 
         $this->addField('count(i.id) as cart');
-        $this->addFrom('request_items');
+        $this->addFrom('request_items i');
         $this->addFrom('inner join requests r on r.id = i.request_id');
 
         $this->addWhere('r.client_id = "' . $client_id . '"');
