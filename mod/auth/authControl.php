@@ -134,6 +134,12 @@ class authControl extends Control {
         return $content;
     }
 
+    public function getTokenIsAlive() {
+        return RestServer::response(array(
+            'status'    => 200
+        ));
+    }
+
     /**
      * Restful POST Method to create new user
      */
