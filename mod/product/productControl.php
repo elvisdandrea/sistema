@@ -144,6 +144,7 @@ class productControl extends Control {
         $characList = $this->model()->getRows();
         $this->view()->setVariable('characList', $characList);
 
+        $this->view()->appendJs('sortable');
         $this->view()->appendJs('category');
         $this->view()->appendJs('product');
         $this->commitReplace($this->view()->render(), '#content');
@@ -334,6 +335,7 @@ class productControl extends Control {
 
         $this->view()->setVariable('unit', $unit);
 
+        $this->view()->appendJs('sortable');
         $this->view()->appendJs('category');
         $this->view()->appendJs('product');
 
@@ -519,6 +521,14 @@ class productControl extends Control {
             'status'    => 200,
             'message'   => 'Cadastro removido!'
         ), 200);
+    }
+
+    public function reorderImagesProduct(){
+        $post = $this->getPost();
+
+        foreach($post['images_order'] as $key => $imgId){
+            $this->model()->updateProductImageOrder($key+1, $imgId);
+        }
     }
 
     /**
