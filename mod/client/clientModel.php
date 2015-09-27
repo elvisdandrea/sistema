@@ -202,11 +202,11 @@ class clientModel extends Model {
 
     public function checkLogin($email, $passwd) {
 
-        $this->addFrom('id');
-        $this->addFrom('client_name');
-        $this->addFrom('email');
-        $this->addFrom('description');
-        $this->addFrom('image');
+        $this->addField('id');
+        $this->addField('client_name');
+        $this->addField('email');
+        $this->addField('description');
+        $this->addField('image');
 
         $this->addFrom('clients');
 

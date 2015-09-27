@@ -186,7 +186,7 @@ class clientControl extends Control {
         if ($client) {
             return RestServer::response(array(
                 'status'    => 200,
-                'uid'       => $client
+                'uid'       => $this->model()->getRow(0)
             ));
         }
 
