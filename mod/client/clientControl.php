@@ -226,7 +226,7 @@ class clientControl extends Control {
 
         return RestServer::response(array(
             'status'    => 200,
-            'cart'      => $this->model()->getRows();
+            'cart'      => $this->model()->getRows()
         ));
     }
 
