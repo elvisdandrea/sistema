@@ -254,8 +254,12 @@ class clientModel extends Model {
         $this->addField('i.request_id');
         $this->addField('i.product_id');
         $this->addField('i.price');
+        $this->addField('p.product_name');
+        $this->addField('p.image');
+        $this->addField('p.description');
         $this->addFrom('request_items i');
         $this->addFrom('inner join requests r on r.id = i.request_id');
+        $this->addFrom('inner join products p on p.id = i.product_id');
 
         $this->addWhere('r.client_id = "' . $client_id . '"');
         $this->addWhere('r.deliver_status = "1"');
