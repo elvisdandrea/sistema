@@ -214,6 +214,22 @@ class clientControl extends Control {
         ));
     }
 
+    public function getCartItems() {
+        $result = $this->model()->getCartItems($this->getQueryString('id'));
+
+        if (!$result) {
+            return RestServer::response(array(
+                'status'    => 400,
+                'message'   => 'Nenhum item no carrinho'
+            ));
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'cart'      => $this->model()->getRows();
+        ));
+    }
+
     /**
      * New client data validation
      *

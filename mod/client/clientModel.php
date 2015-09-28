@@ -248,4 +248,20 @@ class clientModel extends Model {
         return $result['cart'];
     }
 
+    public function getCartItems($client_id) {
+
+        $this->addField('i.id');
+        $this->addField('i.request_id');
+        $this->addField('i.product_id');
+        $this->addField('i.price');
+        $this->addFrom('request_items i');
+        $this->addFrom('inner join requests r on r.id = i.request_id');
+
+        $this->addWhere('r.client_id = "' . $client_id . '"');
+        $this->addWhere('r.deliver_status = "1"');
+
+        $this->runQuery();
+        return !$this->isEmpty();
+    }
+
 }
