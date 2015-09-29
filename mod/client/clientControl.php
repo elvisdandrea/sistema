@@ -53,6 +53,19 @@ class clientControl extends Control {
 
     }
 
+    public function getClient() {
+
+        $result = $this->model()->getClient($this->getId());
+
+        if (!$result)
+            return RestServer::throwError('Cliente não encontrado');
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'client'    => $this->model()->getRow(0)
+        ));
+    }
+
     /**
      * View for adding a client
      */

@@ -62,8 +62,15 @@ class RestServer {
 
         $request_method = strtolower(filter_input(INPUT_SERVER, 'REQUEST_METHOD'));
 
-        if (!isset($uri[1]) || $uri[1] == '' || intval($uri[1]) > 0) $action = $request_method . $uri[0];
-        else $action = $request_method . $uri[1];
+        $op_id = false;
+        if (!isset($uri[1]) || $uri[1] == '' || intval($uri[1]) > 0) {
+            $action = $request_method . $uri[0];
+            !intval($uri[1]) > 0 || $op_id = $uri[1];
+        }
+        else {
+            $action = $request_method . $uri[1];
+            if (isset($uri[2]) && intval($uri[2]) > 0) $op_id = $uri[2];
+        }
 
         $module = $uri[0].'Control';
 
@@ -73,7 +80,7 @@ class RestServer {
         $control = new $module;
         Session::set('uid', $auth);
         $control->newModel('uid');
-        !intval($uri[1]) > 0 || $control->setId($uri[1]);
+        !$op_id || $control->setId($op_id);
 
         $result = $control->$action();
         self::response($result);

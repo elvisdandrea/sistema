@@ -46,7 +46,9 @@ class clientModel extends Model {
 
         $this->addFrom('clients cli');
         $this->addWhere('cli.id = "' . $id . '"');
+
         $this->runQuery();
+        return !$this->isEmpty();
     }
 
     public function getCountClients() {
