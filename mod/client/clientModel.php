@@ -134,6 +134,25 @@ class clientModel extends Model {
         return !$this->isEmpty();
     }
 
+    public function getAddress($id) {
+        $this->addField('cdr.id');
+        $this->addField('cdr.client_id');
+        $this->addField('cdr.address_type');
+        $this->addField('cdr.street_addr');
+        $this->addField('cdr.street_number');
+        $this->addField('cdr.street_additional');
+        $this->addField('cdr.hood');
+        $this->addField('cdr.city');
+        $this->addField('cdr.state');
+        $this->addField('cdr.zip_code');
+        $this->addField('cdr.addr_main');
+
+        $this->addFrom('client_addr cdr');
+        $this->addWhere('cdr.id = "' . $id .'"');
+        $this->runQuery();
+        return !$this->isEmpty();
+    }
+
     public function getClientPhoneList($id){
         $this->addField('cph.id');
         $this->addField('cph.phone_type');

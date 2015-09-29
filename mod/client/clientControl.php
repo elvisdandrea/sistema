@@ -66,7 +66,7 @@ class clientControl extends Control {
         ));
     }
 
-    public function getAddress() {
+    public function getAddressList() {
 
         $result = $this->model()->getClientAddrList($this->getId());
 
@@ -76,6 +76,19 @@ class clientControl extends Control {
         return RestServer::response(array(
             'status'    => 200,
             'client'    => $this->getId(),
+            'address'   => $this->model()->getRows()
+        ));
+    }
+
+    public function getAddress() {
+
+        $result = $this->model()->getAddress($this->getId());
+
+        if (!$result)
+            return RestServer::throwError('Endereço não encontrado');
+
+        return RestServer::response(array(
+            'status'    => 200,
             'address'   => $this->model()->getRows()
         ));
     }
