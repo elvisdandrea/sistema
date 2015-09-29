@@ -89,7 +89,7 @@ class clientControl extends Control {
 
         return RestServer::response(array(
             'status'    => 200,
-            'address'   => $this->model()->getRows()
+            'address'   => $this->model()->getRow(0)
         ));
     }
 
