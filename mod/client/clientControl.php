@@ -445,8 +445,9 @@ class clientControl extends Control {
         }
 
         return RestServer::response(array(
-            'status'    => 200,
-            'message'   => 'Cadastro atualizado!'
+            'status'     => 200,
+            'address_id' => $this->model()->getLastInsertId(),
+            'message'    => 'Cadastro atualizado!'
         ), 200);
     }
 
