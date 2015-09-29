@@ -148,6 +148,7 @@ class clientControl extends Control {
             'city'              => $post['city'],
             'street_number'     => $post['street_number'],
             'street_additional' => $post['street_additional'],
+            'state'             => $post['state'],
             'addr_main'         => 1
         );
 
@@ -420,6 +421,7 @@ class clientControl extends Control {
             'city'              => $post['city'],
             'street_number'     => $post['street_number'],
             'street_additional' => $post['street_additional'],
+            'state'             => $post['state'],
             'addr_main'         => '0'
         );
 

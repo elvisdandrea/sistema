@@ -124,6 +124,7 @@ class clientModel extends Model {
         $this->addField('cdr.street_additional');
         $this->addField('cdr.hood');
         $this->addField('cdr.city');
+        $this->addField('cdr.state');
         $this->addField('cdr.zip_code');
         $this->addField('cdr.addr_main');
 
