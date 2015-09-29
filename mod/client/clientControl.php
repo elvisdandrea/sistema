@@ -66,6 +66,21 @@ class clientControl extends Control {
         ));
     }
 
+    public function getAddress() {
+
+        $result = $this->model()->getClientAddrList($this->getId());
+
+        if (!$result)
+            return RestServer::throwError('Cliente não encontrado');
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'client'    => $this->getId(),
+            'address'   => $this->model()->getRows()
+        ));
+    }
+
+
     /**
      * View for adding a client
      */

@@ -130,6 +130,7 @@ class clientModel extends Model {
         $this->addFrom('client_addr cdr');
         $this->addWhere('cdr.client_id = "' . $id .'"');
         $this->runQuery();
+        return !$this->isEmpty();
     }
 
     public function getClientPhoneList($id){
