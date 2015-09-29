@@ -40,6 +40,7 @@ class stationsModel extends Model {
             's.street_additional',
             's.hood',
             's.city',
+            's.zip_code',
             's.country'
         );
 

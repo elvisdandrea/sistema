@@ -182,6 +182,40 @@ class stationsControl extends Control {
         $this->commitReplace($this->view()->render(), '#content');
     }
 
+    public function getStations() {
+
+        if ($this->getId() == 0) {
+
+            $page   = $this->getQueryString('page');
+            $page || $page = 1;
+            $rp     = $this->getQueryString('rp');
+            $rp || $rp = 10;
+            $search = $this->getQueryString('search');
+
+
+            $result = $this->model()->getStationsList($page, $rp, $search);
+
+            if (!$result)
+                return RestServer::throwError('Nenhuma loja não encontrada');
+
+            return RestServer::response(array(
+                'status'    => 200,
+                'station'   => $this->model()->getRows()
+            ));
+        }
+
+        $result = $this->model()->getStation($this->getId());
+
+        if (!$result)
+            return RestServer::throwError('Loja não encontrada');
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'station'   => $this->model()->getRow(0)
+        ));
+
+    }
+
     /**
      * View for editing a client
      */
@@ -215,7 +249,8 @@ class stationsControl extends Control {
             'street_number'     => $post['street_number'],
             'street_additional' => $post['street_additional'],
             'hood'              => $post['hood'],
-            'city'              => $post['city']
+            'city'              => $post['city'],
+            'zip_code'          => $post['zip_code']
         );
 
         $validation = $this->validateData($data);
