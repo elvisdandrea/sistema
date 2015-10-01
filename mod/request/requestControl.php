@@ -1129,6 +1129,7 @@ class requestControl extends Control {
         $shipping_data = array(
             'request_id'        => $this->getPost('request_id'),
             'shipping_code'     => $this->getPost('shipping_code'),
+            'shipping_value'    => $this->getPost('shipping_value'),
             'delivery_time'     => $this->getPost('delivery_time'),
             'hand_value'        => $this->getPost('hand_value'),
             'notify_value'      => $this->getPost('notify_value'),
