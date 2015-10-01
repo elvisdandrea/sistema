@@ -1112,4 +1112,43 @@ class requestControl extends Control {
             'cart'      => array('id' => $cart_id)
         ));
     }
+
+    public function postPurchase() {
+
+        $orderData = array(
+            'address_id'    => $this->getPost('address_id')
+        );
+
+        $this->model()->updateRequest($this->getPost('request_id'), $orderData);
+
+        if (!$this->getPost('address_id')) {
+            return RestServer::throwError('O endereço de entrega não foi informado');
+        }
+
+        $shipping_data = array(
+            'request_id'        => $this->getPost('request_id'),
+            'shipping_code'     => $this->getPost('shipping_code'),
+            'delivery_time'     => $this->getPost('delivery_time'),
+            'hand_value'        => $this->getPost('hand_value'),
+            'notify_value'      => $this->getPost('notify_value'),
+            'recover_value'     => $this->getPost('recover_value'),
+            'home_delivery'     => $this->getPost('home_delivery'),
+            'weekend_delivery'  => $this->getPost('weekend_delivery')
+        );
+
+        $shipping_id = $this->model()->insertShippingData($shipping_data);
+
+        if (!$shipping_id) {
+            return RestServer::throwError('Não foi possível salvar a informação de entrega');
+        }
+
+
+        return RestServer::response(array(
+            'status'        => 200,
+            'request_id'    => $this->getPost('request_id'),
+            'address_id'    => $this->getPost('address_id'),
+            'shipping_id'   => $shipping_id
+        ));
+
+    }
 }

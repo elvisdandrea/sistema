@@ -789,5 +789,21 @@ class requestModel extends Model {
 
     }
 
+    public function insertShippingData($shippingData) {
+
+        foreach ($shippingData as $field => $value)
+            $this->addInsertSet($field, $value);
+
+        $this->setInsertTable('request_shipping');
+
+        $this->runInsert();
+
+        if ($this->queryOk())
+            return $this->getLastInsertId();
+
+        return false;
+
+    }
+
 
 }
