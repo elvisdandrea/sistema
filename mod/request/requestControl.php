@@ -1116,7 +1116,8 @@ class requestControl extends Control {
     public function postPurchase() {
 
         $orderData = array(
-            'address_id'    => $this->getPost('address_id')
+            'address_id'        => $this->getPost('address_id'),
+            'deliver_status'    => '2'
         );
 
         $this->model()->updateRequest($this->getPost('request_id'), $orderData);
