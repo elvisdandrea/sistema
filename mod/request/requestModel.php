@@ -708,7 +708,7 @@ class requestModel extends Model {
      */
     public function deleteItem($id) {
 
-        $this->setDeleteFrom('request_plate_items');
+        $this->setDeleteFrom('request_items');
         $this->addDeleteWhere('id = "' . $id . '"');
 
         $this->runDelete();
