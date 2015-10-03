@@ -682,6 +682,7 @@ class requestModel extends Model {
      *
      * @param   string  $id             - The request Id
      * @param   array   $requestData    - The request data
+     * @return  string
      */
     public function updateRequest($id, array $requestData) {
 
@@ -693,6 +694,11 @@ class requestModel extends Model {
 
         $this->runUpdate();
 
+        if ($this->queryOk()) {
+            return $id;
+        }
+
+        return false;
     }
 
     /**

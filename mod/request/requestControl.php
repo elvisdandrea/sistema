@@ -733,6 +733,26 @@ class requestControl extends Control {
 
     }
 
+    public function putRequest() {
+
+        $requestData = $this->getPost();
+
+        if ($this->getId() == 0)
+            return RestServer::throwError('Você deve informar um número de pedido');
+
+        $result = $this->model()->updateRequest($this->getId(), $requestData);
+
+        if (!$result) {
+            return RestServer::throwError('Pedido não pôde ser atualizado');
+        }
+
+        return RestServer::response(array(
+            'status'        => 200,
+            'request_id'    => $this->getId()
+        ));
+
+    }
+
     /**
      * Handler to Update request status
      *
