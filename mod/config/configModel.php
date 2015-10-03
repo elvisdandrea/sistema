@@ -17,7 +17,7 @@ class configModel extends Model {
         $this->addField('token');
         $this->addField('sender_name');
         $this->addField('sender_email');
-        $this->addField('area_code');
+        $this->addField('sender_area_code');
         $this->addField('sender_phone');
 
         $this->addFrom('config');
