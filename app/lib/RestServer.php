@@ -66,8 +66,7 @@ class RestServer {
         if (!isset($uri[1]) || $uri[1] == '' || intval($uri[1]) > 0) {
             $action = $request_method . $uri[0];
             !intval($uri[1]) > 0 || $op_id = $uri[1];
-        }
-        else {
+        } else {
             $action = $request_method . $uri[1];
             if (isset($uri[2]) && intval($uri[2]) > 0) $op_id = $uri[2];
         }
@@ -77,7 +76,7 @@ class RestServer {
         if (!method_exists($module, $action) || !is_callable(array($module, $action)))
             throw new ExceptionHandler(Language::METHOD_NOT_FOUND(intval($uri[1]) > 0 ? $uri[0] : $uri[1], $request_method), 404);
 
-        $control = new $module;
+        $control = new $module();
         Session::set('uid', $auth);
         $control->newModel('uid');
         !$op_id || $control->setId($op_id);

@@ -47,6 +47,16 @@ class requestControl extends Control {
     }
 
     /**
+     * Returns current working Id
+     *
+     * @return int
+     */
+    public function getId() {
+
+        return $this->request_id;
+    }
+
+    /**
      * Generates a new request Id
      */
     public function createId() {
