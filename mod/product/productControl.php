@@ -703,5 +703,18 @@ class productControl extends Control {
     }
 
 
+    public function getCharac() {
+
+        $product_id = $this->getId();
+
+        $this->model()->getCharac($product_id);
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'charac'    => $this->model()->getRows()
+        ));
+    }
+
+
 
 }
