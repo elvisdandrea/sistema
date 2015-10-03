@@ -417,6 +417,18 @@ class clientControl extends Control {
 
     }
 
+    public function deleteAddress() {
+
+        if ($this->getId() == 0)
+            return RestServer::throwError('Você deve informar o id');
+
+        $this->model()->removeClientAddr($this->getId());
+        return RestServer::response(array(
+            'status'    => 200,
+            'address'   => $this->getId()
+        ));
+    }
+
     /**
      * Handler of adding a client
      */
