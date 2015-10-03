@@ -265,6 +265,62 @@ class Html {
         echo '<script>window.location.href = "' . filter_input(INPUT_SERVER, 'HTTP_REFERER') . '"</script>';
     }
 
+
+    /**
+     * Renders a Google Map inside an element
+     *
+     * @param   $elementId    - The element to contain the map
+     * @param   $lat          - Start Latitude
+     * @param   $lng          - Start Longitude
+     * @param   $zoom         - Start Zoom
+     */
+    public static function initGMap($elementId, $lat, $lng, $zoom) {
+
+        if (Core::isAjax()) {
+            echo 'GMaps.init("' . $elementId . '", ' . $lat . ', ' . $lng . ', ' . $zoom . ');';
+            return;
+        }
+
+        echo '<script>GMaps.init("' . $elementId . '", ' . $lat . ', ' . $lng . ', ' . $zoom . ');</script>';
+    }
+
+    /**
+     * Adds a marker in a previously initiated Google Map
+     *
+     * @param   $elementId          - The element Id
+     * @param   $lat                - Marker Latitude
+     * @param   $lng                - Marker Longitude
+     * @param   $contentString      - The Content String (for instance, a rendered view file)
+     * @param   $contentTitle       - The Content Title
+     */
+    public static function addGMapMarker($elementId, $lat, $lng, $contentString, $contentTitle) {
+
+        if (Core::isAjax()) {
+            echo 'GMaps.addMarker("' . $elementId . '", ' . $lat . ', ' . $lng . ', "' . $contentString . '", "' . $contentTitle . '");';
+            return;
+        }
+
+        echo '<script>GMaps.addMarker("' . $elementId . '", ' . $lat . ', ' . $lng . ', "' . $contentString . '", "' . $contentTitle . '");</script>';
+    }
+
+    /**
+     * Draws a circle around a Latitude/Longitude in a initiated Google Map
+     *
+     * @param   $elementId      - The element Id
+     * @param   $lat            - The centered Latitude
+     * @param   $lng            - The centered Longitude
+     * @param   $radius         - The circle raius
+     */
+    public static function addGMapCircle($elementId, $lat, $lng, $radius) {
+
+        if (Core::isAjax()) {
+            echo 'GMaps.addCircle("' . $elementId . '", ' . $lat . ', ' . $lng . ', ' . $radius . ');';
+            return;
+        }
+
+        echo '<script>GMaps.addCircle("' . $elementId . '", ' . $lat . ', ' . $lng . ', ' . $radius . ');</script>';
+    }
+
 }
 
 ?>
