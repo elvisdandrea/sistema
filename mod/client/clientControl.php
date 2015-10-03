@@ -403,6 +403,20 @@ class clientControl extends Control {
         ), 200);
     }
 
+    public function getPhones() {
+
+        if ($this->getId() == 0)
+            return RestServer::throwError('Você deve informar um id cliente');
+
+        $this->model()->getClientPhoneList($this->getId());
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'phones'    => $this->model()->getRows()
+        ));
+
+    }
+
     /**
      * Handler of adding a client
      */
