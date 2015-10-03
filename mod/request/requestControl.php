@@ -1037,4 +1037,15 @@ class requestControl extends Control {
         ));
 
     }
+
+    public function deleteItem() {
+
+        $this->model()->deleteItem($this->getId());
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'item'      => $this->getId()
+        ));
+
+    }
 }
