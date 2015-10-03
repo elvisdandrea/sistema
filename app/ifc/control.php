@@ -62,6 +62,13 @@ class Control {
      */
     private $post;
 
+    /**
+     * Thou shalt not call superglobals directly
+     *
+     * @var
+     */
+    private $put;
+
 
     /**
      * Thou shalt not call superglobals directly
@@ -106,6 +113,11 @@ class Control {
 
         $this->post = filter_input_array(INPUT_POST, FILTER_SANITIZE_MAGIC_QUOTES, FILTER_SANITIZE_URL);
         $this->get  = filter_input_array(INPUT_GET,  FILTER_SANITIZE_MAGIC_QUOTES, FILTER_SANITIZE_URL);
+
+        if (Core::getServerInfo('REQUEST_METHOD') == 'PUT') {
+            parse_str(file_get_contents("php://input"), $this->put);
+            $this->put = filter_var_array($this->put, FILTER_SANITIZE_MAGIC_QUOTES, FILTER_SANITIZE_URL);
+        }
 
         $ref = new ReflectionClass($this);
         $this->moduleName = basename(dirname($ref->getFileName()));
@@ -210,6 +222,26 @@ class Control {
             !isset($this->post[$arg]) || $result[$arg] = $this->post[$arg];
 
         return $result;
+    }
+
+    /**
+     * Returns one or more PUT values
+     *
+     * @return bool|mixed
+     */
+    public function getPut() {
+
+        $args = func_get_args();
+
+        if (count($args) == 0)
+            return $this->put;
+
+        if (count($args) == 1)
+            return isset($this->put[$args[0]]) ? $this->put[$args[0]] : false;
+
+        $result = array();
+        foreach ($args as $arg)
+            !isset($this->put[$arg]) || $result[$arg] = $this->put[$arg];
     }
 
     /**
