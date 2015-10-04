@@ -350,6 +350,7 @@ class clientModel extends Model {
 
         $this->addField('r.id');
         $this->addField('r.request_date');
+        $this->addField('r.payment_date');
         $this->addField('r.deliver_status');
         $this->addField('s.status_name');
         $this->addField('r.client_id');
