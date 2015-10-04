@@ -1006,7 +1006,7 @@ class requestControl extends Control {
             'deliver_status'    => '2',
             'payment_date'      => date('Y-m-d h:i:s'),
             'final_price'       => $this->getPost('price'),
-            'pay_hash'          => $this->getPost('hash')
+            'pay_hash'          => $this->getPost('pay_hash')
         );
 
         $this->model()->updateRequest($this->getPost('request_id'), $orderData);
