@@ -324,4 +324,26 @@ class clientModel extends Model {
         return !$this->isEmpty();
     }
 
+    public function getFavouriteItems($client_id) {
+
+        $this->addField('f.id');
+        $this->addField('f.client_id');
+        $this->addField('f.product_id');
+        $this->addField('p.product_name');
+        $this->addField('p.weight');
+        $this->addField('p.price');
+        $this->addField('p.description');
+        $this->addField('p.image');
+        $this->addField('p.cover_image');
+
+        $this->addFrom('client_favs f');
+        $this->addFrom('inner join products p on p.id = f.product_id');
+
+        $this->addWhere('f.client_id = "' . $client_id . '"');
+
+
+        $this->runQuery();
+        return !$this->isEmpty();
+    }
+
 }
