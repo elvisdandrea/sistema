@@ -368,7 +368,7 @@ class clientModel extends Model {
         $this->addFrom('left join products p on p.id = i.product_id');
         $this->addFrom('left join delivery_status s on s.id = r.deliver_status');
 
-        $this->addWhere('client_id = "' . $client_id . '"');
+        $this->addWhere('r.client_id = "' . $client_id . '"');
 
         $this->runQuery();
 
