@@ -739,4 +739,35 @@ class clientControl extends Control {
 
         $this->viewClient();
     }
+
+    public function postFavourite() {
+
+        if (!$this->getQueryString('product_id')) {
+            return RestServer::throwError('Você deve informar um produto');
+        }
+
+        $this->model()->addFavourite($this->getId(), $this->getQueryString('product_id'));
+
+        return RestServer::response(array(
+            'status'        => 200,
+            'id'            => $this->model()->getLastInsertId()
+        ));
+
+    }
+
+    public function getFavourtes() {
+
+        $result = $this->model()->getFavourites($this->getId());
+
+        if (!$result) {
+            return RestServer::throwError('Não há favoritos para o id ' . $this->getId());
+        }
+
+        return RestServer::response(array(
+            'status'        => 200,
+            'favourites'    => $this->model()->getRows()
+        ));
+
+    }
+
 }

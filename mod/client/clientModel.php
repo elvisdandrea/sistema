@@ -292,4 +292,32 @@ class clientModel extends Model {
         return !$this->isEmpty();
     }
 
+    public function addFavourite($client_id, $product_id) {
+
+        $this->addInsertSet('client_id', $client_id);
+        $this->addInsertSet('product_id', $product_id);
+
+        $this->setInsertTable('client_favs');
+
+        $this->runInsert();
+
+        if ($this->queryOk()) {
+            return $this->getLastInsertId();
+        }
+
+        return false;
+
+    }
+
+    public function getFavourites($client_id) {
+
+        $this->addField('*');
+        $this->addFrom('client_favs');
+        $this->addWhere('client_id = "' . $client_id . '"');
+
+        $this->runQuery();
+
+        return !$this->isEmpty();
+    }
+
 }
