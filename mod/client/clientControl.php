@@ -799,7 +799,7 @@ class clientControl extends Control {
 
         foreach ($this->model()->getRows() as $row) {
             $response[$row['id']]['order']['id']     = $row['id'];
-            $response[$row['id']]['order']['date']   = $row['request_date'];
+            $response[$row['id']]['order']['date']   = $row['payment_date'];
             $response[$row['id']]['order']['status'] = $row['status_name'];
 
             $response[$row['id']]['client']['id']              = $row['client_id'];
