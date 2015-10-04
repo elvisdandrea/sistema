@@ -755,7 +755,7 @@ class clientControl extends Control {
 
     }
 
-    public function getFavourtes() {
+    public function getFavourites() {
 
         $result = $this->model()->getFavourites($this->getId());
 
