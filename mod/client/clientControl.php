@@ -807,6 +807,11 @@ class clientControl extends Control {
             $response[$row['id']]['client']['email']           = $row['email'];
             $response[$row['id']]['client']['client_name']     = $row['client_name'];
 
+            $response[$row['id']]['shipping']['code']          = $row['shipping_code'];
+            $response[$row['id']]['shipping']['type']          = $row['shipping_type'];
+            $response[$row['id']]['shipping']['value']         = $row['shipping_value'];
+            $response[$row['id']]['shipping']['days']          = $row['delivery_time'];
+
             $response[$row['id']]['products'][$row['item_id']]['item_id']      = $row['item_id'];
             $response[$row['id']]['products'][$row['item_id']]['product_id']   = $row['product_id'];
             $response[$row['id']]['products'][$row['item_id']]['product_name'] = $row['product_name'];

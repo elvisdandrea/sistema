@@ -352,7 +352,7 @@ class clientModel extends Model {
         $this->addField('r.request_date');
         $this->addField('r.payment_date');
         $this->addField('r.deliver_status');
-        $this->addField('s.status_name');
+        $this->addField('d.status_name');
         $this->addField('r.client_id');
         $this->addField('r.final_price');
         $this->addField('c.client_name');
@@ -362,12 +362,18 @@ class clientModel extends Model {
         $this->addField('p.product_name');
         $this->addField('p.description');
         $this->addField('p.image');
+        $this->addField('s.shipping_code');
+        $this->addField('s.shipping_value');
+        $this->addField('s.delivery_time');
+        $this->addField('t.shipping_type');
 
         $this->addFrom('requests r');
         $this->addFrom('left join clients c on c.id = r.client_id');
         $this->addFrom('left join request_items i on i.request_id = r.id');
         $this->addFrom('left join products p on p.id = i.product_id');
-        $this->addFrom('left join delivery_status s on s.id = r.deliver_status');
+        $this->addFrom('left join delivery_status d on d.id = r.deliver_status');
+        $this->addFrom('left join request_shipping s on s.request_id = r.id');
+        $this->addFrom('left join shipping_types t on t.shipping_code = s.shipping_code');
 
         $this->addWhere('r.client_id = "' . $client_id . '"');
         $this->addWhere('r.deliver_status > 1');
