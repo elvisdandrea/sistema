@@ -757,7 +757,7 @@ class clientControl extends Control {
 
     public function getFavourites() {
 
-        $result = $this->model()->getFavourites($this->getId());
+        $result = $this->model()->getFavourites($this->getId(), $this->getQueryString('product_id'));
 
         if (!$result) {
             return RestServer::throwError('Não há favoritos para o id ' . $this->getId());

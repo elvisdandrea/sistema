@@ -309,11 +309,15 @@ class clientModel extends Model {
 
     }
 
-    public function getFavourites($client_id) {
+    public function getFavourites($client_id, $product_id = false) {
 
         $this->addField('*');
         $this->addFrom('client_favs');
         $this->addWhere('client_id = "' . $client_id . '"');
+
+        if ($product_id) {
+            $this->addWhere('product_id = "' . $product_id . '"');
+        }
 
         $this->runQuery();
 
