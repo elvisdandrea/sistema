@@ -746,7 +746,7 @@ class clientControl extends Control {
             return RestServer::throwError('Você deve informar um produto');
         }
 
-        $this->model()->addFavourite($this->getId(), $this->getQueryString('product_id'));
+        $this->model()->addFavourite($this->getId(), $this->getPost('product_id'));
 
         return RestServer::response(array(
             'status'        => 200,
