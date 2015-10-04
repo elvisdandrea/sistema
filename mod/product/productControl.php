@@ -715,6 +715,15 @@ class productControl extends Control {
         ));
     }
 
+    public function getImages() {
 
+        $this->model()->getProductImages($this->getId());
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'images'    => $this->model()->getRows()
+        ));
+
+    }
 
 }
