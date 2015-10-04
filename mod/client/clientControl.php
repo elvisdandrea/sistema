@@ -801,6 +801,7 @@ class clientControl extends Control {
             $response[$row['id']]['order']['id']     = $row['id'];
             $response[$row['id']]['order']['date']   = $row['payment_date'];
             $response[$row['id']]['order']['status'] = $row['status_name'];
+            $response[$row['id']]['order']['price']  = $row['final_price'];
 
             $response[$row['id']]['client']['id']              = $row['client_id'];
             $response[$row['id']]['client']['email']           = $row['email'];
