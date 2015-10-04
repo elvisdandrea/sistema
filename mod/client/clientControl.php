@@ -784,4 +784,41 @@ class clientControl extends Control {
         ));
     }
 
+    public function getOrders() {
+        $result = $this->model()->getOrders($this->getId());
+
+        if (!$result) {
+
+            return RestServer::response(array(
+                'status'    => 200,
+                'cart'      => 0
+            ));
+        }
+
+        $response = array();
+
+        foreach ($this->model()->getRows() as $row) {
+            $response[$row['id']]['order']['id']     = $row['id'];
+            $response[$row['id']]['order']['date']   = $row['request_date'];
+            $response[$row['id']]['order']['status'] = $row['status_name'];
+
+            $response[$row['id']]['client']['id']              = $row['client_id'];
+            $response[$row['id']]['client']['email']           = $row['email'];
+            $response[$row['id']]['client']['client_name']     = $row['client_name'];
+
+            $response[$row['id']]['products'][$row['item_id']]['item_id']      = $row['item_id'];
+            $response[$row['id']]['products'][$row['item_id']]['product_id']   = $row['product_id'];
+            $response[$row['id']]['products'][$row['item_id']]['product_name'] = $row['product_name'];
+            $response[$row['id']]['products'][$row['item_id']]['description']  = $row['description'];
+            $response[$row['id']]['products'][$row['item_id']]['image']        = $row['image'];
+
+        }
+
+        return RestServer::response(array(
+            'status'    => 200,
+            'orders'    => $response
+        ));
+
+    }
+
 }

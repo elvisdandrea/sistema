@@ -346,4 +346,33 @@ class clientModel extends Model {
         return !$this->isEmpty();
     }
 
+    public function getOrders($client_id) {
+
+        $this->addField('r.id');
+        $this->addField('r.request_date');
+        $this->addField('r.deliver_status');
+        $this->addField('s.status_name');
+        $this->addField('r.client_id');
+        $this->addField('r.final_price');
+        $this->addField('c.client_name');
+        $this->addField('c.email');
+        $this->addField('i.id as item_id');
+        $this->addField('p.id as product_id');
+        $this->addField('p.product_name');
+        $this->addField('p.description');
+        $this->addField('p.image');
+
+        $this->addFrom('requests r');
+        $this->addFrom('left join clients c on c.id = r.client_id');
+        $this->addFrom('left join request_items i on i.request_id = r.id');
+        $this->addFrom('left join products p on p.id = i.product_id');
+        $this->addFrom('left join delivery_status s on s.id = r.deliver_status');
+
+        $this->addWhere('client_id = "' . $client_id . '"');
+
+        $this->runQuery();
+
+        return !$this->isEmpty();
+
+    }
 }
