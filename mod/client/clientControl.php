@@ -740,7 +740,7 @@ class clientControl extends Control {
         $this->viewClient();
     }
 
-    public function postFavourite() {
+    public function postFavourites() {
 
         if (!$this->getQueryString('product_id')) {
             return RestServer::throwError('Você deve informar um produto');
