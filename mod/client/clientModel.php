@@ -369,6 +369,7 @@ class clientModel extends Model {
         $this->addFrom('left join delivery_status s on s.id = r.deliver_status');
 
         $this->addWhere('r.client_id = "' . $client_id . '"');
+        $this->addWhere('r.deliver_status > 1');
 
         $this->runQuery();
 
