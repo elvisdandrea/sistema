@@ -371,6 +371,7 @@ class clientModel extends Model {
 
         $this->addWhere('r.client_id = "' . $client_id . '"');
         $this->addWhere('r.deliver_status > 1');
+        $this->addOrder('r.payment_date desc');
 
         $this->runQuery();
 
