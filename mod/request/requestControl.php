@@ -30,6 +30,7 @@ class requestControl extends Control {
      */
     public function __construct() {
         parent::__construct();
+        debug($this->getPut());
     }
 
     /**
@@ -601,7 +602,6 @@ class requestControl extends Control {
 
     public function putRequest() {
 
-        debug($this->getPut());
         $requestData = $this->getPut();
 
         if ($this->getId() == 0)
