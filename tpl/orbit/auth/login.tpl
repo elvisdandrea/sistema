@@ -34,11 +34,12 @@
         </div>
         <div class="footer">
             <div class="form-group" style="margin-top:0">
-                <input type="checkbox" name="remember_me"/> Mantenha-me conectado
+                <!--<input type="checkbox" name="remember_me"/> Mantenha-me conectado-->
             </div>
             <button type="submit" class="btn btn-primary btn-block">Acessar</button>
 
             <hr />
+            <div id="msgbox" class="loginmsg"></div>
             <a href="http://gravi.com.br/" target="_blank">
                 <img src="{$smarty.const.T_IMGURL}/logo-single-dark.png" width="100" alt="GRAVI" style="float: right" />
             </a>

@@ -3478,3 +3478,10 @@ a.curpage {
     position: absolute;
     height: 100%;
 }
+
+.loginmsg {
+    font-weight: bold;
+    color: rgb(204, 0, 0);
+    font-size: 1.4em;
+    padding: 0.7em;
+}
