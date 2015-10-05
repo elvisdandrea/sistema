@@ -601,6 +601,7 @@ class requestControl extends Control {
 
     public function putRequest() {
 
+        debug($this->getPut());
         $requestData = $this->getPut();
 
         if ($this->getId() == 0)
