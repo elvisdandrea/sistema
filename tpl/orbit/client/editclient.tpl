@@ -9,6 +9,27 @@
 </div><!-- /.col -->
     <div class="row">
         <form id="client-form" action="{$smarty.const.BASEDIR}client/editClient?id={$client['id']}" changeurl="{$smarty.const.BASEDIR}client">
+            <div class="col-md-4 col-sm-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title">Imagem de exibição</h3>
+                    </div>
+                    <div class="box-body">
+                        <img src="{if ($client['image'] != '')}{$client['image']}{else}{$smarty.const.T_IMGURL}/no-profile.jpg{/if}" name="image64" id="client-img" type="upload" class="image-user" alt="user image" style="display:block; margin:0 auto;" />
+
+                        <div class="form-group" style="display: block; margin: 20px auto 0px; width: 150px; text-align: center;" >
+                            <div class="btn btn-success btn-file">
+                                <i class="fa fa-upload"></i> Enviar uma imagem
+                                <input id="read64" type="file" />
+                            </div>
+                        </div>
+                        <div class="form-group" style="display: block; margin: 20px auto 0px; width: 150px; text-align: center;">
+                            <a class="btn btn-info" onclick="openFBSearch()">Localizar no Facebook</a>
+                        </div>
+                        <p class="help-block">Max. 1 MB</p>
+                    </div>
+                </div><!-- /.box-body -->
+            </div><!-- /.box -->
             <div class="col-md-8 col-sm-12">
 
                 <div class="box">
@@ -39,25 +60,25 @@
                                     <label id="cpf_cnpj">{if $isPessoaFisica}CPF:{else}CNPJ:{/if}</label>
                                     <input type="text" class="form-control" name="cpf_cnpj" value="{$client['cpf_cnpj']}" data-url="{$smarty.const.BASEDIR}client/" />
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-md-6 col-sm-6">
                                     <label>E-mail:</label>
                                     <input type="text" class="form-control"  name="email" value="{$client['email']}" />
                                 </div>
                             </div>
                             <div id="legal_entity" class="form-group col-md-12 {if $isPessoaFisica}hide{/if}">
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-xs-6 col-sm-6">
                                     <label>Razão social:</label>
                                     <input class="legal_entity_field form-control" type="text" name="corporate_name" {if $isPessoaFisica}disabled{/if} value="{$client['corporate_name']}">
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-xs-6 col-sm-6">
                                     <label>Inscrição estadual:</label>
                                     <input class="legal_entity_field form-control" type="text" name="state_registration" {if $isPessoaFisica}disabled{/if} value="{$client['state_registration']}">
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-xs-6 col-sm-6">
                                     <label>Inscrição municipal:</label>
                                     <input class="legal_entity_field form-control" type="text" name="municipal_registration" {if $isPessoaFisica}disabled{/if} value="{$client['municipal_registration']}">
                                 </div>
-                                <div class="form-group col-xs-6">
+                                <div class="form-group col-xs-6 col-sm-6">
                                     <label>Pessoa para contato:</label>
                                     <input class="legal_entity_field form-control" type="text" name="contact" {if $isPessoaFisica}disabled{/if} value="{$client['contact']}">
                                 </div>
@@ -73,30 +94,10 @@
                     </div><!-- /.box-body -->
                 </div><!-- /.box -->
             </div>
-            <div class="col-md-4 col-sm-4">
-                <div class="box">
-                    <div class="box-header">
-                        <h3 class="box-title">Imagem de exibição</h3>
-                    </div>
-                    <div class="box-body">
-                        <img src="{if ($client['image'] != '')}{$client['image']}{else}{$smarty.const.T_IMGURL}/no-profile.jpg{/if}" name="image64" id="client-img" type="upload" class="image-user" alt="user image" style="display:block; margin:0 auto;" />
 
-                        <div class="form-group" style="display: block; margin: 20px auto 0px; width: 150px; text-align: center;" >
-                            <div class="btn btn-success btn-file">
-                                <i class="fa fa-upload"></i> Enviar uma imagem
-                                <input id="read64" type="file" />
-                            </div>
-                        </div>
-                        <div class="form-group" style="display: block; margin: 20px auto 0px; width: 150px; text-align: center;">
-                            <a class="btn btn-info" onclick="openFBSearch()">Localizar no Facebook</a>
-                        </div>
-                        <p class="help-block">Max. 1 MB</p>
-                    </div>
-                </div><!-- /.box-body -->
-            </div><!-- /.box -->
         </form>
 
-        <div class="col-md-8 col-sm-8">
+        <div class="col-md-12 col-sm-12">
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Endereços</h3>
@@ -194,10 +195,10 @@
             </div>
         </div>
 
-        <div class="col-md-4 col-sm-4">
+        <div class="col-md-12 col-sm-12">
         </div><!-- /.box -->
 
-        <div class="col-md-8 col-sm-8">
+        <div class="col-md-12 col-sm-12">
             <div class="box">
                 <div class="box-header">
                     <h3 class="box-title">Telefones</h3>

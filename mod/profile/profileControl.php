@@ -79,7 +79,7 @@ class profileControl extends Control {
     }
 
     /**
-     * View for editing a client
+     * View for editing a user
      */
     public function editUser() {
 

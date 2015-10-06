@@ -1,9 +1,36 @@
-<form action="{$smarty.const.BASEDIR}request/addNewRequest?request_id={$request_id}" changeurl="{$smarty.const.BASEDIR}request">
+<form action="{$smarty.const.BASEDIR}profile/edituser?id={$profile['id']}" changeurl="{$smarty.const.BASEDIR}request">
     <div class="col-md-12">
+
+        <!-- Buttons (Options) -->
+        <div class="box box-solid">
+            <div class="box-body pad table-responsive">
+                <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;">Salvar alterações</button>
+                <a type="button" class="btn btn-danger" title="Excluir o usuário" href="{$smarty.const.BASEDIR}profile/removeuser"><i class="fa fa-times"></i></a>
+            </div>
+        </div>
 
         <!-- Conteúdo principal -->
         <div class="row">
-            
+
+            <div class="col-md-4 col-sm-12 col-xs-12">
+                <div class="box">
+                    <div class="box-header">
+                        <h3 class="box-title block">Imagem de exibição <small>Máximo: 1 MB</small></h3>
+                    </div><!-- /.box-header -->
+
+                    <div class="box-body">
+                        <img src="{if ($profile['image']) != ''}{$profile['image']}{else}{$smarty.const.T_IMGURL}/no-profile.jpg{/if}" name="image64" id="profile-img" type="upload" class="image-user" alt="user image" style="display:block; margin:0 auto;" />
+
+                        <div class="form-group" style="display: block; margin: 20px auto 0px; width: 150px; text-align: center;" >
+                            <div class="btn btn-success btn-file">
+                                <i class="fa fa-upload"></i> Enviar uma imagem
+                                <input id="read64" type="file" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="col-md-8 col-sm-12 col-xs-12">
                 <div class="box">
                     <div class="box-header">
@@ -71,29 +98,10 @@
                         
                 </div>
             </div>
-            
-            <div class="col-md-4 col-sm-6 col-xs-12">
-                <div class="box">
-                    <div class="box-header">
-                        <h3 class="box-title block">Imagem de exibição <small>Máximo: 1 MB</small></h3>
-                    </div><!-- /.box-header -->
 
-                    <div class="box-body">
-                        <img src="{if ($profile['image']) != ''}{$profile['image']}{else}{$smarty.const.T_IMGURL}/no-profile.jpg{/if}" name="image64" id="profile-img" type="upload" class="image-user" alt="user image" style="display:block; margin:0 auto;" />
-
-                        <div class="form-group" style="display: block; margin: 20px auto 0px; width: 150px; text-align: center;" >
-                            <div class="btn btn-success btn-file">
-                                <i class="fa fa-upload"></i> Enviar uma imagem
-                                <input id="read64" type="file" />
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="col-md-8 col-sm-6 col-xs-12">
+            <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="box">
-                    
+
                     <div class="box-body">
                         <blockquote style="margin:0">
                             {if (intval($profile['uid']) == 0)}
@@ -112,20 +120,13 @@
                             {/if}
                         </blockquote>
                     </div>
-                        
+
                 </div>
             </div>
-            
+
         </div>
 
-        <!-- Buttons (Options) -->
-        <div class="box box-solid">
-            <div class="box-body pad table-responsive">
-                <button type="submit" class="btn btn-success" title="Salvar" style="width:150px;">Salvar alterações</button>
-            <a type="button" class="btn btn-danger" title="Excluir o usuário" href="{$smarty.const.BASEDIR}profile/removeuser"><i class="fa fa-times"></i></a>
-            </div>
-        </div>
-        
+        {include "profile/usercredentials.tpl"}
+
     </div>
 </form>
-{include "profile/usercredentials.tpl"}

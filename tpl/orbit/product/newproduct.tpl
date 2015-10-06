@@ -38,6 +38,22 @@
                                 <input name="weight" type="text" class="form-control" format="currency" data-affixes-stay="true" data-prefix="" data-thousands="." data-decimal=","/>
                             </div>
                             <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <label>Altura:</label>
+                                <input name="height" type="text" class="form-control" format="currency" data-affixes-stay="true" data-prefix="" data-thousands="." data-decimal=","/>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <label>Largura:</label>
+                                <input name="width" type="text" class="form-control" format="currency" data-affixes-stay="true" data-prefix="" data-thousands="." data-decimal=","/>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <label>Comprimento:</label>
+                                <input name="length" type="text" class="form-control" format="currency" data-affixes-stay="true" data-prefix="" data-thousands="." data-decimal=","/>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
+                                <label>Diâmetro:</label>
+                                <input name="diameter" type="text" class="form-control" format="currency" data-affixes-stay="true" data-prefix="" data-thousands="." data-decimal=","/>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6 col-xs-6">
                                 <label>Tipo da medida:</label>
                                 <select class="form-control"  id="unit_id" name="unit" >
                                     <option value="Gramas">Gramas</option>
