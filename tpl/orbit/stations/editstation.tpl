@@ -54,24 +54,28 @@
                                     <input type="text" class="form-control"  name="phone" value="{$station['phone']}"/>
                                 </div>
                                 <div class="form-group col-xs-6">
-                                    <label id="street_address">Endereço:</label>
+                                    <label id="">Endereço:</label>
                                     <input type="text" class="form-control" name="street_address" value="{$station['street_address']}"/>
                                 </div>
                                 <div class="form-group col-xs-6">
-                                    <label id="street_address">Numero:</label>
+                                    <label id="">Numero:</label>
                                     <input type="text" class="form-control" name="street_number" value="{$station['street_number']}"/>
                                 </div>
                                 <div class="form-group col-xs-6">
-                                    <label id="street_address">Complemento:</label>
+                                    <label id="">Complemento:</label>
                                     <input type="text" class="form-control" name="street_additional" value="{$station['street_additional']}"/>
                                 </div>
                                 <div class="form-group col-xs-6">
-                                    <label id="street_address">Bairro:</label>
+                                    <label id="">Bairro:</label>
                                     <input type="text" class="form-control" name="hood" value="{$station['hood']}"/>
                                 </div>
                                 <div class="form-group col-xs-6">
-                                    <label id="street_address">Cidade:</label>
+                                    <label id="">Cidade:</label>
                                     <input type="text" class="form-control" name="city" value="{$station['city']}"/>
+                                </div>
+                                <div class="form-group col-xs-6">
+                                    <label id="">CEP:</label>
+                                    <input type="text" class="form-control" name="zip_code" value="{$station['zip_code']}"/>
                                 </div>
                             </div>
                         </div>

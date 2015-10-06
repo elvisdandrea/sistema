@@ -41,6 +41,10 @@
                                     <label id="street_address">Cidade:</label>
                                     <input type="text" class="form-control" name="city" />
                                 </div>
+                                <div class="form-group col-xs-6">
+                                    <label id="">CEP:</label>
+                                    <input type="text" class="form-control" name="zip_code" value="{$station['zip_code']}"/>
+                                </div>
                             </div>
                         </div>
 
