@@ -153,25 +153,25 @@ Main.prototype = {
                     var MAX_HEIGHT = 480;
                     var tempW = tempImg.width;
                     var tempH = tempImg.height;
-                    if (tempW > tempH) {
-                        if (tempW > MAX_WIDTH) {
-                            tempH *= MAX_WIDTH / tempW;
-                            tempW = MAX_WIDTH;
-                        }
-                        if (tempH > MAX_HEIGHT) {
-                            tempW *= MAX_HEIGHT / tempH;
-                            tempH = MAX_HEIGHT;
-                        }
-                    } else {
-                        if (tempH > MAX_HEIGHT) {
-                            tempW *= MAX_HEIGHT / tempH;
-                            tempH = MAX_HEIGHT;
-                        }
-                        if (tempW > MAX_WIDTH) {
-                            tempH *= MAX_WIDTH / tempW;
-                            tempW = MAX_WIDTH;
-                        }
-                    }
+//                    if (tempW > tempH) {
+//                        if (tempW > MAX_WIDTH) {
+//                            tempH *= MAX_WIDTH / tempW;
+//                            tempW = MAX_WIDTH;
+//                        }
+//                        if (tempH > MAX_HEIGHT) {
+//                            tempW *= MAX_HEIGHT / tempH;
+//                            tempH = MAX_HEIGHT;
+//                        }
+//                    } else {
+//                        if (tempH > MAX_HEIGHT) {
+//                            tempW *= MAX_HEIGHT / tempH;
+//                            tempH = MAX_HEIGHT;
+//                        }
+//                        if (tempW > MAX_WIDTH) {
+//                            tempH *= MAX_WIDTH / tempW;
+//                            tempW = MAX_WIDTH;
+//                        }
+//                    }
                     var canvas = document.createElement('canvas');
                     canvas.width = tempW;
                     canvas.height = tempH;
