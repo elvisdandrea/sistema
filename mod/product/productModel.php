@@ -132,6 +132,7 @@ class productModel extends Model {
 
         if ($order) {
             foreach ($order as $field => $direction) {
+                is_string($field) || $field = '';
                 $this->addOrder($field . ' ' . $direction);
             }
         }
@@ -187,6 +188,7 @@ class productModel extends Model {
 
         if ($order) {
             foreach ($order as $field => $direction) {
+                is_string($field) || $field = '';
                 $this->addOrder($field . ' ' . $direction);
             }
         }

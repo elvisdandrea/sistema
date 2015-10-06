@@ -448,7 +448,11 @@ class String {
         if ($order) {
             $orderList = explode(';', $order);
             foreach ($orderList as $orderString) {
-                if (strpos($orderString, ',') === false) continue;
+                if ($orderString == 'rand') {
+                    $result[] = 'rand()';
+                    continue;
+                }
+                #if (strpos($orderString, ',') === false) continue;
                 $orderElement = explode(':', $orderString, 2);
                 $result[$orderElement[0]] = $orderElement[1];
             }
