@@ -281,6 +281,10 @@ class clientModel extends Model {
         $this->addField('p.image');
         $this->addField('p.description');
         $this->addField('p.weight');
+        $this->addField('p.height');
+        $this->addField('p.width');
+        $this->addField('p.length');
+        $this->addField('p.diameter');
         $this->addFrom('request_items i');
         $this->addFrom('inner join requests r on r.id = i.request_id');
         $this->addFrom('inner join products p on p.id = i.product_id');

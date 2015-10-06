@@ -9,14 +9,14 @@
                     <a href="{$smarty.const.BASEDIR}product/viewproduct?id={$row['id']}" changeurl>
                         <div class="row">
                             <div class="col-md-5 col-sm-12">
-                                <i class="fa circle fa-cutlery"></i>
+                                <i class="fa circle fa-chain"></i>
                                 <h5>
                                     <span>Produto:</span>&nbsp;
                                     <strong>{$row['product_name']}</strong>
                                 </h5>
                             </div>
                             <div class="col-md-5 col-sm-12">
-                                <i class="fa circle fa-cutlery"></i>
+                                <i class="fa circle fa-chain"></i>
                                 <h5>
                                     <span>{$row['category_name']}</span>
                                 </h5>
