@@ -108,10 +108,18 @@ class productControl extends Control {
                 }
             }
 
-            $order = String::mountOrderFromString($this->getQueryString('order'));
+            $order  = String::mountOrderFromString($this->getQueryString('order'));
 
             $filter = (count($filters) > 0 ? $filters : false);
-            $total  = $this->model()->getProductList($page, $rp, $search, $filter, $order);
+
+            $ids = $this->getQueryString('ids');
+
+            $filterIds = array();
+            if ($ids) {
+                $filterIds = explode(',', $ids);
+            }
+
+            $total  = $this->model()->getProductList($page, $rp, $search, $filter, $order, $filterIds);
 
             $response = array(
                 'total' => $total,

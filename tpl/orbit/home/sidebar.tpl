@@ -16,9 +16,11 @@
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="{$smarty.const.BASEDIR}request?status=1" changeurl ><i class="fa fa-angle-double-right"></i>{$countNewRequests} novos pedidos</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}request?status=3" changeurl ><i class="fa fa-angle-double-right"></i>{$countNewRequests} Novas Pedidos</a></li>
                     <li><a href="{$smarty.const.BASEDIR}request" changeurl ><i class="fa fa-angle-double-right"></i> Todos os pedidos</a></li>
-                    <li><a href="{$smarty.const.BASEDIR}request/newrequest" changeurl ><i class="fa fa-angle-double-right"></i> Novo pedido</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}request?status=1" changeurl ><i class="fa fa-angle-double-right"></i> No Carrinho</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}request?status=2" changeurl ><i class="fa fa-angle-double-right"></i> Verificando Pagamento</a></li>
+                    <li><a href="{$smarty.const.BASEDIR}request/newrequest" changeurl ><i class="fa fa-angle-double-right"></i> Criar Novo pedido</a></li>
                 </ul>
             </li>
             <li class="treeview">

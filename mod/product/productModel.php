@@ -137,6 +137,10 @@ class productModel extends Model {
             }
         }
 
+        if (count($ids) > 0) {
+            $this->addWhere('p.id in (' . implode(',', $ids) . ')');
+        }
+
         $this->runQuery();
         $result = $this->getRow(0);
         return $result;
@@ -150,11 +154,12 @@ class productModel extends Model {
      * @param   bool|string     $search     - Search string ("false" for all)
      * @param   bool|array      $filters    - Filter for specific fields
      * @param   bool|array      $order      - The result order
+     * @param   array           $ids        - A list of Ids
      * @return  array|bool
      */
-    public function getProductList($page = 1, $rp = 10, $search = false, $filters = false, $order = false) {
+    public function getProductList($page = 1, $rp = 10, $search = false, $filters = false, $order = false, $ids = array()) {
 
-        $total = $this->getCountProducts($search, $filters, $order);
+        $total = $this->getCountProducts($search, $filters, $order, $ids);
 
         $fields = array(
             'p.id',
@@ -168,7 +173,11 @@ class productModel extends Model {
             'p.stock',
             'p.onsale',
             'p.featured',
-            'p.cover_image'
+            'p.cover_image',
+            'p.height',
+            'p.width',
+            'p.length',
+            'p.diameter'
         );
 
         foreach ($fields as $field)
@@ -185,6 +194,10 @@ class productModel extends Model {
         }
 
         if ($filters) $this->addWhere($filters);
+
+        if (count($ids) > 0) {
+            $this->addWhere('p.id in (' . implode(',', $ids) . ')');
+        }
 
         if ($order) {
             foreach ($order as $field => $direction) {

@@ -126,7 +126,7 @@ class requestControl extends Control {
      */
     public function countNewRequests() {
 
-        $this->model()->countRequests(null, null, '1');
+        $this->model()->countRequests(null, null, '3');
         $result = $this->model()->getRow(0);
         return $result['mxm'];
     }
