@@ -53,12 +53,15 @@ class categoriesModel extends Model {
         return !$this->isEmpty();
     }
 
-    public function getParentCateories(){
+    public function getParentCateoriesList($id = null){
         $this->addField('cat.id');
         $this->addField('cat.category_name');
 
         $this->addFrom('categories cat');
-        $this->addWhere('cat.parent_id IS NULL OR cat.parent_id = 0');
+        if($id != NULL)
+            $this->addWhere("(cat.parent_id IS NULL OR cat.parent_id = 0) AND cat.id NOT IN ({$id})");
+        else
+            $this->addWhere('cat.parent_id IS NULL OR cat.parent_id = 0');
 
         $this->runQuery();
         return !$this->isEmpty();

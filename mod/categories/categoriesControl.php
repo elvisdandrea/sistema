@@ -36,7 +36,7 @@ class categoriesControl extends Control {
         $this->model()->getCategory($id);
         $category = $this->model()->getRow(0);
 
-        $this->model()->getParentCateories();
+        $this->model()->getParentCateoriesList($id);
         $parentsList = $this->model()->getRows(0);
 
         $this->view()->setVariable('category', $category);
@@ -99,7 +99,7 @@ class categoriesControl extends Control {
     public function newCategory() {
         $this->view()->loadTemplate('newcategory');
 
-        $this->model()->getParentCateories();
+        $this->model()->getParentCateoriesList();
         $parentsList = $this->model()->getRows(0);
         
         $this->view()->setVariable('parentsList', $parentsList);
