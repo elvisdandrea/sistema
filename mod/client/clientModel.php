@@ -271,7 +271,7 @@ class clientModel extends Model {
         return $result['cart'];
     }
 
-    public function getCartItems($client_id) {
+    public function getCartItems($client_id, $request_id = false) {
 
         $this->addField('i.id');
         $this->addField('i.request_id');
@@ -291,6 +291,8 @@ class clientModel extends Model {
 
         $this->addWhere('r.client_id = "' . $client_id . '"');
         $this->addWhere('r.deliver_status = "1"');
+        if ($request_id)
+            $this->addWhere('r.request_id = "' . $request_id . '"');
 
         $this->runQuery();
         return !$this->isEmpty();

@@ -257,7 +257,7 @@ class clientControl extends Control {
     }
 
     public function getCartItems() {
-        $result = $this->model()->getCartItems($this->getQueryString('id'));
+        $result = $this->model()->getCartItems($this->getQueryString('id'), $this->getQueryString('request_id'));
 
         if (!$result) {
             return RestServer::response(array(
