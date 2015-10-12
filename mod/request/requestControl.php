@@ -416,7 +416,7 @@ class requestControl extends Control {
 
     public function getCart() {
 
-        $result = $this->model()->getCart($this->getQueryString('client_id'));
+        $result = $this->model()->getCart($this->getQueryString('client_id'), $this->getQueryString('id'));
 
         if ($result) {
             return RestServer::response(array(

@@ -759,7 +759,7 @@ class requestModel extends Model {
         $this->runUpdate();
     }
 
-    public function getCart($client_id) {
+    public function getCart($client_id, $request_id = false) {
 
         $this->addField('id');
         $this->addField('request_date');
@@ -770,6 +770,9 @@ class requestModel extends Model {
 
         $this->addWhere('client_id = "' . $client_id . '"');
         $this->addWhere('deliver_status = "1"');
+
+        if ($request_id)
+            $this->addWhere('id = "' . $request_id . '"');
 
         $this->runQuery();
 
