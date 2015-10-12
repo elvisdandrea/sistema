@@ -292,7 +292,7 @@ class clientModel extends Model {
         $this->addWhere('r.client_id = "' . $client_id . '"');
         $this->addWhere('r.deliver_status = "1"');
         if ($request_id)
-            $this->addWhere('r.request_id = "' . $request_id . '"');
+            $this->addWhere('r.id = "' . $request_id . '"');
 
         $this->runQuery();
         return !$this->isEmpty();
