@@ -380,7 +380,6 @@ class clientModel extends Model {
         $this->addFrom('left join shipping_types t on t.shipping_code = s.shipping_code');
 
         $this->addWhere('r.client_id = "' . $client_id . '"');
-        $this->addWhere('r.deliver_status > 1');
         $this->addOrder('r.payment_date desc');
 
         $this->runQuery();
